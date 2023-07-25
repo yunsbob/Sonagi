@@ -5,7 +5,7 @@ spring:
 #      port: 6379
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://i9b207.p.ssafy.io:50000/ssafy_b207?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://sonagi.site:50000/ssafy_b207?characterEncoding=UTF-8
     username: ssafy-b207
     password: ssafy_b207_1
 
@@ -22,3 +22,9 @@ logging:
     org.hibernate:
       type.descriptor.sql: trace
       SQL: DEBUG
+
+server:
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: ssafy
+    key-store-type: PKCS12
