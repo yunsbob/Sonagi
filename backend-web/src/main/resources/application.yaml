@@ -1,0 +1,24 @@
+spring:
+#  data:
+#    redis:
+#      host: 127.0.0.1
+#      port: 6379
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://i9b207.p.ssafy.io:50000/ssafy_b207?characterEncoding=UTF-8&serverTimezone=UTC
+    username: ssafy-b207
+    password: ssafy_b207_1
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+logging:
+  level:
+    org.hibernate:
+      type.descriptor.sql: trace
+      SQL: DEBUG
