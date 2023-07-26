@@ -1,8 +1,8 @@
 spring:
-#  data:
-#    redis:
-#      host: 127.0.0.1
-#      port: 6379
+  data:
+    redis:
+      host: sonagi.site
+      port: 6379
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://sonagi.site:50000/ssafy_b207?characterEncoding=UTF-8
@@ -23,8 +23,8 @@ logging:
       type.descriptor.sql: trace
       SQL: DEBUG
 
-server:
-  ssl:
-    key-store: classpath:keystore.p12
-    key-store-password: ssafy
-    key-store-type: PKCS12
+#server:
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: ssafy
+#    key-store-type: PKCS12
