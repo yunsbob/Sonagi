@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 networks:
   server-connection:
     driver: bridge
@@ -9,25 +9,24 @@ services:
       - server-connection
     build:
       context: ./backend-web
-      args:
-        SERVER_MODE: prod
-    ports:
-      - 8080:8080
+    expose:
+      - "8080"
     environment:
       - TZ=Asia/Seoul
   client:
     container_name: client
     networks:
-      - server-connection    
+      - server-connection
     build:
       context: ./frontend-web
-    ports:
-      - 3000:3000
+    expose:
+      - "3000"
     depends_on:
       - server
   nginx:
-    container_name: nginx 
-    image: nginx:alpine
+    container_name: nginx
+    build: 
+      context: ./nginx
     restart: always
     networks:
       - server-connection
@@ -36,9 +35,6 @@ services:
     depends_on:
       - server
       - client
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/cert:/cert
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"

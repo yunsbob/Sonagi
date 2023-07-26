@@ -1,4 +1,4 @@
-FROM node:18.17-alpine as builder
+FROM node:18.13-alpine as builder
 
 # 작업 폴더를 만들고 npm 설치
 WORKDIR /usr/src/app
