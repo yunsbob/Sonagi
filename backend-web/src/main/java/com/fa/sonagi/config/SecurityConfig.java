@@ -12,7 +12,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfiguration {
+//public class SecurityConfig extends WebSecurityConfiguration {
+public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -30,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfiguration {
 //                        .requestMatchers("/login/**").hasAuthority("USER")
 //                        .requestMatchers("/admin/**").permitAll()
                         .requestMatchers("/login/**").permitAll()
+                        .requestMatchers("/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()) // 위 경로 제외 모든 요청에 인증 필요
                 .oauth2Login()
 
