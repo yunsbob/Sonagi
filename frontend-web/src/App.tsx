@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import LogInPage from '@/pages/LogInPage/LogInPage';
 
 function App() {
-  return <div>기본 화면입니다.</div>;
+  return (
+    <Suspense fallback={<div>로딩중...</div>}>
+      {/* TODO: 로그인 여부에 따라 login 페이지 or 메인화면 보여주기 */}
+      <LogInPage />
+    </Suspense>
+  );
 }
 
 export default App;

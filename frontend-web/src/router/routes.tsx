@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import App from '@/App';
 import { PATH } from '@/constants/path';
-import TestPage from '@/pages/TestPage/TestPage';
+import LogInPage from '@/pages/LogInPage/LogInPage';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
 
 const router = createBrowserRouter([
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <TestPage />,
+        element: <LogInPage />,
       },
     ],
   },
