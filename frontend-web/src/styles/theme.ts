@@ -1,5 +1,4 @@
-// import { DefaultTheme } from 'styled-components';
-// import { 타입명 } from '../types';
+import { DefaultTheme } from 'styled-components';
 
 const color = {
   // text color
@@ -94,3 +93,9 @@ const color = {
 
   cardExtra: '#BDBDBD',
 };
+
+const theme: DefaultTheme = {
+  color,
+};
+
+export default theme;
