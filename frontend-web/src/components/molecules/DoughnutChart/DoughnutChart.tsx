@@ -49,8 +49,8 @@ const DoughnutChart: React.FC = () => {
   const currentCategory = useRecoilValue(selectedCategoryState);
   const currentColor = categoryToColorMap[currentCategory];
 
-  // const timeSections: string[] = ['07:32', '09:08'];
-  // const [start, finished] = timeStringToDegrees(timeSections);
+  const timeSections: string[] = ['07:32', '09:08'];
+  const [start, finished] = timeStringToDegrees(timeSections);
 
   const recordedTimes: string[] = ['12:00', '03:48', '18:23', '16:08'];
   const testDegrees = recordedTimes.map(timeToDegreeAddPadding);
@@ -64,12 +64,12 @@ const DoughnutChart: React.FC = () => {
         fill="transparent"
         strokeWidth={sectorHeight}
       />
-      {/* <path // 구간 도넛
+      <path // 구간 도넛
         d={getArc(start, finished)}
-        stroke={theme.color.categoryDiaper}
+        stroke={theme.color[currentColor]}
         fill="transparent"
         strokeWidth={sectorHeight}
-      /> */}
+      />
       {testDegrees.map((degree, index) => (
         <DoughnutSlice
           key={index}
