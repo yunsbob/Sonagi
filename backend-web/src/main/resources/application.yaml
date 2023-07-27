@@ -71,3 +71,7 @@ app:
 #    key-store: classpath:keystore.p12
 #    key-store-password: ssafy
 #    key-store-type: PKCS12
+
+jwt:
+  key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
+
