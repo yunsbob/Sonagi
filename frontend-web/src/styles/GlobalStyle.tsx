@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
     body {
         width: 100vw;
         height: 100vh;
-        font-family: 'Happiness-Sans';
+        font-family: 'Happiness-Sans', 'Inter', sans-serif;
     }
    
 `;

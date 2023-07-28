@@ -16,4 +16,4 @@ const Image = ({
   );
 };
 
-export default Image;
+export { Image };
