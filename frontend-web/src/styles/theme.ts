@@ -104,7 +104,8 @@ const shadow = {
 
 const gradient = {
   // linear gradient
-  orangeBtn: 'linear-gradient(134deg, rgba(255, 234, 123, 0.80) 0%, rgba(255, 141, 36, 0.80) 100%)',
+  orangeBtn:
+    'linear-gradient(134deg, rgba(255, 234, 123, 0.80) 0%, rgba(255, 141, 36, 0.80) 100%)',
   skyblueBtn: 'linear-gradient(134deg, #CAE3FF 0%, #38A1ED 100%)',
 };
 
