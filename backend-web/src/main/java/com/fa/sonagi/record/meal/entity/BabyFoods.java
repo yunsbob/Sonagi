@@ -19,7 +19,7 @@ public class BabyFoods {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "baby")
+    @JoinColumn(name = "baby_id")
     private Baby baby;
 
     @Column(name = "user_id")
