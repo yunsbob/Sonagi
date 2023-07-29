@@ -15,6 +15,9 @@ const color = {
   mainblue: '#38A1ED',
   orange: '#ff8d24',
 
+  // light grey for others
+  lightgrey: '#F5F5F5',
+
   // button color
   skyblue: '#8cc8ff',
   blue: '#0094ff',
