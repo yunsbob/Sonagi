@@ -37,7 +37,7 @@ public class BabyFood {
     @Column(name = "created_date")
     private LocalDate createdDate;
 
-    public void updateBabyFoods (Long amount, String memo, LocalTime createdTime) {
+    public void updateBabyFood (Long amount, String memo, LocalTime createdTime) {
         this.amount = amount;
         this.memo = memo;
         this.createdTime = createdTime;

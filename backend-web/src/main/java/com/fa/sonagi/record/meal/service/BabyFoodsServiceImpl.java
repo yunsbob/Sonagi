@@ -41,7 +41,7 @@ public class BabyFoodsServiceImpl implements BabyFoodsService{
   public void updateBabyFood(MealPutDto mealPutDto) {
     BabyFood babyFood = findBabyFoodById(mealPutDto.getId());
 
-    babyFood.updateBabyFoods(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
+    babyFood.updateBabyFood(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
   }
 
   @Override
