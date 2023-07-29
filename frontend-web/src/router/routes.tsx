@@ -6,6 +6,14 @@ import LogInPage from '@/pages/LogInPage/LogInPage';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
 import SignInPage from '@/pages/SignInPage/SignInPage';
 
+// footer
+import MainPage from '@/pages/MainPage/MainPage';
+import GraphPage from '@/pages/GraphPage/GraphPage';
+import OurBabyPage from '@/pages/OurBabyPage/OurBabyPage';
+import DiaryPage from '@/pages/DiaryPage/DiaryPage';
+import MyPagePage from '@/pages/MyPagePage/MyPagePage';
+import RecordPage from '@/pages/RecordPage.tsx/RecordPage';
+
 const router = createBrowserRouter([
   {
     path: PATH.ROOT,
@@ -19,6 +27,17 @@ const router = createBrowserRouter([
   {
     path: PATH.SIGNIN,
     element: <SignInPage />,
+  },
+  {
+    path: PATH.MAIN,
+    element: <MainPage />,
+    children: [
+      { index: true, element: <RecordPage /> },
+      { path: 'graph', element: <GraphPage /> },
+      { path: 'ourBaby', element: <OurBabyPage /> },
+      { path: 'diary', element: <DiaryPage /> },
+      { path: 'myPage', element: <MyPagePage /> },
+    ],
   },
 ]);
 

@@ -1,4 +1,4 @@
-import { Background } from '@/components/atoms/BabyBackground/Background.styles';
+import { Background } from '@/components/atoms/Background/Background.styles';
 
 import babyBackground from '@/assets/images/background.png';
 import blueBaby from '@/assets/images/img-baby-blue.png';
