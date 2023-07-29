@@ -1,5 +1,4 @@
-// import { DefaultTheme } from 'styled-components';
-// import { 타입명 } from '../types';
+import { DefaultTheme } from 'styled-components';
 
 const color = {
   // text color
@@ -108,3 +107,11 @@ const gradient = {
   orangeBtn: 'linear-gradient(134deg, rgba(255, 234, 123, 0.80) 0%, rgba(255, 141, 36, 0.80) 100%)',
   skyblueBtn: 'linear-gradient(134deg, #CAE3FF 0%, #38A1ED 100%)',
 };
+
+const theme: DefaultTheme = {
+  color,
+  shadow,
+  gradient,
+};
+
+export default theme;
