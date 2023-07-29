@@ -14,9 +14,6 @@ const MainPage = () => {
       </div>
       <Outlet />
       <TabBar />
-      <div style={{ backgroundColor: 'white' }}>
-        <footer style={{ border: '1px solid black' }}> (임시) 푸터 </footer>
-      </div>
     </Background>
   );
 };
