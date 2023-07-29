@@ -31,7 +31,7 @@ const color = {
   categoryPumpingBreast: '#ffe76c',
   categorySleep: '#6CB8FF',
   categoryHealth: '#33e16f',
-  categoryActivitie: '#e26cff',
+  categoryActivity: '#e26cff',
   categoryExtra: '#757D8A',
 
   // 기록 block color
@@ -39,7 +39,7 @@ const color = {
   blockDiaper: '#F8CFB6',
   blockPumpingBreast: '#F8F2BF',
   blockSleep: '#CAD5F7',
-  blockActivite: '#EFC9EC',
+  blockActivity: '#EFC9EC',
   blockHealth: '#C8E8B9',
   blockExtra: '#D1D7E1',
 
@@ -88,8 +88,8 @@ const color = {
   cardSleep1: '#6CB8FF',
   cardSleep2: '#A0D8F8',
 
-  cardPlay1: '#DABBFA',
-  cardPlay2: '#EDCCF6',
+  cardActivity1: '#DABBFA',
+  cardActivity2: '#EDCCF6',
 
   cardPumpingBreast1: '#FFD056',
   cardPumpingBreast2: '#FFE6A6',
