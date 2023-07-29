@@ -21,54 +21,45 @@ const getSizeStyling = (size: Required<TextProps>['size'] = 'headMedium') => {
   const style = {
     // main 소나기 타이틀
     headXLarge: css`
-      font-size: 40px;
-      font-weight: 700;
-      letter-spacing: -2.4px;
+      font-size: ${({ theme }) => theme.fontSize.headXLarge};
+      font-weight: bold;
+      letter-spacing: ${({ theme }) => theme.letterSpacing.narrow};
     `,
     // 기록 필드 시간
     headLarge: css`
-      font-size: 30px;
-      font-weight: 400;
+      font-size: ${({ theme }) => theme.fontSize.headLarge};
     `,
     headMedium: css`
-      font-size: 25px;
-      font-weight: 400;
+      font-size: ${({ theme }) => theme.fontSize.headMedium};
     `,
     headSmall: css`
-      font-size: 18px;
-      font-weight: 400;
+      font-size: ${({ theme }) => theme.fontSize.headSmall};
     `,
     // 큰 버튼
     large: css`
-      font-size: 20px;
-      font-weight: 400;
+      font-size: ${({ theme }) => theme.fontSize.large};
     `,
     medium1: css`
-      font-size: 16px;
-      font-weight: 400;
+      font-size: ${({ theme }) => theme.fontSize.medium1};
     `,
     medium1Bold: css`
-      font-size: 16px;
-      font-weight: 700;
+      font-size: ${({ theme }) => theme.fontSize.medium1};
+      font-weight: bold;
     `,
     // 작은 버튼
     medium2: css`
-      font-size: 15px;
-      font-weight: 400;
+      font-size: ${({ theme }) => theme.fontSize.medium2};
     `,
     medium3: css`
-      font-size: 13px;
-      font-weight: 400;
+      font-size: ${({ theme }) => theme.fontSize.medium3};
     `,
     small: css`
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.4px;
+      font-size: ${({ theme }) => theme.fontSize.small};
+      letter-spacing: ${({ theme }) => theme.letterSpacing.spread};
     `,
     // 하단 푸터 아이콘 아래의 텍스트
     xSmall: css`
-      font-size: 8px;
-      font-weight: 400;
+      font-size: ${({ theme }) => theme.fontSize.xSmall};
     `,
   };
   return style[size];
