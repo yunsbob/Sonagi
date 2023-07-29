@@ -4,7 +4,7 @@ import com.fa.sonagi.baby.entity.Baby;
 import com.fa.sonagi.baby.repository.BabyRepository;
 import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
-import com.fa.sonagi.record.meal.entity.BabyFoods;
+import com.fa.sonagi.record.meal.entity.BabyFood;
 import com.fa.sonagi.record.meal.repository.BabyFoodsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class BabyFoodsServiceImpl implements BabyFoodsService{
   private final BabyRepository babyRepository;
 
   @Override
-  public BabyFoods findBabyFoodsById(Long id) {
+  public BabyFood findBabyFoodsById(Long id) {
     return babyFoodsRepository.findById(id).orElseThrow();
   }
 
@@ -25,7 +25,7 @@ public class BabyFoodsServiceImpl implements BabyFoodsService{
   public void registBabyFoods(MealPostDto mealPostDto) {
     Baby baby = babyRepository.findById(mealPostDto.getBabyId()).orElseThrow();
 
-    BabyFoods babyFoods = BabyFoods.builder()
+    BabyFood babyFood = BabyFood.builder()
             .userId(mealPostDto.getUserId())
             .baby(baby)
             .createdTime(mealPostDto.getCreatedTime())
@@ -34,22 +34,20 @@ public class BabyFoodsServiceImpl implements BabyFoodsService{
             .memo(mealPostDto.getMemo())
             .build();
 
-
-
-    babyFoodsRepository.save(babyFoods);
+    babyFoodsRepository.save(babyFood);
   }
 
   @Override
   public void updateBabyFoods(MealPutDto mealPutDto) {
-    BabyFoods babyFoods = findBabyFoodsById(mealPutDto.getId());
+    BabyFood babyFood = findBabyFoodsById(mealPutDto.getId());
 
-    babyFoods.updateBabyFoods(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
+    babyFood.updateBabyFoods(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
   }
 
   @Override
   public void deleteBabyFoodsById(Long id) {
-    BabyFoods babyFoods = findBabyFoodsById(id);
+    BabyFood babyFood = findBabyFoodsById(id);
 
-    babyFoodsRepository.delete(babyFoods);
+    babyFoodsRepository.delete(babyFood);
   }
 }

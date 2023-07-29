@@ -1,7 +1,6 @@
 package com.fa.sonagi.baby.entity;
 
-import com.fa.sonagi.record.meal.entity.BabyFoods;
-import com.fa.sonagi.record.meal.entity.BreastFeeding;
+import com.fa.sonagi.record.meal.entity.BabyFood;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -50,5 +49,5 @@ public class Baby {
     private Boolean isDeleted;
 
     @OneToMany(mappedBy = "baby")
-    private List<BabyFoods> babyFoods = new ArrayList<>();
+    private List<BabyFood> babyFoods = new ArrayList<>();
 }

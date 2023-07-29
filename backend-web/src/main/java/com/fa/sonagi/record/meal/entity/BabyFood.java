@@ -12,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "baby_food")
-public class BabyFoods {
+public class BabyFood {
 
     @Id @GeneratedValue
     @Column(name = "baby_food_id")
