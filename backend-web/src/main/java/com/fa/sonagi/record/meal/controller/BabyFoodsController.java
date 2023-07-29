@@ -10,29 +10,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequestMapping("/babyFoods")
 @RestController
 @RequiredArgsConstructor
 public class BabyFoodsController {
 
   private final BabyFoodsService babyFoodsService;
 
-  @PostMapping("/babyFoods")
+  @PostMapping
   public ResponseEntity<?> registBabyFoods(@RequestBody BabyFoodsPostDto babyFoodsPostDto) {
     babyFoodsService.registBabyFoods(babyFoodsPostDto);
     return ResponseEntity.ok().build();
   }
 
-  @PutMapping("/babyFoods")
+  @PutMapping
   public ResponseEntity<?> updateBabyFoods(@RequestBody BabyFoodsPutDto babyFoodsPutDto) {
     babyFoodsService.updateBabyFoods(babyFoodsPutDto);
     return ResponseEntity.ok().build();
   }
 
-  @DeleteMapping("/babyFoods/{babyFoodId}")
-  public ResponseEntity<?> deleteBabyFoods(@PathVariable Long babyFoodsId) {
-    babyFoodsService.deleteBabyFoodsById(babyFoodsId);
+  @DeleteMapping("/{babyFoodId}")
+  public ResponseEntity<?> deleteBabyFoods(@PathVariable Long babyFoodId) {
+    babyFoodsService.deleteBabyFoodsById(babyFoodId);
     return ResponseEntity.ok().build();
   }
 }
