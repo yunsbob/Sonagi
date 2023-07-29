@@ -5,6 +5,7 @@ import family from '@/assets/images/img-family.png';
 import { Image } from '@/components/atoms/Image/Image';
 import Input from '@/components/atoms/Input/Input';
 import { SignInPageContainer } from '@/pages/SignInPage/SignInPage.style';
+import Back from '@/components/atoms/Back/Back';
 
 const SignInPage = () => {
   const alertMessage = '10자 이내로 작성해주세요.';
@@ -15,6 +16,7 @@ const SignInPage = () => {
 
   return (
     <Background background={orangeBackground}>
+      <Back></Back>
       <SignInPageContainer>
         <Image src={family} width={12} />
         <Text color={'black3'}>환영합니다!</Text>
