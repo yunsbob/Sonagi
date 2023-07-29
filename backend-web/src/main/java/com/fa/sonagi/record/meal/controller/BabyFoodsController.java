@@ -1,7 +1,7 @@
 package com.fa.sonagi.record.meal.controller;
 
-import com.fa.sonagi.record.meal.dto.BabyFoodsPostDto;
-import com.fa.sonagi.record.meal.dto.BabyFoodsPutDto;
+import com.fa.sonagi.record.meal.dto.MealPostDto;
+import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.service.BabyFoodsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +21,14 @@ public class BabyFoodsController {
   private final BabyFoodsService babyFoodsService;
 
   @PostMapping
-  public ResponseEntity<?> registBabyFoods(@RequestBody BabyFoodsPostDto babyFoodsPostDto) {
-    babyFoodsService.registBabyFoods(babyFoodsPostDto);
+  public ResponseEntity<?> registBabyFoods(@RequestBody MealPostDto mealPostDto) {
+    babyFoodsService.registBabyFoods(mealPostDto);
     return ResponseEntity.ok().build();
   }
 
   @PutMapping
-  public ResponseEntity<?> updateBabyFoods(@RequestBody BabyFoodsPutDto babyFoodsPutDto) {
-    babyFoodsService.updateBabyFoods(babyFoodsPutDto);
+  public ResponseEntity<?> updateBabyFoods(@RequestBody MealPutDto mealPutDto) {
+    babyFoodsService.updateBabyFoods(mealPutDto);
     return ResponseEntity.ok().build();
   }
 

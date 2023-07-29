@@ -1,15 +1,15 @@
 package com.fa.sonagi.record.meal.service;
 
-import com.fa.sonagi.record.meal.dto.BabyFoodsPostDto;
-import com.fa.sonagi.record.meal.dto.BabyFoodsPutDto;
+import com.fa.sonagi.record.meal.dto.MealPostDto;
+import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.entity.BabyFoods;
 
 public interface BabyFoodsService {
   BabyFoods findBabyFoodsById(Long id);
 
-  void registBabyFoods(BabyFoodsPostDto babyFoodsPostDto);
+  void registBabyFoods(MealPostDto mealPostDto);
 
-  void updateBabyFoods(BabyFoodsPutDto babyFoodsPutDto);
+  void updateBabyFoods(MealPutDto mealPutDto);
 
   void deleteBabyFoodsById(Long id);
 }

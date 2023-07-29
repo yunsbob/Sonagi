@@ -2,8 +2,8 @@ package com.fa.sonagi.record.meal.service;
 
 import com.fa.sonagi.baby.entity.Baby;
 import com.fa.sonagi.baby.repository.BabyRepository;
-import com.fa.sonagi.record.meal.dto.BabyFoodsPostDto;
-import com.fa.sonagi.record.meal.dto.BabyFoodsPutDto;
+import com.fa.sonagi.record.meal.dto.MealPostDto;
+import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.entity.BabyFoods;
 import com.fa.sonagi.record.meal.repository.BabyFoodsRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,16 +22,16 @@ public class BabyFoodsServiceImpl implements BabyFoodsService{
   }
 
   @Override
-  public void registBabyFoods(BabyFoodsPostDto babyFoodsPostDto) {
-    Baby baby = babyRepository.findById(babyFoodsPostDto.getBabyId()).orElseThrow();
+  public void registBabyFoods(MealPostDto mealPostDto) {
+    Baby baby = babyRepository.findById(mealPostDto.getBabyId()).orElseThrow();
 
     BabyFoods babyFoods = BabyFoods.builder()
-            .userId(babyFoodsPostDto.getUserId())
+            .userId(mealPostDto.getUserId())
             .baby(baby)
-            .createdTime(babyFoodsPostDto.getCreatedTime())
-            .createdDate(babyFoodsPostDto.getCreatedDate())
-            .amount(babyFoodsPostDto.getAmount())
-            .memo(babyFoodsPostDto.getMemo())
+            .createdTime(mealPostDto.getCreatedTime())
+            .createdDate(mealPostDto.getCreatedDate())
+            .amount(mealPostDto.getAmount())
+            .memo(mealPostDto.getMemo())
             .build();
 
 
@@ -40,10 +40,10 @@ public class BabyFoodsServiceImpl implements BabyFoodsService{
   }
 
   @Override
-  public void updateBabyFoods(BabyFoodsPutDto babyFoodsPutDto) {
-    BabyFoods babyFoods = findBabyFoodsById(babyFoodsPutDto.getId());
+  public void updateBabyFoods(MealPutDto mealPutDto) {
+    BabyFoods babyFoods = findBabyFoodsById(mealPutDto.getId());
 
-    babyFoods.updateBabyFoods(babyFoodsPutDto.getAmount(), babyFoodsPutDto.getMemo(), babyFoodsPutDto.getCreatedTime());
+    babyFoods.updateBabyFoods(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
   }
 
   @Override
