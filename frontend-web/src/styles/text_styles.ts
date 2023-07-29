@@ -3,17 +3,19 @@ import styled, { css } from 'styled-components';
 export interface TextProps {
   size?:
     | 'headXLarge'
-    | 'headXLarge'
+    | 'headLarge'
     | 'headMedium'
     | 'headSmall'
     | 'large'
     | 'medium1'
+    | 'medium1Bold'
     | 'medium2'
+    | 'medium3'
     | 'small'
     | 'xSmall';
 }
 
-const getSizeStyling = (size: Required<TextProps>['size']) => {
+const getSizeStyling = (size: Required<TextProps>['size'] = 'headMedium') => {
   const style = {
     // main 소나기 타이틀
     headXLarge: css`
@@ -43,9 +45,17 @@ const getSizeStyling = (size: Required<TextProps>['size']) => {
       font-size: 16px;
       font-weight: 400;
     `,
+    medium1Bold: css`
+      font-size: 16px;
+      font-weight: 700;
+    `,
     // 작은 버튼
     medium2: css`
       font-size: 15px;
+      font-weight: 400;
+    `,
+    medium3: css`
+      font-size: 13px;
       font-weight: 400;
     `,
     small: css`
@@ -65,5 +75,6 @@ const getSizeStyling = (size: Required<TextProps>['size']) => {
 const Text = styled.p<TextProps>`
   ${({ size = 'headMedium' }) => getSizeStyling(size)}
 `;
+
 
 export { Text };
