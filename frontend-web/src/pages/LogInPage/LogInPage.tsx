@@ -1,16 +1,21 @@
 import { Background } from '@/components/atoms/BabyBackground/Background.styles';
-import * as React from 'react';
+
 import babyBackground from '@/assets/images/background.png';
 import blueBaby from '@/assets/images/img-baby-blue.png';
 import { Image } from '@/components/atoms/Image/Image';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { GoogleLogIn } from '@/components/organisms/GoogleLogIn/GoogleLogIn';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
 
 const LogInPage = () => {
+  const navigate = useNavigate();
+
   const onGoogleLogIn = (res: CredentialResponse) => {
     const { credential } = res;
     if (credential) {
       console.log(res.credential);
+      navigate(PATH.SIGNIN);
     }
   };
 

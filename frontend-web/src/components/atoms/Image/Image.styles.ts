@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export interface ImageProps extends ComponentPropsWithRef<'img'> {
   width?: number;
   height?: number;
-  unit?: string;
+  unit?: 'rem' | 'px' | 'em';
 }
 
 const ImageConatiner = styled.img<ImageProps>`

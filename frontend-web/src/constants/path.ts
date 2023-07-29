@@ -1,7 +1,8 @@
 /* route 경로 지정 */
 const PATH = {
   ROOT: '/',
-  LOGIN: '/login',
+  LOGIN: '/logIn',
+  SIGNIN: '/signIn',
 } as const;
 
 export { PATH };

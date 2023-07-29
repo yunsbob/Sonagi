@@ -1,3 +1,4 @@
+import theme from '@/styles/theme';
 import styled, { css } from 'styled-components';
 
 export interface TextProps {
@@ -13,6 +14,7 @@ export interface TextProps {
     | 'medium3'
     | 'small'
     | 'xSmall';
+  color?: typeof theme.color;
 }
 
 const getSizeStyling = (size: Required<TextProps>['size'] = 'headMedium') => {
@@ -73,8 +75,8 @@ const getSizeStyling = (size: Required<TextProps>['size'] = 'headMedium') => {
 };
 
 const Text = styled.p<TextProps>`
-  ${({ size = 'headMedium' }) => getSizeStyling(size)}
+  ${({ size = 'headMedium' }) => getSizeStyling(size)};
+  color: ${props => props.theme.color[props.color]};
 `;
-
 
 export { Text };
