@@ -1,6 +1,7 @@
 package com.fa.sonagi.baby.entity;
 
 import com.fa.sonagi.record.meal.entity.BabyFood;
+import com.fa.sonagi.record.meal.entity.BreastFeeding;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -50,4 +51,7 @@ public class Baby {
 
     @OneToMany(mappedBy = "baby")
     private List<BabyFood> babyFoods = new ArrayList<>();
+
+    @OneToMany(mappedBy = "baby")
+    private List<BreastFeeding> breastFeedings = new ArrayList<>();
 }
