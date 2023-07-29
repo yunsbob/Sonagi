@@ -1,7 +1,8 @@
-package com.fa.sonagi.record.babyfood.controller;
+package com.fa.sonagi.record.meal.controller;
 
-import com.fa.sonagi.record.babyfood.dto.BabyFoodsPostDto;
-import com.fa.sonagi.record.babyfood.service.BabyFoodsService;
+import com.fa.sonagi.record.meal.dto.BabyFoodsPostDto;
+import com.fa.sonagi.record.meal.dto.BabyFoodsPutDto;
+import com.fa.sonagi.record.meal.service.BabyFoodsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,14 +25,14 @@ public class BabyFoodsController {
   }
 
   @PutMapping("/babyFoods")
-  public ResponseEntity<?> updateBabyFoods() {
+  public ResponseEntity<?> updateBabyFoods(@RequestBody BabyFoodsPutDto babyFoodsPutDto) {
+    babyFoodsService.updateBabyFoods(babyFoodsPutDto);
     return ResponseEntity.ok().build();
   }
 
-  @DeleteMapping("/babyFoods/{babyFoodsId}")
+  @DeleteMapping("/babyFoods/{babyFoodId}")
   public ResponseEntity<?> deleteBabyFoods(@PathVariable Long babyFoodsId) {
     babyFoodsService.deleteBabyFoodsById(babyFoodsId);
-
     return ResponseEntity.ok().build();
   }
 }

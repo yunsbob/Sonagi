@@ -1,5 +1,6 @@
-package com.fa.sonagi.record.babyfood.entity;
+package com.fa.sonagi.record.meal.entity;
 
+import com.fa.sonagi.baby.entity.Baby;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,8 +18,12 @@ public class BabyFoods {
     @Column(name = "baby_food_id")
     private Long id;
 
-    @Column(name = "baby_id")
-    private Long babyId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "baby")
+    private Baby baby;
+
+    @Column(name = "user_id")
+    private Long userId;
 
     @Column(name = "amount")
     private Long amount;
@@ -26,18 +31,15 @@ public class BabyFoods {
     @Column(name = "memo")
     private String memo;
 
-    @Column(name = "user_id")
-    private Long userId;
-
     @Column(name = "created_time")
     private LocalTime createdTime;
 
     @Column(name = "created_date")
     private LocalDate createdDate;
 
-    private void updateBabyFoods (LocalTime createdTime, Long amount, String memo) {
-        this.createdTime = createdTime;
+    public void updateBabyFoods (Long amount, String memo, LocalTime createdTime) {
         this.amount = amount;
         this.memo = memo;
+        this.createdTime = createdTime;
     }
 }

@@ -1,5 +1,6 @@
-package com.fa.sonagi.record.babyfood.dto;
+package com.fa.sonagi.record.meal.dto;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +9,8 @@ import lombok.Setter;
 public class BabyFoodsPostDto {
   private Long userId;
   private Long babyId;
-  private LocalTime createdTime;
   private Long amount;
   private String memo;
+  private LocalTime createdTime;
+  private LocalDate createdDate;
 }

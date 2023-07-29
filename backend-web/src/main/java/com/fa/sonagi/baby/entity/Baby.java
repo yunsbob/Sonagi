@@ -1,6 +1,6 @@
 package com.fa.sonagi.baby.entity;
 
-import com.fa.sonagi.record.babyfood.entity.BabyFoods;
+import com.fa.sonagi.record.meal.entity.BabyFoods;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
