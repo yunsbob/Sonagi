@@ -23,11 +23,8 @@ const RegisterField = ({
 }: RegisterFieldProps) => {
   // const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState<string>('');
+
   const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    // console.log(inputRef.current);
-    // if (inputRef.current) {
-    //   setValue(inputRef.current?.value);
-    // }
     setValue(e.target.value);
   };
 

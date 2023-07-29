@@ -36,7 +36,6 @@ const Button = styled.button<ButtonProps>`
   font-family: Happiness Sans;
   text-align: center;
   background: ${props => props.$backgroundColor};
-
   ${({ variant = 'default' }) => getVariantStyling(variant)}
   ${({ size = 'small' }) => getSizeStyling(size)}
 `;

@@ -8,7 +8,7 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'default' | 'register';
   size?: 'small';
-  $backgroundColor?: typeof theme.color;
+  $backgroundColor?: string;
 }
 
 const Button = (
