@@ -1,4 +1,4 @@
-import { Image } from '@/components/atoms/Image/Image';
+// import { Image } from '@/components/atoms/Image/Image';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 
