@@ -3,6 +3,7 @@ const PATH = {
   ROOT: '/',
   LOGIN: '/logIn',
   SIGNIN: '/signIn',
+  MAIN: '/main',
 } as const;
 
 export { PATH };
