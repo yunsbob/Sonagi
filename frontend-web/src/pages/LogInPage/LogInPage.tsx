@@ -1,5 +1,5 @@
 import { Background } from '@/components/atoms/BabyBackground/Background.styles';
-import * as React from 'react';
+
 import babyBackground from '@/assets/images/background.png';
 import blueBaby from '@/assets/images/img-baby-blue.png';
 import { Image } from '@/components/atoms/Image/Image';
