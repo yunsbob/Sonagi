@@ -1,45 +1,49 @@
-import {
-  InputContainer,
-  InputStyleProps,
-} from '@/components/atoms/Input/Input.style';
+import * as S from '@/components/atoms/Input/Input.style';
 import { Text } from '@/components/atoms/Text/Text.styles';
-import React, { ChangeEvent, InputHTMLAttributes, useState } from 'react';
+import React, {
+  ChangeEvent,
+  ComponentPropsWithRef,
+  InputHTMLAttributes,
+  useRef,
+  useState,
+} from 'react';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement>,
+    S.InputStyleProps {
   alertMessage?: string;
-  testFunc?: (value: string) => void;
 }
 
 const Input = (
-  { alertMessage, testFunc, children, ...attributes }: InputProps,
-  { inputType, height, borderRadius, unit, fontSize }: InputStyleProps
+  {
+    alertMessage,
+    children,
+    inputType,
+    height,
+    borderRadius,
+    unit,
+    fontSize,
+    ...attributes
+  }: InputProps,
+  ref?: React.LegacyRef<HTMLInputElement>
 ) => {
-  const [value, setValue] = useState<string>('');
-
-  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (typeof testFunc !== 'undefined') {
-      testFunc(e.target.value);
-    }
-    setValue(e.target.value);
-  };
-
   return (
-    <>
-      <InputContainer
-        value={value}
+    <div>
+      <S.InputContainer
+        ref={ref}
         inputType={inputType}
         height={height ?? 4}
         borderRadius={borderRadius}
         unit={unit ?? 'rem'}
-        onChange={onInputChange}
         fontSize={fontSize ?? 20}
+        maxLength={10}
         {...attributes}
-      >
-        {children}
-      </InputContainer>
-      {alertMessage && value.length > 10 && <Text>{alertMessage}</Text>}
-    </>
+      />
+      {/* {alertMessage && value.length > 10 && (
+        <Text size="medium3">{alertMessage}</Text>
+      )} */}
+    </div>
   );
 };
 
-export default Input;
+export default React.forwardRef(Input);
