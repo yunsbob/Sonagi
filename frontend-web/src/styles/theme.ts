@@ -97,8 +97,21 @@ const color = {
   cardExtra: '#BDBDBD',
 };
 
+const shadow = {
+  // shadow
+  shadow1: '0px 8px 21px 0px rgba(0, 0, 0, 0.16)', //buttons에 추가되는 기본 shadow
+};
+
+const gradient = {
+  // linear gradient
+  orangeBtn: 'linear-gradient(134deg, rgba(255, 234, 123, 0.80) 0%, rgba(255, 141, 36, 0.80) 100%)',
+  skyblueBtn: 'linear-gradient(134deg, #CAE3FF 0%, #38A1ED 100%)',
+};
+
 const theme: DefaultTheme = {
   color,
+  shadow,
+  gradient,
 };
 
 export default theme;
