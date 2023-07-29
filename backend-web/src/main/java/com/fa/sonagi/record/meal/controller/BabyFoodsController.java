@@ -21,20 +21,20 @@ public class BabyFoodsController {
   private final BabyFoodsService babyFoodsService;
 
   @PostMapping
-  public ResponseEntity<?> registBabyFoods(@RequestBody MealPostDto mealPostDto) {
-    babyFoodsService.registBabyFoods(mealPostDto);
+  public ResponseEntity<?> registBabyFood(@RequestBody MealPostDto mealPostDto) {
+    babyFoodsService.registBabyFood(mealPostDto);
     return ResponseEntity.ok().build();
   }
 
   @PutMapping
-  public ResponseEntity<?> updateBabyFoods(@RequestBody MealPutDto mealPutDto) {
-    babyFoodsService.updateBabyFoods(mealPutDto);
+  public ResponseEntity<?> updateBabyFood(@RequestBody MealPutDto mealPutDto) {
+    babyFoodsService.updateBabyFood(mealPutDto);
     return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("/{babyFoodId}")
-  public ResponseEntity<?> deleteBabyFoods(@PathVariable Long babyFoodId) {
-    babyFoodsService.deleteBabyFoodsById(babyFoodId);
+  public ResponseEntity<?> deleteBabyFood(@PathVariable Long babyFoodId) {
+    babyFoodsService.deleteBabyFoodById(babyFoodId);
     return ResponseEntity.ok().build();
   }
 }

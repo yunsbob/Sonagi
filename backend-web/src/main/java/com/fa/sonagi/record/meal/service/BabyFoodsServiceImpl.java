@@ -17,12 +17,12 @@ public class BabyFoodsServiceImpl implements BabyFoodsService{
   private final BabyRepository babyRepository;
 
   @Override
-  public BabyFood findBabyFoodsById(Long id) {
+  public BabyFood findBabyFoodById(Long id) {
     return babyFoodsRepository.findById(id).orElseThrow();
   }
 
   @Override
-  public void registBabyFoods(MealPostDto mealPostDto) {
+  public void registBabyFood(MealPostDto mealPostDto) {
     Baby baby = babyRepository.findById(mealPostDto.getBabyId()).orElseThrow();
 
     BabyFood babyFood = BabyFood.builder()
@@ -38,15 +38,15 @@ public class BabyFoodsServiceImpl implements BabyFoodsService{
   }
 
   @Override
-  public void updateBabyFoods(MealPutDto mealPutDto) {
-    BabyFood babyFood = findBabyFoodsById(mealPutDto.getId());
+  public void updateBabyFood(MealPutDto mealPutDto) {
+    BabyFood babyFood = findBabyFoodById(mealPutDto.getId());
 
     babyFood.updateBabyFoods(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
   }
 
   @Override
-  public void deleteBabyFoodsById(Long id) {
-    BabyFood babyFood = findBabyFoodsById(id);
+  public void deleteBabyFoodById(Long id) {
+    BabyFood babyFood = findBabyFoodById(id);
 
     babyFoodsRepository.delete(babyFood);
   }

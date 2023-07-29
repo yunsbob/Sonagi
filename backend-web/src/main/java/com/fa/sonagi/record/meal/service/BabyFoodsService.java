@@ -5,11 +5,11 @@ import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.entity.BabyFood;
 
 public interface BabyFoodsService {
-  BabyFood findBabyFoodsById(Long id);
+  BabyFood findBabyFoodById(Long id);
 
-  void registBabyFoods(MealPostDto mealPostDto);
+  void registBabyFood(MealPostDto mealPostDto);
 
-  void updateBabyFoods(MealPutDto mealPutDto);
+  void updateBabyFood(MealPutDto mealPutDto);
 
-  void deleteBabyFoodsById(Long id);
+  void deleteBabyFoodById(Long id);
 }
