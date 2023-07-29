@@ -97,6 +97,24 @@ const color = {
   cardExtra: '#BDBDBD',
 };
 
+const fontSize = {
+  headXLarge: '40px',
+  headLarge: '30px',
+  headMedium: '25px',
+  headSmall: '18px',
+  large: '20px',
+  medium1: '16px',
+  medium2: '15px',
+  medium3: '13px',
+  small: '11px',
+  xSmall: '8px',
+};
+
+const letterSpacing = {
+  narrow: '-2.4px',
+  spread: '0.4px',
+};
+
 const shadow = {
   // shadow
   shadow1: '0px 8px 21px 0px rgba(0, 0, 0, 0.16)', //buttons에 추가되는 기본 shadow
@@ -111,6 +129,8 @@ const gradient = {
 
 const theme: DefaultTheme = {
   color,
+  fontSize,
+  letterSpacing,
   shadow,
   gradient,
 };
