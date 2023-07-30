@@ -1,7 +1,7 @@
 package com.fa.sonagi.record.health.dto;
 
+import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +12,6 @@ public class HealthPostDto {
   private Long userId;
   private Long babyId;
   private LocalDate createdDate;
-  private LocalTime createdTime;
+  private Time createdTime;
   private String memo;
 }

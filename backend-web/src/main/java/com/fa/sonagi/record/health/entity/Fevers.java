@@ -1,9 +1,8 @@
 package com.fa.sonagi.record.health.entity;
 
-import com.fa.sonagi.baby.entity.Baby;
 import jakarta.persistence.*;
+import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import lombok.*;
 
 @Entity
@@ -30,7 +29,7 @@ public class Fevers {
   private LocalDate createdDate;
 
   @Column(name = "created_time")
-  private LocalTime createdTime;
+  private Time createdTime;
 
   @Column(name = "fever")
   private Double fever;
@@ -38,7 +37,7 @@ public class Fevers {
   @Column(name = "memo")
   private String memo;
 
-  public void updateFevers(LocalTime createdTime, Double fever, String memo) {
+  public void updateFevers(Time createdTime, Double fever, String memo) {
     this.createdTime = createdTime;
     this.fever = fever;
     this.memo = memo;

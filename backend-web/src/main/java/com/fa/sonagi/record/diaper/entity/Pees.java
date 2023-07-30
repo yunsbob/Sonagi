@@ -1,9 +1,8 @@
 package com.fa.sonagi.record.diaper.entity;
 
-import com.fa.sonagi.baby.entity.Baby;
 import jakarta.persistence.*;
+import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import lombok.*;
 
 @Entity
@@ -28,7 +27,7 @@ public class Pees {
   private Long userId;
 
   @Column(name = "created_time")
-  private LocalTime createdTime;
+  private Time createdTime;
 
   @Column(name = "created_date")
   private LocalDate createdDate;
@@ -36,7 +35,7 @@ public class Pees {
   @Column(name = "memo")
   private String memo;
 
-  public void updatePees(LocalTime createdTime, String memo) {
+  public void updatePees(Time createdTime, String memo) {
     this.createdTime = createdTime;
     this.memo = memo;
   }

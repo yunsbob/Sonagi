@@ -1,6 +1,6 @@
 package com.fa.sonagi.record.health.dto;
 
-import java.time.LocalTime;
+import java.sql.Time;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +9,6 @@ import lombok.Setter;
 public class HealthPutDto {
 
   private Long id;
-  private LocalTime createdTime;
+  private Time createdTime;
   private String memo;
 }
