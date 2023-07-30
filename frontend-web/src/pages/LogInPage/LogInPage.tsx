@@ -7,6 +7,7 @@ import { Text } from '@/components/atoms/Text/Text.styles';
 import { GoogleLogIn } from '@/components/organisms/GoogleLogIn/GoogleLogIn';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
+import Button from './../../components/atoms/Button/Button';
 
 const LogInPage = () => {
   const navigate = useNavigate();
@@ -20,11 +21,14 @@ const LogInPage = () => {
   };
 
   return (
-    <Background background={babyBackground}>
+    <Background $background={babyBackground}>
       <Image src={blueBaby} width={10} />
       <Text size="medium1">소중한 우리 아기를 위한 육아일기</Text>
       <Text size="headXLarge">소나기</Text>
       <GoogleLogIn onGoogleSignIn={onGoogleLogIn} />
+      <Button variant="register" size="small">
+        등록하기
+      </Button>
     </Background>
   );
 };

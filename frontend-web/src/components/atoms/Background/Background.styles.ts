@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 interface BackgroundProps {
-  background: string;
+  $background: string;
 }
 
 const Background = styled.div<BackgroundProps>`
-  background-image: url(${props => props.background});
+  background-image: url(${props => props.$background});
   background-repeat: no-repeat;
   background-position: top center;
   background-size: 100% 100%;
