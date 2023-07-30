@@ -5,7 +5,6 @@ import RecordBar from '@/components/molecules/RecordBar/RecordBar';
 const RecordPage = () => {
   return (
     <div>
-      <section style={{ border: '1px solid black' }}> (임시) 캘린더 </section>
       <CategoryBar></CategoryBar>
 
       <Text size="headXLarge">기록 블록 1</Text>
