@@ -1,7 +1,5 @@
 package com.fa.sonagi.record.meal.service;
 
-import com.fa.sonagi.baby.entity.Baby;
-import com.fa.sonagi.baby.repository.BabyRepository;
 import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.entity.BabyFood;
