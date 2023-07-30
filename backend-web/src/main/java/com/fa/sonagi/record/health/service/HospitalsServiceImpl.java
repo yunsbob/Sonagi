@@ -2,8 +2,8 @@ package com.fa.sonagi.record.health.service;
 
 import com.fa.sonagi.baby.entity.Baby;
 import com.fa.sonagi.baby.repository.BabyRepository;
-import com.fa.sonagi.record.health.dto.HospitalsPostDto;
-import com.fa.sonagi.record.health.dto.HospitalsPutDto;
+import com.fa.sonagi.record.health.dto.HealthPostDto;
+import com.fa.sonagi.record.health.dto.HealthPutDto;
 import com.fa.sonagi.record.health.entity.Hospitals;
 import com.fa.sonagi.record.health.repository.HospitalsRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class HospitalsServiceImpl implements HospitalsService {
   }
 
   @Override
-  public void registHospitals(HospitalsPostDto hospitalsPostDto) {
+  public void registHospitals(HealthPostDto hospitalsPostDto) {
     Baby baby = babyRepository.findById(hospitalsPostDto.getBabyId()).orElseThrow();
 
     Hospitals hospitals = Hospitals.builder()
@@ -37,7 +37,7 @@ public class HospitalsServiceImpl implements HospitalsService {
   }
 
   @Override
-  public void updateHospitals(HospitalsPutDto hospitalsPutDto) {
+  public void updateHospitals(HealthPutDto hospitalsPutDto) {
     Hospitals hospitals = findHospitalsById(hospitalsPutDto.getId());
     hospitals.updateHospitals(hospitalsPutDto.getCreatedTime(), hospitalsPutDto.getMemo());
   }

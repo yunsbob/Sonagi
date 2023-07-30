@@ -1,7 +1,7 @@
 package com.fa.sonagi.record.diaper.controller;
 
-import com.fa.sonagi.record.diaper.dto.PeesPostDto;
-import com.fa.sonagi.record.diaper.dto.PeesPutDto;
+import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
+import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
 import com.fa.sonagi.record.diaper.service.PeesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +21,13 @@ public class PeesController {
   private final PeesService peesService;
 
   @PostMapping
-  public ResponseEntity<?> registPees(@RequestBody PeesPostDto peesPostDto) {
+  public ResponseEntity<?> registPees(@RequestBody DiaperPostDto peesPostDto) {
     peesService.registPees(peesPostDto);
     return ResponseEntity.ok().build();
   }
 
   @PutMapping
-  public ResponseEntity<?> updatePees(@RequestBody PeesPutDto peesPutDto) {
+  public ResponseEntity<?> updatePees(@RequestBody DiaperPutDto peesPutDto) {
     peesService.updatePees(peesPutDto);
     return ResponseEntity.ok().build();
   }

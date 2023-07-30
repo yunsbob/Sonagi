@@ -2,8 +2,8 @@ package com.fa.sonagi.record.health.service;
 
 import com.fa.sonagi.baby.entity.Baby;
 import com.fa.sonagi.baby.repository.BabyRepository;
-import com.fa.sonagi.record.health.dto.MedicationsPostDto;
-import com.fa.sonagi.record.health.dto.MedicationsPutDto;
+import com.fa.sonagi.record.health.dto.HealthPostDto;
+import com.fa.sonagi.record.health.dto.HealthPutDto;
 import com.fa.sonagi.record.health.entity.Medications;
 import com.fa.sonagi.record.health.repository.MedicationsRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,24 +21,24 @@ public class MedicationsServiceImpl implements MedicationsService {
   }
 
   @Override
-  public void registMedications(MedicationsPostDto medicationsPostDto) {
-    Baby baby = babyRepository.findById(medicationsPostDto.getBabyId()).orElseThrow();
+  public void registMedications(HealthPostDto healthPostDto) {
+    Baby baby = babyRepository.findById(healthPostDto.getBabyId()).orElseThrow();
 
     Medications medications = Medications.builder()
-        .userId(medicationsPostDto.getUserId())
+        .userId(healthPostDto.getUserId())
         .baby(baby)
-        .createdDate(medicationsPostDto.getCreatedDate())
-        .createdTime(medicationsPostDto.getCreatedTime())
-        .memo(medicationsPostDto.getMemo())
+        .createdDate(healthPostDto.getCreatedDate())
+        .createdTime(healthPostDto.getCreatedTime())
+        .memo(healthPostDto.getMemo())
         .build();
 
     medicationsRepository.save(medications);
   }
 
   @Override
-  public void updateMedications(MedicationsPutDto medicationsPutDto) {
-    Medications medications = findMedicationsById(medicationsPutDto.getId());
-    medications.updateMedications(medicationsPutDto.getCreatedTime(), medications.getMemo());
+  public void updateMedications(HealthPutDto healthPutDto) {
+    Medications medications = findMedicationsById(healthPutDto.getId());
+    medications.updateMedications(healthPutDto.getCreatedTime(), medications.getMemo());
   }
 
   @Override

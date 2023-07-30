@@ -1,7 +1,7 @@
 package com.fa.sonagi.record.activity.controller;
 
-import com.fa.sonagi.record.activity.dto.PlaysPostDto;
-import com.fa.sonagi.record.activity.dto.PlaysPutDto;
+import com.fa.sonagi.record.activity.dto.ActivityPostDto;
+import com.fa.sonagi.record.activity.dto.ActivityPutDto;
 import com.fa.sonagi.record.activity.service.PlaysServeice;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +21,13 @@ public class PlaysController {
   private final PlaysServeice playsServeice;
 
   @PostMapping
-  public ResponseEntity<?> registPlays(@RequestBody PlaysPostDto playsPostDto) {
+  public ResponseEntity<?> registPlays(@RequestBody ActivityPostDto playsPostDto) {
     playsServeice.registPlays(playsPostDto);
     return ResponseEntity.ok().build();
   }
 
   @PutMapping
-  public ResponseEntity<?> updatePlays(@RequestBody PlaysPutDto playsPutDto) {
+  public ResponseEntity<?> updatePlays(@RequestBody ActivityPutDto playsPutDto) {
     playsServeice.updatePlays(playsPutDto);
     return ResponseEntity.ok().build();
   }

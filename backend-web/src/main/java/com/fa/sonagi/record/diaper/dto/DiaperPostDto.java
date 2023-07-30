@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PoopsPostDto {
+public class DiaperPostDto {
 
   private Long userId;
   private Long babyId;

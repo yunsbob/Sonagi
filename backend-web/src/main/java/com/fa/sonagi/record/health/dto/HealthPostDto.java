@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MedicationsPostDto {
+public class HealthPostDto {
 
   private Long userId;
   private Long babyId;

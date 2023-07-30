@@ -2,8 +2,8 @@ package com.fa.sonagi.record.activity.service;
 
 import com.fa.sonagi.baby.entity.Baby;
 import com.fa.sonagi.baby.repository.BabyRepository;
-import com.fa.sonagi.record.activity.dto.PlaysPostDto;
-import com.fa.sonagi.record.activity.dto.PlaysPutDto;
+import com.fa.sonagi.record.activity.dto.ActivityPostDto;
+import com.fa.sonagi.record.activity.dto.ActivityPutDto;
 import com.fa.sonagi.record.activity.entity.Plays;
 import com.fa.sonagi.record.activity.repository.PlaysRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class PlaysServiceImpl implements PlaysServeice {
   }
 
   @Override
-  public void registPlays(PlaysPostDto playsPostDto) {
+  public void registPlays(ActivityPostDto playsPostDto) {
     Baby baby = babyRepository.findById(playsPostDto.getBabyId()).orElseThrow();
 
     Plays plays = Plays.builder()
@@ -37,7 +37,7 @@ public class PlaysServiceImpl implements PlaysServeice {
   }
 
   @Override
-  public void updatePlays(PlaysPutDto playsPutDto) {
+  public void updatePlays(ActivityPutDto playsPutDto) {
     Plays plays = findPlaysById(playsPutDto.getId());
     plays.updatePlays(playsPutDto.getCreatedTime(), playsPutDto.getEndTime(),
         playsPutDto.getMemo());

@@ -2,8 +2,8 @@ package com.fa.sonagi.record.diaper.service;
 
 import com.fa.sonagi.baby.entity.Baby;
 import com.fa.sonagi.baby.repository.BabyRepository;
-import com.fa.sonagi.record.diaper.dto.PoopsPostDto;
-import com.fa.sonagi.record.diaper.dto.PoopsPutDto;
+import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
+import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
 import com.fa.sonagi.record.diaper.entity.Poops;
 import com.fa.sonagi.record.diaper.repository.PoopsRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,25 +21,25 @@ public class PoopsServiceImpl implements PoopsService {
   }
 
   @Override
-  public void registPoops(PoopsPostDto poopsPostDto) {
-    Baby baby = babyRepository.findById(poopsPostDto.getBabyId()).orElseThrow();
+  public void registPoops(DiaperPostDto diaperPostDto) {
+    Baby baby = babyRepository.findById(diaperPostDto.getBabyId()).orElseThrow();
 
     Poops poops = Poops.builder()
-        .userId(poopsPostDto.getUserId())
+        .userId(diaperPostDto.getUserId())
         .baby(baby)
-        .createdDate(poopsPostDto.getCreatedDate())
-        .createdTime(poopsPostDto.getCreatedTime())
-        .memo(poopsPostDto.getMemo())
+        .createdDate(diaperPostDto.getCreatedDate())
+        .createdTime(diaperPostDto.getCreatedTime())
+        .memo(diaperPostDto.getMemo())
         .build();
 
     poopsRepository.save(poops);
   }
 
   @Override
-  public void updatePoops(PoopsPutDto poopsPutDto) {
-    Poops poops = findPoopsById(poopsPutDto.getId());
+  public void updatePoops(DiaperPutDto diaperPutDto) {
+    Poops poops = findPoopsById(diaperPutDto.getId());
 
-    poops.updatePoops(poopsPutDto.getCreatedTime(), poopsPutDto.getMemo());
+    poops.updatePoops(diaperPutDto.getCreatedTime(), diaperPutDto.getMemo());
   }
 
   @Override

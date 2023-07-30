@@ -1,17 +1,17 @@
 package com.fa.sonagi.record.diaper.service;
 
 
-import com.fa.sonagi.record.diaper.dto.PeesPostDto;
-import com.fa.sonagi.record.diaper.dto.PeesPutDto;
+import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
+import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
 import com.fa.sonagi.record.diaper.entity.Pees;
 
 public interface PeesService {
 
   Pees findPeesById(Long id);
 
-  void registPees(PeesPostDto peesPostDto);
+  void registPees(DiaperPostDto peesPostDto);
 
-  void updatePees(PeesPutDto peesPutDto);
+  void updatePees(DiaperPutDto peesPutDto);
 
   void deletePeesById(Long id);
 }

@@ -1,4 +1,4 @@
-package com.fa.sonagi.record.health.dto;
+package com.fa.sonagi.record.diaper.dto;
 
 import java.time.LocalTime;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class HospitalsPutDto {
+public class DiaperPutDto {
 
   private Long id;
   private LocalTime createdTime;

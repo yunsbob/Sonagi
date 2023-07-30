@@ -1,7 +1,7 @@
 package com.fa.sonagi.record.health.controller;
 
-import com.fa.sonagi.record.health.dto.MedicationsPostDto;
-import com.fa.sonagi.record.health.dto.MedicationsPutDto;
+import com.fa.sonagi.record.health.dto.HealthPostDto;
+import com.fa.sonagi.record.health.dto.HealthPutDto;
 import com.fa.sonagi.record.health.service.MedicationsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +21,14 @@ public class MedicationsController {
   private final MedicationsService medicationsService;
 
   @PostMapping
-  public ResponseEntity<?> registMedications(@RequestBody MedicationsPostDto medicationsPostDto) {
-    medicationsService.registMedications(medicationsPostDto);
+  public ResponseEntity<?> registMedications(@RequestBody HealthPostDto healthPostDto) {
+    medicationsService.registMedications(healthPostDto);
     return ResponseEntity.ok().build();
   }
 
   @PutMapping
-  public ResponseEntity<?> updateMedications(@RequestBody MedicationsPutDto medicationsPutDto) {
-    medicationsService.updateMedications(medicationsPutDto);
+  public ResponseEntity<?> updateMedications(@RequestBody HealthPutDto healthPutDto) {
+    medicationsService.updateMedications(healthPutDto);
     return ResponseEntity.ok().build();
   }
 

@@ -2,8 +2,8 @@ package com.fa.sonagi.record.diaper.service;
 
 import com.fa.sonagi.baby.entity.Baby;
 import com.fa.sonagi.baby.repository.BabyRepository;
-import com.fa.sonagi.record.diaper.dto.PeesPostDto;
-import com.fa.sonagi.record.diaper.dto.PeesPutDto;
+import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
+import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
 import com.fa.sonagi.record.diaper.entity.Pees;
 import com.fa.sonagi.record.diaper.repository.PeesRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class PeesServiceImpl implements PeesService {
   }
 
   @Override
-  public void registPees(PeesPostDto peesPostDto) {
+  public void registPees(DiaperPostDto peesPostDto) {
     Baby baby = babyRepository.findById(peesPostDto.getBabyId()).orElseThrow();
 
     Pees pees = Pees.builder()
@@ -36,7 +36,7 @@ public class PeesServiceImpl implements PeesService {
   }
 
   @Override
-  public void updatePees(PeesPutDto peesPutDto) {
+  public void updatePees(DiaperPutDto peesPutDto) {
     Pees pees = findPeesById(peesPutDto.getId());
 
     pees.updatePees(peesPutDto.getCreatedTime(), peesPutDto.getMemo());

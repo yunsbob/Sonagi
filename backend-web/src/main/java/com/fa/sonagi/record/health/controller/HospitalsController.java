@@ -1,7 +1,7 @@
 package com.fa.sonagi.record.health.controller;
 
-import com.fa.sonagi.record.health.dto.HospitalsPostDto;
-import com.fa.sonagi.record.health.dto.HospitalsPutDto;
+import com.fa.sonagi.record.health.dto.HealthPostDto;
+import com.fa.sonagi.record.health.dto.HealthPutDto;
 import com.fa.sonagi.record.health.service.HospitalsService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +21,13 @@ public class HospitalsController {
   private final HospitalsService hospitalsService;
 
   @PostMapping
-  public ResponseEntity<?> registHospitals(@RequestBody HospitalsPostDto hospitalsPostDto) {
+  public ResponseEntity<?> registHospitals(@RequestBody HealthPostDto hospitalsPostDto) {
     hospitalsService.registHospitals(hospitalsPostDto);
     return ResponseEntity.ok().build();
   }
 
   @PutMapping
-  public ResponseEntity<?> updateHospitals(@RequestBody HospitalsPutDto hospitalsPutDto) {
+  public ResponseEntity<?> updateHospitals(@RequestBody HealthPutDto hospitalsPutDto) {
     hospitalsService.updateHospitals(hospitalsPutDto);
     return ResponseEntity.ok().build();
   }

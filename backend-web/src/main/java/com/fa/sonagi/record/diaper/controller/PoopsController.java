@@ -1,7 +1,7 @@
 package com.fa.sonagi.record.diaper.controller;
 
-import com.fa.sonagi.record.diaper.dto.PoopsPostDto;
-import com.fa.sonagi.record.diaper.dto.PoopsPutDto;
+import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
+import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
 import com.fa.sonagi.record.diaper.service.PoopsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +21,14 @@ public class PoopsController {
   private final PoopsService poopsService;
 
   @PostMapping
-  public ResponseEntity<?> registPoops(@RequestBody PoopsPostDto poopsPostDto) {
-    poopsService.registPoops(poopsPostDto);
+  public ResponseEntity<?> registPoops(@RequestBody DiaperPostDto diaperPostDto) {
+    poopsService.registPoops(diaperPostDto);
     return ResponseEntity.ok().build();
   }
 
   @PutMapping
-  public ResponseEntity<?> updatePoops(@RequestBody PoopsPutDto poopsPutDto) {
-    poopsService.updatePoops(poopsPutDto);
+  public ResponseEntity<?> updatePoops(@RequestBody DiaperPutDto diaperPutDto) {
+    poopsService.updatePoops(diaperPutDto);
     return ResponseEntity.ok().build();
   }
 
