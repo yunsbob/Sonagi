@@ -20,18 +20,27 @@ public class BabyFoodsController {
 
   private final BabyFoodsService babyFoodsService;
 
+  /**
+   * 이유식 기록 등록
+   */
   @PostMapping
   public ResponseEntity<?> registBabyFood(@RequestBody MealPostDto mealPostDto) {
     babyFoodsService.registBabyFood(mealPostDto);
     return ResponseEntity.ok().build();
   }
 
+  /**
+   * 이유식 기록 수정
+   */
   @PutMapping
   public ResponseEntity<?> updateBabyFood(@RequestBody MealPutDto mealPutDto) {
     babyFoodsService.updateBabyFood(mealPutDto);
     return ResponseEntity.ok().build();
   }
 
+  /**
+   * 이유식 기록 삭제
+   */
   @DeleteMapping("/{babyFoodId}")
   public ResponseEntity<?> deleteBabyFood(@PathVariable Long babyFoodId) {
     babyFoodsService.deleteBabyFoodById(babyFoodId);
