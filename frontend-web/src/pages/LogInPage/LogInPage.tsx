@@ -8,6 +8,13 @@ import { GoogleLogIn } from '@/components/organisms/GoogleLogIn/GoogleLogIn';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import Button from './../../components/atoms/Button/Button';
+import {
+  ButtonContainer,
+  LogInPageContainer,
+  LogInPageWrapper,
+  LogoContainer,
+} from '@/pages/LogInPage/LogInPage.styles';
+import theme from '@/styles/theme';
 
 const LogInPage = () => {
   const navigate = useNavigate();
@@ -22,13 +29,27 @@ const LogInPage = () => {
 
   return (
     <Background $background={babyBackground}>
-      <Image src={blueBaby} width={10} />
-      <Text size="medium1">소중한 우리 아기를 위한 육아일기</Text>
-      <Text size="headXLarge">소나기</Text>
-      <GoogleLogIn onGoogleSignIn={onGoogleLogIn} />
-      <Button variant="register" size="small">
-        등록하기
-      </Button>
+      <LogInPageContainer>
+        <LogInPageWrapper>
+          <LogoContainer>
+            <Image src={blueBaby} width={11} />
+            <Text size="medium1">소중한 우리 아기를 위한 육아일기</Text>
+            <Text size="headXLarge">소나기</Text>
+          </LogoContainer>
+          <ButtonContainer>
+            <Button size="small" $backgroundColor={theme.color.white2}>
+              구글로 로그인하기
+            </Button>
+            <Button size="small" $backgroundColor={theme.color.white2}>
+              카카오톡으로 로그인하기
+            </Button>
+            <Button size="small" $backgroundColor={theme.color.white2}>
+              네이버로 로그인하기
+            </Button>
+            {/* <GoogleLogIn o기GoogleSignIn={onGoogleLogIn} /> */}
+          </ButtonContainer>
+        </LogInPageWrapper>
+      </LogInPageContainer>
     </Background>
   );
 };
