@@ -4,27 +4,49 @@ import { Text } from '@/components/atoms/Text/Text.styles';
 import family from '@/assets/images/img-family.png';
 import { Image } from '@/components/atoms/Image/Image';
 import Input from '@/components/atoms/Input/Input';
-import { SignInPageContainer } from '@/pages/SignInPage/SignInPage.style';
+import * as S from '@/pages/SignInPage/SignInPage.style';
+import Back from '@/components/atoms/Back/Back';
+import RegisterField from '@/components/molecules/RegisterField/RegisterField';
+import { useState } from 'react';
+import theme from '@/styles/theme';
 
 const SignInPage = () => {
-  const alertMessage = '10자 이내로 작성해주세요.';
+  const [disabled, setDisabled] = useState(true);
 
-  const testFunc = (value: string) => {
-    console.log('부모에서 출력' + value);
-  };
+  const placeholder = '이름을 입력하세요';
+
+  const alertMessage = '10자 이내로 입력해주세요';
+
+  // const getInputValue = (value: string) => {
+  //   if (value.length > 0) {
+  //     setDisabled(false);
+  //   } else {
+  //     setDisabled(true);
+  //   }
+  // };
 
   return (
-    <Background background={orangeBackground}>
-      <SignInPageContainer>
-        <Image src={family} width={12} />
-        <Text color={'black3'}>환영합니다!</Text>
-        <Text color={'black3'}>이름을 입력해주세요</Text>
-        <Input
-          testFunc={testFunc}
-          placeholder="이름을 입력하세요"
-          alertMessage={alertMessage}
-        />
-      </SignInPageContainer>
+    <Background $background={orangeBackground}>
+      <Back />
+      <S.SignInPageContainer>
+        <S.SignInPageWrapper>
+          <Image src={family} width={12} />
+          <Text color={'black3'}>
+            환영합니다!
+            <br />
+            이름을 입력해주세요
+          </Text>
+          <RegisterField
+            variant="register"
+            size="medium"
+            placeholder={placeholder}
+            alertMessage={alertMessage}
+            $backgroundColor={
+              disabled ? theme.color.gray2 : theme.gradient.orangeBtn
+            }
+          />
+        </S.SignInPageWrapper>
+      </S.SignInPageContainer>
     </Background>
   );
 };
