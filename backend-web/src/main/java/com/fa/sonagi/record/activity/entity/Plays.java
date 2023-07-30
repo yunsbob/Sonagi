@@ -10,7 +10,8 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "play")
+@Table(name = "play",
+    indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
 public class Plays {
 
   @Id
