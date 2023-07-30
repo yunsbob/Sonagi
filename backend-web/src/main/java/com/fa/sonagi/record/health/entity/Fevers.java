@@ -11,7 +11,8 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "fever")
+@Table(name = "fever",
+    indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
 public class Fevers {
 
   @Id
