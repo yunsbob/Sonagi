@@ -55,7 +55,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
 
 logging:
@@ -66,23 +66,26 @@ logging:
 # front - redirect uri
 app:
   oauth2:
-    authorizedRedirectUris: http://localhost:3000/oauth/redirect
+    authorizedRedirectUris: https://sonagi.site/oauth/redirect
 
 jwt:
   key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
 
 # S3 setting
-cloud:
-  aws:
-    s3:
-      bucket: ssafyB207
-    region:
-      static: ap-northeast-2 #Asia Pacific -> seoul
-    stack:
-      auto: false
-    credentials:
-      access-key: AKIA4KMX2KNB3Q5COKEX
-      secret-key: 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
+# cloud:
+#  aws:
+#    s3:
+#      bucket: ssafy601
+#    region:
+#      static: ap-northeast-2 #Asia Pacific -> seoul
+#    stack:
+#      auto: false
+#    credentials:
+#      access-key: AKIA4KMX2KNB3Q5COKEX
+#      secret-key: 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
 
-
-
+#server:
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: ssafy
+#    key-store-type: PKCS12
