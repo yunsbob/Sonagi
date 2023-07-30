@@ -9,6 +9,7 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from '@/styles/theme';
 import GlobalFont from '@/styles/GlobalFont';
+import '@/styles/font.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
