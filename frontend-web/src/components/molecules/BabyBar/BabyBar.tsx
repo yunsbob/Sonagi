@@ -11,14 +11,18 @@ const BabyBar = () => {
       {BabyArray.map((item, index) => (
         <Button
           variant="record"
-          size="small"
+          size="xSmall"
           key={index}
-          style={{ display: 'flex', alignItems: 'center' }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            // padding: '4px',
+          }}
         >
           <Image
             src={babyCircleBlue}
-            width={1.5}
-            style={{ transform: 'rotate(-10.68deg)', marginLeft: '2px' }}
+            width={1.2}
+            style={{ transform: 'rotate(-10.68deg)', margin: '2px' }}
           />
           {item}
         </Button>

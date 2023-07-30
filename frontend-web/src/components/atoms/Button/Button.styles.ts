@@ -27,9 +27,16 @@ const getVariantStyling = (variant: Required<ButtonProps>['variant']) => {
 
 const getSizeStyling = (size: Required<ButtonProps>['size']) => {
   const style = {
+    xSmall: css`
+      width: auto;
+      height: 1.9rem;
+      flex-shrink: 0;
+      padding: 4px;
+      padding-right: 8px;
+    `,
     small: css`
       width: 4.375rem;
-      height: 2.25rem;
+      height: 2.5rem;
       flex-shrink: 0;
     `,
     medium: css`
