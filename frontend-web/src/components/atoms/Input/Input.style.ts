@@ -5,7 +5,7 @@ export interface InputStyleProps {
   inputType?: 'text' | 'memo';
   height?: number | string;
   borderRadius?: number;
-  unit?: 'rem' | 'px' | 'em';
+  $unit?: 'rem' | 'px' | 'em';
   fontSize?: typeof theme.fontSize;
 }
 
@@ -41,8 +41,8 @@ const getTypeStyling = (inputType: Required<InputStyleProps>['inputType']) => {
 
 const InputContainer = styled.input<InputStyleProps>`
   ${({ inputType = 'text' }) => getTypeStyling(inputType)};
-  width: ${props => '100%' || `${props.width}${props.unit}`};
-  height: ${props => `${props.height}${props.unit}`};
+  width: ${props => '100%' || `${props.width}${props.$unit}`};
+  height: ${props => `${props.height}${props.$unit}`};
   border-radius: ${props => '22px' || `${props.borderRadius}px`};
   font-size: ${props => props.fontSize};
 `;

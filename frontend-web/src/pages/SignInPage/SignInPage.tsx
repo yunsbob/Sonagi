@@ -26,7 +26,7 @@ const SignInPage = () => {
   // };
 
   return (
-    <Background background={orangeBackground}>
+    <Background $background={orangeBackground}>
       <Back />
       <S.SignInPageContainer>
         <S.SignInPageWrapper>

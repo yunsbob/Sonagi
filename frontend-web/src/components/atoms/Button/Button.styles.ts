@@ -35,7 +35,10 @@ const Button = styled.button<ButtonProps>`
   border-radius: 22px;
   font-family: Happiness Sans;
   text-align: center;
-  background: ${props => props.$backgroundColor};
+  background: ${props =>
+    props.state === 'active'
+      ? props.theme.gradient.orangeBtn
+      : props.theme.color.gray2};
   ${({ variant = 'default' }) => getVariantStyling(variant)}
   ${({ size = 'small' }) => getSizeStyling(size)}
 `;

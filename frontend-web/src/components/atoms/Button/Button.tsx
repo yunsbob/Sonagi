@@ -8,11 +8,19 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'default' | 'register';
   size?: 'small';
+  state?: 'active' | 'disabled';
   $backgroundColor?: string;
 }
 
 const Button = (
-  { variant, size, $backgroundColor, children, ...attributes }: ButtonProps,
+  {
+    variant,
+    size,
+    $backgroundColor,
+    state,
+    children,
+    ...attributes
+  }: ButtonProps,
   ref: ForwardedRef<HTMLButtonElement>
 ) => {
   return (
@@ -20,6 +28,7 @@ const Button = (
       ref={ref}
       variant={variant}
       size={size}
+      state={state}
       $backgroundColor={$backgroundColor}
       {...attributes}
     >

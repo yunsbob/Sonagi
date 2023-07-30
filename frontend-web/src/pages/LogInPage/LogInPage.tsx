@@ -21,7 +21,7 @@ const LogInPage = () => {
   };
 
   return (
-    <Background background={babyBackground}>
+    <Background $background={babyBackground}>
       <Image src={blueBaby} width={10} />
       <Text size="medium1">소중한 우리 아기를 위한 육아일기</Text>
       <Text size="headXLarge">소나기</Text>
