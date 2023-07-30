@@ -1,6 +1,7 @@
 package com.fa.sonagi.record.meal.dto;
 
-import java.time.LocalTime;
+import java.sql.Time;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,5 +10,5 @@ public class MealPutDto {
   private Long id;
   private Long amount;
   private String memo;
-  private LocalTime createdTime;
+  private Time createdTime;
 }

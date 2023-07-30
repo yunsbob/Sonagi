@@ -13,25 +13,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/breastFeeding")
+@RequestMapping("/breastFeedings")
 @RestController
 @RequiredArgsConstructor
 public class BreastFeedingsController {
 
   private final BreastFeedingsService breastFeedingsService;
 
+  /**
+   * 유축 수유 기록 등록
+   */
   @PostMapping
   public ResponseEntity<?> registBreastFeeding(@RequestBody MealPostDto mealPostDto) {
     breastFeedingsService.registBreastFeeding(mealPostDto);
     return ResponseEntity.ok().build();
   }
 
+  /**
+   * 유축 수유 기록 수정
+   */
   @PutMapping
   public ResponseEntity<?> updateBreastFeeding(@RequestBody MealPutDto mealPutDto) {
     breastFeedingsService.updateBreastFeeding(mealPutDto);
     return ResponseEntity.ok().build();
   }
 
+  /**
+   * 유축 수유 기록 삭제
+   */
   @DeleteMapping("/{breastFeedingId}")
   public ResponseEntity<?> deleteBreastFeeding(@PathVariable Long breastFeedingId) {
     breastFeedingsService.deleteBreastFeedingById(breastFeedingId);

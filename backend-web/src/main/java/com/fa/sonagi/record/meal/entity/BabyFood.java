@@ -1,9 +1,12 @@
 package com.fa.sonagi.record.meal.entity;
 
 import com.fa.sonagi.baby.entity.Baby;
+
 import jakarta.persistence.*;
+
+import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
+
 import lombok.*;
 
 @Entity
@@ -14,10 +17,10 @@ import lombok.*;
 @Table(name = "baby_food")
 public class BabyFood {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "baby_food_id")
     private Long id;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "baby_id")
     private Baby baby;
@@ -32,12 +35,12 @@ public class BabyFood {
     private String memo;
 
     @Column(name = "created_time")
-    private LocalTime createdTime;
+    private Time createdTime;
 
     @Column(name = "created_date")
     private LocalDate createdDate;
 
-    public void updateBabyFood (Long amount, String memo, LocalTime createdTime) {
+    public void updateBabyFood(Long amount, String memo, Time createdTime) {
         this.amount = amount;
         this.memo = memo;
         this.createdTime = createdTime;
