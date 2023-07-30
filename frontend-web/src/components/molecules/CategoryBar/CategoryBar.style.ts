@@ -5,6 +5,7 @@ const CategoryBarContainer = styled.div`
   display: flex;
   max-width: 100%;
   overflow-x: scroll;
+  margin: 0.5rem 0;
 `;
 
 export { CategoryBarContainer };
