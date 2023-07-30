@@ -5,7 +5,7 @@ import type { ComponentPropsWithRef, ForwardedRef } from 'react';
 
 export interface ButtonProps extends ComponentPropsWithRef<'button'> {
   variant?: 'default' | 'register' | 'record';
-  size?: 'small';
+  size?: 'small' | 'xSmall';
   typed?: false;
 }
 
