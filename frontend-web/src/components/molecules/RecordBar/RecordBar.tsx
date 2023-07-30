@@ -23,7 +23,12 @@ const RecordBar = () => {
   return (
     <RecordBarContainer>
       {RecordArray.map((item, index) => (
-        <Button variant="record" size="small" key={index}>
+        <Button
+          variant="record"
+          size="xSmall"
+          key={index}
+          style={{ padding: '0.7rem', alignItems: 'center', display: 'flex' }}
+        >
           {item}
         </Button>
       ))}
