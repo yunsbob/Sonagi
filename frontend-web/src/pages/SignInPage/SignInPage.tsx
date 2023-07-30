@@ -1,4 +1,4 @@
-import { Background } from '@/components/atoms/BabyBackground/Background.styles';
+import { Background } from '@/components/atoms/Background/Background.styles';
 import orangeBackground from '@/assets/images/background-orange-to-blue.png';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import family from '@/assets/images/img-family.png';
