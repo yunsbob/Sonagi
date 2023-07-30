@@ -6,7 +6,7 @@ spring:
           google:
             client-id: "548066337721-rrr2sqadhaci94lbmsc5v171mme3pa8f.apps.googleusercontent.com"
             client-secret: "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"
-            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
             scope: email
           naver:
             client-id: "GU8vMgpmm9GZ4AksoXdC"
@@ -55,7 +55,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     show-sql: true
 
 logging:
@@ -71,17 +71,11 @@ app:
 jwt:
   key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
 
-#server:
-#  ssl:
-#    key-store: classpath:keystore.p12
-#    key-store-password: ssafy
-#    key-store-type: PKCS12
-
 # S3 setting
 cloud:
   aws:
     s3:
-      bucket: ssafyB207
+      bucket: ssafy601
     region:
       static: ap-northeast-2 #Asia Pacific -> seoul
     stack:
@@ -89,3 +83,11 @@ cloud:
     credentials:
       access-key: AKIA4KMX2KNB3Q5COKEX
       secret-key: 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
+
+#server:
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: ssafy
+#    key-store-type: PKCS12
+
+
