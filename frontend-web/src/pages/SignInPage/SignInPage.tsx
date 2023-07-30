@@ -9,6 +9,7 @@ import Back from '@/components/atoms/Back/Back';
 import RegisterField from '@/components/molecules/RegisterField/RegisterField';
 import { useState } from 'react';
 import theme from '@/styles/theme';
+import RegisterBabyProfile from '@/components/organisms/RegisterBabyProfile/RegisterBabyProfile';
 
 const SignInPage = () => {
   const [disabled, setDisabled] = useState(true);
@@ -47,6 +48,7 @@ const SignInPage = () => {
           />
         </S.SignInPageWrapper>
       </S.SignInPageContainer>
+      <RegisterBabyProfile />
     </Background>
   );
 };

@@ -19,6 +19,16 @@ const getVariantStyling = (variant: Required<ButtonProps>['variant']) => {
       border: 1px solid var(--grey-3, #d7d7d7);
       background: var(--white-1, #fff);
     `,
+    birthday: css`
+      border-radius: 0.5625rem;
+      border: 1px solid var(--grey-2, #c3c3c3);
+      background: var(--white-1, #fff);
+    `,
+    gender: css`
+      border-radius: 0.5625rem;
+      border: 1px solid var(--grey-2, #c3c3c3);
+      background: var(--white-1, #fff);
+    `,
   };
 
   return style[variant];
@@ -34,13 +44,18 @@ const getSizeStyling = (size: Required<ButtonProps>['size']) => {
       padding-right: 8px;
     `,
     small: css`
-      width: 4.375rem;
+      width: 100%;
       height: 2.5rem;
       flex-shrink: 0;
     `,
     medium: css`
       width: 100%;
       height: 62px;
+      flex-shrink: 0;
+    `,
+    large: css`
+      width: 100%;
+      height: 3.5rem;
       flex-shrink: 0;
     `,
   };

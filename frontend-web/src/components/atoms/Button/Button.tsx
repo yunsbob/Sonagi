@@ -6,8 +6,8 @@ import theme from '@/styles/theme';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'default' | 'register' | 'record';
-  size?: 'small' | 'xSmall' | 'medium';
+  variant?: 'default' | 'register' | 'record' | 'birthday' | 'gender';
+  size?: 'small' | 'xSmall' | 'medium' | 'large';
   $backgroundColor?: string;
 }
 
