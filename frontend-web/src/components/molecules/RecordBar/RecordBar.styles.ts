@@ -6,6 +6,8 @@ const RecordBarContainer = styled.div`
   max-width: 100%;
   overflow-x: scroll;
   gap: 4px;
+  position: fixed;
+  bottom: 62px;
 `;
 
 export { RecordBarContainer };
