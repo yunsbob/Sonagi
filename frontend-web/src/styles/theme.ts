@@ -95,7 +95,7 @@ const color = {
   cardPumpingBreast2: '#FFE6A6',
 
   cardExtra: '#BDBDBD',
-};
+} as const;
 
 const fontSize = {
   headXLarge: '40px',
@@ -108,12 +108,12 @@ const fontSize = {
   medium3: '13px',
   small: '11px',
   xSmall: '8px',
-};
+} as const;
 
 const letterSpacing = {
   narrow: '-2.4px',
   spread: '0.4px',
-};
+} as const;
 
 const shadow = {
   // shadow

@@ -6,10 +6,31 @@ import { Image } from '@/components/atoms/Image/Image';
 import * as S from '@/pages/SignInPage/SignInPage.style';
 import Back from '@/components/atoms/Back/Back';
 import RegisterField from '@/components/molecules/RegisterField/RegisterField';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { userInfoState } from '@/states/UserState';
+import { produce } from 'immer';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
+
 const SignInPage = () => {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const navigate = useNavigate();
+
   const placeholder = '이름을 입력하세요';
 
   const alertMessage = '10자 이내로 입력해주세요';
+
+  const getInputValue = (value: string) => {
+    setUserInfo(
+      produce(draft => {
+        draft['name'] = value;
+      })
+    );
+
+    //TODO: 사용자 정보 저장 api 호출
+
+    navigate(PATH.REGISTER);
+  };
 
   return (
     <Background $background={orangeBackground}>
@@ -23,6 +44,7 @@ const SignInPage = () => {
             이름을 입력해주세요
           </Text>
           <RegisterField
+            getInputValue={getInputValue}
             variant="register"
             size="medium"
             placeholder={placeholder}

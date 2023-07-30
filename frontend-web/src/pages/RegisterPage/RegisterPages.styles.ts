@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-const LogInPageContainer = styled.div`
+const RegisterPageContainer = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-const LogInPageWrapper = styled.div`
+const RegisterPageWrapper = styled.div`
   padding: 0px 40px;
   width: 100vw;
   height: 70vh;
@@ -28,8 +28,14 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 10rem;
+  height: 9rem;
   justify-content: space-between;
+  width: 100%;
 `;
 
-export { LogInPageWrapper, LogInPageContainer, LogoContainer, ButtonContainer };
+export {
+  RegisterPageWrapper,
+  RegisterPageContainer,
+  LogoContainer,
+  ButtonContainer,
+};
