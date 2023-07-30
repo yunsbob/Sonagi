@@ -22,9 +22,8 @@ public class Medications {
   @Column(name = "user_id")
   private Long userId;
 
-  @ManyToOne(fetch = FetchType.LAZY)
   @Column(name = "baby_id")
-  private Baby baby;
+  private Long babyId;
 
   @Column(name = "created_date")
   private LocalDate createdDate;

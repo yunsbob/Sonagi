@@ -8,34 +8,36 @@ import com.fa.sonagi.record.diaper.entity.Pees;
 import com.fa.sonagi.record.diaper.repository.PeesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PeesServiceImpl implements PeesService {
 
   private final PeesRepository peesRepository;
-  private final BabyRepository babyRepository;
 
+  @Override
   public Pees findPeesById(Long id) {
     return peesRepository.findById(id).orElseThrow();
   }
 
   @Override
-  public void registPees(DiaperPostDto peesPostDto) {
-    Baby baby = babyRepository.findById(peesPostDto.getBabyId()).orElseThrow();
-
+  @Transactional
+  public void registPees(DiaperPostDto diaperPostDto) {
     Pees pees = Pees.builder()
-        .userId(peesPostDto.getUserId())
-        .baby(baby)
-        .createdDate(peesPostDto.getCreatedDate())
-        .createdTime(peesPostDto.getCreatedTime())
-        .memo(peesPostDto.getMemo())
+        .userId(diaperPostDto.getUserId())
+        .babyId(diaperPostDto.getBabyId())
+        .createdDate(diaperPostDto.getCreatedDate())
+        .createdTime(diaperPostDto.getCreatedTime())
+        .memo(diaperPostDto.getMemo())
         .build();
 
     peesRepository.save(pees);
   }
 
   @Override
+  @Transactional
   public void updatePees(DiaperPutDto peesPutDto) {
     Pees pees = findPeesById(peesPutDto.getId());
 
@@ -43,6 +45,7 @@ public class PeesServiceImpl implements PeesService {
   }
 
   @Override
+  @Transactional
   public void deletePeesById(Long id) {
     Pees pees = findPeesById(id);
 

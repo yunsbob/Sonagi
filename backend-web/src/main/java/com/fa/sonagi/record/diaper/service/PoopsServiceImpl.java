@@ -8,25 +8,26 @@ import com.fa.sonagi.record.diaper.entity.Poops;
 import com.fa.sonagi.record.diaper.repository.PoopsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PoopsServiceImpl implements PoopsService {
 
   private final PoopsRepository poopsRepository;
-  private final BabyRepository babyRepository;
 
+  @Override
   public Poops findPoopsById(Long id) {
     return poopsRepository.findById(id).orElseThrow();
   }
 
   @Override
+  @Transactional
   public void registPoops(DiaperPostDto diaperPostDto) {
-    Baby baby = babyRepository.findById(diaperPostDto.getBabyId()).orElseThrow();
-
     Poops poops = Poops.builder()
         .userId(diaperPostDto.getUserId())
-        .baby(baby)
+        .babyId(diaperPostDto.getBabyId())
         .createdDate(diaperPostDto.getCreatedDate())
         .createdTime(diaperPostDto.getCreatedTime())
         .memo(diaperPostDto.getMemo())
@@ -36,6 +37,7 @@ public class PoopsServiceImpl implements PoopsService {
   }
 
   @Override
+  @Transactional
   public void updatePoops(DiaperPutDto diaperPutDto) {
     Poops poops = findPoopsById(diaperPutDto.getId());
 
@@ -43,6 +45,7 @@ public class PoopsServiceImpl implements PoopsService {
   }
 
   @Override
+  @Transactional
   public void deletePoopsById(Long id) {
     Poops poops = findPoopsById(id);
 

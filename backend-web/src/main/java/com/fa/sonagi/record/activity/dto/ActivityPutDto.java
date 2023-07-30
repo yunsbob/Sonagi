@@ -1,5 +1,6 @@
 package com.fa.sonagi.record.activity.dto;
 
+import java.sql.Time;
 import java.time.LocalTime;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import lombok.Setter;
 public class ActivityPutDto {
 
   private Long id;
-  private LocalTime createdTime;
-  private LocalTime endTime;
+  private Time createdTime;
+  private Time endTime;
   private String memo;
 }

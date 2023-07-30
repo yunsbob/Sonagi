@@ -19,9 +19,8 @@ public class Fevers {
   @Column(name = "fever_id")
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
   @Column(name = "baby_id")
-  private Baby baby;
+  private Long babyId;
 
   @Column(name = "user_id")
   private Long userId;
