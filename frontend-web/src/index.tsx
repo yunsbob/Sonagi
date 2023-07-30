@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AppRouter from './router/routes';
 import { RecoilRoot } from 'recoil';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { ThemeProvider } from 'styled-components';
+import GlobalStyle from './styles/GlobalStyle';
+import theme from '@/styles/theme';
+import GlobalFont from '@/styles/GlobalFont';
+import '@/styles/font.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,9 +20,13 @@ const queryClient = new QueryClient();
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      <QueryClientProvider client={queryClient}>
-        <AppRouter />
-      </QueryClientProvider>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <GlobalStyle />
+          <GlobalFont />
+          <AppRouter />
+        </QueryClientProvider>
+      </ThemeProvider>
     </RecoilRoot>
   </React.StrictMode>
 );

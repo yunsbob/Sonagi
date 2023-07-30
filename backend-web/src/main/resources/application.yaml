@@ -71,6 +71,12 @@ app:
 jwt:
   key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
 
+#server:
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: ssafy
+#    key-store-type: PKCS12
+
 # S3 setting
 cloud:
   aws:
@@ -83,6 +89,3 @@ cloud:
     credentials:
       access-key: AKIA4KMX2KNB3Q5COKEX
       secret-key: 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
-
-
-
