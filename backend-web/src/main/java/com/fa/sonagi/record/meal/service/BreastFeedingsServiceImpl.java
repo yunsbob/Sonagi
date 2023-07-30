@@ -1,7 +1,5 @@
 package com.fa.sonagi.record.meal.service;
 
-import com.fa.sonagi.baby.entity.Baby;
-import com.fa.sonagi.baby.repository.BabyRepository;
 import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.entity.BreastFeeding;
@@ -16,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class BreastFeedingsServiceImpl implements BreastFeedingsService {
 
   private final BreastFeedingsRepository breastFeedingRepository;
-  private final BabyRepository babyRepository;
 
   /**
    * 유축 수유 기록 아이디로 조회
@@ -32,11 +29,9 @@ public class BreastFeedingsServiceImpl implements BreastFeedingsService {
   @Override
   @Transactional
   public void registBreastFeeding(MealPostDto mealPostDto) {
-    Baby baby = babyRepository.findById(mealPostDto.getBabyId()).orElseThrow();
-
     BreastFeeding breastFeedings = BreastFeeding.builder()
         .userId(mealPostDto.getUserId())
-        .baby(baby)
+        .babyId(mealPostDto.getBabyId())
         .createdTime(mealPostDto.getCreatedTime())
         .createdDate(mealPostDto.getCreatedDate())
         .amount(mealPostDto.getAmount())

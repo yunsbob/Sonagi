@@ -55,10 +55,4 @@ public class Baby {
     @ColumnDefault("0")
     @Column(name = "is_deleted")
     private Boolean isDeleted;
-
-    @OneToMany(mappedBy = "baby")
-    private List<BabyFood> babyFoods = new ArrayList<>();
-
-    @OneToMany(mappedBy = "baby")
-    private List<BreastFeeding> breastFeedings = new ArrayList<>();
 }
