@@ -8,7 +8,6 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from '@/styles/theme';
-import GlobalFont from '@/styles/GlobalFont';
 import '@/styles/font.css';
 
 const root = ReactDOM.createRoot(
@@ -23,7 +22,6 @@ root.render(
       <ThemeProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
           <GlobalStyle />
-          <GlobalFont />
           <AppRouter />
         </QueryClientProvider>
       </ThemeProvider>
