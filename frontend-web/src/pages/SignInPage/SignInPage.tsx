@@ -37,6 +37,8 @@ const SignInPage = () => {
             이름을 입력해주세요
           </Text>
           <RegisterField
+            variant="register"
+            size="medium"
             placeholder={placeholder}
             alertMessage={alertMessage}
             $backgroundColor={

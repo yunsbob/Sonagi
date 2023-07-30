@@ -14,8 +14,8 @@ import {
 } from 'react';
 
 interface RegisterFieldProps {
-  variant?: 'default' | 'register';
-  size?: 'small';
+  variant?: 'default' | 'register' | 'record';
+  size?: 'small' | 'xSmall' | 'medium';
   $backgroundColor?: typeof theme.color;
   alertMessage?: string;
 
@@ -25,24 +25,21 @@ interface RegisterFieldProps {
 const RegisterField = ({
   variant,
   size,
-  $backgroundColor,
   alertMessage,
   placeholder,
 }: RegisterFieldProps) => {
-  // const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState<string>('');
-  const [state, setStsate] = useState<'active' | 'disabled'>('disabled');
+  const [bgColor, setBgColor] = useState<string>(theme.color.gray3);
 
   const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-    console.log(value);
   };
 
-  useMemo(() => {
+  useEffect(() => {
     if (value.length > 0) {
-      setStsate('active');
+      setBgColor(theme.gradient.orangeBtn);
     } else {
-      setStsate('disabled');
+      setBgColor(theme.color.gray3);
     }
   }, [value]);
 
@@ -55,12 +52,7 @@ const RegisterField = ({
         placeholder={placeholder}
         fontSize={theme.fontSize.large}
       />
-      <Button
-        variant={variant}
-        size={size}
-        // $backgroundColor={bgColor}
-        state={state}
-      >
+      <Button variant={variant} size={size} $backgroundColor={bgColor}>
         <Text size="large">등록하기</Text>
       </Button>
     </S.RegisterFieldStyle>

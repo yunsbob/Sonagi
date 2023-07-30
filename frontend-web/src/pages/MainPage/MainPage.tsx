@@ -6,7 +6,7 @@ import BabyBar from '@/components/molecules/BabyBar/BabyBar';
 
 const MainPage = () => {
   return (
-    <Background background={backgroundGradient}>
+    <Background $background={backgroundGradient}>
       <header>
         <BabyBar></BabyBar>
       </header>

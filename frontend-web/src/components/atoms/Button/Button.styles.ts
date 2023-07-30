@@ -6,7 +6,6 @@ const getVariantStyling = (variant: Required<ButtonProps>['variant']) => {
     default: css``,
     register: css`
       border: 1px rgba(70, 70, 70, 0.6) solid;
-      background: ${({ theme }) => theme.color.gray3};
       border: 1px ${({ theme }) => theme.color.gray2} solid;
       color: ${({ theme }) => theme.color.black3};
       box-shadow: 0px 8px 21px 0px rgba(0, 0, 0, 0.16);
@@ -40,7 +39,7 @@ const getSizeStyling = (size: Required<ButtonProps>['size']) => {
       flex-shrink: 0;
     `,
     medium: css`
-      width: 307px;
+      width: 100%;
       height: 62px;
       flex-shrink: 0;
     `,
@@ -53,10 +52,7 @@ const Button = styled.button<ButtonProps>`
   border-radius: 22px;
   font-family: Happiness Sans;
   text-align: center;
-  background: ${props =>
-    props.state === 'active'
-      ? props.theme.gradient.orangeBtn
-      : props.theme.color.gray2};
+  background: ${props => props.$backgroundColor};
   ${({ variant = 'default' }) => getVariantStyling(variant)}
   ${({ size = 'small' }) => getSizeStyling(size)}
 `;

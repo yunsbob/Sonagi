@@ -36,7 +36,7 @@ export default function TabBar() {
           src={location.pathname === path ? src[1] : src[0]}
           onClick={() => navigate(path)}
           height={52}
-          unit="px"
+          $unit="px"
         />
       ))}
     </StyledTabBar>
