@@ -1,6 +1,5 @@
 package com.fa.sonagi.record.meal.entity;
 
-import com.fa.sonagi.baby.entity.Baby;
 
 import jakarta.persistence.*;
 
@@ -14,16 +13,17 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "baby_food")
+@Table(name = "baby_food",
+    indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
 public class BabyFood {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "baby_food_id")
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "baby_id")
-    private Baby baby;
+
+    @Column(name = "baby_id")
+    private Long babyId;
 
     @Column(name = "user_id")
     private Long userId;

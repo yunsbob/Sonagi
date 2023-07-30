@@ -8,6 +8,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -25,7 +26,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "breast_feeding")
+@Table(name = "breast_feeding",
+    indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
 public class BreastFeeding {
 
     @Id
@@ -33,9 +35,8 @@ public class BreastFeeding {
     @Column(name = "breast_feeding_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "baby_id")
-    private Baby baby;
+    @Column(name = "baby_id")
+    private Long babyId;
 
     @Column(name = "user_id")
     private Long userId;

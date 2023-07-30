@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class BabyFoodsServiceImpl implements BabyFoodsService {
 
   private final BabyFoodsRepository babyFoodsRepository;
-  private final BabyRepository babyRepository;
 
   /**
    * 이유식 기록 아이디로 조회
@@ -32,11 +31,9 @@ public class BabyFoodsServiceImpl implements BabyFoodsService {
   @Override
   @Transactional
   public void registBabyFood(MealPostDto mealPostDto) {
-    Baby baby = babyRepository.findById(mealPostDto.getBabyId()).orElseThrow();
-
     BabyFood babyFood = BabyFood.builder()
         .userId(mealPostDto.getUserId())
-        .baby(baby)
+        .babyId(mealPostDto.getBabyId())
         .createdTime(mealPostDto.getCreatedTime())
         .createdDate(mealPostDto.getCreatedDate())
         .amount(mealPostDto.getAmount())
