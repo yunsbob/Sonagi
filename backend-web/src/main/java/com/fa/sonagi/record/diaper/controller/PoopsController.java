@@ -33,8 +33,8 @@ public class PoopsController {
   }
 
   @DeleteMapping("/{poopId}")
-  public ResponseEntity<?> deletePoops(@PathVariable Long poopsId) {
-    poopsService.deletePoopsById(poopsId);
+  public ResponseEntity<?> deletePoops(@PathVariable Long poopId) {
+    poopsService.deletePoopsById(poopId);
     return ResponseEntity.ok().build();
   }
 }
