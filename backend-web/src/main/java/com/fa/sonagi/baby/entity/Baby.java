@@ -2,16 +2,21 @@ package com.fa.sonagi.baby.entity;
 
 import com.fa.sonagi.record.meal.entity.BabyFood;
 import com.fa.sonagi.record.meal.entity.BreastFeeding;
+
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Getter
@@ -21,7 +26,8 @@ import java.sql.Date;
 @Table(name = "baby")
 public class Baby {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "baby_id")
     private Long id;
 
@@ -46,6 +52,7 @@ public class Baby {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
+    @ColumnDefault("0")
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
