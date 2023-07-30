@@ -13,14 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class BreastFeedingsServiceImpl implements BreastFeedingsService {
 
-  private final BreastFeedingsRepository breastFeedingRepository;
+  private final BreastFeedingsRepository breastFeedingsRepository;
 
   /**
    * 유축 수유 기록 아이디로 조회
    */
   @Override
   public BreastFeeding findBreastFeedingById(Long id) {
-    return breastFeedingRepository.findById(id).orElseThrow();
+    return breastFeedingsRepository.findById(id).orElseThrow();
   }
 
   /**
@@ -38,7 +38,7 @@ public class BreastFeedingsServiceImpl implements BreastFeedingsService {
         .memo(mealPostDto.getMemo())
         .build();
 
-    breastFeedingRepository.save(breastFeedings);
+    breastFeedingsRepository.save(breastFeedings);
   }
 
   /**
@@ -60,6 +60,6 @@ public class BreastFeedingsServiceImpl implements BreastFeedingsService {
   public void deleteBreastFeedingById(Long id) {
     BreastFeeding breastFeeding = findBreastFeedingById(id);
 
-    breastFeedingRepository.delete(breastFeeding);
+    breastFeedingsRepository.delete(breastFeeding);
   }
 }
