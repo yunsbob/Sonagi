@@ -1,7 +1,11 @@
 import styled, { css } from 'styled-components';
 import { ButtonProps } from './Button';
+import theme from '@/styles/theme';
 
-const getVariantStyling = (variant: Required<ButtonProps>['variant']) => {
+const getVariantStyling = (
+  variant: Required<ButtonProps>['variant'],
+  props: ButtonProps
+) => {
   const style = {
     default: css``,
     register: css`
@@ -14,8 +18,9 @@ const getVariantStyling = (variant: Required<ButtonProps>['variant']) => {
     `,
     record: css`
       border-radius: 1.375rem;
-      border: 1px solid var(--grey-3, #d7d7d7);
-      background: var(--white-1, #fff);
+      border: 1px solid; // border-style 요소를 추가합니다.
+      border-color: ${props.$borderColor || theme.color.gray3};
+      background: ${({ theme }) => theme.color.white1};
     `,
   };
 
@@ -50,8 +55,7 @@ const Button = styled.button<ButtonProps>`
   border-radius: 22px;
   text-align: center;
   background: ${props => props.$backgroundColor};
-  border: 1px solid ${props => props.$borderColor || props.theme.color.gray2};
-  ${({ variant = 'default' }) => getVariantStyling(variant)}
+  ${({ variant = 'default', ...props }) => getVariantStyling(variant, props)}
   ${({ size = 'small' }) => getSizeStyling(size)}
 `;
 
