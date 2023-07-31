@@ -38,10 +38,10 @@ public class PeesServiceImpl implements PeesService {
 
   @Override
   @Transactional
-  public void updatePees(DiaperPutDto peesPutDto) {
-    Pees pees = findPeesById(peesPutDto.getId());
+  public void updatePees(DiaperPutDto diaperPutDto) {
+    Pees pees = findPeesById(diaperPutDto.getId());
 
-    pees.updatePees(peesPutDto.getCreatedTime(), peesPutDto.getMemo());
+    pees.updatePees(diaperPutDto.getCreatedTime(), diaperPutDto.getMemo());
   }
 
   @Override

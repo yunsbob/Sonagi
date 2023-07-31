@@ -16,7 +16,7 @@ import lombok.*;
 public class Poops {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "poop_id")
   private Long id;
 

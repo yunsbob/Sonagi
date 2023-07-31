@@ -16,7 +16,7 @@ import lombok.*;
 public class Pees {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "pee_id")
   private Long id;
 

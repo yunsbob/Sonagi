@@ -1,5 +1,6 @@
 package com.fa.sonagi.record.meal.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,8 @@ import com.fa.sonagi.record.meal.service.FeedingsService;
 
 import lombok.RequiredArgsConstructor;
 
-@RequestMapping("/feedings")
+@Tag(name = "Feeding", description = "수유 API")
+@RequestMapping("/api/feedings")
 @RestController
 @RequiredArgsConstructor
 public class FeedingsController {
