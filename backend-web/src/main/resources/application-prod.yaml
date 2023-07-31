@@ -6,12 +6,12 @@ spring:
           google:
             client-id: 548066337721-rrr2sqadhaci94lbmsc5v171mme3pa8f.apps.googleusercontent.com
             client-secret: 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
-            redirect-uri: http://localhost:8080/api/login/oauth2/code/google
+            redirect-uri: https://sonagi.site/api/login/oauth2/code/google
             scope: email
           naver:
             client-id: GU8vMgpmm9GZ4AksoXdC
             client-secret: "mYeGMkaCo1"
-            redirect-uri: http://localhost:8080/api/login/oauth2/code/naver
+            redirect-uri: https://sonagi.site/api/login/oauth2/code/naver
             authorization-grant-type: authorization_code
             scope:
               - name
@@ -25,7 +25,7 @@ spring:
               - account_email
             client-name: Kakao
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/api/login/oauth2/code/kakao
+            redirect-uri: https://sonagi.site/api/login/oauth2/code/kakao
             client-authentication-method: POST
 
         provider:
