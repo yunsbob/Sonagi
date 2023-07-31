@@ -1,47 +1,34 @@
 import { Background } from '@/components/atoms/Background/Background.styles';
 import orangeBackground from '@/assets/images/background-orange-to-blue.png';
 import { Text } from '@/components/atoms/Text/Text.styles';
-import family from '@/assets/images/img-family.png';
-import { Image } from '@/components/atoms/Image/Image';
-import * as S from '@/pages/SignInPage/SignInPage.style';
+import * as S from '@/pages/BabyCodePage/BabyCodePage.styles';
 import Back from '@/components/atoms/Back/Back';
 import RegisterField from '@/components/molecules/RegisterField/RegisterField';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { userInfoState } from '@/states/UserState';
-import { produce } from 'immer';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
+import theme from '@/styles/theme';
 
-const SignInPage = () => {
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+const BabyCodePage = () => {
   const navigate = useNavigate();
 
-  const placeholder = '이름을 입력하세요';
+  const placeholder = '코드를 입력하세요';
 
   const alertMessage = '10자 이내로 입력해주세요';
 
-  const onClickButtonAction = (value: string) => {
-    setUserInfo(
-      produce(draft => {
-        draft['name'] = value;
-      })
-    );
-
-    //TODO: 사용자 정보 저장 api 호출
-
-    navigate(PATH.REGISTER);
+  const onClickButtonAction = () => {
+    //TODO: 코드 입력으로 애기 등록 api 호출
+    navigate(PATH.MAIN);
   };
 
   return (
     <Background $background={orangeBackground}>
       <Back />
-      <S.SignInPageContainer>
-        <S.SignInPageWrapper>
-          <Image src={family} width={12} />
+      <S.BabyCodePageContainer>
+        <S.BabyCodePageWrapper>
           <Text color={'black3'}>
-            환영합니다!
+            공동 양육자에게 발급된
             <br />
-            이름을 입력해주세요
+            코드를 입력해주세요.
           </Text>
           <RegisterField
             onClickButtonAction={onClickButtonAction}
@@ -49,11 +36,12 @@ const SignInPage = () => {
             size="medium"
             placeholder={placeholder}
             alertMessage={alertMessage}
+            activeButtonColor={theme.gradient.skyblueBtn}
           />
-        </S.SignInPageWrapper>
-      </S.SignInPageContainer>
+        </S.BabyCodePageWrapper>
+      </S.BabyCodePageContainer>
     </Background>
   );
 };
 
-export default SignInPage;
+export default BabyCodePage;
