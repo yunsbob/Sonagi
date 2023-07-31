@@ -2,6 +2,7 @@ package com.fa.sonagi.record.meal.service;
 
 import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
+import com.fa.sonagi.record.meal.dto.MealResDto;
 import com.fa.sonagi.record.meal.entity.BreastFeeding;
 import com.fa.sonagi.record.meal.repository.BreastFeedingsRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,16 @@ public class BreastFeedingsServiceImpl implements BreastFeedingsService {
    * 유축 수유 기록 아이디로 조회
    */
   @Override
-  public BreastFeeding findBreastFeedingById(Long id) {
-    return breastFeedingsRepository.findById(id).orElseThrow();
+  public MealResDto findBreastFeedingById(Long id) {
+    BreastFeeding breastFeeding = breastFeedingsRepository.findById(id).orElseThrow();
+
+    MealResDto mealResDto = MealResDto.builder()
+        .amount(breastFeeding.getAmount())
+        .memo(breastFeeding.getMemo())
+        .createdTime(breastFeeding.getCreatedTime())
+        .build();
+
+    return mealResDto;
   }
 
   /**
@@ -47,7 +56,7 @@ public class BreastFeedingsServiceImpl implements BreastFeedingsService {
   @Override
   @Transactional
   public void updateBreastFeeding(MealPutDto mealPutDto) {
-    BreastFeeding breastFeeding = findBreastFeedingById(mealPutDto.getId());
+    BreastFeeding breastFeeding = breastFeedingsRepository.findById(mealPutDto.getId()).orElseThrow();
 
     breastFeeding.updateBreastFeeding(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
   }
@@ -58,7 +67,7 @@ public class BreastFeedingsServiceImpl implements BreastFeedingsService {
   @Override
   @Transactional
   public void deleteBreastFeedingById(Long id) {
-    BreastFeeding breastFeeding = findBreastFeedingById(id);
+    BreastFeeding breastFeeding = breastFeedingsRepository.findById(id).orElseThrow();
 
     breastFeedingsRepository.delete(breastFeeding);
   }
