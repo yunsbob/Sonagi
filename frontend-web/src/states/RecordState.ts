@@ -2,7 +2,7 @@ import { Category } from '@/states/CategoryState';
 
 type RecordType = string;
 
-// 카테고리별 기록 종류
+// 카테고리별 기록 종류 커스텀 타입
 type RecordsByCategory = {
   [key in Category]?: RecordType[];
 };
@@ -20,7 +20,6 @@ export const recordsByCategory: RecordsByCategory = {
     '체온',
     '병원',
     '투약',
-    '예방 접종',
     '간식',
     '우유',
     '놀이',
@@ -29,5 +28,9 @@ export const recordsByCategory: RecordsByCategory = {
   ],
   Meal: ['수유', '분유', '유축 수유', '이유식', '간식', '우유'],
   Diaper: ['소변', '대변'],
-  Sleep: [],
+  Sleep: ['수면'],
+  Pump: ['유축 수유'],
+  Activity: ['놀이', '터미 타임'],
+  Health: ['체온', '병원', '투약'],
+  Extra: ['기타'],
 };
