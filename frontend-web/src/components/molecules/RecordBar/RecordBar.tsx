@@ -23,11 +23,10 @@ const RecordBar = () => {
   const records = recordsByCategory[currentCategory || 'All'] || [];
   const colorKey = categoryToColorMap[currentCategory || 'All'];
   const strokeColor = theme.color[colorKey];
-  console.log(strokeColor);
 
   return (
     <RecordBarContainer>
-      {records.map((item, index) => (
+      {records.map((record, index) => (
         <Button
           variant="record"
           size="xSmall"
@@ -35,7 +34,7 @@ const RecordBar = () => {
           style={{ padding: '0.8rem', alignItems: 'center', display: 'flex' }}
           $borderColor={strokeColor}
         >
-          {item}
+          {record.type}
         </Button>
       ))}
     </RecordBarContainer>
