@@ -1,8 +1,8 @@
-package com.fa.sonagi.record.diaper.controller;
+package com.fa.sonagi.record.extra.controller;
 
-import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
-import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
-import com.fa.sonagi.record.diaper.service.PeesService;
+import com.fa.sonagi.record.extra.dto.ExtrasPostDto;
+import com.fa.sonagi.record.extra.dto.ExtrasPutDto;
+import com.fa.sonagi.record.extra.service.ExtrasService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,29 +14,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Pee", description = "소변 API")
-@RequestMapping("/api/pees")
+@RequestMapping("/api/extras")
+@Tag(name = "Extra", description = "기타 API")
 @RestController
 @RequiredArgsConstructor
-public class PeesController {
+public class ExtrasController {
 
-  private final PeesService peesService;
+  private final ExtrasService extrasService;
 
   @PostMapping
-  public ResponseEntity<?> registPees(@RequestBody DiaperPostDto peesPostDto) {
-    peesService.registPees(peesPostDto);
+  public ResponseEntity<?> registExtras(@RequestBody ExtrasPostDto extrasPostDto) {
+    extrasService.registExtras(extrasPostDto);
     return ResponseEntity.ok().build();
   }
 
   @PutMapping
-  public ResponseEntity<?> updatePees(@RequestBody DiaperPutDto peesPutDto) {
-    peesService.updatePees(peesPutDto);
+  public ResponseEntity<?> updateExtras(@RequestBody ExtrasPutDto extrasPutDto) {
+    extrasService.updateExtras(extrasPutDto);
     return ResponseEntity.ok().build();
   }
 
-  @DeleteMapping("/{peeId}")
-  public ResponseEntity<?> deletePees(@PathVariable Long peeId) {
-    peesService.deletePeesById(peeId);
+  @DeleteMapping("/{extraId}")
+  public ResponseEntity<?> deleteExtras(@PathVariable Long extraId) {
+    extrasService.deleteExtras(extraId);
     return ResponseEntity.ok().build();
   }
 }

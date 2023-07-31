@@ -22,14 +22,14 @@ public class PlaysServiceImpl implements PlaysServeice {
 
   @Override
   @Transactional
-  public void registPlays(ActivityPostDto playsPostDto) {
+  public void registPlays(ActivityPostDto activityPostDto) {
     Plays plays = Plays.builder()
-        .userId(playsPostDto.getUserId())
-        .babyId(playsPostDto.getBabyId())
-        .createdDate(playsPostDto.getCreatedDate())
-        .createdTime(playsPostDto.getCreatedTime())
-        .endTime(playsPostDto.getEndTime())
-        .memo(playsPostDto.getMemo())
+        .userId(activityPostDto.getUserId())
+        .babyId(activityPostDto.getBabyId())
+        .createdDate(activityPostDto.getCreatedDate())
+        .createdTime(activityPostDto.getCreatedTime())
+        .endTime(activityPostDto.getEndTime())
+        .memo(activityPostDto.getMemo())
         .build();
 
     playsRepository.save(plays);
@@ -37,10 +37,10 @@ public class PlaysServiceImpl implements PlaysServeice {
 
   @Override
   @Transactional
-  public void updatePlays(ActivityPutDto playsPutDto) {
-    Plays plays = findPlaysById(playsPutDto.getId());
-    plays.updatePlays(playsPutDto.getCreatedTime(), playsPutDto.getEndTime(),
-        playsPutDto.getMemo());
+  public void updatePlays(ActivityPutDto activityPutDto) {
+    Plays plays = findPlaysById(activityPutDto.getId());
+    plays.updatePlays(activityPutDto.getCreatedTime(), activityPutDto.getEndTime(),
+        activityPutDto.getMemo());
   }
 
   @Override
