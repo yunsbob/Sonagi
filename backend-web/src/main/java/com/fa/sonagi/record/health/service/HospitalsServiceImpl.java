@@ -22,13 +22,13 @@ public class HospitalsServiceImpl implements HospitalsService {
 
   @Override
   @Transactional
-  public void registHospitals(HealthPostDto hospitalsPostDto) {
+  public void registHospitals(HealthPostDto healthPostDto) {
     Hospitals hospitals = Hospitals.builder()
-        .userId(hospitalsPostDto.getUserId())
-        .babyId(hospitalsPostDto.getBabyId())
-        .createdDate(hospitalsPostDto.getCreatedDate())
-        .createdTime(hospitalsPostDto.getCreatedTime())
-        .memo(hospitalsPostDto.getMemo())
+        .userId(healthPostDto.getUserId())
+        .babyId(healthPostDto.getBabyId())
+        .createdDate(healthPostDto.getCreatedDate())
+        .createdTime(healthPostDto.getCreatedTime())
+        .memo(healthPostDto.getMemo())
         .build();
 
     hospitalsRepository.save(hospitals);
@@ -36,9 +36,9 @@ public class HospitalsServiceImpl implements HospitalsService {
 
   @Override
   @Transactional
-  public void updateHospitals(HealthPutDto hospitalsPutDto) {
-    Hospitals hospitals = findHospitalsById(hospitalsPutDto.getId());
-    hospitals.updateHospitals(hospitalsPutDto.getCreatedTime(), hospitalsPutDto.getMemo());
+  public void updateHospitals(HealthPutDto healthPutDto) {
+    Hospitals hospitals = findHospitalsById(healthPutDto.getId());
+    hospitals.updateHospitals(healthPutDto.getCreatedTime(), healthPutDto.getMemo());
   }
 
   @Override
