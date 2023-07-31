@@ -15,7 +15,7 @@ import lombok.*;
 public class Fevers {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "fever_id")
   private Long id;
 
