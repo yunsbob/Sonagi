@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "Tummytime", description = "터미타임 API")
-@RequestMapping("/tummytimes")
+@RequestMapping("/api/tummytimes")
 @RestController
 @RequiredArgsConstructor
 public class TummytimesController {
 
   private final TummytimesService tummytimesService;
-  
+
   @PostMapping
   public ResponseEntity<?> registTummytimes(@RequestBody ActivityPostDto activityPostDto) {
     tummytimesService.registTummytimes(activityPostDto);

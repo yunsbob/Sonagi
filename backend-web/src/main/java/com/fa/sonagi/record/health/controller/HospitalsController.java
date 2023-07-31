@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/hospitals")
+@RequestMapping("/api/hospitals")
 @RestController
 @RequiredArgsConstructor
 public class HospitalsController {

@@ -15,7 +15,7 @@ import com.fa.sonagi.record.meal.service.InfantFormulasService;
 
 import lombok.RequiredArgsConstructor;
 
-@RequestMapping("/infantFormulas")
+@RequestMapping("/api/infantFormulas")
 @RestController
 @RequiredArgsConstructor
 public class InfantFormulasController {

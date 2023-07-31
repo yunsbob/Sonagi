@@ -17,7 +17,7 @@ import com.fa.sonagi.record.meal.service.SnacksService;
 
 import lombok.RequiredArgsConstructor;
 
-@RequestMapping("/snacks")
+@RequestMapping("/api/snacks")
 @RestController
 @RequiredArgsConstructor
 public class SnacksController {
