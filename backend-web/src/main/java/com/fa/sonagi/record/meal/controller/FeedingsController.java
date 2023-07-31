@@ -3,6 +3,7 @@ package com.fa.sonagi.record.meal.controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fa.sonagi.record.meal.dto.FeedingPostDto;
 import com.fa.sonagi.record.meal.dto.FeedingPutDto;
+import com.fa.sonagi.record.meal.dto.FeedingResDto;
 import com.fa.sonagi.record.meal.service.FeedingsService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,15 @@ import lombok.RequiredArgsConstructor;
 public class FeedingsController {
 
   private final FeedingsService feedingsService;
+
+  /**
+   * 수유 기록 조회
+   */
+  @GetMapping("/{feedingId}")
+  public ResponseEntity<?> getFeeding(@PathVariable Long feedingId) {
+    FeedingResDto feedingResDto = feedingsService.findFeedingById(feedingId);
+    return ResponseEntity.ok().body(feedingResDto);
+  }
 
   /**
    * 수유 기록 등록
