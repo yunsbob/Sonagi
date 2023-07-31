@@ -2,7 +2,7 @@ package com.fa.sonagi.record.activity.controller;
 
 import com.fa.sonagi.record.activity.dto.ActivityPostDto;
 import com.fa.sonagi.record.activity.dto.ActivityPutDto;
-import com.fa.sonagi.record.activity.service.PlaysServeice;
+import com.fa.sonagi.record.activity.service.TummytimesService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,29 +14,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/api/plays")
-@Tag(name = "Play", description = "놀이 API")
+@Tag(name = "Tummytime", description = "터미타임 API")
+@RequestMapping("/api/tummytimes")
 @RestController
 @RequiredArgsConstructor
-public class PlaysController {
+public class TummytimesController {
 
-  private final PlaysServeice playsServeice;
+  private final TummytimesService tummytimesService;
 
   @PostMapping
-  public ResponseEntity<?> registPlays(@RequestBody ActivityPostDto playsPostDto) {
-    playsServeice.registPlays(playsPostDto);
+  public ResponseEntity<?> registTummytimes(@RequestBody ActivityPostDto activityPostDto) {
+    tummytimesService.registTummytimes(activityPostDto);
     return ResponseEntity.ok().build();
   }
 
   @PutMapping
-  public ResponseEntity<?> updatePlays(@RequestBody ActivityPutDto playsPutDto) {
-    playsServeice.updatePlays(playsPutDto);
+  public ResponseEntity<?> updateTummytimes(@RequestBody ActivityPutDto activityPutDto) {
+    tummytimesService.updateTummytimes(activityPutDto);
     return ResponseEntity.ok().build();
   }
 
-  @DeleteMapping("/{playId}")
-  public ResponseEntity<?> deletePlays(@PathVariable Long playId) {
-    playsServeice.deletePlays(playId);
+  @DeleteMapping("/{tummytimeId}")
+  public ResponseEntity<?> deleteTummytimes(@PathVariable Long tummytimeId) {
+    tummytimesService.deleteTummytimes(tummytimeId);
     return ResponseEntity.ok().build();
   }
 }

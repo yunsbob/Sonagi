@@ -15,7 +15,7 @@ import lombok.*;
 public class Medications {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "medication_id")
   private Long id;
 
