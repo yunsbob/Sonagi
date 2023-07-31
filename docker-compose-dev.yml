@@ -3,7 +3,7 @@ services:
   backend:
     container_name: backend
     build:
-      context: ./backend-back
+      context: ./backend-web
       args:
         SERVER_MODE: dev
     ports:
@@ -11,7 +11,7 @@ services:
   frontend:
     container_name: frontend
     build:
-      context: ./frontend-front
+      context: ./frontend-web
       dockerfile: Dockerfile.dev
     ports:
       - 3001:3000
