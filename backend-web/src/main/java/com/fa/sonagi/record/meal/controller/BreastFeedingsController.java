@@ -25,7 +25,7 @@ public class BreastFeedingsController {
   private final BreastFeedingsService breastFeedingsService;
 
   /**
-   * 유축 수유 기록 등록
+   * 유축 수유 기록 조회
    */
   @GetMapping("/{breastFeedingId}")
   public ResponseEntity<?> getBreastFeeding(@PathVariable Long breastFeedingId) {
