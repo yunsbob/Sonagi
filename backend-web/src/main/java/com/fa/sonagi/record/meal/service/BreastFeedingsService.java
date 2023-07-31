@@ -3,7 +3,6 @@ package com.fa.sonagi.record.meal.service;
 import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.dto.MealResDto;
-import com.fa.sonagi.record.meal.entity.BreastFeeding;
 
 public interface BreastFeedingsService {
   MealResDto findBreastFeedingById(Long id);
