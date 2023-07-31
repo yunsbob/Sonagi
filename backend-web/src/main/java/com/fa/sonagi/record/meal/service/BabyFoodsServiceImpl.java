@@ -2,6 +2,7 @@ package com.fa.sonagi.record.meal.service;
 
 import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
+import com.fa.sonagi.record.meal.dto.MealResDto;
 import com.fa.sonagi.record.meal.entity.BabyFood;
 import com.fa.sonagi.record.meal.repository.BabyFoodsRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,16 @@ public class BabyFoodsServiceImpl implements BabyFoodsService {
    * 이유식 기록 아이디로 조회
    */
   @Override
-  public BabyFood findBabyFoodById(Long id) {
-    return babyFoodsRepository.findById(id).orElseThrow();
+  public MealResDto findBabyFoodById(Long id) {
+    BabyFood babyFood = babyFoodsRepository.findById(id).orElseThrow();
+
+    MealResDto mealResDto = MealResDto.builder()
+        .amount(babyFood.getAmount())
+        .memo(babyFood.getMemo())
+        .createdTime(babyFood.getCreatedTime())
+        .build();
+    
+    return mealResDto;
   }
 
   /**
@@ -47,7 +56,7 @@ public class BabyFoodsServiceImpl implements BabyFoodsService {
   @Override
   @Transactional
   public void updateBabyFood(MealPutDto mealPutDto) {
-    BabyFood babyFood = findBabyFoodById(mealPutDto.getId());
+    BabyFood babyFood = babyFoodsRepository.findById(mealPutDto.getId()).orElseThrow();
 
     babyFood.updateBabyFood(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
   }
@@ -58,7 +67,7 @@ public class BabyFoodsServiceImpl implements BabyFoodsService {
   @Override
   @Transactional
   public void deleteBabyFoodById(Long id) {
-    BabyFood babyFood = findBabyFoodById(id);
+    BabyFood babyFood = babyFoodsRepository.findById(id).orElseThrow();
 
     babyFoodsRepository.delete(babyFood);
   }
