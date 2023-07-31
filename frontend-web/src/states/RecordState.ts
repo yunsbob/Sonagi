@@ -1,9 +1,15 @@
+import { atom } from 'recoil';
 import { Category } from '@/states/CategoryState';
 
 type Record = {
   type: string;
   category: Category;
 };
+
+export const recordBlocksState = atom<string[]>({
+  key: 'recordBlocksState',
+  default: [],
+});
 
 export const records: Record[] = [
   { type: '수유', category: 'Meal' },
