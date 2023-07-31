@@ -1,5 +1,6 @@
 package com.fa.sonagi.record.meal.service;
 
+import com.fa.sonagi.record.meal.dto.MealResDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +22,16 @@ public class PumpingBreastsServiceImpl implements PumpingBreastsService {
    * 유축 기록 아이디로 조회
    */
   @Override
-  public PumpingBreast findPumpingBreastById(Long id) {
-    return pumpingBreastsRepository.findById(id).orElseThrow();
+  public MealResDto findPumpingBreastById(Long id) {
+    PumpingBreast pumpingBreast = pumpingBreastsRepository.findById(id).orElseThrow();
+
+    MealResDto mealResDto = MealResDto.builder()
+        .amount(pumpingBreast.getAmount())
+        .memo(pumpingBreast.getMemo())
+        .createdTime(pumpingBreast.getCreatedTime())
+        .build();
+
+    return mealResDto;
   }
 
   /**
@@ -49,7 +58,7 @@ public class PumpingBreastsServiceImpl implements PumpingBreastsService {
   @Override
   @Transactional
   public void updatePumpingBreast(MealPutDto mealPutDto) {
-    PumpingBreast pumpingBreast = findPumpingBreastById(mealPutDto.getId());
+    PumpingBreast pumpingBreast = pumpingBreastsRepository.findById(mealPutDto.getId()).orElseThrow();
 
     pumpingBreast.updatePumpingBreast(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
   }
@@ -60,7 +69,7 @@ public class PumpingBreastsServiceImpl implements PumpingBreastsService {
   @Override
   @Transactional
   public void deletePumpingBreastById(Long id) {
-    PumpingBreast pumpingBreast = findPumpingBreastById(id);
+    PumpingBreast pumpingBreast = pumpingBreastsRepository.findById(id).orElseThrow();
 
     pumpingBreastsRepository.delete(pumpingBreast);
   }

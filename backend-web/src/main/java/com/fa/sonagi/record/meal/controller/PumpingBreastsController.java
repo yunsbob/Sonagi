@@ -1,8 +1,10 @@
 package com.fa.sonagi.record.meal.controller;
 
+import com.fa.sonagi.record.meal.dto.MealResDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,6 +25,15 @@ import lombok.RequiredArgsConstructor;
 public class PumpingBreastsController {
 
   private final PumpingBreastsService pumpingBreastsService;
+
+  /**
+   * 유축 기록 조회
+   */
+  @GetMapping("{pumpingBreastId}")
+  public ResponseEntity<?> getPumpingBreast(@PathVariable Long pumpingBreastId) {
+    MealResDto mealResDto = pumpingBreastsService.findPumpingBreastById(pumpingBreastId);
+    return ResponseEntity.ok().body(mealResDto);
+  }
 
   /**
    * 유축 기록 등록
