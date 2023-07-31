@@ -1,5 +1,4 @@
-// import { DefaultTheme } from 'styled-components';
-// import { 타입명 } from '../types';
+import { DefaultTheme } from 'styled-components';
 
 const color = {
   // text color
@@ -16,6 +15,9 @@ const color = {
   mainblue: '#38A1ED',
   orange: '#ff8d24',
 
+  // light grey for others
+  lightgrey: '#F5F5F5',
+
   // button color
   skyblue: '#8cc8ff',
   blue: '#0094ff',
@@ -29,7 +31,7 @@ const color = {
   categoryPumpingBreast: '#ffe76c',
   categorySleep: '#6CB8FF',
   categoryHealth: '#33e16f',
-  categoryActivitie: '#e26cff',
+  categoryActivity: '#e26cff',
   categoryExtra: '#757D8A',
 
   // 기록 block color
@@ -37,7 +39,7 @@ const color = {
   blockDiaper: '#F8CFB6',
   blockPumpingBreast: '#F8F2BF',
   blockSleep: '#CAD5F7',
-  blockActivite: '#EFC9EC',
+  blockActivity: '#EFC9EC',
   blockHealth: '#C8E8B9',
   blockExtra: '#D1D7E1',
 
@@ -86,11 +88,51 @@ const color = {
   cardSleep1: '#6CB8FF',
   cardSleep2: '#A0D8F8',
 
-  cardPlay1: '#DABBFA',
-  cardPlay2: '#EDCCF6',
+  cardActivity1: '#DABBFA',
+  cardActivity2: '#EDCCF6',
 
   cardPumpingBreast1: '#FFD056',
   cardPumpingBreast2: '#FFE6A6',
 
   cardExtra: '#BDBDBD',
+} as const;
+
+const fontSize = {
+  headXLarge: '40px',
+  headLarge: '30px',
+  headMedium: '25px',
+  headSmall: '18px',
+  large: '20px',
+  medium1: '16px',
+  medium2: '15px',
+  medium3: '13px',
+  small: '11px',
+  xSmall: '8px',
+} as const;
+
+const letterSpacing = {
+  narrow: '-2.4px',
+  spread: '0.4px',
+} as const;
+
+const shadow = {
+  // shadow
+  shadow1: '0px 8px 21px 0px rgba(0, 0, 0, 0.16)', //buttons에 추가되는 기본 shadow
 };
+
+const gradient = {
+  // linear gradient
+  orangeBtn:
+    'linear-gradient(134deg, rgba(255, 234, 123, 0.80) 0%, rgba(255, 141, 36, 0.80) 100%)',
+  skyblueBtn: 'linear-gradient(134deg, #CAE3FF 0%, #38A1ED 100%)',
+};
+
+const theme: DefaultTheme = {
+  color,
+  fontSize,
+  letterSpacing,
+  shadow,
+  gradient,
+};
+
+export default theme;
