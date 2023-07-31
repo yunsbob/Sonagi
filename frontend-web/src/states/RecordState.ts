@@ -1,36 +1,41 @@
 import { Category } from '@/states/CategoryState';
 
-type RecordType = string;
+type Record = {
+  type: string;
+  category: Category;
+};
+
+export const records: Record[] = [
+  { type: '수유', category: 'Meal' },
+  { type: '분유', category: 'Meal' },
+  { type: '소변', category: 'Diaper' },
+  { type: '대변', category: 'Diaper' },
+  { type: '수면', category: 'Sleep' },
+  { type: '유축', category: 'Pump' },
+  { type: '유축 수유', category: 'Meal' },
+  { type: '이유식', category: 'Meal' },
+  { type: '체온', category: 'Health' },
+  { type: '병원', category: 'Health' },
+  { type: '투약', category: 'Health' },
+  { type: '간식', category: 'Meal' },
+  { type: '우유', category: 'Meal' },
+  { type: '놀이', category: 'Activity' },
+  { type: '터미 타임', category: 'Activity' },
+  { type: '기타', category: 'Extra' },
+];
 
 // 카테고리별 기록 종류 커스텀 타입
 type RecordsByCategory = {
-  [key in Category]?: RecordType[];
+  [key in Category]?: Record[];
 };
 
 export const recordsByCategory: RecordsByCategory = {
-  All: [
-    '수유',
-    '분유',
-    '수면',
-    '소변',
-    '대변',
-    '유축',
-    '유축 수유',
-    '이유식',
-    '체온',
-    '병원',
-    '투약',
-    '간식',
-    '우유',
-    '놀이',
-    '터미 타임',
-    '기타',
-  ],
-  Meal: ['수유', '분유', '유축 수유', '이유식', '간식', '우유'],
-  Diaper: ['소변', '대변'],
-  Sleep: ['수면'],
-  Pump: ['유축 수유'],
-  Activity: ['놀이', '터미 타임'],
-  Health: ['체온', '병원', '투약'],
-  Extra: ['기타'],
+  All: records,
+  Meal: records.filter(record => record.category === 'Meal'),
+  Diaper: records.filter(record => record.category === 'Diaper'),
+  Sleep: records.filter(record => record.category === 'Sleep'),
+  Pump: records.filter(record => record.category === 'Pump'),
+  Activity: records.filter(record => record.category === 'Activity'),
+  Health: records.filter(record => record.category === 'Health'),
+  Extra: records.filter(record => record.category === 'Extra'),
 };
