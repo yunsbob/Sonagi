@@ -4,28 +4,28 @@ spring:
       client:
         registration:
           google:
-            client-id: "548066337721-rrr2sqadhaci94lbmsc5v171mme3pa8f.apps.googleusercontent.com"
-            client-secret: "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"
-            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+            client-id: 548066337721-rrr2sqadhaci94lbmsc5v171mme3pa8f.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://localhost:8080/api/login/oauth2/code/google
             scope: email
           naver:
-            client-id: "GU8vMgpmm9GZ4AksoXdC"
+            client-id: GU8vMgpmm9GZ4AksoXdC
             client-secret: "mYeGMkaCo1"
-            redirect-uri: "{baseUrl}/login/oauth2/code/naver"
+            redirect-uri: http://localhost:8080/api/login/oauth2/code/naver
             authorization-grant-type: authorization_code
             scope:
               - name
               - email
             client-name: Naver
           kakao:
-            client-id: "2677b72de7f0b9747b04f0d8bf994b94"
-            client-secret: "FfAEmj03tAS25ETn4mnvDBrSYFWwV4WH"
+            client-id: 2677b72de7f0b9747b04f0d8bf994b94
+            client-secret: FfAEmj03tAS25ETn4mnvDBrSYFWwV4WH
             scope:
               - profile_nickname
               - account_email
             client-name: Kakao
             authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/login/oauth2/code/kakao"
+            redirect-uri: http://localhost:8080/api/login/oauth2/code/kakao
             client-authentication-method: POST
 
         provider:
@@ -55,37 +55,27 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-        format_sql: true
-        show_sql: true
-
+      ddl-auto: create
+    show-sql: true
 
 logging:
   level:
     org:
-#      hibernate: info
+      hibernate: info
 
 # front - redirect uri
 app:
   oauth2:
-    authorizedRedirectUris: http://localhost:3000/oauth/redirect
+    authorizedRedirectUris: https://sonagi.site/oauth/redirect
 
 jwt:
   key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
-
-#server:
-#  ssl:
-#    key-store: classpath:keystore.p12
-#    key-store-password: ssafy
-#    key-store-type: PKCS12
 
 # S3 setting
 cloud:
   aws:
     s3:
-      bucket: ssafyB207
+      bucket: ssafy601
     region:
       static: ap-northeast-2 #Asia Pacific -> seoul
     stack:
@@ -93,3 +83,9 @@ cloud:
     credentials:
       access-key: AKIA4KMX2KNB3Q5COKEX
       secret-key: 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
+
+#server:
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: ssafy
+#    key-store-type: PKCS12

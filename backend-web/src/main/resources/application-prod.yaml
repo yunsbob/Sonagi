@@ -4,28 +4,28 @@ spring:
       client:
         registration:
           google:
-            client-id: "548066337721-rrr2sqadhaci94lbmsc5v171mme3pa8f.apps.googleusercontent.com"
-            client-secret: "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"
-            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+            client-id: 548066337721-rrr2sqadhaci94lbmsc5v171mme3pa8f.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://localhost:8080/api/login/oauth2/code/google
             scope: email
           naver:
-            client-id: "GU8vMgpmm9GZ4AksoXdC"
+            client-id: GU8vMgpmm9GZ4AksoXdC
             client-secret: "mYeGMkaCo1"
-            redirect-uri: "{baseUrl}/login/oauth2/code/naver"
+            redirect-uri: http://localhost:8080/api/login/oauth2/code/naver
             authorization-grant-type: authorization_code
             scope:
               - name
               - email
             client-name: Naver
           kakao:
-            client-id: "2677b72de7f0b9747b04f0d8bf994b94"
-            client-secret: "FfAEmj03tAS25ETn4mnvDBrSYFWwV4WH"
+            client-id: 2677b72de7f0b9747b04f0d8bf994b94
+            client-secret: FfAEmj03tAS25ETn4mnvDBrSYFWwV4WH
             scope:
               - profile_nickname
               - account_email
             client-name: Kakao
             authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/login/oauth2/code/kakao"
+            redirect-uri: http://localhost:8080/api/login/oauth2/code/kakao
             client-authentication-method: POST
 
         provider:
@@ -55,7 +55,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
 
 logging:
@@ -72,20 +72,20 @@ jwt:
   key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
 
 # S3 setting
-# cloud:
-#  aws:
-#    s3:
-#      bucket: ssafy601
-#    region:
-#      static: ap-northeast-2 #Asia Pacific -> seoul
-#    stack:
-#      auto: false
-#    credentials:
-#      access-key: AKIA4KMX2KNB3Q5COKEX
-#      secret-key: 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
+cloud:
+  aws:
+    s3:
+      bucket: ssafy601
+    region:
+      static: ap-northeast-2 #Asia Pacific -> seoul
+    stack:
+      auto: false
+    credentials:
+      access-key: AKIA4KMX2KNB3Q5COKEX
+      secret-key: 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
 
-#server:
-#  ssl:
-#    key-store: classpath:keystore.p12
-#    key-store-password: ssafy
-#    key-store-type: PKCS12
+server:
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: ssafy
+    key-store-type: PKCS12
