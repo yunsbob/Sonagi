@@ -24,13 +24,17 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-
-	//dev tool
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
+	testImplementation 'org.projectlombok:lombok:1.18.22'
 	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+	// test
+	runtimeOnly 'com.h2database:h2'
+	testImplementation 'org.assertj:assertj-core:3.20.2'
 
 	// AWS S3
 	implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.12.385'
@@ -64,12 +68,6 @@ dependencies {
 
 	// OAUth2
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-
-	// test
-	runtimeOnly 'com.h2database:h2'
-	testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
-	testImplementation "org.assertj:assertj-core:3.20.2"
-	implementation 'com.google.code.gson:gson:2.9.0'
 }
 
 tasks.named('test') {
