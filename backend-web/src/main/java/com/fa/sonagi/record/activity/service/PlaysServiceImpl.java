@@ -1,12 +1,14 @@
 package com.fa.sonagi.record.activity.service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.fa.sonagi.record.activity.dto.ActivityPostDto;
 import com.fa.sonagi.record.activity.dto.ActivityPutDto;
 import com.fa.sonagi.record.activity.entity.Plays;
 import com.fa.sonagi.record.activity.repository.PlaysRepository;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
@@ -15,11 +17,17 @@ public class PlaysServiceImpl implements PlaysServeice {
 
   private final PlaysRepository playsRepository;
 
+  /**
+   * 놀이 기록 아이디로 조회
+   */
   @Override
   public Plays findPlaysById(Long id) {
     return playsRepository.findById(id).orElseThrow();
   }
 
+  /**
+   * 놀이 기록 등록
+   */
   @Override
   @Transactional
   public void registPlays(ActivityPostDto activityPostDto) {
@@ -35,6 +43,9 @@ public class PlaysServiceImpl implements PlaysServeice {
     playsRepository.save(plays);
   }
 
+  /**
+   * 놀이 기록 수정
+   */
   @Override
   @Transactional
   public void updatePlays(ActivityPutDto activityPutDto) {
@@ -43,6 +54,9 @@ public class PlaysServiceImpl implements PlaysServeice {
         activityPutDto.getMemo());
   }
 
+  /**
+   * 놀이 기록 삭제
+   */
   @Override
   @Transactional
   public void deletePlays(Long id) {

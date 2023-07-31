@@ -1,13 +1,28 @@
 package com.fa.sonagi.record.diaper.entity;
 
-import jakarta.persistence.*;
 import java.sql.Time;
 import java.time.LocalDate;
-import lombok.*;
+
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @Builder
+@DynamicInsert
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "pee",
@@ -17,22 +32,28 @@ public class Pees {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "pee_id")
+  @Column(name = "pee_id", nullable = false)
+  @NotNull
   private Long id;
 
-  @Column(name = "baby_id")
+  @Column(name = "baby_id", nullable = false)
+  @NotNull
   private Long babyId;
 
-  @Column(name = "user_id")
+  @Column(name = "user_id", nullable = false)
+  @NotNull
   private Long userId;
 
-  @Column(name = "created_time")
+  @Column(name = "created_time", nullable = false)
+  @NotNull
   private Time createdTime;
 
-  @Column(name = "created_date")
+  @Column(name = "created_date", nullable = false)
+  @NotNull
   private LocalDate createdDate;
 
-  @Column(name = "memo")
+  @Column(name = "memo", length = 100)
+  @ColumnDefault(" ")
   private String memo;
 
   public void updatePees(Time createdTime, String memo) {

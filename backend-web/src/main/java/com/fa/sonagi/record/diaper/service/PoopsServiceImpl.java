@@ -1,14 +1,14 @@
 package com.fa.sonagi.record.diaper.service;
 
-import com.fa.sonagi.baby.entity.Baby;
-import com.fa.sonagi.baby.repository.BabyRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
 import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
 import com.fa.sonagi.record.diaper.entity.Poops;
 import com.fa.sonagi.record.diaper.repository.PoopsRepository;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
@@ -17,11 +17,17 @@ public class PoopsServiceImpl implements PoopsService {
 
   private final PoopsRepository poopsRepository;
 
+  /**
+   * 대변 기록 아이디로 조회
+   */
   @Override
   public Poops findPoopsById(Long id) {
     return poopsRepository.findById(id).orElseThrow();
   }
 
+  /**
+   * 대변 기록 등록
+   */
   @Override
   @Transactional
   public void registPoops(DiaperPostDto diaperPostDto) {
@@ -36,6 +42,9 @@ public class PoopsServiceImpl implements PoopsService {
     poopsRepository.save(poops);
   }
 
+  /**
+   * 대변 기록 수정
+   */
   @Override
   @Transactional
   public void updatePoops(DiaperPutDto diaperPutDto) {
@@ -44,6 +53,9 @@ public class PoopsServiceImpl implements PoopsService {
     poops.updatePoops(diaperPutDto.getCreatedTime(), diaperPutDto.getMemo());
   }
 
+  /**
+   * 대변 기록 삭제
+   */
   @Override
   @Transactional
   public void deletePoopsById(Long id) {

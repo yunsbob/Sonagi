@@ -1,12 +1,14 @@
 package com.fa.sonagi.record.health.service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.fa.sonagi.record.health.dto.FeversPostDto;
 import com.fa.sonagi.record.health.dto.FeversPutDto;
 import com.fa.sonagi.record.health.entity.Fevers;
 import com.fa.sonagi.record.health.repository.FeversRepository;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
@@ -15,11 +17,17 @@ public class FeversServiceImpl implements FeversService {
 
   private final FeversRepository feversRepository;
 
+  /**
+   * 체온 기록 아이디로 조회
+   */
   @Override
   public Fevers findFeversById(Long id) {
     return feversRepository.findById(id).orElseThrow();
   }
 
+  /**
+   * 체온 기록 등록
+   */
   @Override
   @Transactional
   public void registFevers(FeversPostDto feversPostDto) {
@@ -35,6 +43,9 @@ public class FeversServiceImpl implements FeversService {
     feversRepository.save(fevers);
   }
 
+  /**
+   * 체온 기록 수정
+   */
   @Override
   @Transactional
   public void updateFevers(FeversPutDto feversPutDto) {
@@ -43,6 +54,9 @@ public class FeversServiceImpl implements FeversService {
         feversPutDto.getMemo());
   }
 
+  /**
+   * 체온 기록 삭제
+   */
   @Override
   @Transactional
   public void deleteFeversById(Long id) {
