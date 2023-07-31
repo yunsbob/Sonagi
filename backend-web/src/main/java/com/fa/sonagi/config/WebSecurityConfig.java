@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -25,7 +26,6 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisTemplate<String, String> redisTemplate;
 	private final CustomOAuth2UserService customOAuth2UserService;
@@ -43,17 +43,17 @@ public class WebSecurityConfig {
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 사용 X
 			.and()
 			.authorizeHttpRequests()
-			.requestMatchers("/login/**").permitAll()
-			.requestMatchers("/**").hasAnyRole("USER", "ADMIN");
+			.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+			.requestMatchers(new AntPathRequestMatcher("/**")).hasAnyRole("USER", "ADMIN");
 
 		httpSecurity
 			.oauth2Login()
 			.authorizationEndpoint()
-			.baseUri("/oauth2/authorization") // 인가 요청을 해야하는 인가 요청url의 앞부분
+			.baseUri("/api/oauth2/authorization") // 인가 요청을 해야하는 인가 요청url의 앞부분
 			.authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
 			.and()
 			.redirectionEndpoint()
-			.baseUri("/*/oauth2/code/*") // 인가요청이의 응답으로 인가코드를 보내오는 어플리케이션 등록시의 redirect uri
+			.baseUri("/api/login/oauth2/code/*") // 인가요청이의 응답으로 인가코드를 보내오는 어플리케이션 등록시의 redirect uri
 			.and()
 			.userInfoEndpoint()
 			.userService(customOAuth2UserService)
