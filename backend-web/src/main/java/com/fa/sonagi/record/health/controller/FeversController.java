@@ -3,6 +3,7 @@ package com.fa.sonagi.record.health.controller;
 import com.fa.sonagi.record.health.dto.FeversPostDto;
 import com.fa.sonagi.record.health.dto.FeversPutDto;
 import com.fa.sonagi.record.health.service.FeversService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Fever", description = "체온 API")
 @RequestMapping("/api/fevers")
 @RestController
 @RequiredArgsConstructor

@@ -3,6 +3,7 @@ package com.fa.sonagi.record.meal.controller;
 import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.service.BabyFoodsService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "BabyFood", description = "이유식 API")
 @RequestMapping("/api/babyFoods")
 @RestController
 @RequiredArgsConstructor
