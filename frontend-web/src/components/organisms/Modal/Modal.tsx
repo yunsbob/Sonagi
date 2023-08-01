@@ -4,23 +4,28 @@ import ModalPortal from '@/components/organisms/ModalPortal/ModalPortal';
 
 interface ModalProps extends S.ModalStyleProps {
   children: ReactNode;
+  onClose?: () => void;
 }
 
 const Modal = ({
-  width,
+  width = 21,
   height,
-  borderRadius = 16,
+  $borderRadius = 16,
   unit = 'rem',
+  onClose,
   children,
 }: ModalProps) => {
   return (
     <ModalPortal>
-      <S.ModalBackground>
+      <S.ModalBackground onClick={onClose}>
         <S.ModalContainer
           width={width}
           height={height}
-          borderRadius={borderRadius}
+          $borderRadius={$borderRadius}
           unit={unit}
+          onClick={(e: any) => {
+            e.stopPropagation();
+          }}
         >
           {children}
         </S.ModalContainer>
