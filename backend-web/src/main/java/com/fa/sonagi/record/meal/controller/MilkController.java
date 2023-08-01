@@ -14,51 +14,51 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.dto.MealResDto;
-import com.fa.sonagi.record.meal.service.InfantFormulasService;
+import com.fa.sonagi.record.meal.service.MilkService;
 
 import lombok.RequiredArgsConstructor;
 
-@Tag(name = "InfantFormula", description = "분유 API")
-@RequestMapping("/api/infantFormulas")
+@Tag(name = "Milk", description = "우유 API")
+@RequestMapping("/api/milks")
 @RestController
 @RequiredArgsConstructor
-public class InfantFormulasController {
+public class MilkController {
 
-  private final InfantFormulasService infantFormulasService;
+  private final MilkService milkService;
 
   /**
-   * 분유 기록 조회
+   * 우유 기록 조회
    */
-  @GetMapping("/{infantFormulaId}")
-  public ResponseEntity<?> getInfantFormula(@PathVariable Long infantFormulaId) {
-    MealResDto mealResDto = infantFormulasService.findInfantFormulaById(infantFormulaId);
+  @GetMapping("/{milkId}")
+  public ResponseEntity<?> getMilk(@PathVariable Long milkId) {
+    MealResDto mealResDto = milkService.findMilkById(milkId);
     return ResponseEntity.ok().body(mealResDto);
   }
 
   /**
-   * 분유 기록 등록
+   * 우유 기록 등록
    */
   @PostMapping
-  public ResponseEntity<?> registPumpingBreast(@RequestBody MealPostDto mealPostDto) {
-    infantFormulasService.registInfantFormula(mealPostDto);
+  public ResponseEntity<?> registBabyFood(@RequestBody MealPostDto mealPostDto) {
+    milkService.registMilk(mealPostDto);
     return ResponseEntity.ok().build();
   }
 
   /**
-   * 분유 기록 수정
+   * 우유 기록 수정
    */
   @PutMapping
-  public ResponseEntity<?> updatePumpingBreast(@RequestBody MealPutDto mealPutDto) {
-    infantFormulasService.updateInfantFormula(mealPutDto);
+  public ResponseEntity<?> updateBabyFood(@RequestBody MealPutDto mealPutDto) {
+    milkService.updateMilk(mealPutDto);
     return ResponseEntity.ok().build();
   }
 
   /**
-   * 분유 기록 삭제
+   * 우유 기록 삭제
    */
-  @DeleteMapping("/{infantFormulaId}")
-  public ResponseEntity<?> deletePumpingBreast(@PathVariable Long infantFormulaId) {
-    infantFormulasService.deleteInfantFormulaById(infantFormulaId);
+  @DeleteMapping("/{milkId}")
+  public ResponseEntity<?> deleteBabyFood(@PathVariable Long milkId) {
+    milkService.deleteMilkById(milkId);
     return ResponseEntity.ok().build();
   }
 }

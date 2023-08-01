@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class SnackResDto {
+  private Long id;
   private String memo;
   private Time createdTime;
 }

@@ -4,7 +4,7 @@ import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.dto.MealResDto;
 
-public interface MilksService {
+public interface MilkService {
   MealResDto findMilkById(Long id);
 
   void registMilk(MealPostDto mealPostDto);

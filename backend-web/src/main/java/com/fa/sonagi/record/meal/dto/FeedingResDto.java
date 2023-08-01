@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class FeedingResDto {
+	private Long id;
 	private Time leftStartTime;
 	private Time rightStartTime;
 	private Time leftEndTime;

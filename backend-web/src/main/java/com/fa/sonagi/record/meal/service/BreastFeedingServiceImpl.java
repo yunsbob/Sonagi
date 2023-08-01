@@ -4,7 +4,7 @@ import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.dto.MealResDto;
 import com.fa.sonagi.record.meal.entity.BreastFeeding;
-import com.fa.sonagi.record.meal.repository.BreastFeedingsRepository;
+import com.fa.sonagi.record.meal.repository.BreastFeedingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,18 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class BreastFeedingsServiceImpl implements BreastFeedingsService {
+public class BreastFeedingServiceImpl implements BreastFeedingService {
 
-  private final BreastFeedingsRepository breastFeedingsRepository;
+  private final BreastFeedingRepository breastFeedingRepository;
 
   /**
    * 유축 수유 기록 아이디로 조회
    */
   @Override
   public MealResDto findBreastFeedingById(Long id) {
-    BreastFeeding breastFeeding = breastFeedingsRepository.findById(id).orElseThrow();
+    BreastFeeding breastFeeding = breastFeedingRepository.findById(id).orElseThrow();
 
     MealResDto mealResDto = MealResDto.builder()
+        .id(breastFeeding.getId())
         .amount(breastFeeding.getAmount())
         .memo(breastFeeding.getMemo())
         .createdTime(breastFeeding.getCreatedTime())
@@ -47,7 +48,7 @@ public class BreastFeedingsServiceImpl implements BreastFeedingsService {
         .memo(mealPostDto.getMemo())
         .build();
 
-    breastFeedingsRepository.save(breastFeeding);
+    breastFeedingRepository.save(breastFeeding);
   }
 
   /**
@@ -56,7 +57,7 @@ public class BreastFeedingsServiceImpl implements BreastFeedingsService {
   @Override
   @Transactional
   public void updateBreastFeeding(MealPutDto mealPutDto) {
-    BreastFeeding breastFeeding = breastFeedingsRepository.findById(mealPutDto.getId()).orElseThrow();
+    BreastFeeding breastFeeding = breastFeedingRepository.findById(mealPutDto.getId()).orElseThrow();
 
     breastFeeding.updateBreastFeeding(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
   }
@@ -67,8 +68,8 @@ public class BreastFeedingsServiceImpl implements BreastFeedingsService {
   @Override
   @Transactional
   public void deleteBreastFeedingById(Long id) {
-    BreastFeeding breastFeeding = breastFeedingsRepository.findById(id).orElseThrow();
+    BreastFeeding breastFeeding = breastFeedingRepository.findById(id).orElseThrow();
 
-    breastFeedingsRepository.delete(breastFeeding);
+    breastFeedingRepository.delete(breastFeeding);
   }
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fa.sonagi.record.meal.dto.FeedingPostDto;
 import com.fa.sonagi.record.meal.dto.FeedingPutDto;
 import com.fa.sonagi.record.meal.dto.FeedingResDto;
-import com.fa.sonagi.record.meal.service.FeedingsService;
+import com.fa.sonagi.record.meal.service.FeedingService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,16 +22,16 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/feedings")
 @RestController
 @RequiredArgsConstructor
-public class FeedingsController {
+public class FeedingController {
 
-  private final FeedingsService feedingsService;
+  private final FeedingService feedingService;
 
   /**
    * 수유 기록 조회
    */
   @GetMapping("/{feedingId}")
   public ResponseEntity<?> getFeeding(@PathVariable Long feedingId) {
-    FeedingResDto feedingResDto = feedingsService.findFeedingById(feedingId);
+    FeedingResDto feedingResDto = feedingService.findFeedingById(feedingId);
     return ResponseEntity.ok().body(feedingResDto);
   }
 
@@ -40,7 +40,7 @@ public class FeedingsController {
    */
   @PostMapping
   public ResponseEntity<?> registBreastFeeding(@RequestBody FeedingPostDto feedingPostDto) {
-    feedingsService.registFeeding(feedingPostDto);
+    feedingService.registFeeding(feedingPostDto);
     return ResponseEntity.ok().build();
   }
 
@@ -49,7 +49,7 @@ public class FeedingsController {
    */
   @PutMapping
   public ResponseEntity<?> updateFeeding(@RequestBody FeedingPutDto feedingPutDto) {
-    feedingsService.updateFeeding(feedingPutDto);
+    feedingService.updateFeeding(feedingPutDto);
     return ResponseEntity.ok().build();
   }
 
@@ -58,7 +58,7 @@ public class FeedingsController {
    */
   @DeleteMapping("/{feedingId}")
   public ResponseEntity<?> deleteBreastFeeding(@PathVariable Long feedingId) {
-    feedingsService.deleteFeedingById(feedingId);
+    feedingService.deleteFeedingById(feedingId);
     return ResponseEntity.ok().build();
   }
 }

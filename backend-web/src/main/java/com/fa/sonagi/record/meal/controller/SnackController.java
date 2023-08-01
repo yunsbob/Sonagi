@@ -11,12 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fa.sonagi.record.meal.dto.MealPostDto;
-import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.dto.SnackPostDto;
 import com.fa.sonagi.record.meal.dto.SnackPutDto;
 import com.fa.sonagi.record.meal.dto.SnackResDto;
-import com.fa.sonagi.record.meal.service.SnacksService;
+import com.fa.sonagi.record.meal.service.SnackService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,16 +22,16 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/snacks")
 @RestController
 @RequiredArgsConstructor
-public class SnacksController {
+public class SnackController {
 
-  private final SnacksService snacksService;
+  private final SnackService snackService;
 
   /**
    * 간식 기록 조회
    */
   @GetMapping("/{snackId}")
   public ResponseEntity<?> getSnack(@PathVariable Long snackId) {
-    SnackResDto snackResDto = snacksService.findSnackById(snackId);
+    SnackResDto snackResDto = snackService.findSnackById(snackId);
     return ResponseEntity.ok().body(snackResDto);
   }
 
@@ -42,7 +40,7 @@ public class SnacksController {
    */
   @PostMapping
   public ResponseEntity<?> registSnack(@RequestBody SnackPostDto snackPostDto) {
-    snacksService.registSnack(snackPostDto);
+    snackService.registSnack(snackPostDto);
     return ResponseEntity.ok().build();
   }
 
@@ -51,7 +49,7 @@ public class SnacksController {
    */
   @PutMapping
   public ResponseEntity<?> updateSnack(@RequestBody SnackPutDto snackPutDto) {
-    snacksService.updateSnack(snackPutDto);
+    snackService.updateSnack(snackPutDto);
     return ResponseEntity.ok().build();
   }
 
@@ -60,7 +58,7 @@ public class SnacksController {
    */
   @DeleteMapping("/{snackId}")
   public ResponseEntity<?> deleteBabyFood(@PathVariable Long snackId) {
-    snacksService.deleteSnackById(snackId);
+    snackService.deleteSnackById(snackId);
     return ResponseEntity.ok().build();
   }
 }

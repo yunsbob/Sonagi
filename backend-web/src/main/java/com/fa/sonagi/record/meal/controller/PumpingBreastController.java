@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
-import com.fa.sonagi.record.meal.service.PumpingBreastsService;
+import com.fa.sonagi.record.meal.service.PumpingBreastService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,16 +22,16 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/pumpingBreasts")
 @RestController
 @RequiredArgsConstructor
-public class PumpingBreastsController {
+public class PumpingBreastController {
 
-  private final PumpingBreastsService pumpingBreastsService;
+  private final PumpingBreastService pumpingBreastService;
 
   /**
    * 유축 기록 조회
    */
   @GetMapping("{pumpingBreastId}")
   public ResponseEntity<?> getPumpingBreast(@PathVariable Long pumpingBreastId) {
-    MealResDto mealResDto = pumpingBreastsService.findPumpingBreastById(pumpingBreastId);
+    MealResDto mealResDto = pumpingBreastService.findPumpingBreastById(pumpingBreastId);
     return ResponseEntity.ok().body(mealResDto);
   }
 
@@ -40,7 +40,7 @@ public class PumpingBreastsController {
    */
   @PostMapping
   public ResponseEntity<?> registPumpingBreast(@RequestBody MealPostDto mealPostDto) {
-    pumpingBreastsService.registPumpingBreast(mealPostDto);
+    pumpingBreastService.registPumpingBreast(mealPostDto);
     return ResponseEntity.ok().build();
   }
 
@@ -49,7 +49,7 @@ public class PumpingBreastsController {
    */
   @PutMapping
   public ResponseEntity<?> updatePumpingBreast(@RequestBody MealPutDto mealPutDto) {
-    pumpingBreastsService.updatePumpingBreast(mealPutDto);
+    pumpingBreastService.updatePumpingBreast(mealPutDto);
     return ResponseEntity.ok().build();
   }
 
@@ -58,7 +58,7 @@ public class PumpingBreastsController {
    */
   @DeleteMapping("/{pumpingBreastId}")
   public ResponseEntity<?> deletePumpingBreast(@PathVariable Long pumpingBreastId) {
-    pumpingBreastsService.deletePumpingBreastById(pumpingBreastId);
+    pumpingBreastService.deletePumpingBreastById(pumpingBreastId);
     return ResponseEntity.ok().build();
   }
 }

@@ -4,7 +4,7 @@ import com.fa.sonagi.record.meal.dto.SnackPostDto;
 import com.fa.sonagi.record.meal.dto.SnackPutDto;
 import com.fa.sonagi.record.meal.dto.SnackResDto;
 
-public interface SnacksService {
+public interface SnackService {
   SnackResDto findSnackById(Long id);
 
   void registSnack(SnackPostDto snackPostDto);

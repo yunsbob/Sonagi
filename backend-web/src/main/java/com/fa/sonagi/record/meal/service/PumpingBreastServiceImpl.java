@@ -7,25 +7,26 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.entity.PumpingBreast;
-import com.fa.sonagi.record.meal.repository.PumpingBreastsRepository;
+import com.fa.sonagi.record.meal.repository.PumpingBreastRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class PumpingBreastsServiceImpl implements PumpingBreastsService {
+public class PumpingBreastServiceImpl implements PumpingBreastService {
 
-  private final PumpingBreastsRepository pumpingBreastsRepository;
+  private final PumpingBreastRepository pumpingBreastRepository;
 
   /**
    * 유축 기록 아이디로 조회
    */
   @Override
   public MealResDto findPumpingBreastById(Long id) {
-    PumpingBreast pumpingBreast = pumpingBreastsRepository.findById(id).orElseThrow();
+    PumpingBreast pumpingBreast = pumpingBreastRepository.findById(id).orElseThrow();
 
     MealResDto mealResDto = MealResDto.builder()
+        .id(pumpingBreast.getId())
         .amount(pumpingBreast.getAmount())
         .memo(pumpingBreast.getMemo())
         .createdTime(pumpingBreast.getCreatedTime())
@@ -49,7 +50,7 @@ public class PumpingBreastsServiceImpl implements PumpingBreastsService {
         .memo(mealPostDto.getMemo())
         .build();
 
-    pumpingBreastsRepository.save(pumpingBreast);
+    pumpingBreastRepository.save(pumpingBreast);
   }
 
   /**
@@ -58,7 +59,7 @@ public class PumpingBreastsServiceImpl implements PumpingBreastsService {
   @Override
   @Transactional
   public void updatePumpingBreast(MealPutDto mealPutDto) {
-    PumpingBreast pumpingBreast = pumpingBreastsRepository.findById(mealPutDto.getId()).orElseThrow();
+    PumpingBreast pumpingBreast = pumpingBreastRepository.findById(mealPutDto.getId()).orElseThrow();
 
     pumpingBreast.updatePumpingBreast(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
   }
@@ -69,8 +70,8 @@ public class PumpingBreastsServiceImpl implements PumpingBreastsService {
   @Override
   @Transactional
   public void deletePumpingBreastById(Long id) {
-    PumpingBreast pumpingBreast = pumpingBreastsRepository.findById(id).orElseThrow();
+    PumpingBreast pumpingBreast = pumpingBreastRepository.findById(id).orElseThrow();
 
-    pumpingBreastsRepository.delete(pumpingBreast);
+    pumpingBreastRepository.delete(pumpingBreast);
   }
 }

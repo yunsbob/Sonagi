@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class MealResDto {
+	private Long id;
 	private Long amount;
 	private String memo;
 	private Time createdTime;

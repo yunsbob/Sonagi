@@ -4,7 +4,7 @@ import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.dto.MealResDto;
 import com.fa.sonagi.record.meal.entity.BabyFood;
-import com.fa.sonagi.record.meal.repository.BabyFoodsRepository;
+import com.fa.sonagi.record.meal.repository.BabyFoodRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,18 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class BabyFoodsServiceImpl implements BabyFoodsService {
+public class BabyFoodServiceImpl implements BabyFoodService {
 
-  private final BabyFoodsRepository babyFoodsRepository;
+  private final BabyFoodRepository babyFoodRepository;
 
   /**
    * 이유식 기록 아이디로 조회
    */
   @Override
   public MealResDto findBabyFoodById(Long id) {
-    BabyFood babyFood = babyFoodsRepository.findById(id).orElseThrow();
+    BabyFood babyFood = babyFoodRepository.findById(id).orElseThrow();
 
     MealResDto mealResDto = MealResDto.builder()
+        .id(babyFood.getId())
         .amount(babyFood.getAmount())
         .memo(babyFood.getMemo())
         .createdTime(babyFood.getCreatedTime())
@@ -47,7 +48,7 @@ public class BabyFoodsServiceImpl implements BabyFoodsService {
         .memo(mealPostDto.getMemo())
         .build();
 
-    babyFoodsRepository.save(babyFood);
+    babyFoodRepository.save(babyFood);
   }
 
   /**
@@ -56,7 +57,7 @@ public class BabyFoodsServiceImpl implements BabyFoodsService {
   @Override
   @Transactional
   public void updateBabyFood(MealPutDto mealPutDto) {
-    BabyFood babyFood = babyFoodsRepository.findById(mealPutDto.getId()).orElseThrow();
+    BabyFood babyFood = babyFoodRepository.findById(mealPutDto.getId()).orElseThrow();
 
     babyFood.updateBabyFood(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
   }
@@ -67,8 +68,8 @@ public class BabyFoodsServiceImpl implements BabyFoodsService {
   @Override
   @Transactional
   public void deleteBabyFoodById(Long id) {
-    BabyFood babyFood = babyFoodsRepository.findById(id).orElseThrow();
+    BabyFood babyFood = babyFoodRepository.findById(id).orElseThrow();
 
-    babyFoodsRepository.delete(babyFood);
+    babyFoodRepository.delete(babyFood);
   }
 }
