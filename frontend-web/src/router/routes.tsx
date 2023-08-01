@@ -32,6 +32,10 @@ const router = createBrowserRouter([
     element: <SignInPage />,
   },
   {
+    path: PATH.REGISTER,
+    element: <RegisterPage />,
+  },
+  {
     path: PATH.REGISTERBABYPROFILE,
     element: <RegisterBabyProfilePage />,
   },
@@ -43,7 +47,7 @@ const router = createBrowserRouter([
     path: PATH.MAIN,
     element: <MainPage />,
     children: [
-      { index: true, element: <RecordContainerF /> },
+      { index: true, element: <RecordContainer /> },
       { path: 'graph', element: <GraphPage /> },
       { path: 'ourBaby', element: <OurBabyPage /> },
       { path: 'diary', element: <DiaryPage /> },
