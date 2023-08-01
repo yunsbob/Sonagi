@@ -26,6 +26,7 @@ public class MedicationServiceImpl implements MedicationService {
     Medication medication = medicationRepository.findById(id).orElseThrow();
 
     HealthResDto healthResDto = HealthResDto.builder()
+        .id(medication.getId())
         .createdTime(medication.getCreatedTime())
         .memo(medication.getMemo())
         .build();
@@ -57,7 +58,7 @@ public class MedicationServiceImpl implements MedicationService {
   @Transactional
   public void updateMedication(HealthPutDto healthPutDto) {
     Medication medication = medicationRepository.findById(healthPutDto.getId()).orElseThrow();
-    medication.updateMedication(healthPutDto.getCreatedTime(), medication.getMemo());
+    medication.updateMedication(healthPutDto.getCreatedTime(), healthPutDto.getMemo());
   }
 
   /**

@@ -30,7 +30,7 @@ public class PeeController {
    * 소변 기록 조회
    */
   @GetMapping("/{peeId}")
-  public ResponseEntity<?> getPee(@RequestBody Long peeId) {
+  public ResponseEntity<?> getPee(@PathVariable Long peeId) {
     DiaperResDto diaperResDto = peeService.findPeeById(peeId);
 
     return ResponseEntity.ok().body(diaperResDto);

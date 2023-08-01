@@ -25,6 +25,7 @@ public class SleepServiceImpl implements SleepService {
 		Sleep sleep = sleepRepository.findById(id).orElseThrow();
 
 		SleepResDto sleepResDto = SleepResDto.builder()
+			.id(sleep.getId())
 			.createdTime(sleep.getCreatedTime())
 			.endTime(sleep.getEndTime())
 			.memo(sleep.getMemo())

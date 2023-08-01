@@ -26,6 +26,7 @@ public class PeeServiceImpl implements PeeService {
     Pee pee = peeRepository.findById(id).orElseThrow();
 
     DiaperResDto diaperResDto = DiaperResDto.builder()
+        .id(pee.getId())
         .createdTime(pee.getCreatedTime())
         .memo(pee.getMemo())
         .build();

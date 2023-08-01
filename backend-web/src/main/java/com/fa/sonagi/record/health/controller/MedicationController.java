@@ -30,7 +30,7 @@ public class MedicationController {
    * 투약 기록 등록
    */
   @GetMapping("/{medicationId}")
-  public ResponseEntity<?> getMedication(@RequestBody Long medicationId) {
+  public ResponseEntity<?> getMedication(@PathVariable Long medicationId) {
     HealthResDto healthResDto = medicationService.findMedicationById(medicationId);
     return ResponseEntity.ok().body(healthResDto);
   }

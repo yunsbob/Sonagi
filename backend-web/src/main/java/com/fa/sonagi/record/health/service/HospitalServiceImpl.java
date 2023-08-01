@@ -26,6 +26,7 @@ public class HospitalServiceImpl implements HospitalService {
     Hospital hospital = hospitalRepository.findById(id).orElseThrow();
 
     HealthResDto healthResDto = HealthResDto.builder()
+        .id(hospital.getId())
         .createdTime(hospital.getCreatedTime())
         .memo(hospital.getMemo())
         .build();

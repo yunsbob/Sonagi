@@ -26,6 +26,7 @@ public class FeverServiceImpl implements FeverService {
     Fever fever = feverRepository.findById(id).orElseThrow();
 
     FeverResDto feverResDto = FeverResDto.builder()
+        .id(fever.getId())
         .createdTime(fever.getCreatedTime())
         .fever(fever.getFever())
         .memo(fever.getMemo())
