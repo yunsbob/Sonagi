@@ -38,11 +38,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-	private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
-	private final JwtTokenProvider jwtTokenProvider;
-	private final RedisTemplate<String, String> redisTemplate;
 	@Value("${app.oauth2.authorizedRedirectUris}")
 	private String redirectUri;
+
+	private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
+
+	private final JwtTokenProvider jwtTokenProvider;
+
+	private final RedisTemplate<String, String> redisTemplate;
+
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
