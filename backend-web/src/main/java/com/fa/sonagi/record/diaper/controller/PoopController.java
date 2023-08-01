@@ -2,6 +2,7 @@ package com.fa.sonagi.record.diaper.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
 import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
+import com.fa.sonagi.record.diaper.dto.DiaperResDto;
 import com.fa.sonagi.record.diaper.service.PoopService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,18 +26,37 @@ public class PoopController {
 
   private final PoopService poopService;
 
+  /**
+   * 대변 기록 조회
+   */
+  @GetMapping("/{poopId}")
+  public ResponseEntity<?> getPoop(@RequestBody Long poopId) {
+    DiaperResDto diaperResDto = poopService.findPoopById(poopId);
+
+    return ResponseEntity.ok().body(diaperResDto);
+  }
+
+  /**
+   * 대변 기록 등록
+   */
   @PostMapping
   public ResponseEntity<?> registPoop(@RequestBody DiaperPostDto diaperPostDto) {
     poopService.registPoop(diaperPostDto);
     return ResponseEntity.ok().build();
   }
 
+  /**
+   * 대변 기록 수정
+   */
   @PutMapping
   public ResponseEntity<?> updatePoop(@RequestBody DiaperPutDto diaperPutDto) {
     poopService.updatePoop(diaperPutDto);
     return ResponseEntity.ok().build();
   }
 
+  /**
+   * 대변 기록 삭제
+   */
   @DeleteMapping("/{poopId}")
   public ResponseEntity<?> deletePoop(@PathVariable Long poopId) {
     poopService.deletePoopById(poopId);

@@ -2,11 +2,11 @@ package com.fa.sonagi.record.activity.service;
 
 import com.fa.sonagi.record.activity.dto.ActivityPostDto;
 import com.fa.sonagi.record.activity.dto.ActivityPutDto;
-import com.fa.sonagi.record.activity.entity.Play;
+import com.fa.sonagi.record.activity.dto.ActivityResDto;
 
 public interface PlayServeice {
 
-  Play findPlayById(Long id);
+  ActivityResDto findPlayById(Long id);
 
   void registPlay(ActivityPostDto activityPostDto);
 

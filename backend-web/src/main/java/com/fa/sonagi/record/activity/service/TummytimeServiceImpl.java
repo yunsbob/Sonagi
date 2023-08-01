@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.activity.dto.ActivityPostDto;
 import com.fa.sonagi.record.activity.dto.ActivityPutDto;
+import com.fa.sonagi.record.activity.dto.ActivityResDto;
 import com.fa.sonagi.record.activity.entity.Tummytime;
 import com.fa.sonagi.record.activity.repository.TummytimeRepository;
 
@@ -21,8 +22,15 @@ public class TummytimeServiceImpl implements TummytimeService {
    * 터미타임 기록 아이디로 조회
    */
   @Override
-  public Tummytime findTummytimeById(Long id) {
-    return tummytimeRepository.findById(id).orElseThrow();
+  public ActivityResDto findTummytimeById(Long id) {
+    Tummytime tummytime = tummytimeRepository.findById(id).orElseThrow();
+
+    ActivityResDto activityResDto = ActivityResDto.builder()
+        .createdTime(tummytime.getCreatedTime())
+        .memo(tummytime.getMemo())
+        .build();
+
+    return activityResDto;
   }
 
   /**
@@ -49,7 +57,7 @@ public class TummytimeServiceImpl implements TummytimeService {
   @Override
   @Transactional
   public void updateTummytime(ActivityPutDto activityPutDto) {
-    Tummytime tummytime = findTummytimeById(activityPutDto.getId());
+    Tummytime tummytime = tummytimeRepository.findById(activityPutDto.getId()).orElseThrow();
     tummytime.updateTummytime(activityPutDto.getCreatedTime(), activityPutDto.getEndTime(),
         activityPutDto.getMemo());
   }
@@ -60,7 +68,7 @@ public class TummytimeServiceImpl implements TummytimeService {
   @Override
   @Transactional
   public void deleteTummytime(Long id) {
-    Tummytime tummytime = findTummytimeById(id);
+    Tummytime tummytime = tummytimeRepository.findById(id).orElseThrow();
     tummytimeRepository.delete(tummytime);
   }
 }

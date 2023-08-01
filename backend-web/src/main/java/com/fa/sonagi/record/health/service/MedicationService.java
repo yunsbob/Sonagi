@@ -2,11 +2,11 @@ package com.fa.sonagi.record.health.service;
 
 import com.fa.sonagi.record.health.dto.HealthPostDto;
 import com.fa.sonagi.record.health.dto.HealthPutDto;
-import com.fa.sonagi.record.health.entity.Medication;
+import com.fa.sonagi.record.health.dto.HealthResDto;
 
 public interface MedicationService {
 
-  Medication findMedicationById(Long id);
+  HealthResDto findMedicationById(Long id);
 
   void registMedication(HealthPostDto healthPostDto);
 

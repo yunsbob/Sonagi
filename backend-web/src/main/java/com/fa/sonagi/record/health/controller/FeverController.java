@@ -26,6 +26,9 @@ public class FeverController {
 
   private final FeverService feverService;
 
+  /**
+   * 체온 기록 조회
+   */
   @GetMapping("/{feverId}")
   public ResponseEntity<?> getFever(@RequestBody Long feverId) {
     FeverResDto feverResDto = feverService.findFeverById(feverId);
@@ -33,18 +36,27 @@ public class FeverController {
     return ResponseEntity.ok().body(feverResDto);
   }
 
+  /**
+   * 체온 기록 등록
+   */
   @PostMapping
   public ResponseEntity<?> registFever(@RequestBody FeverPostDto feverPostDto) {
     feverService.registFever(feverPostDto);
     return ResponseEntity.ok().build();
   }
 
+  /**
+   * 체온 기록 수정
+   */
   @PutMapping
   public ResponseEntity<?> updateFever(@RequestBody FeverPutDto feverPutDto) {
     feverService.updateFever(feverPutDto);
     return ResponseEntity.ok().build();
   }
 
+  /**
+   * 체온 기록 삭제
+   */
   @DeleteMapping("/{feverId}")
   public ResponseEntity<?> deleteFever(@PathVariable Long feverId) {
     feverService.deleteFeverById(feverId);

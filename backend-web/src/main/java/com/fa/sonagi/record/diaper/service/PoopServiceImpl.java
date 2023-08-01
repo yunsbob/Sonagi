@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
 import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
+import com.fa.sonagi.record.diaper.dto.DiaperResDto;
 import com.fa.sonagi.record.diaper.entity.Poop;
 import com.fa.sonagi.record.diaper.repository.PoopRepository;
 
@@ -21,8 +22,15 @@ public class PoopServiceImpl implements PoopService {
    * 대변 기록 아이디로 조회
    */
   @Override
-  public Poop findPoopById(Long id) {
-    return poopRepository.findById(id).orElseThrow();
+  public DiaperResDto findPoopById(Long id) {
+    Poop poop = poopRepository.findById(id).orElseThrow();
+
+    DiaperResDto diaperResDto = DiaperResDto.builder()
+        .createdTime(poop.getCreatedTime())
+        .memo(poop.getMemo())
+        .build();
+
+    return diaperResDto;
   }
 
   /**
@@ -48,7 +56,7 @@ public class PoopServiceImpl implements PoopService {
   @Override
   @Transactional
   public void updatePoop(DiaperPutDto diaperPutDto) {
-    Poop poop = findPoopById(diaperPutDto.getId());
+    Poop poop = poopRepository.findById(diaperPutDto.getId()).orElseThrow();
 
     poop.updatePoop(diaperPutDto.getCreatedTime(), diaperPutDto.getMemo());
   }
@@ -59,7 +67,7 @@ public class PoopServiceImpl implements PoopService {
   @Override
   @Transactional
   public void deletePoopById(Long id) {
-    Poop poop = findPoopById(id);
+    Poop poop = poopRepository.findById(id).orElseThrow();
 
     poopRepository.delete(poop);
   }

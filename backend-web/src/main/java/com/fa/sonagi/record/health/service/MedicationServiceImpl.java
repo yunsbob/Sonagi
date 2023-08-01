@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.health.dto.HealthPostDto;
 import com.fa.sonagi.record.health.dto.HealthPutDto;
+import com.fa.sonagi.record.health.dto.HealthResDto;
 import com.fa.sonagi.record.health.entity.Medication;
 import com.fa.sonagi.record.health.repository.MedicationRepository;
 
@@ -21,8 +22,15 @@ public class MedicationServiceImpl implements MedicationService {
    * 투약 기록 아이디로 조회
    */
   @Override
-  public Medication findMedicationById(Long id) {
-    return medicationRepository.findById(id).orElseThrow();
+  public HealthResDto findMedicationById(Long id) {
+    Medication medication = medicationRepository.findById(id).orElseThrow();
+
+    HealthResDto healthResDto = HealthResDto.builder()
+        .createdTime(medication.getCreatedTime())
+        .memo(medication.getMemo())
+        .build();
+
+    return healthResDto;
   }
 
   /**
@@ -48,7 +56,7 @@ public class MedicationServiceImpl implements MedicationService {
   @Override
   @Transactional
   public void updateMedication(HealthPutDto healthPutDto) {
-    Medication medication = findMedicationById(healthPutDto.getId());
+    Medication medication = medicationRepository.findById(healthPutDto.getId()).orElseThrow();
     medication.updateMedication(healthPutDto.getCreatedTime(), medication.getMemo());
   }
 
@@ -58,7 +66,7 @@ public class MedicationServiceImpl implements MedicationService {
   @Override
   @Transactional
   public void deleteMedicationById(Long id) {
-    Medication medication = findMedicationById(id);
+    Medication medication = medicationRepository.findById(id).orElseThrow();
     medicationRepository.delete(medication);
   }
 

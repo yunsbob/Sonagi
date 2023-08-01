@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.extra.dto.ExtraPostDto;
 import com.fa.sonagi.record.extra.dto.ExtraPutDto;
+import com.fa.sonagi.record.extra.dto.ExtraResDto;
 import com.fa.sonagi.record.extra.entity.Extra;
 import com.fa.sonagi.record.extra.repository.ExtraRepository;
 
@@ -21,8 +22,15 @@ public class ExtraServiceImpl implements ExtraService {
    * 기타 기록 아이디로 조회
    */
   @Override
-  public Extra findExtraById(Long id) {
-    return extraRepository.findById(id).orElseThrow();
+  public ExtraResDto findExtraById(Long id) {
+    Extra extra = extraRepository.findById(id).orElseThrow();
+
+    ExtraResDto extraResDto = ExtraResDto.builder()
+        .createdTime(extra.getCreatedTime())
+        .memo(extra.getMemo())
+        .build();
+
+    return extraResDto;
   }
 
   /**
@@ -48,7 +56,7 @@ public class ExtraServiceImpl implements ExtraService {
   @Override
   @Transactional
   public void updateExtra(ExtraPutDto extraPutDto) {
-    Extra extra = findExtraById(extraPutDto.getId());
+    Extra extra = extraRepository.findById(extraPutDto.getId()).orElseThrow();
     extra.updateExtra(extraPutDto.getCreatedTime(), extraPutDto.getMemo());
   }
 
@@ -58,7 +66,7 @@ public class ExtraServiceImpl implements ExtraService {
   @Override
   @Transactional
   public void deleteExtra(Long id) {
-    Extra extra = findExtraById(id);
+    Extra extra = extraRepository.findById(id).orElseThrow();
     extraRepository.delete(extra);
   }
 }

@@ -2,11 +2,11 @@ package com.fa.sonagi.record.activity.service;
 
 import com.fa.sonagi.record.activity.dto.ActivityPostDto;
 import com.fa.sonagi.record.activity.dto.ActivityPutDto;
-import com.fa.sonagi.record.activity.entity.Tummytime;
+import com.fa.sonagi.record.activity.dto.ActivityResDto;
 
 public interface TummytimeService {
 
-  Tummytime findTummytimeById(Long id);
+  ActivityResDto findTummytimeById(Long id);
 
   void registTummytime(ActivityPostDto activityPostDto);
 

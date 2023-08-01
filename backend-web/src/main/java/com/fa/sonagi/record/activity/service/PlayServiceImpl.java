@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.activity.dto.ActivityPostDto;
 import com.fa.sonagi.record.activity.dto.ActivityPutDto;
+import com.fa.sonagi.record.activity.dto.ActivityResDto;
 import com.fa.sonagi.record.activity.entity.Play;
 import com.fa.sonagi.record.activity.repository.PlayRepository;
 
@@ -21,8 +22,15 @@ public class PlayServiceImpl implements PlayServeice {
    * 놀이 기록 아이디로 조회
    */
   @Override
-  public Play findPlayById(Long id) {
-    return playRepository.findById(id).orElseThrow();
+  public ActivityResDto findPlayById(Long id) {
+    Play play = playRepository.findById(id).orElseThrow();
+
+    ActivityResDto activityResDto = ActivityResDto.builder()
+        .createdTime(play.getCreatedTime())
+        .memo(play.getMemo())
+        .build();
+
+    return activityResDto;
   }
 
   /**
@@ -49,7 +57,7 @@ public class PlayServiceImpl implements PlayServeice {
   @Override
   @Transactional
   public void updatePlay(ActivityPutDto activityPutDto) {
-    Play play = findPlayById(activityPutDto.getId());
+    Play play = playRepository.findById(activityPutDto.getId()).orElseThrow();
     play.updatePlay(activityPutDto.getCreatedTime(), activityPutDto.getEndTime(),
         activityPutDto.getMemo());
   }
@@ -60,7 +68,7 @@ public class PlayServiceImpl implements PlayServeice {
   @Override
   @Transactional
   public void deletePlay(Long id) {
-    Play play = findPlayById(id);
+    Play play = playRepository.findById(id).orElseThrow();
     playRepository.delete(play);
   }
 }

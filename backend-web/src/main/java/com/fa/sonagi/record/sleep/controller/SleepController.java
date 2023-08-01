@@ -25,28 +25,39 @@ import lombok.RequiredArgsConstructor;
 public class SleepController {
 	private final SleepService sleepService;
 
-	@PostMapping
-	public ResponseEntity<?> registSleep(@RequestBody SleepPostDto sleepPostDto) {
-		sleepService.registSleep(sleepPostDto);
-		return ResponseEntity.ok().build();
-	}
-
-	@PutMapping
-	public ResponseEntity<?> updateSleep(@RequestBody SleepPutDto sleepPutDto) {
-		sleepService.updateSleep(sleepPutDto);
-		return ResponseEntity.ok().build();
-	}
-
-	@DeleteMapping("/{sleepId}")
-	public ResponseEntity<?> deleteSleep(@PathVariable Long sleepId) {
-		sleepService.deleteSleep(sleepId);
-		return ResponseEntity.ok().build();
-	}
-
+	/**
+	 * 수면 기록 조회
+	 */
 	@GetMapping("/{sleepId}")
 	public ResponseEntity<?> getSleep(@PathVariable Long sleepId) {
 		SleepResDto sleepResDto = sleepService.findSleepById(sleepId);
 		return ResponseEntity.ok().body(sleepResDto);
 	}
 
+	/**
+	 * 수면 기록 등록
+	 */
+	@PostMapping
+	public ResponseEntity<?> registSleep(@RequestBody SleepPostDto sleepPostDto) {
+		sleepService.registSleep(sleepPostDto);
+		return ResponseEntity.ok().build();
+	}
+
+	/**
+	 * 수면 기록 수정
+	 */
+	@PutMapping
+	public ResponseEntity<?> updateSleep(@RequestBody SleepPutDto sleepPutDto) {
+		sleepService.updateSleep(sleepPutDto);
+		return ResponseEntity.ok().build();
+	}
+
+	/**
+	 * 수면 기록 삭제
+	 */
+	@DeleteMapping("/{sleepId}")
+	public ResponseEntity<?> deleteSleep(@PathVariable Long sleepId) {
+		sleepService.deleteSleep(sleepId);
+		return ResponseEntity.ok().build();
+	}
 }
