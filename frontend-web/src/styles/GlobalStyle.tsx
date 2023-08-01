@@ -17,7 +17,16 @@ const GlobalStyle = createGlobalStyle`
         height: 100vh;
         font-family: 'Happiness-Sans', 'Inter', sans-serif;
     }
-   
+
+   .scrollable {
+        height: 80vh;
+        overflow: auto;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
 `;
 
 export default GlobalStyle;

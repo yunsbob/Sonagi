@@ -48,6 +48,9 @@ const RegisterPage = () => {
               size="medium"
               $backgroundColor={theme.gradient.orangeBtn}
               onClick={toBabyCode}
+              // $backgroundColor={
+              //   disabled ? theme.color.gray2 : theme.gradient.orangeBtn
+              // }
             >
               등록 코드 입력하기
             </Button>
