@@ -18,7 +18,8 @@ const getVariantStyling = (
     `,
     record: css`
       border-radius: 1.375rem;
-      border: 1px solid; // border-style 요소를 추가합니다.
+      border: 1px solid;
+      font-size: 16px;
       border-color: ${props.$borderColor || theme.color.gray3};
       background: ${({ theme }) => theme.color.white1};
     `,
@@ -31,10 +32,10 @@ const getSizeStyling = (size: Required<ButtonProps>['size']) => {
   const style = {
     xSmall: css`
       width: auto;
-      height: 1.9rem;
+      height: 2.1rem;
       flex-shrink: 0;
-      padding: 4px;
-      padding-right: 8px;
+      padding: 0.3rem;
+      padding-right: 0.6rem;
     `,
     small: css`
       width: 4.375rem;
