@@ -6,6 +6,9 @@ const Back = styled.div`
   align-items: center;
   padding: 1.5rem 0rem 0rem 1.5rem;
   position: absolute;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export { Back };

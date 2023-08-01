@@ -16,8 +16,8 @@ const Back = ({ children = '뒤로가기' }: BackProps) => {
   const RouteHandler = useCallback(() => navigate(-1), [navigate]);
 
   return (
-    <S.Back>
-      <Image src={backArrow} width={1} onClick={RouteHandler} />
+    <S.Back onClick={RouteHandler}>
+      <Image src={backArrow} width={1} />
       <Text color={'black3'} size={'medium1'} style={{ marginLeft: '0.5rem' }}>
         {children}
       </Text>
