@@ -11,8 +11,16 @@ import theme from '@/styles/theme';
 import { LogoContainer } from '@/pages/LogInPage/LogInPage.styles';
 import { useRecoilValue } from 'recoil';
 import { userInfoState } from '@/states/UserState';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
 const RegisterPage = () => {
   const userInfo = useRecoilValue(userInfoState);
+
+  const navigate = useNavigate();
+
+  const toBabyCode = () => {
+    navigate(PATH.BABYCODE);
+  };
 
   return (
     <Background $background={orangeBackground}>
@@ -39,6 +47,7 @@ const RegisterPage = () => {
               variant="register"
               size="medium"
               $backgroundColor={theme.gradient.orangeBtn}
+              onClick={toBabyCode}
             >
               등록 코드 입력하기
             </Button>

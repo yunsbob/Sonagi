@@ -19,16 +19,18 @@ interface RegisterFieldProps {
   size?: 'small' | 'xSmall' | 'medium';
   $backgroundColor?: typeof theme.color;
   alertMessage?: string;
-  getInputValue?: (value: string) => void;
+  onClickButtonAction?: (value: string) => void;
   placeholder?: string;
+  activeButtonColor?: string;
 }
 
 const RegisterField = ({
   variant,
   size,
   alertMessage,
-  getInputValue,
+  onClickButtonAction,
   placeholder,
+  activeButtonColor = theme.gradient.orangeBtn,
 }: RegisterFieldProps) => {
   const [value, setValue] = useState<string>('');
   const [bgColor, setBgColor] = useState<string>(theme.color.gray3);
@@ -37,17 +39,17 @@ const RegisterField = ({
     setValue(e.target.value);
   };
 
-  const onClickRegisterButton = () => {
-    getInputValue && getInputValue(value);
+  const onClickButton = () => {
+    onClickButtonAction && onClickButtonAction(value);
   };
 
   useEffect(() => {
     if (value.length > 0) {
-      setBgColor(theme.gradient.orangeBtn);
+      setBgColor(activeButtonColor);
     } else {
       setBgColor(theme.color.gray3);
     }
-  }, [value]);
+  }, [value.length, activeButtonColor]);
 
   return (
     <S.RegisterFieldStyle>
@@ -62,7 +64,7 @@ const RegisterField = ({
         variant={variant}
         size={size}
         $backgroundColor={bgColor}
-        onClick={onClickRegisterButton}
+        onClick={onClickButton}
       >
         <Text size="large">등록하기</Text>
       </Button>

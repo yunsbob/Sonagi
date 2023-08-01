@@ -7,6 +7,7 @@ const color = {
   black1: '#343434',
   black2: '#464646',
   black3: '#525252',
+  black4: 'rgba(0,0,0,0.2)',
   gray1: '#999999',
   gray2: '#c3c3c3',
   gray3: '#d7d7d7',
@@ -32,7 +33,7 @@ const color = {
   categorySleep: '#6CB8FF',
   categoryHealth: '#33e16f',
   categoryActivity: '#e26cff',
-  categoryExtra: '#757D8A',
+  categoryExtra: '#d7d7d7',
 
   // 기록 block color
   blockMeal: '#FCBEC9',

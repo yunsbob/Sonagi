@@ -14,6 +14,7 @@ import DiaryPage from '@/pages/DiaryPage/DiaryPage';
 import MyPagePage from '@/pages/MyPagePage/MyPagePage';
 import RecordPage from '@/pages/RecordPage.tsx/RecordPage';
 import RegisterPage from '@/pages/RegisterPage/RegisterPage';
+import BabyCodePage from '@/pages/BabyCodePage/BabyCodePage';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: PATH.REGISTER,
     element: <RegisterPage />,
+  },
+  {
+    path: PATH.BABYCODE,
+    element: <BabyCodePage />,
   },
   {
     path: PATH.MAIN,

@@ -20,7 +20,7 @@ const SignInPage = () => {
 
   const alertMessage = '10자 이내로 입력해주세요';
 
-  const getInputValue = (value: string) => {
+  const onClickButtonAction = (value: string) => {
     setUserInfo(
       produce(draft => {
         draft['name'] = value;
@@ -44,7 +44,7 @@ const SignInPage = () => {
             이름을 입력해주세요
           </Text>
           <RegisterField
-            getInputValue={getInputValue}
+            onClickButtonAction={onClickButtonAction}
             variant="register"
             size="medium"
             placeholder={placeholder}
