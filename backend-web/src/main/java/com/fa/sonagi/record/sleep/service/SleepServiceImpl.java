@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.sleep.dto.SleepsPostDto;
 import com.fa.sonagi.record.sleep.dto.SleepsPutDto;
+import com.fa.sonagi.record.sleep.dto.SleepsResDto;
 import com.fa.sonagi.record.sleep.entity.Sleeps;
 import com.fa.sonagi.record.sleep.repository.SleepsRepository;
 
@@ -20,8 +21,15 @@ public class SleepServiceImpl implements SleepsService {
 	 * 수면 기록 아이디로 조회
 	 */
 	@Override
-	public Sleeps findSleepsById(Long id) {
-		return sleepsRepository.findById(id).orElseThrow();
+	public SleepsResDto findSleepsById(Long id) {
+		Sleeps sleeps = sleepsRepository.findById(id).orElseThrow();
+
+		SleepsResDto sleepsResDto = SleepsResDto.builder()
+			.createdTime(sleeps.getCreatedTime())
+			.endTime(sleeps.getEndTime())
+			.memo(sleeps.getMemo())
+			.build();
+		return sleepsResDto;
 	}
 
 	/**
@@ -48,7 +56,7 @@ public class SleepServiceImpl implements SleepsService {
 	@Override
 	@Transactional
 	public void updateSleeps(SleepsPutDto sleepsPutDto) {
-		Sleeps sleeps = findSleepsById(sleepsPutDto.getId());
+		Sleeps sleeps = sleepsRepository.findById(sleepsPutDto.getId()).orElseThrow();
 		sleeps.updateSleeps(sleepsPutDto.getCreatedTime(), sleepsPutDto.getEndTime(), sleepsPutDto.getMemo());
 	}
 
@@ -58,7 +66,7 @@ public class SleepServiceImpl implements SleepsService {
 	@Override
 	@Transactional
 	public void deleteSleeps(Long id) {
-		Sleeps sleeps = findSleepsById(id);
+		Sleeps sleeps = sleepsRepository.findById(id).orElseThrow();
 		sleepsRepository.delete(sleeps);
 	}
 }

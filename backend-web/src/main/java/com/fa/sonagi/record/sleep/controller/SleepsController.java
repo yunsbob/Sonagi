@@ -2,6 +2,7 @@ package com.fa.sonagi.record.sleep.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fa.sonagi.record.sleep.dto.SleepsPostDto;
 import com.fa.sonagi.record.sleep.dto.SleepsPutDto;
+import com.fa.sonagi.record.sleep.dto.SleepsResDto;
 import com.fa.sonagi.record.sleep.service.SleepsService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -40,4 +42,11 @@ public class SleepsController {
 		sleepsService.deleteSleeps(sleepId);
 		return ResponseEntity.ok().build();
 	}
+
+	@GetMapping("/{sleepId}")
+	public ResponseEntity<?> getSleeps(@PathVariable Long sleepId) {
+		SleepsResDto sleepsResDto = sleepsService.findSleepsById(sleepId);
+		return ResponseEntity.ok().body(sleepsResDto);
+	}
+
 }

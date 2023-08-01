@@ -1,12 +1,12 @@
 package com.fa.sonagi.record.health.service;
 
+import com.fa.sonagi.record.health.dto.FeverResDto;
 import com.fa.sonagi.record.health.dto.FeversPostDto;
 import com.fa.sonagi.record.health.dto.FeversPutDto;
-import com.fa.sonagi.record.health.entity.Fevers;
 
 public interface FeversService {
 
-  Fevers findFeversById(Long id);
+  FeverResDto findFeversById(Long id);
 
   void registFevers(FeversPostDto feversPostDto);
 

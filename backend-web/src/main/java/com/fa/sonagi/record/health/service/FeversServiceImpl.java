@@ -3,6 +3,7 @@ package com.fa.sonagi.record.health.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fa.sonagi.record.health.dto.FeverResDto;
 import com.fa.sonagi.record.health.dto.FeversPostDto;
 import com.fa.sonagi.record.health.dto.FeversPutDto;
 import com.fa.sonagi.record.health.entity.Fevers;
@@ -21,8 +22,16 @@ public class FeversServiceImpl implements FeversService {
    * 체온 기록 아이디로 조회
    */
   @Override
-  public Fevers findFeversById(Long id) {
-    return feversRepository.findById(id).orElseThrow();
+  public FeverResDto findFeversById(Long id) {
+    Fevers fevers = feversRepository.findById(id).orElseThrow();
+
+    FeverResDto feverResDto = FeverResDto.builder()
+        .createdTime(fevers.getCreatedTime())
+        .fever(fevers.getFever())
+        .memo(fevers.getMemo())
+        .build();
+
+    return feverResDto;
   }
 
   /**
@@ -49,7 +58,7 @@ public class FeversServiceImpl implements FeversService {
   @Override
   @Transactional
   public void updateFevers(FeversPutDto feversPutDto) {
-    Fevers fevers = findFeversById(feversPutDto.getId());
+    Fevers fevers = feversRepository.findById(feversPutDto.getId()).orElseThrow();
     fevers.updateFevers(feversPutDto.getCreatedTime(), feversPutDto.getFever(),
         feversPutDto.getMemo());
   }
@@ -60,7 +69,7 @@ public class FeversServiceImpl implements FeversService {
   @Override
   @Transactional
   public void deleteFeversById(Long id) {
-    Fevers fevers = findFeversById(id);
+    Fevers fevers = feversRepository.findById(id).orElseThrow();
     feversRepository.delete(fevers);
   }
 }
