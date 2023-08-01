@@ -1,8 +1,10 @@
 package com.fa.sonagi.record.meal.controller;
 
+import com.fa.sonagi.record.meal.dto.MealResDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,42 +14,51 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
-import com.fa.sonagi.record.meal.service.InfantFormulasService;
+import com.fa.sonagi.record.meal.service.PumpingBreastService;
 
 import lombok.RequiredArgsConstructor;
 
-@Tag(name = "InfantFormula", description = "분유 API")
-@RequestMapping("/api/infantFormulas")
+@Tag(name = "PumpingBreast", description = "유축 API")
+@RequestMapping("/api/pumpingBreasts")
 @RestController
 @RequiredArgsConstructor
-public class InfantFormulasController {
+public class PumpingBreastController {
 
-  private final InfantFormulasService infantFormulasService;
+  private final PumpingBreastService pumpingBreastService;
 
   /**
-   * 분유 기록 등록
+   * 유축 기록 조회
+   */
+  @GetMapping("{pumpingBreastId}")
+  public ResponseEntity<?> getPumpingBreast(@PathVariable Long pumpingBreastId) {
+    MealResDto mealResDto = pumpingBreastService.findPumpingBreastById(pumpingBreastId);
+    return ResponseEntity.ok().body(mealResDto);
+  }
+
+  /**
+   * 유축 기록 등록
    */
   @PostMapping
   public ResponseEntity<?> registPumpingBreast(@RequestBody MealPostDto mealPostDto) {
-    infantFormulasService.registInfantFormula(mealPostDto);
+    pumpingBreastService.registPumpingBreast(mealPostDto);
     return ResponseEntity.ok().build();
   }
 
   /**
-   * 분유 기록 수정
+   * 유축 기록 수정
    */
   @PutMapping
   public ResponseEntity<?> updatePumpingBreast(@RequestBody MealPutDto mealPutDto) {
-    infantFormulasService.updateInfantFormula(mealPutDto);
+    pumpingBreastService.updatePumpingBreast(mealPutDto);
     return ResponseEntity.ok().build();
   }
 
   /**
-   * 분유 기록 삭제
+   * 유축 기록 삭제
    */
-  @DeleteMapping("/{infantFormulaId}")
-  public ResponseEntity<?> deletePumpingBreast(@PathVariable Long infantFormulaId) {
-    infantFormulasService.deleteInfantFormulaById(infantFormulaId);
+  @DeleteMapping("/{pumpingBreastId}")
+  public ResponseEntity<?> deletePumpingBreast(@PathVariable Long pumpingBreastId) {
+    pumpingBreastService.deletePumpingBreastById(pumpingBreastId);
     return ResponseEntity.ok().build();
   }
 }

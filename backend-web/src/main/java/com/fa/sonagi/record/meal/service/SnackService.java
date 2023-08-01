@@ -2,10 +2,10 @@ package com.fa.sonagi.record.meal.service;
 
 import com.fa.sonagi.record.meal.dto.SnackPostDto;
 import com.fa.sonagi.record.meal.dto.SnackPutDto;
-import com.fa.sonagi.record.meal.entity.Snack;
+import com.fa.sonagi.record.meal.dto.SnackResDto;
 
-public interface SnacksService {
-  Snack findSnackById(Long id);
+public interface SnackService {
+  SnackResDto findSnackById(Long id);
 
   void registSnack(SnackPostDto snackPostDto);
 

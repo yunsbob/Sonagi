@@ -5,24 +5,34 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
+import com.fa.sonagi.record.meal.dto.MealResDto;
 import com.fa.sonagi.record.meal.entity.InfantFormula;
-import com.fa.sonagi.record.meal.repository.InfantFormulasRepository;
+import com.fa.sonagi.record.meal.repository.InfantFormulaRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class InfantFormulasServiceImpl implements InfantFormulasService {
+public class InfantFormulaServiceImpl implements InfantFormulaService {
 
-  private final InfantFormulasRepository infantFormulasRepository;
+  private final InfantFormulaRepository infantFormulaRepository;
 
   /**
    * 분유 기록 아이디로 조회
    */
   @Override
-  public InfantFormula findInfantFormulaById(Long id) {
-    return infantFormulasRepository.findById(id).orElseThrow();
+  public MealResDto findInfantFormulaById(Long id) {
+    InfantFormula infantFormula = infantFormulaRepository.findById(id).orElseThrow();
+
+    MealResDto mealResDto = MealResDto.builder()
+        .id(infantFormula.getId())
+        .amount(infantFormula.getAmount())
+        .memo(infantFormula.getMemo())
+        .createdTime(infantFormula.getCreatedTime())
+        .build();
+
+    return mealResDto;
   }
 
   /**
@@ -40,7 +50,7 @@ public class InfantFormulasServiceImpl implements InfantFormulasService {
         .memo(mealPostDto.getMemo())
         .build();
 
-    infantFormulasRepository.save(infantFormula);
+    infantFormulaRepository.save(infantFormula);
   }
 
   /**
@@ -49,7 +59,7 @@ public class InfantFormulasServiceImpl implements InfantFormulasService {
   @Override
   @Transactional
   public void updateInfantFormula(MealPutDto mealPutDto) {
-    InfantFormula infantFormula = findInfantFormulaById(mealPutDto.getId());
+    InfantFormula infantFormula = infantFormulaRepository.findById(mealPutDto.getId()).orElseThrow();
 
     infantFormula.updateInfantFormula(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
   }
@@ -60,8 +70,8 @@ public class InfantFormulasServiceImpl implements InfantFormulasService {
   @Override
   @Transactional
   public void deleteInfantFormulaById(Long id) {
-    InfantFormula infantFormula = findInfantFormulaById(id);
+    InfantFormula infantFormula = infantFormulaRepository.findById(id).orElseThrow();
 
-    infantFormulasRepository.delete(infantFormula);
+    infantFormulaRepository.delete(infantFormula);
   }
 }

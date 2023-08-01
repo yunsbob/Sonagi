@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fa.sonagi.record.meal.entity.InfantFormula;
 
-public interface InfantFormulasRepository extends JpaRepository<InfantFormula, Long> {
+public interface InfantFormulaRepository extends JpaRepository<InfantFormula, Long> {
 }
