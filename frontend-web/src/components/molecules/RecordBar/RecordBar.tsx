@@ -2,25 +2,19 @@ import Button from '@/components/atoms/Button/Button';
 import { RecordBarContainer } from '@/components/molecules/RecordBar/RecordBar.styles';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCategory } from '@/states/CategoryState';
-import { recordBlocksState, recordsByCategory } from '@/states/RecordState';
+import { recordedValues, recordsByCategory } from '@/states/RecordState';
 import theme from '@/styles/theme';
+import { categoryToColorMap } from '@/constants/categoryToColorMap';
 
-const categoryToColorMap = {
-  All: 'categoryExtra',
-  Meal: 'categoryMeal',
-  Diaper: 'categoryDiaper',
-  Sleep: 'categorySleep',
-  Pump: 'categoryPumpingBreast',
-  Activity: 'categoryActivity',
-  Health: 'categoryHealth',
-  Extra: 'categoryExtra',
+export type RecordData = {
+  recordType: string;
+  time: string;
+  color: string;
 };
 
 const RecordBar = () => {
-  const [recordBlocks, setRecordBlocks] = useRecoilState(recordBlocksState);
-  const handleClick = (recordType: string) => {
-    setRecordBlocks(oldRecordBlocks => [...oldRecordBlocks, recordType]);
-  };
+  const [recordBlocks, setRecordBlocks] =
+    useRecoilState<RecordData[]>(recordedValues);
 
   // useRecoilValue는 Recoil상태(atom이나 selector)의 현재 값을 읽어오는 것
   // 상태가 변경될 때마다 UI가 최신 상태를 반영
@@ -28,6 +22,17 @@ const RecordBar = () => {
   const records = recordsByCategory[currentCategory || 'All'] || [];
   const colorKey = categoryToColorMap[currentCategory || 'All'];
   const strokeColor = theme.color[colorKey];
+  console.log(strokeColor);
+
+  const handleClick = (recordType: string) => {
+    const date = new Date();
+    const time = `${date.getHours()} : ${date.getMinutes()}`;
+    setRecordBlocks(oldRecordBlocks => [
+      ...oldRecordBlocks,
+      { recordType, time, color: strokeColor },
+    ]);
+  };
+  console.log(recordBlocks);
 
   return (
     <RecordBarContainer>

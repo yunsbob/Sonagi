@@ -1,16 +1,27 @@
 import Button from '@/components/atoms/Button/Button';
 import { RoundedRect } from '@/components/atoms/RoundedRect/RoundedRect';
-import theme from '@/styles/theme';
+import { Text } from '@/components/atoms/Text/Text.styles';
 
 interface RecordBlockProps {
-  color?: keyof typeof theme.color;
+  color: string;
+  recordType: string;
+  time: string;
 }
 
-const RecordBlock: React.FC<RecordBlockProps> = ({ color }) => {
+interface RecordBlockProps {}
+
+const RecordBlock: React.FC<RecordBlockProps> = ({
+  color,
+  recordType,
+  time,
+}) => {
   return (
-    <Button>
+    <div style={{ display: 'flex' }}>
       <RoundedRect color={color} />
-    </Button>
+      <Text size="headSmall">{time}</Text>
+      <div style={{ marginRight: '10px' }}> </div>
+      <Text size="headSmall">{recordType}</Text>
+    </div>
   );
 };
 
