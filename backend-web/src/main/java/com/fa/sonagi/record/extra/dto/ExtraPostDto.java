@@ -1,6 +1,7 @@
-package com.fa.sonagi.record.diaper.dto;
+package com.fa.sonagi.record.extra.dto;
 
 import java.sql.Time;
+import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -8,10 +9,16 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DiaperPutDto {
+public class ExtraPostDto {
 
   @NotNull
-  private Long id;
+  private Long userId;
+
+  @NotNull
+  private Long babyId;
+
+  @NotNull
+  private LocalDate createdDate;
 
   @NotNull
   private Time createdTime;

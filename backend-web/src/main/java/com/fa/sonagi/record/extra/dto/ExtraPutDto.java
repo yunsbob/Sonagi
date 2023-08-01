@@ -1,4 +1,4 @@
-package com.fa.sonagi.record.diaper.dto;
+package com.fa.sonagi.record.extra.dto;
 
 import java.sql.Time;
 
@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DiaperPutDto {
+public class ExtraPutDto {
 
   @NotNull
   private Long id;

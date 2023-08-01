@@ -1,4 +1,4 @@
-package com.fa.sonagi.record.activity.dto;
+package com.fa.sonagi.record.health.dto;
 
 import java.sql.Time;
 import java.time.LocalDate;
@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ActivityPostDto {
+public class FeverPostDto {
 
   @NotNull
   private Long userId;
@@ -24,7 +24,6 @@ public class ActivityPostDto {
   private Time createdTime;
 
   @NotNull
-  private Time endTime;
-
+  private Double fever;
   private String memo;
 }

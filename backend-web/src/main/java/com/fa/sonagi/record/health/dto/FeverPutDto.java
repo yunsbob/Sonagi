@@ -1,4 +1,4 @@
-package com.fa.sonagi.record.diaper.dto;
+package com.fa.sonagi.record.health.dto;
 
 import java.sql.Time;
 
@@ -8,12 +8,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DiaperPutDto {
+public class FeverPutDto {
 
   @NotNull
   private Long id;
 
   @NotNull
   private Time createdTime;
+
+  @NotNull
+  private Double fever;
   private String memo;
 }
