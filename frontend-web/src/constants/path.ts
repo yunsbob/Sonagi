@@ -10,6 +10,7 @@ const PATH = {
   OURBABY: '/main/ourBaby',
   DIARY: '/main/diary',
   MYPAGE: '/main/myPage',
+  REGISTERBABYPROFILE: '/regBabyProfile',
 } as const;
 
 export { PATH };
