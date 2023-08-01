@@ -34,7 +34,7 @@ const color = {
   categorySleep: '#6CB8FF',
   categoryHealth: '#33e16f',
   categoryActivity: '#e26cff',
-  categoryExtra: '#757D8A',
+  categoryExtra: '#d7d7d7',
 
   // 기록 block color
   blockMeal: '#FCBEC9',

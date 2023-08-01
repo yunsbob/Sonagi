@@ -5,8 +5,8 @@ services:
     container_name: backend
     build:
       context: ./backend-web
-    environment:
-      - TZ=Asia/Seoul
+      args:
+        SERVER_MODE: prod
   frontend:
     container_name: frontend
     build:
