@@ -6,11 +6,11 @@ const getVariantStyling = (variant: Required<ButtonProps>['variant']) => {
     default: css``,
     register: css`
       color: ${({ theme }) => theme.color.black3};
-      box-shadow: 0px 8px 21px 0px rgba(0, 0, 0, 0.16);
       font-size: 22px;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
+      box-shadow: 0px 8px 21px 0px rgba(0, 0, 0, 0.16);
     `,
     record: css`
       border-radius: 1.375rem;
