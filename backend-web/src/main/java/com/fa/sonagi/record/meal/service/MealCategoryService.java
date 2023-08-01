@@ -19,6 +19,4 @@ public interface MealCategoryService {
 	List<MealResDto> findAllMilk(Long babyId, LocalDate createdDate);
 
 	List<SnackResDto> findAllSnack(Long babyId, LocalDate createdDate);
-
-	List<MealResDto> findAllPumpingBreast(Long babyId, LocalDate createdDate);
 }

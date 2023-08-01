@@ -1,7 +1,6 @@
 package com.fa.sonagi.record.meal.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +21,6 @@ import com.fa.sonagi.record.meal.repository.BreastFeedingRepository;
 import com.fa.sonagi.record.meal.repository.FeedingRepository;
 import com.fa.sonagi.record.meal.repository.InfantFormulaRepository;
 import com.fa.sonagi.record.meal.repository.MilkRepository;
-import com.fa.sonagi.record.meal.repository.PumpingBreastRepository;
 import com.fa.sonagi.record.meal.repository.SnackRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -37,7 +35,6 @@ public class MealCategoryServiceImpl implements MealCategoryService{
 	private final FeedingRepository feedingRepository;
 	private final InfantFormulaRepository infantFormulaRepository;
 	private final MilkRepository milkRepository;
-	private final PumpingBreastRepository pumpingBreastRepository;
 	private final SnackRepository snackRepository;
 
 	/**
@@ -126,14 +123,5 @@ public class MealCategoryServiceImpl implements MealCategoryService{
 			.collect(Collectors.toList());
 
 		return snacks;
-	}
-
-
-	/**
-	 * babyId와 createdDate로 모든 유축 데이터 찾기
-	 */
-	@Override
-	public List<MealResDto> findAllPumpingBreast(Long babyId, LocalDate createdDate) {
-		return null;
 	}
 }
