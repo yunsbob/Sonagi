@@ -12,9 +12,10 @@ import GraphPage from '@/pages/GraphPage/GraphPage';
 import OurBabyPage from '@/pages/OurBabyPage/OurBabyPage';
 import DiaryPage from '@/pages/DiaryPage/DiaryPage';
 import MyPagePage from '@/pages/MyPagePage/MyPagePage';
-import RecordPage from '@/pages/RecordPage.tsx/RecordPage';
-// import RegisterBabyProfile from '@/components/organisms/RegisterBabyProfile/RegisterBabyProfile';
 import RegisterBabyProfilePage from '@/pages/RegisterBabyProfilePage/RegisterBabyProfilePage';
+import RegisterPage from '@/pages/RegisterPage/RegisterPage';
+import BabyCodePage from '@/pages/BabyCodePage/BabyCodePage';
+import RecordContainer from '@/components/organisms/RecordContainer/RecordContainer';
 
 const router = createBrowserRouter([
   {
@@ -35,10 +36,14 @@ const router = createBrowserRouter([
     element: <RegisterBabyProfilePage />,
   },
   {
+    path: PATH.BABYCODE,
+    element: <BabyCodePage />,
+  },
+  {
     path: PATH.MAIN,
     element: <MainPage />,
     children: [
-      { index: true, element: <RecordPage /> },
+      { index: true, element: <RecordContainerF /> },
       { path: 'graph', element: <GraphPage /> },
       { path: 'ourBaby', element: <OurBabyPage /> },
       { path: 'diary', element: <DiaryPage /> },

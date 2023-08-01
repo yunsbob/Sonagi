@@ -5,7 +5,7 @@ const BabyBarContainer = styled.div`
   display: flex;
   max-width: 100%;
   overflow-x: scroll;
-  gap: 4px;
+  gap: 5px;
 `;
 
 const BabyBarStyle = styled.button`

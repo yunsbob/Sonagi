@@ -22,7 +22,10 @@ const BabyBar = () => {
           <Image
             src={babyCircleBlue}
             width={1.2}
-            style={{ transform: 'rotate(-10.68deg)', margin: '2px' }}
+            style={{
+              transform: 'rotate(-10.68deg)',
+              margin: '2px',
+            }}
           />
           {item}
         </Button>

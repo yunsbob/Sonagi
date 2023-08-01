@@ -1,26 +1,25 @@
 package com.fa.sonagi.config;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
-import lombok.RequiredArgsConstructor;
-import org.springdoc.core.models.GroupedOpenApi;
+
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@OpenAPIDefinition(
-        info = @Info(title = "소나기",
-                description = "소나기 api명세",
-                version = "v1"))
-@RequiredArgsConstructor
 @Configuration
 public class SwaggerConfig {
 
-    @Bean
-    public GroupedOpenApi chatOpenApi() {
-        String[] paths = {"/v1/**"};
+  @Bean
+  public OpenAPI openAPI() {
+    return new OpenAPI()
+        .components(new Components())
+        .info(apiInfo());
+  }
 
-        return GroupedOpenApi.builder()
-                .group("소나기 API v1")
-                .pathsToMatch(paths)
-                .build();
-    }
+  private Info apiInfo() {
+    return new Info()
+        .title("Springdoc 테스트")
+        .description("Springdoc을 사용한 Swagger UI 테스트")
+        .version("1.0.0");
+  }
 }

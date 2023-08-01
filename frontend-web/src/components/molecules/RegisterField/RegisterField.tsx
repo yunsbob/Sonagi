@@ -6,6 +6,7 @@ import * as S from '@/components/molecules/RegisterField/RegisterField.style';
 import {
   ChangeEvent,
   ChangeEventHandler,
+  MouseEvent,
   useCallback,
   useEffect,
   useMemo,
@@ -18,41 +19,53 @@ interface RegisterFieldProps {
   size?: 'small' | 'xSmall' | 'medium';
   $backgroundColor?: typeof theme.color;
   alertMessage?: string;
-
+  onClickButtonAction?: (value: string) => void;
   placeholder?: string;
+  activeButtonColor?: string;
 }
 
 const RegisterField = ({
   variant,
   size,
   alertMessage,
+  onClickButtonAction,
   placeholder,
+  activeButtonColor = theme.gradient.orangeBtn,
 }: RegisterFieldProps) => {
   const [value, setValue] = useState<string>('');
   const [bgColor, setBgColor] = useState<string>(theme.color.gray3);
 
-  const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
+  };
+
+  const onClickButton = () => {
+    onClickButtonAction && onClickButtonAction(value);
   };
 
   useEffect(() => {
     if (value.length > 0) {
-      setBgColor(theme.gradient.orangeBtn);
+      setBgColor(activeButtonColor);
     } else {
       setBgColor(theme.color.gray3);
     }
-  }, [value]);
+  }, [value.length, activeButtonColor]);
 
   return (
     <S.RegisterFieldStyle>
       <Input
-        onChange={changeInput}
+        onChange={onChangeInput}
         value={value}
         alertMessage={alertMessage}
         placeholder={placeholder}
         fontSize={theme.fontSize.large}
       />
-      <Button variant={variant} size={size} $backgroundColor={bgColor}>
+      <Button
+        variant={variant}
+        size={size}
+        $backgroundColor={bgColor}
+        onClick={onClickButton}
+      >
         <Text size="large">등록하기</Text>
       </Button>
     </S.RegisterFieldStyle>

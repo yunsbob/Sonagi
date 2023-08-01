@@ -3,28 +3,37 @@ import orangeBackground from '@/assets/images/background-orange-to-blue.png';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import family from '@/assets/images/img-family.png';
 import { Image } from '@/components/atoms/Image/Image';
-import Input from '@/components/atoms/Input/Input';
 import * as S from '@/pages/SignInPage/SignInPage.style';
 import Back from '@/components/atoms/Back/Back';
 import RegisterField from '@/components/molecules/RegisterField/RegisterField';
 import { useState } from 'react';
 import theme from '@/styles/theme';
 import RegisterBabyProfile from '@/components/organisms/RegisterBabyProfile/RegisterBabyProfile';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { userInfoState } from '@/states/UserState';
+import { produce } from 'immer';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
 
 const SignInPage = () => {
-  const [disabled, setDisabled] = useState(true);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const navigate = useNavigate();
 
   const placeholder = '이름을 입력하세요';
 
   const alertMessage = '10자 이내로 입력해주세요';
 
-  // const getInputValue = (value: string) => {
-  //   if (value.length > 0) {
-  //     setDisabled(false);
-  //   } else {
-  //     setDisabled(true);
-  //   }
-  // };
+  const onClickButtonAction = (value: string) => {
+    setUserInfo(
+      produce(draft => {
+        draft['name'] = value;
+      })
+    );
+
+    //TODO: 사용자 정보 저장 api 호출
+
+    navigate(PATH.REGISTER);
+  };
 
   return (
     <Background $background={orangeBackground}>
@@ -38,13 +47,14 @@ const SignInPage = () => {
             이름을 입력해주세요
           </Text>
           <RegisterField
+            onClickButtonAction={onClickButtonAction}
             variant="register"
             size="medium"
             placeholder={placeholder}
             alertMessage={alertMessage}
-            $backgroundColor={
-              disabled ? theme.color.gray2 : theme.gradient.orangeBtn
-            }
+            // $backgroundColor={
+            //   disabled ? theme.color.gray2 : theme.gradient.orangeBtn
+            // }
           />
         </S.SignInPageWrapper>
       </S.SignInPageContainer>

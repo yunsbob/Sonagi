@@ -1,7 +1,14 @@
 import styled from 'styled-components';
+const LogInPageContainer = styled.div`
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const LogInPageWrapper = styled.div`
   padding: 0px 40px;
+  width: 100vw;
   height: 70vh;
   display: flex;
   flex-direction: column;
@@ -9,13 +16,6 @@ const LogInPageWrapper = styled.div`
   align-items: center;
   text-align: center;
   font-family: 'Happiness-Sans';
-`;
-
-const LogInPageContainer = styled.div`
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const LogoContainer = styled.div`
@@ -28,7 +28,8 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 10rem;
+  height: 14rem;
+  width: 100%;
   justify-content: space-between;
 `;
 

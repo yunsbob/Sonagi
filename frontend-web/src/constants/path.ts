@@ -3,6 +3,8 @@ const PATH = {
   ROOT: '/',
   LOGIN: '/logIn',
   SIGNIN: '/signIn',
+  REGISTER: '/register',
+  BABYCODE: '/babycode',
   MAIN: '/main',
   GRAPH: '/main/graph',
   OURBABY: '/main/ourBaby',

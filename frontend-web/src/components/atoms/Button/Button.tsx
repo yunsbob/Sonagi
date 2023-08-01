@@ -9,10 +9,18 @@ export interface ButtonProps
   variant?: 'default' | 'register' | 'record' | 'birthday' | 'gender';
   size?: 'small' | 'xSmall' | 'medium' | 'large';
   $backgroundColor?: string;
+  $borderColor?: string;
 }
 
 const Button = (
-  { variant, size, $backgroundColor, children, ...attributes }: ButtonProps,
+  {
+    variant,
+    size,
+    $backgroundColor,
+    $borderColor,
+    children,
+    ...attributes
+  }: ButtonProps,
   ref: ForwardedRef<HTMLButtonElement>
 ) => {
   return (
@@ -21,6 +29,7 @@ const Button = (
       variant={variant}
       size={size}
       $backgroundColor={$backgroundColor}
+      $borderColor={$borderColor}
       {...attributes}
     >
       {children}
