@@ -10,7 +10,7 @@ const RecordContainer: React.FC = () => {
   const recordedList = useRecoilValue(recordedValues);
 
   return (
-    <div>
+    <div className="scrollable">
       {recordedList.map((record, index) => (
         <Text size="headXLarge" key={index}>
           <RecordBlock
