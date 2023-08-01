@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.health.dto.HealthPostDto;
 import com.fa.sonagi.record.health.dto.HealthPutDto;
+import com.fa.sonagi.record.health.dto.HealthResDto;
 import com.fa.sonagi.record.health.entity.Hospital;
 import com.fa.sonagi.record.health.repository.HospitalRepository;
 
@@ -21,8 +22,15 @@ public class HospitalServiceImpl implements HospitalService {
    * 병원 기록 아이디로 조회
    */
   @Override
-  public Hospital findHospitalById(Long id) {
-    return hospitalRepository.findById(id).orElseThrow();
+  public HealthResDto findHospitalById(Long id) {
+    Hospital hospital = hospitalRepository.findById(id).orElseThrow();
+
+    HealthResDto healthResDto = HealthResDto.builder()
+        .createdTime(hospital.getCreatedTime())
+        .memo(hospital.getMemo())
+        .build();
+
+    return healthResDto;
   }
 
   /**
@@ -48,7 +56,7 @@ public class HospitalServiceImpl implements HospitalService {
   @Override
   @Transactional
   public void updateHospital(HealthPutDto healthPutDto) {
-    Hospital hospital = findHospitalById(healthPutDto.getId());
+    Hospital hospital = hospitalRepository.findById(healthPutDto.getId()).orElseThrow();
     hospital.updateHospital(healthPutDto.getCreatedTime(), healthPutDto.getMemo());
   }
 
@@ -58,7 +66,7 @@ public class HospitalServiceImpl implements HospitalService {
   @Override
   @Transactional
   public void deleteHospitalById(Long id) {
-    Hospital hospital = findHospitalById(id);
+    Hospital hospital = hospitalRepository.findById(id).orElseThrow();
     hospitalRepository.delete(hospital);
   }
 }
