@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SleepsPutDto {
+public class SleepPutDto {
 	private Long id;
 	private Time createdTime;
 	private Time endTime;

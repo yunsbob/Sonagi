@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fa.sonagi.record.sleep.dto.SleepsPostDto;
-import com.fa.sonagi.record.sleep.dto.SleepsPutDto;
-import com.fa.sonagi.record.sleep.dto.SleepsResDto;
-import com.fa.sonagi.record.sleep.service.SleepsService;
+import com.fa.sonagi.record.sleep.dto.SleepPostDto;
+import com.fa.sonagi.record.sleep.dto.SleepPutDto;
+import com.fa.sonagi.record.sleep.dto.SleepResDto;
+import com.fa.sonagi.record.sleep.service.SleepService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -22,31 +22,31 @@ import lombok.RequiredArgsConstructor;
 @Tag(name = "Sleep", description = "수면 API")
 @RestController
 @RequiredArgsConstructor
-public class SleepsController {
-	private final SleepsService sleepsService;
+public class SleepController {
+	private final SleepService sleepService;
 
 	@PostMapping
-	public ResponseEntity<?> registSleeps(@RequestBody SleepsPostDto sleepsPostDto) {
-		sleepsService.registSleeps(sleepsPostDto);
+	public ResponseEntity<?> registSleep(@RequestBody SleepPostDto sleepPostDto) {
+		sleepService.registSleep(sleepPostDto);
 		return ResponseEntity.ok().build();
 	}
 
 	@PutMapping
-	public ResponseEntity<?> updateSleeps(@RequestBody SleepsPutDto sleepsPutDto) {
-		sleepsService.updateSleeps(sleepsPutDto);
+	public ResponseEntity<?> updateSleep(@RequestBody SleepPutDto sleepPutDto) {
+		sleepService.updateSleep(sleepPutDto);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{sleepId}")
-	public ResponseEntity<?> deleteSleeps(@PathVariable Long sleepId) {
-		sleepsService.deleteSleeps(sleepId);
+	public ResponseEntity<?> deleteSleep(@PathVariable Long sleepId) {
+		sleepService.deleteSleep(sleepId);
 		return ResponseEntity.ok().build();
 	}
 
 	@GetMapping("/{sleepId}")
-	public ResponseEntity<?> getSleeps(@PathVariable Long sleepId) {
-		SleepsResDto sleepsResDto = sleepsService.findSleepsById(sleepId);
-		return ResponseEntity.ok().body(sleepsResDto);
+	public ResponseEntity<?> getSleep(@PathVariable Long sleepId) {
+		SleepResDto sleepResDto = sleepService.findSleepById(sleepId);
+		return ResponseEntity.ok().body(sleepResDto);
 	}
 
 }

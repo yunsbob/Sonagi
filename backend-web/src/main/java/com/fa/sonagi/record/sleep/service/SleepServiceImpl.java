@@ -3,33 +3,33 @@ package com.fa.sonagi.record.sleep.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fa.sonagi.record.sleep.dto.SleepsPostDto;
-import com.fa.sonagi.record.sleep.dto.SleepsPutDto;
-import com.fa.sonagi.record.sleep.dto.SleepsResDto;
-import com.fa.sonagi.record.sleep.entity.Sleeps;
-import com.fa.sonagi.record.sleep.repository.SleepsRepository;
+import com.fa.sonagi.record.sleep.dto.SleepPostDto;
+import com.fa.sonagi.record.sleep.dto.SleepPutDto;
+import com.fa.sonagi.record.sleep.dto.SleepResDto;
+import com.fa.sonagi.record.sleep.entity.Sleep;
+import com.fa.sonagi.record.sleep.repository.SleepRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class SleepServiceImpl implements SleepsService {
-	private final SleepsRepository sleepsRepository;
+public class SleepServiceImpl implements SleepService {
+	private final SleepRepository sleepRepository;
 
 	/**
 	 * 수면 기록 아이디로 조회
 	 */
 	@Override
-	public SleepsResDto findSleepsById(Long id) {
-		Sleeps sleeps = sleepsRepository.findById(id).orElseThrow();
+	public SleepResDto findSleepById(Long id) {
+		Sleep sleep = sleepRepository.findById(id).orElseThrow();
 
-		SleepsResDto sleepsResDto = SleepsResDto.builder()
-			.createdTime(sleeps.getCreatedTime())
-			.endTime(sleeps.getEndTime())
-			.memo(sleeps.getMemo())
+		SleepResDto sleepResDto = SleepResDto.builder()
+			.createdTime(sleep.getCreatedTime())
+			.endTime(sleep.getEndTime())
+			.memo(sleep.getMemo())
 			.build();
-		return sleepsResDto;
+		return sleepResDto;
 	}
 
 	/**
@@ -37,17 +37,17 @@ public class SleepServiceImpl implements SleepsService {
 	 */
 	@Override
 	@Transactional
-	public void registSleeps(SleepsPostDto sleepsPostDto) {
-		Sleeps sleeps = Sleeps.builder()
-			.userId(sleepsPostDto.getUserId())
-			.babyId(sleepsPostDto.getBabyId())
-			.createdDate(sleepsPostDto.getCreatedDate())
-			.createdTime(sleepsPostDto.getCreatedTime())
-			.endTime(sleepsPostDto.getEndTime())
-			.memo(sleepsPostDto.getMemo())
+	public void registSleep(SleepPostDto sleepPostDto) {
+		Sleep sleep = Sleep.builder()
+			.userId(sleepPostDto.getUserId())
+			.babyId(sleepPostDto.getBabyId())
+			.createdDate(sleepPostDto.getCreatedDate())
+			.createdTime(sleepPostDto.getCreatedTime())
+			.endTime(sleepPostDto.getEndTime())
+			.memo(sleepPostDto.getMemo())
 			.build();
 
-		sleepsRepository.save(sleeps);
+		sleepRepository.save(sleep);
 	}
 
 	/**
@@ -55,9 +55,9 @@ public class SleepServiceImpl implements SleepsService {
 	 */
 	@Override
 	@Transactional
-	public void updateSleeps(SleepsPutDto sleepsPutDto) {
-		Sleeps sleeps = sleepsRepository.findById(sleepsPutDto.getId()).orElseThrow();
-		sleeps.updateSleeps(sleepsPutDto.getCreatedTime(), sleepsPutDto.getEndTime(), sleepsPutDto.getMemo());
+	public void updateSleep(SleepPutDto sleepPutDto) {
+		Sleep sleep = sleepRepository.findById(sleepPutDto.getId()).orElseThrow();
+		sleep.updateSleep(sleepPutDto.getCreatedTime(), sleepPutDto.getEndTime(), sleepPutDto.getMemo());
 	}
 
 	/**
@@ -65,8 +65,8 @@ public class SleepServiceImpl implements SleepsService {
 	 */
 	@Override
 	@Transactional
-	public void deleteSleeps(Long id) {
-		Sleeps sleeps = sleepsRepository.findById(id).orElseThrow();
-		sleepsRepository.delete(sleeps);
+	public void deleteSleep(Long id) {
+		Sleep sleep = sleepRepository.findById(id).orElseThrow();
+		sleepRepository.delete(sleep);
 	}
 }

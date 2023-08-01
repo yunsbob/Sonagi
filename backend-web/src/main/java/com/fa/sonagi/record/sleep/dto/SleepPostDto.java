@@ -1,14 +1,17 @@
 package com.fa.sonagi.record.sleep.dto;
 
 import java.sql.Time;
+import java.time.LocalDate;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-@Builder
-public class SleepsResDto {
-	private Long id;
+@Setter
+public class SleepPostDto {
+	private Long userId;
+	private Long babyId;
+	private LocalDate createdDate;
 	private Time createdTime;
 	private Time endTime;
 	private String memo;
