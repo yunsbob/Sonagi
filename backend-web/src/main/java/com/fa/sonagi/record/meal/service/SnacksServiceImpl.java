@@ -7,6 +7,7 @@ import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.dto.SnackPostDto;
 import com.fa.sonagi.record.meal.dto.SnackPutDto;
+import com.fa.sonagi.record.meal.dto.SnackResDto;
 import com.fa.sonagi.record.meal.entity.PumpingBreast;
 import com.fa.sonagi.record.meal.entity.Snack;
 import com.fa.sonagi.record.meal.repository.SnacksRepository;
@@ -24,8 +25,15 @@ public class SnacksServiceImpl implements SnacksService {
    * 간식 기록 아이디로 조회
    */
   @Override
-  public Snack findSnackById(Long id) {
-    return snacksRepository.findById(id).orElseThrow();
+  public SnackResDto findSnackById(Long id) {
+    Snack snack = snacksRepository.findById(id).orElseThrow();
+
+    SnackResDto snackResDto = SnackResDto.builder()
+        .memo(snack.getMemo())
+        .createdTime(snack.getCreatedTime())
+        .build();
+
+    return snackResDto;
   }
 
   /**
@@ -51,7 +59,7 @@ public class SnacksServiceImpl implements SnacksService {
   @Override
   @Transactional
   public void updateSnack(SnackPutDto snackPutDto) {
-    Snack snack = findSnackById(snackPutDto.getId());
+    Snack snack = snacksRepository.findById(snackPutDto.getId()).orElseThrow();
 
     snack.updateSnack(snackPutDto.getMemo(), snackPutDto.getCreatedTime());
   }
@@ -62,7 +70,7 @@ public class SnacksServiceImpl implements SnacksService {
   @Override
   @Transactional
   public void deleteSnackById(Long id) {
-    Snack snack = findSnackById(id);
+    Snack snack = snacksRepository.findById(id).orElseThrow();
 
     snacksRepository.delete(snack);
   }
