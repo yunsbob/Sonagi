@@ -23,6 +23,14 @@ const getVariantStyling = (
       border-color: ${props.$borderColor || theme.color.gray3};
       background: ${({ theme }) => theme.color.white1};
     `,
+    block: css`
+      border-radius: 14px;
+      border: 1px solid ${({ theme }) => theme.color.gray3};
+      font-size: 16px;
+      background: ${({ theme }) => theme.color.white1};
+      display: flex;
+      margin: 0 1rem 1rem 1rem;
+    `,
   };
 
   return style[variant];
@@ -45,7 +53,7 @@ const getSizeStyling = (size: Required<ButtonProps>['size']) => {
     medium: css`
       width: 100%;
       height: 62px;
-      flex-shrink: 0;
+      /* flex-shrink: 0; */
     `,
   };
   return style[size];

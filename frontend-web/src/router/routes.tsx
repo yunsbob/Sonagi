@@ -8,11 +8,11 @@ import SignInPage from '@/pages/SignInPage/SignInPage';
 
 // footer
 import MainPage from '@/pages/MainPage/MainPage';
+import RecordPage from '@/pages/RecordPage/RecordPage';
 import GraphPage from '@/pages/GraphPage/GraphPage';
 import OurBabyPage from '@/pages/OurBabyPage/OurBabyPage';
 import DiaryPage from '@/pages/DiaryPage/DiaryPage';
 import MyPagePage from '@/pages/MyPagePage/MyPagePage';
-import RecordPage from '@/components/organisms/RecordContainer.tsx/RecordContainer';
 import RegisterPage from '@/pages/RegisterPage/RegisterPage';
 import BabyCodePage from '@/pages/BabyCodePage/BabyCodePage';
 
