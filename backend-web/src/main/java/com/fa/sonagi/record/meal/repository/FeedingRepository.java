@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fa.sonagi.record.meal.entity.Feeding;
 
-public interface FeedingsRepository extends JpaRepository<Feeding, Long> {
+public interface FeedingRepository extends JpaRepository<Feeding, Long> {
 }
