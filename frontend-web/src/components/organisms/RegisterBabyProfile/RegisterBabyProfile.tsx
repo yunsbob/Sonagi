@@ -41,9 +41,6 @@ const RegisterBabyProfile = () => {
         fontSize={theme.fontSize.large}
         height={3.5}
       />
-      <Button variant="register" size="large" $backgroundColor={bgColor}>
-        등록하기
-      </Button>
     </>
   );
 };
