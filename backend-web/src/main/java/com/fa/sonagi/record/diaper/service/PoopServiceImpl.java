@@ -26,6 +26,7 @@ public class PoopServiceImpl implements PoopService {
     Poop poop = poopRepository.findById(id).orElseThrow();
 
     DiaperResDto diaperResDto = DiaperResDto.builder()
+        .id(poop.getId())
         .createdTime(poop.getCreatedTime())
         .memo(poop.getMemo())
         .build();

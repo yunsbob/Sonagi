@@ -8,9 +8,9 @@ public interface HospitalService {
 
   HealthResDto findHospitalById(Long id);
 
-  void registHospital(HealthPostDto hospitalPostDto);
+  void registHospital(HealthPostDto healthPostDto);
 
-  void updateHospital(HealthPutDto hospitalPutDto);
+  void updateHospital(HealthPutDto healthPutDto);
 
   void deleteHospitalById(Long id);
 }

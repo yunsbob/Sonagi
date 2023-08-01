@@ -29,11 +29,11 @@ public class Hospital {
   @Column(name = "hospital_id", nullable = false)
   private Long id;
 
-  @Column(name = "baby_id", nullable = false)
-  private Long babyId;
-
   @Column(name = "user_id", nullable = false)
   private Long userId;
+
+  @Column(name = "baby_id", nullable = false)
+  private Long babyId;
 
   @Column(name = "created_date", nullable = false)
   private LocalDate createdDate;

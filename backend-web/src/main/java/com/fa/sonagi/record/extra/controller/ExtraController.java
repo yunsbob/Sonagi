@@ -30,8 +30,8 @@ public class ExtraController {
    * 병원 기록 조회
    */
   @GetMapping("/{extraId}")
-  public ResponseEntity<?> getExtra(@RequestBody Long hospitalId) {
-    ExtraResDto extraResDto = extraService.findExtraById(hospitalId);
+  public ResponseEntity<?> getExtra(@PathVariable Long extraId) {
+    ExtraResDto extraResDto = extraService.findExtraById(extraId);
 
     return ResponseEntity.ok().body(extraResDto);
   }

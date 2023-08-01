@@ -26,6 +26,7 @@ public class ExtraServiceImpl implements ExtraService {
     Extra extra = extraRepository.findById(id).orElseThrow();
 
     ExtraResDto extraResDto = ExtraResDto.builder()
+        .id(extra.getId())
         .createdTime(extra.getCreatedTime())
         .memo(extra.getMemo())
         .build();
