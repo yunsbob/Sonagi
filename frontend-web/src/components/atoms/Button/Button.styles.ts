@@ -49,8 +49,8 @@ const Button = styled.button<ButtonProps>`
   cursor: pointer;
   border-radius: 22px;
   text-align: center;
-  background: ${props => props.$backgroundColor};
   border: 1px solid ${props => props.$borderColor || props.theme.color.gray2};
+  background: ${props => props.$backgroundColor};
   ${({ variant = 'default' }) => getVariantStyling(variant)}
   ${({ size = 'small' }) => getSizeStyling(size)}
 `;
