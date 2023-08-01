@@ -3,6 +3,7 @@ package com.fa.sonagi.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -43,7 +44,7 @@ public class WebSecurityConfig {
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 사용 X
 			.and()
 			.authorizeHttpRequests()
-			.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+			.requestMatchers(HttpMethod.GET).permitAll()
 			.requestMatchers(new AntPathRequestMatcher("/**")).hasAnyRole("USER", "ADMIN");
 
 		httpSecurity
