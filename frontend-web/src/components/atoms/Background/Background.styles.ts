@@ -10,6 +10,7 @@ const Background = styled.div<BackgroundProps>`
   background-position: top center;
   background-size: 100% 100%;
   height: 100vh;
+  background-attachment: fixed;
 `;
 
 export { Background };
