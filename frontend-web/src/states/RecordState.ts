@@ -1,12 +1,13 @@
 import { atom } from 'recoil';
 import { Category } from '@/states/CategoryState';
+import { RecordData } from '@/components/molecules/RecordBar/RecordBar';
 
 type Record = {
   type: string;
   category: Category;
 };
 
-export const recordBlocksState = atom<string[]>({
+export const recordedValues = atom<RecordData[]>({
   key: 'recordBlocksState',
   default: [],
 });
