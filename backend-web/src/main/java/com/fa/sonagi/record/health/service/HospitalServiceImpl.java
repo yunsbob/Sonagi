@@ -5,24 +5,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.health.dto.HealthPostDto;
 import com.fa.sonagi.record.health.dto.HealthPutDto;
-import com.fa.sonagi.record.health.entity.Hospitals;
-import com.fa.sonagi.record.health.repository.HospitalsRepository;
+import com.fa.sonagi.record.health.entity.Hospital;
+import com.fa.sonagi.record.health.repository.HospitalRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class HospitalsServiceImpl implements HospitalsService {
+public class HospitalServiceImpl implements HospitalService {
 
-  private final HospitalsRepository hospitalsRepository;
+  private final HospitalRepository hospitalRepository;
 
   /**
    * 병원 기록 아이디로 조회
    */
   @Override
-  public Hospitals findHospitalsById(Long id) {
-    return hospitalsRepository.findById(id).orElseThrow();
+  public Hospital findHospitalById(Long id) {
+    return hospitalRepository.findById(id).orElseThrow();
   }
 
   /**
@@ -30,8 +30,8 @@ public class HospitalsServiceImpl implements HospitalsService {
    */
   @Override
   @Transactional
-  public void registHospitals(HealthPostDto healthPostDto) {
-    Hospitals hospitals = Hospitals.builder()
+  public void registHospital(HealthPostDto healthPostDto) {
+    Hospital hospital = Hospital.builder()
         .userId(healthPostDto.getUserId())
         .babyId(healthPostDto.getBabyId())
         .createdDate(healthPostDto.getCreatedDate())
@@ -39,7 +39,7 @@ public class HospitalsServiceImpl implements HospitalsService {
         .memo(healthPostDto.getMemo())
         .build();
 
-    hospitalsRepository.save(hospitals);
+    hospitalRepository.save(hospital);
   }
 
   /**
@@ -47,9 +47,9 @@ public class HospitalsServiceImpl implements HospitalsService {
    */
   @Override
   @Transactional
-  public void updateHospitals(HealthPutDto healthPutDto) {
-    Hospitals hospitals = findHospitalsById(healthPutDto.getId());
-    hospitals.updateHospitals(healthPutDto.getCreatedTime(), healthPutDto.getMemo());
+  public void updateHospital(HealthPutDto healthPutDto) {
+    Hospital hospital = findHospitalById(healthPutDto.getId());
+    hospital.updateHospital(healthPutDto.getCreatedTime(), healthPutDto.getMemo());
   }
 
   /**
@@ -57,8 +57,8 @@ public class HospitalsServiceImpl implements HospitalsService {
    */
   @Override
   @Transactional
-  public void deleteHospitalsById(Long id) {
-    Hospitals hospitals = findHospitalsById(id);
-    hospitalsRepository.delete(hospitals);
+  public void deleteHospitalById(Long id) {
+    Hospital hospital = findHospitalById(id);
+    hospitalRepository.delete(hospital);
   }
 }

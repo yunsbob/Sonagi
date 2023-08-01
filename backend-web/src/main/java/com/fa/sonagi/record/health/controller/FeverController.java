@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fa.sonagi.record.health.dto.FeverPostDto;
+import com.fa.sonagi.record.health.dto.FeverPutDto;
 import com.fa.sonagi.record.health.dto.FeverResDto;
-import com.fa.sonagi.record.health.dto.FeversPostDto;
-import com.fa.sonagi.record.health.dto.FeversPutDto;
-import com.fa.sonagi.record.health.service.FeversService;
+import com.fa.sonagi.record.health.service.FeverService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -22,32 +22,32 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/fevers")
 @RestController
 @RequiredArgsConstructor
-public class FeversController {
+public class FeverController {
 
-  private final FeversService feversService;
+  private final FeverService feverService;
 
   @GetMapping("/{feverId}")
-  public ResponseEntity<?> getFevers(@RequestBody Long feverId) {
-    FeverResDto feverResDto = feversService.findFeversById(feverId);
+  public ResponseEntity<?> getFever(@RequestBody Long feverId) {
+    FeverResDto feverResDto = feverService.findFeverById(feverId);
 
     return ResponseEntity.ok().body(feverResDto);
   }
 
   @PostMapping
-  public ResponseEntity<?> registFevers(@RequestBody FeversPostDto feversPostDto) {
-    feversService.registFevers(feversPostDto);
+  public ResponseEntity<?> registFever(@RequestBody FeverPostDto feverPostDto) {
+    feverService.registFever(feverPostDto);
     return ResponseEntity.ok().build();
   }
 
   @PutMapping
-  public ResponseEntity<?> updateFevers(@RequestBody FeversPutDto feversPutDto) {
-    feversService.updateFevers(feversPutDto);
+  public ResponseEntity<?> updateFever(@RequestBody FeverPutDto feverPutDto) {
+    feverService.updateFever(feverPutDto);
     return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("/{feverId}")
-  public ResponseEntity<?> deleteFevers(@PathVariable Long feverId) {
-    feversService.deleteFeversById(feverId);
+  public ResponseEntity<?> deleteFever(@PathVariable Long feverId) {
+    feverService.deleteFeverById(feverId);
     return ResponseEntity.ok().build();
   }
 }

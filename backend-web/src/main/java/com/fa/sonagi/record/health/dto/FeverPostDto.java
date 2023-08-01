@@ -2,12 +2,13 @@ package com.fa.sonagi.record.health.dto;
 
 import java.sql.Time;
 import java.time.LocalDate;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class FeversPostDto {
+public class FeverPostDto {
 
   private Long userId;
   private Long babyId;

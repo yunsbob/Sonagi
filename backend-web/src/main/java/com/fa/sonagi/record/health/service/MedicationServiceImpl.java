@@ -5,24 +5,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.health.dto.HealthPostDto;
 import com.fa.sonagi.record.health.dto.HealthPutDto;
-import com.fa.sonagi.record.health.entity.Medications;
-import com.fa.sonagi.record.health.repository.MedicationsRepository;
+import com.fa.sonagi.record.health.entity.Medication;
+import com.fa.sonagi.record.health.repository.MedicationRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MedicationsServiceImpl implements MedicationsService {
+public class MedicationServiceImpl implements MedicationService {
 
-  private final MedicationsRepository medicationsRepository;
+  private final MedicationRepository medicationRepository;
 
   /**
    * 투약 기록 아이디로 조회
    */
   @Override
-  public Medications findMedicationsById(Long id) {
-    return medicationsRepository.findById(id).orElseThrow();
+  public Medication findMedicationById(Long id) {
+    return medicationRepository.findById(id).orElseThrow();
   }
 
   /**
@@ -30,8 +30,8 @@ public class MedicationsServiceImpl implements MedicationsService {
    */
   @Override
   @Transactional
-  public void registMedications(HealthPostDto healthPostDto) {
-    Medications medications = Medications.builder()
+  public void registMedication(HealthPostDto healthPostDto) {
+    Medication medication = Medication.builder()
         .userId(healthPostDto.getUserId())
         .babyId(healthPostDto.getBabyId())
         .createdDate(healthPostDto.getCreatedDate())
@@ -39,7 +39,7 @@ public class MedicationsServiceImpl implements MedicationsService {
         .memo(healthPostDto.getMemo())
         .build();
 
-    medicationsRepository.save(medications);
+    medicationRepository.save(medication);
   }
 
   /**
@@ -47,9 +47,9 @@ public class MedicationsServiceImpl implements MedicationsService {
    */
   @Override
   @Transactional
-  public void updateMedications(HealthPutDto healthPutDto) {
-    Medications medications = findMedicationsById(healthPutDto.getId());
-    medications.updateMedications(healthPutDto.getCreatedTime(), medications.getMemo());
+  public void updateMedication(HealthPutDto healthPutDto) {
+    Medication medication = findMedicationById(healthPutDto.getId());
+    medication.updateMedication(healthPutDto.getCreatedTime(), medication.getMemo());
   }
 
   /**
@@ -57,9 +57,9 @@ public class MedicationsServiceImpl implements MedicationsService {
    */
   @Override
   @Transactional
-  public void deleteMedicationsById(Long id) {
-    Medications medications = findMedicationsById(id);
-    medicationsRepository.delete(medications);
+  public void deleteMedicationById(Long id) {
+    Medication medication = findMedicationById(id);
+    medicationRepository.delete(medication);
   }
 
 }

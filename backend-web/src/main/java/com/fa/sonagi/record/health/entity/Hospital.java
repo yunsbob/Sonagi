@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "hospital",
     indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
-public class Hospitals {
+public class Hospital {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,7 +55,7 @@ public class Hospitals {
   @ColumnDefault(" ")
   private String memo;
 
-  public void updateHospitals(Time createdTime, String memo) {
+  public void updateHospital(Time createdTime, String memo) {
     this.createdTime = createdTime;
     this.memo = memo;
   }
