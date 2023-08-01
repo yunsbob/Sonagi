@@ -48,7 +48,6 @@ const SignInPage = () => {
           />
         </S.SignInPageWrapper>
       </S.SignInPageContainer>
-      <RegisterBabyProfile />
     </Background>
   );
 };

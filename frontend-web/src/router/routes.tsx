@@ -13,6 +13,8 @@ import OurBabyPage from '@/pages/OurBabyPage/OurBabyPage';
 import DiaryPage from '@/pages/DiaryPage/DiaryPage';
 import MyPagePage from '@/pages/MyPagePage/MyPagePage';
 import RecordPage from '@/pages/RecordPage.tsx/RecordPage';
+// import RegisterBabyProfile from '@/components/organisms/RegisterBabyProfile/RegisterBabyProfile';
+import RegisterBabyProfilePage from '@/pages/RegisterBabyProfilePage/RegisterBabyProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: PATH.SIGNIN,
     element: <SignInPage />,
+  },
+  {
+    path: PATH.REGISTERBABYPROFILE,
+    element: <RegisterBabyProfilePage />,
   },
   {
     path: PATH.MAIN,

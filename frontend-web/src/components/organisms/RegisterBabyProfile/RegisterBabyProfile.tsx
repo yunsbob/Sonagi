@@ -1,10 +1,7 @@
 import GenderButtons from '@/components/molecules/GenderButtons/GenderButtons';
-import { Text } from '@/components/atoms/Text/Text.styles';
-import { Back } from '@/components/atoms/Back/Back.styles';
 import { useState, ChangeEvent, useEffect } from 'react';
 import Button from '@/components/atoms/Button/Button';
 import Input from '@/components/atoms/Input/Input';
-import AddBaby from '@/components/molecules/AddBaby/AddBaby';
 import theme from '@/styles/theme';
 
 const RegisterBabyProfile = () => {
@@ -28,10 +25,6 @@ const RegisterBabyProfile = () => {
 
   return (
     <>
-      <Back />
-      <Text>
-        출생일과 성별, <br /> 이름을 입력해주세요
-      </Text>
       <GenderButtons />
       <Button
         variant="birthday"
@@ -48,7 +41,6 @@ const RegisterBabyProfile = () => {
         fontSize={theme.fontSize.large}
         height={3.5}
       />
-      <AddBaby />
       <Button variant="register" size="large" $backgroundColor={bgColor}>
         등록하기
       </Button>
