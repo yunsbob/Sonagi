@@ -15,6 +15,9 @@ import tabBarDiaryBlue from '@/assets/images/tabbar-diary-blue.png';
 import tabBarGraphBlue from '@/assets/images/tabbar-graph-blue.png';
 import tabBarMyPageBlue from '@/assets/images/tabbar-mypage-blue.png';
 import tabBarOurBabyBlue from '@/assets/images/tabbar-ourbaby-blue.png';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { CategoryState, selectedCategory } from '@/states/CategoryState';
+import { produce } from 'immer';
 
 const tabBarInfo = [
   { src: [tabBarRecordGrey, tabBarRecordBlue], path: PATH.MAIN },
@@ -27,6 +30,14 @@ const tabBarInfo = [
 export default function TabBar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [category, setCategory] = useRecoilState(CategoryState);
+
+  const navigatePage = (path: string) => {
+    if (path === PATH.GRAPH) {
+      setCategory({ ...category, Meal: true, All: false });
+    }
+    navigate(path);
+  };
 
   return (
     <StyledTabBar>
@@ -34,7 +45,7 @@ export default function TabBar() {
         <Image
           key={path}
           src={location.pathname === path ? src[1] : src[0]}
-          onClick={() => navigate(path)}
+          onClick={() => navigatePage(path)}
           height={52}
           $unit="px"
         />
