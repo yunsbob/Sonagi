@@ -1,10 +1,5 @@
 package com.fa.sonagi.record.diaper.controller;
 
-import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
-import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
-import com.fa.sonagi.record.diaper.service.PoopsService;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,29 +9,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
+import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
+import com.fa.sonagi.record.diaper.service.PoopService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+
 @Tag(name = "Poop", description = "대변 API")
 @RequestMapping("/api/poops")
 @RestController
 @RequiredArgsConstructor
-public class PoopsController {
+public class PoopController {
 
-  private final PoopsService poopsService;
+  private final PoopService poopService;
 
   @PostMapping
-  public ResponseEntity<?> registPoops(@RequestBody DiaperPostDto diaperPostDto) {
-    poopsService.registPoops(diaperPostDto);
+  public ResponseEntity<?> registPoop(@RequestBody DiaperPostDto diaperPostDto) {
+    poopService.registPoop(diaperPostDto);
     return ResponseEntity.ok().build();
   }
 
   @PutMapping
-  public ResponseEntity<?> updatePoops(@RequestBody DiaperPutDto diaperPutDto) {
-    poopsService.updatePoops(diaperPutDto);
+  public ResponseEntity<?> updatePoop(@RequestBody DiaperPutDto diaperPutDto) {
+    poopService.updatePoop(diaperPutDto);
     return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("/{poopId}")
-  public ResponseEntity<?> deletePoops(@PathVariable Long poopId) {
-    poopsService.deletePoopsById(poopId);
+  public ResponseEntity<?> deletePoop(@PathVariable Long poopId) {
+    poopService.deletePoopById(poopId);
     return ResponseEntity.ok().build();
   }
 }

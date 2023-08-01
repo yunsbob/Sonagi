@@ -5,24 +5,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.activity.dto.ActivityPostDto;
 import com.fa.sonagi.record.activity.dto.ActivityPutDto;
-import com.fa.sonagi.record.activity.entity.Tummytimes;
-import com.fa.sonagi.record.activity.repository.TummytimesRepository;
+import com.fa.sonagi.record.activity.entity.Tummytime;
+import com.fa.sonagi.record.activity.repository.TummytimeRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class TummytimesServiceImpl implements TummytimesService {
+public class TummytimeServiceImpl implements TummytimeService {
 
-  private final TummytimesRepository tummytimesRepository;
+  private final TummytimeRepository tummytimeRepository;
 
   /**
    * 터미타임 기록 아이디로 조회
    */
   @Override
-  public Tummytimes findTummytimesById(Long id) {
-    return tummytimesRepository.findById(id).orElseThrow();
+  public Tummytime findTummytimeById(Long id) {
+    return tummytimeRepository.findById(id).orElseThrow();
   }
 
   /**
@@ -30,8 +30,8 @@ public class TummytimesServiceImpl implements TummytimesService {
    */
   @Override
   @Transactional
-  public void registTummytimes(ActivityPostDto activityPostDto) {
-    Tummytimes tummytimes = Tummytimes.builder()
+  public void registTummytime(ActivityPostDto activityPostDto) {
+    Tummytime tummytime = Tummytime.builder()
         .userId(activityPostDto.getUserId())
         .babyId(activityPostDto.getBabyId())
         .createdDate(activityPostDto.getCreatedDate())
@@ -40,7 +40,7 @@ public class TummytimesServiceImpl implements TummytimesService {
         .memo(activityPostDto.getMemo())
         .build();
 
-    tummytimesRepository.save(tummytimes);
+    tummytimeRepository.save(tummytime);
   }
 
   /**
@@ -48,9 +48,9 @@ public class TummytimesServiceImpl implements TummytimesService {
    */
   @Override
   @Transactional
-  public void updateTummytimes(ActivityPutDto activityPutDto) {
-    Tummytimes tummytimes = findTummytimesById(activityPutDto.getId());
-    tummytimes.updateTummytimes(activityPutDto.getCreatedTime(), activityPutDto.getEndTime(),
+  public void updateTummytime(ActivityPutDto activityPutDto) {
+    Tummytime tummytime = findTummytimeById(activityPutDto.getId());
+    tummytime.updateTummytime(activityPutDto.getCreatedTime(), activityPutDto.getEndTime(),
         activityPutDto.getMemo());
   }
 
@@ -59,8 +59,8 @@ public class TummytimesServiceImpl implements TummytimesService {
    */
   @Override
   @Transactional
-  public void deleteTummytimes(Long id) {
-    Tummytimes tummytimes = findTummytimesById(id);
-    tummytimesRepository.delete(tummytimes);
+  public void deleteTummytime(Long id) {
+    Tummytime tummytime = findTummytimeById(id);
+    tummytimeRepository.delete(tummytime);
   }
 }

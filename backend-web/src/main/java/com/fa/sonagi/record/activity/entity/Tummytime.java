@@ -1,4 +1,4 @@
-package com.fa.sonagi.record.diaper.entity;
+package com.fa.sonagi.record.activity.entity;
 
 import java.sql.Time;
 import java.time.LocalDate;
@@ -25,14 +25,13 @@ import lombok.NoArgsConstructor;
 @DynamicInsert
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "pee",
+@Table(name = "tummytime",
     indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
-
-public class Pees {
+public class Tummytime {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "pee_id", nullable = false)
+  @Column(name = "tummytime_id", nullable = false)
   @NotNull
   private Long id;
 
@@ -52,12 +51,17 @@ public class Pees {
   @NotNull
   private LocalDate createdDate;
 
+  @Column(name = "end_time", nullable = false)
+  @NotNull
+  private Time endTime;
+
   @Column(name = "memo", length = 100)
   @ColumnDefault(" ")
   private String memo;
 
-  public void updatePees(Time createdTime, String memo) {
+  public void updateTummytime(Time createdTime, Time endTime, String memo) {
     this.createdTime = createdTime;
+    this.endTime = endTime;
     this.memo = memo;
   }
 }

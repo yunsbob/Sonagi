@@ -5,24 +5,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
 import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
-import com.fa.sonagi.record.diaper.entity.Pees;
-import com.fa.sonagi.record.diaper.repository.PeesRepository;
+import com.fa.sonagi.record.diaper.entity.Pee;
+import com.fa.sonagi.record.diaper.repository.PeeRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class PeesServiceImpl implements PeesService {
+public class PeeServiceImpl implements PeeService {
 
-  private final PeesRepository peesRepository;
+  private final PeeRepository peeRepository;
 
   /**
    * 소변 기록 아이디로 조회
    */
   @Override
-  public Pees findPeesById(Long id) {
-    return peesRepository.findById(id).orElseThrow();
+  public Pee findPeeById(Long id) {
+    return peeRepository.findById(id).orElseThrow();
   }
 
   /**
@@ -30,8 +30,8 @@ public class PeesServiceImpl implements PeesService {
    */
   @Override
   @Transactional
-  public void registPees(DiaperPostDto diaperPostDto) {
-    Pees pees = Pees.builder()
+  public void registPee(DiaperPostDto diaperPostDto) {
+    Pee pee = Pee.builder()
         .userId(diaperPostDto.getUserId())
         .babyId(diaperPostDto.getBabyId())
         .createdDate(diaperPostDto.getCreatedDate())
@@ -39,7 +39,7 @@ public class PeesServiceImpl implements PeesService {
         .memo(diaperPostDto.getMemo())
         .build();
 
-    peesRepository.save(pees);
+    peeRepository.save(pee);
   }
 
   /**
@@ -47,10 +47,10 @@ public class PeesServiceImpl implements PeesService {
    */
   @Override
   @Transactional
-  public void updatePees(DiaperPutDto diaperPutDto) {
-    Pees pees = findPeesById(diaperPutDto.getId());
+  public void updatePee(DiaperPutDto diaperPutDto) {
+    Pee pee = findPeeById(diaperPutDto.getId());
 
-    pees.updatePees(diaperPutDto.getCreatedTime(), diaperPutDto.getMemo());
+    pee.updatePee(diaperPutDto.getCreatedTime(), diaperPutDto.getMemo());
   }
 
   /**
@@ -58,9 +58,9 @@ public class PeesServiceImpl implements PeesService {
    */
   @Override
   @Transactional
-  public void deletePeesById(Long id) {
-    Pees pees = findPeesById(id);
+  public void deletePeeById(Long id) {
+    Pee pee = findPeeById(id);
 
-    peesRepository.delete(pees);
+    peeRepository.delete(pee);
   }
 }

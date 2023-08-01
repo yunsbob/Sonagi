@@ -1,10 +1,5 @@
 package com.fa.sonagi.record.diaper.controller;
 
-import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
-import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
-import com.fa.sonagi.record.diaper.service.PeesService;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,29 +9,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
+import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
+import com.fa.sonagi.record.diaper.service.PeeService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+
 @Tag(name = "Pee", description = "소변 API")
 @RequestMapping("/api/pees")
 @RestController
 @RequiredArgsConstructor
-public class PeesController {
+public class PeeController {
 
-  private final PeesService peesService;
+  private final PeeService peeService;
 
   @PostMapping
-  public ResponseEntity<?> registPees(@RequestBody DiaperPostDto peesPostDto) {
-    peesService.registPees(peesPostDto);
+  public ResponseEntity<?> registPee(@RequestBody DiaperPostDto diaperPostDto) {
+    peeService.registPee(diaperPostDto);
     return ResponseEntity.ok().build();
   }
 
   @PutMapping
-  public ResponseEntity<?> updatePees(@RequestBody DiaperPutDto peesPutDto) {
-    peesService.updatePees(peesPutDto);
+  public ResponseEntity<?> updatePee(@RequestBody DiaperPutDto diaperPutDto) {
+    peeService.updatePee(diaperPutDto);
     return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("/{peeId}")
-  public ResponseEntity<?> deletePees(@PathVariable Long peeId) {
-    peesService.deletePeesById(peeId);
+  public ResponseEntity<?> deletePee(@PathVariable Long peeId) {
+    peeService.deletePeeById(peeId);
     return ResponseEntity.ok().build();
   }
 }

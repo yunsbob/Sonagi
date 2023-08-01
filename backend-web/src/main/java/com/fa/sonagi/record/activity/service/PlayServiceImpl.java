@@ -5,24 +5,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.activity.dto.ActivityPostDto;
 import com.fa.sonagi.record.activity.dto.ActivityPutDto;
-import com.fa.sonagi.record.activity.entity.Plays;
-import com.fa.sonagi.record.activity.repository.PlaysRepository;
+import com.fa.sonagi.record.activity.entity.Play;
+import com.fa.sonagi.record.activity.repository.PlayRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class PlaysServiceImpl implements PlaysServeice {
+public class PlayServiceImpl implements PlayServeice {
 
-  private final PlaysRepository playsRepository;
+  private final PlayRepository playRepository;
 
   /**
    * 놀이 기록 아이디로 조회
    */
   @Override
-  public Plays findPlaysById(Long id) {
-    return playsRepository.findById(id).orElseThrow();
+  public Play findPlayById(Long id) {
+    return playRepository.findById(id).orElseThrow();
   }
 
   /**
@@ -30,8 +30,8 @@ public class PlaysServiceImpl implements PlaysServeice {
    */
   @Override
   @Transactional
-  public void registPlays(ActivityPostDto activityPostDto) {
-    Plays plays = Plays.builder()
+  public void registPlay(ActivityPostDto activityPostDto) {
+    Play play = Play.builder()
         .userId(activityPostDto.getUserId())
         .babyId(activityPostDto.getBabyId())
         .createdDate(activityPostDto.getCreatedDate())
@@ -40,7 +40,7 @@ public class PlaysServiceImpl implements PlaysServeice {
         .memo(activityPostDto.getMemo())
         .build();
 
-    playsRepository.save(plays);
+    playRepository.save(play);
   }
 
   /**
@@ -48,9 +48,9 @@ public class PlaysServiceImpl implements PlaysServeice {
    */
   @Override
   @Transactional
-  public void updatePlays(ActivityPutDto activityPutDto) {
-    Plays plays = findPlaysById(activityPutDto.getId());
-    plays.updatePlays(activityPutDto.getCreatedTime(), activityPutDto.getEndTime(),
+  public void updatePlay(ActivityPutDto activityPutDto) {
+    Play play = findPlayById(activityPutDto.getId());
+    play.updatePlay(activityPutDto.getCreatedTime(), activityPutDto.getEndTime(),
         activityPutDto.getMemo());
   }
 
@@ -59,8 +59,8 @@ public class PlaysServiceImpl implements PlaysServeice {
    */
   @Override
   @Transactional
-  public void deletePlays(Long id) {
-    Plays plays = findPlaysById(id);
-    playsRepository.delete(plays);
+  public void deletePlay(Long id) {
+    Play play = findPlayById(id);
+    playRepository.delete(play);
   }
 }

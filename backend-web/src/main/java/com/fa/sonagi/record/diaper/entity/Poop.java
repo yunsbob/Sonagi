@@ -1,4 +1,4 @@
-package com.fa.sonagi.record.extra.entity;
+package com.fa.sonagi.record.diaper.entity;
 
 import java.sql.Time;
 import java.time.LocalDate;
@@ -19,45 +19,46 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
 @Entity
 @Getter
 @Builder
 @DynamicInsert
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "extra",
+@Table(name = "poop",
     indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
-
-public class Extras {
+public class Poop {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "extra_id", nullable = false)
+  @Column(name = "poop_id", nullable = false)
   @NotNull
   private Long id;
-
-  @Column(name = "baby_id", nullable = false)
-  @NotNull
-  private Long babyId;
 
   @Column(name = "user_id", nullable = false)
   @NotNull
   private Long userId;
 
-  @Column(name = "created_time", nullable = false)
+  @Column(name = "baby_id", nullable = false)
   @NotNull
-  private Time createdTime;
+  private Long babyId;
 
   @Column(name = "created_date", nullable = false)
   @NotNull
   private LocalDate createdDate;
 
+  @Column(name = "created_time", nullable = false)
+  @NotNull
+  private Time createdTime;
+
   @Column(name = "memo", length = 100)
   @ColumnDefault(" ")
   private String memo;
 
-  public void updateExtras(Time createdTime, String memo) {
+  public void updatePoop(Time createdTime, String memo) {
     this.createdTime = createdTime;
     this.memo = memo;
   }
+
 }

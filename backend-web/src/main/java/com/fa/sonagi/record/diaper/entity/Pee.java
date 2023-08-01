@@ -19,46 +19,45 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @Getter
 @Builder
 @DynamicInsert
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "poop",
+@Table(name = "pee",
     indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
-public class Poops {
+
+public class Pee {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "poop_id", nullable = false)
+  @Column(name = "pee_id", nullable = false)
   @NotNull
   private Long id;
-
-  @Column(name = "user_id", nullable = false)
-  @NotNull
-  private Long userId;
 
   @Column(name = "baby_id", nullable = false)
   @NotNull
   private Long babyId;
 
-  @Column(name = "created_date", nullable = false)
+  @Column(name = "user_id", nullable = false)
   @NotNull
-  private LocalDate createdDate;
+  private Long userId;
 
   @Column(name = "created_time", nullable = false)
   @NotNull
   private Time createdTime;
 
+  @Column(name = "created_date", nullable = false)
+  @NotNull
+  private LocalDate createdDate;
+
   @Column(name = "memo", length = 100)
   @ColumnDefault(" ")
   private String memo;
 
-  public void updatePoops(Time createdTime, String memo) {
+  public void updatePee(Time createdTime, String memo) {
     this.createdTime = createdTime;
     this.memo = memo;
   }
-
 }

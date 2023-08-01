@@ -5,24 +5,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.diaper.dto.DiaperPostDto;
 import com.fa.sonagi.record.diaper.dto.DiaperPutDto;
-import com.fa.sonagi.record.diaper.entity.Poops;
-import com.fa.sonagi.record.diaper.repository.PoopsRepository;
+import com.fa.sonagi.record.diaper.entity.Poop;
+import com.fa.sonagi.record.diaper.repository.PoopRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class PoopsServiceImpl implements PoopsService {
+public class PoopServiceImpl implements PoopService {
 
-  private final PoopsRepository poopsRepository;
+  private final PoopRepository poopRepository;
 
   /**
    * 대변 기록 아이디로 조회
    */
   @Override
-  public Poops findPoopsById(Long id) {
-    return poopsRepository.findById(id).orElseThrow();
+  public Poop findPoopById(Long id) {
+    return poopRepository.findById(id).orElseThrow();
   }
 
   /**
@@ -30,8 +30,8 @@ public class PoopsServiceImpl implements PoopsService {
    */
   @Override
   @Transactional
-  public void registPoops(DiaperPostDto diaperPostDto) {
-    Poops poops = Poops.builder()
+  public void registPoop(DiaperPostDto diaperPostDto) {
+    Poop poop = Poop.builder()
         .userId(diaperPostDto.getUserId())
         .babyId(diaperPostDto.getBabyId())
         .createdDate(diaperPostDto.getCreatedDate())
@@ -39,7 +39,7 @@ public class PoopsServiceImpl implements PoopsService {
         .memo(diaperPostDto.getMemo())
         .build();
 
-    poopsRepository.save(poops);
+    poopRepository.save(poop);
   }
 
   /**
@@ -47,10 +47,10 @@ public class PoopsServiceImpl implements PoopsService {
    */
   @Override
   @Transactional
-  public void updatePoops(DiaperPutDto diaperPutDto) {
-    Poops poops = findPoopsById(diaperPutDto.getId());
+  public void updatePoop(DiaperPutDto diaperPutDto) {
+    Poop poop = findPoopById(diaperPutDto.getId());
 
-    poops.updatePoops(diaperPutDto.getCreatedTime(), diaperPutDto.getMemo());
+    poop.updatePoop(diaperPutDto.getCreatedTime(), diaperPutDto.getMemo());
   }
 
   /**
@@ -58,10 +58,10 @@ public class PoopsServiceImpl implements PoopsService {
    */
   @Override
   @Transactional
-  public void deletePoopsById(Long id) {
-    Poops poops = findPoopsById(id);
+  public void deletePoopById(Long id) {
+    Poop poop = findPoopById(id);
 
-    poopsRepository.delete(poops);
+    poopRepository.delete(poop);
   }
 
 }

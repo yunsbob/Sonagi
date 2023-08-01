@@ -1,10 +1,5 @@
 package com.fa.sonagi.record.extra.controller;
 
-import com.fa.sonagi.record.extra.dto.ExtrasPostDto;
-import com.fa.sonagi.record.extra.dto.ExtrasPutDto;
-import com.fa.sonagi.record.extra.service.ExtrasService;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,29 +9,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fa.sonagi.record.extra.dto.ExtraPostDto;
+import com.fa.sonagi.record.extra.dto.ExtraPutDto;
+import com.fa.sonagi.record.extra.service.ExtraService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+
 @RequestMapping("/api/extras")
 @Tag(name = "Extra", description = "기타 API")
 @RestController
 @RequiredArgsConstructor
-public class ExtrasController {
+public class ExtraController {
 
-  private final ExtrasService extrasService;
+  private final ExtraService extraService;
 
   @PostMapping
-  public ResponseEntity<?> registExtras(@RequestBody ExtrasPostDto extrasPostDto) {
-    extrasService.registExtras(extrasPostDto);
+  public ResponseEntity<?> registExtra(@RequestBody ExtraPostDto extraPostDto) {
+    extraService.registExtra(extraPostDto);
     return ResponseEntity.ok().build();
   }
 
   @PutMapping
-  public ResponseEntity<?> updateExtras(@RequestBody ExtrasPutDto extrasPutDto) {
-    extrasService.updateExtras(extrasPutDto);
+  public ResponseEntity<?> updateExtra(@RequestBody ExtraPutDto extraPutDto) {
+    extraService.updateExtra(extraPutDto);
     return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("/{extraId}")
-  public ResponseEntity<?> deleteExtras(@PathVariable Long extraId) {
-    extrasService.deleteExtras(extraId);
+  public ResponseEntity<?> deleteExtra(@PathVariable Long extraId) {
+    extraService.deleteExtra(extraId);
     return ResponseEntity.ok().build();
   }
 }

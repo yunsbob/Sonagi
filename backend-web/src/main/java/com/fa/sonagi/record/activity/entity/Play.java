@@ -25,13 +25,13 @@ import lombok.NoArgsConstructor;
 @DynamicInsert
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tummytime",
+@Table(name = "play",
     indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
-public class Tummytimes {
+public class Play {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "tummytime_id", nullable = false)
+  @Column(name = "play_id", nullable = false)
   @NotNull
   private Long id;
 
@@ -59,7 +59,7 @@ public class Tummytimes {
   @ColumnDefault(" ")
   private String memo;
 
-  public void updateTummytimes(Time createdTime, Time endTime, String memo) {
+  public void updatePlay(Time createdTime, Time endTime, String memo) {
     this.createdTime = createdTime;
     this.endTime = endTime;
     this.memo = memo;
