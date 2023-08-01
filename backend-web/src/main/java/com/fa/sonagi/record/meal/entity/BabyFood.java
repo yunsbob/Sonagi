@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import java.sql.Time;
 import java.time.LocalDate;
 
+import org.hibernate.annotations.ColumnDefault;
+
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
@@ -22,22 +25,22 @@ public class BabyFood {
     @Column(name = "baby_food_id")
     private Long id;
 
-    @Column(name = "baby_id")
+    @Column(name = "baby_id", nullable = false)
     private Long babyId;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(name = "amount")
+    @Column(name = "amount", nullable = false)
     private Long amount;
 
-    @Column(name = "memo")
+    @Column(name = "memo", length = 100)
     private String memo;
 
-    @Column(name = "created_time")
+    @Column(name = "created_time", nullable = false)
     private Time createdTime;
 
-    @Column(name = "created_date")
+    @Column(name = "created_date", nullable = false)
     private LocalDate createdDate;
 
     public void updateBabyFood(Long amount, String memo, Time createdTime) {

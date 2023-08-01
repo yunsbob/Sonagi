@@ -21,6 +21,7 @@ const color = {
 
   // button color
   skyblue: '#8cc8ff',
+  primaryblue: '#49b3ff',
   blue: '#0094ff',
   blueOpacity10: '#0094ff10',
   green: '#89cb94',

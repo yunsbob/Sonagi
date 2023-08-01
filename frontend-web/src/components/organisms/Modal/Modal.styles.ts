@@ -1,10 +1,10 @@
 import { styled } from 'styled-components';
 
 export interface ModalStyleProps {
-  width: number;
-  height: number;
-  borderRadius?: number;
-  unit?: 'px' | 'rem' | 'em';
+  width?: number;
+  height?: number;
+  $borderRadius?: number;
+  unit?: 'px' | 'rem' | 'em' | '%';
 }
 
 const ModalBackground = styled.div`
@@ -23,10 +23,10 @@ const ModalContainer = styled.div<ModalStyleProps>`
   width: ${props => `${props.width}${props.unit}`};
   height: ${props => `${props.height}${props.unit}`};
   position: relative;
-  border-radius: ${props => `${props.borderRadius}px`};
+  border-radius: ${props => `${props.$borderRadius}px`};
   text-align: center;
-  padding: 2vh;
-  background-color: ${({ theme }) => theme.color.white};
+  padding: 3vh;
+  background-color: ${({ theme }) => theme.color.white1};
   box-shadow: 1px 1px 13px ${({ theme }) => theme.color.gray3};
 `;
 

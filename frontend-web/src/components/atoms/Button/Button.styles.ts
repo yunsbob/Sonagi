@@ -10,11 +10,11 @@ const getVariantStyling = (
     default: css``,
     register: css`
       color: ${({ theme }) => theme.color.black3};
-      box-shadow: 0px 8px 21px 0px rgba(0, 0, 0, 0.16);
       font-size: 22px;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
+      box-shadow: 0px 8px 21px 0px rgba(0, 0, 0, 0.16);
     `,
     record: css`
       border-radius: 1.375rem;
@@ -56,6 +56,7 @@ const Button = styled.button<ButtonProps>`
   border-radius: 22px;
   text-align: center;
   background: ${props => props.$backgroundColor};
+  border: 1px solid ${props => props.$borderColor || props.theme.color.gray2};
   ${({ variant = 'default', ...props }) => getVariantStyling(variant, props)}
   ${({ size = 'small' }) => getSizeStyling(size)}
 `;
