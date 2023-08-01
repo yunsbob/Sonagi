@@ -50,7 +50,6 @@ public class FeedingServiceImpl implements FeedingService {
         .rightStartTime(feedingPostDto.getRightStartTime())
         .leftEndTime(feedingPostDto.getLeftEndTime())
         .rightEndTime(feedingPostDto.getRightEndTime())
-        .createdTime(feedingPostDto.getCreatedTime())
         .createdDate(feedingPostDto.getCreatedDate())
         .memo(feedingPostDto.getMemo())
         .build();

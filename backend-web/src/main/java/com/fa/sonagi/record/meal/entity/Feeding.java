@@ -29,31 +29,28 @@ public class Feeding {
     @Column(name = "feeding_id")
     private Long id;
 
-    @Column(name = "baby_id")
+    @Column(name = "baby_id", nullable = false)
     private Long babyId;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(name = "left_start_time")
+    @Column(name = "left_start_time", nullable = false)
     private Time leftStartTime;
 
-    @Column(name = "right_start_time")
+    @Column(name = "right_start_time", nullable = false)
     private Time rightStartTime;
 
-    @Column(name = "left_end_time")
+    @Column(name = "left_end_time", nullable = false)
     private Time leftEndTime;
 
-    @Column(name = "right_end_time")
+    @Column(name = "right_end_time", nullable = false)
     private Time rightEndTime;
 
-    @Column(name = "memo")
+    @Column(name = "memo", length = 100)
     private String memo;
 
-    @Column(name = "created_time")
-    private Time createdTime;
-
-    @Column(name = "created_date")
+    @Column(name = "created_date", nullable = false)
     private LocalDate createdDate;
 
     public void updateFeeding(Time leftStartTime, Time rightStartTime, Time leftEndTime, Time rightEndTime, String memo) {
