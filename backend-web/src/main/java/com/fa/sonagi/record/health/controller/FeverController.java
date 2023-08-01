@@ -30,7 +30,7 @@ public class FeverController {
    * 체온 기록 조회
    */
   @GetMapping("/{feverId}")
-  public ResponseEntity<?> getFever(@RequestBody Long feverId) {
+  public ResponseEntity<?> getFever(@PathVariable Long feverId) {
     FeverResDto feverResDto = feverService.findFeverById(feverId);
 
     return ResponseEntity.ok().body(feverResDto);

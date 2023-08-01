@@ -26,7 +26,9 @@ public class PlayServiceImpl implements PlayServeice {
     Play play = playRepository.findById(id).orElseThrow();
 
     ActivityResDto activityResDto = ActivityResDto.builder()
+        .id(play.getId())
         .createdTime(play.getCreatedTime())
+        .endTime(play.getEndTime())
         .memo(play.getMemo())
         .build();
 
