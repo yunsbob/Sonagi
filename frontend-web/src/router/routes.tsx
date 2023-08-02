@@ -16,6 +16,7 @@ import MyPagePage from '@/pages/MyPagePage/MyPagePage';
 import RegisterBabyProfilePage from '@/pages/RegisterBabyProfilePage/RegisterBabyProfilePage';
 import RegisterPage from '@/pages/RegisterPage/RegisterPage';
 import BabyCodePage from '@/pages/BabyCodePage/BabyCodePage';
+import RedirectPage from '@/pages/RedirectPage/RedirectPage';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: PATH.LOGIN,
     element: <LogInPage />,
+  },
+  {
+    path: PATH.REDIRECT,
+    element: <RedirectPage />,
   },
   {
     path: PATH.SIGNIN,
