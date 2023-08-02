@@ -24,7 +24,10 @@ const LogInPage = () => {
 
   const OAUTH2_REDIERECT_URI = 'http://localhost:3000/oauth/redirect';
 
-  const GOOGLE_AUTH_URL = `${process.env.REACT_APP_SERVER_URL}/api/oauth2/authorization/naver?redirect_uri=${OAUTH2_REDIERECT_URI}`;
+  const onSocialButtonClick = (socialName: string) => {
+    const AUTH_URL = `${process.env.REACT_APP_SERVER_URL}/api/oauth2/authorization/${socialName}?redirect_uri=${OAUTH2_REDIERECT_URI}`;
+    window.location.href = AUTH_URL;
+  };
 
   return (
     <Background $background={babyBackground}>
@@ -36,10 +39,21 @@ const LogInPage = () => {
             <Text size="headXLarge">소나기</Text>
           </LogoContainer>
           <ButtonContainer>
-            <a href={GOOGLE_AUTH_URL}>rr</a>
-            <SocialButton src={google} buttonText="구글로 로그인하기" />
-            <SocialButton src={kakao} buttonText="카카오톡으로 로그인하기" />
-            <SocialButton src={naver} buttonText="네이버로 로그인하기" />
+            <SocialButton
+              src={google}
+              buttonText="구글로 로그인하기"
+              onClick={() => onSocialButtonClick('google')}
+            />
+            <SocialButton
+              src={kakao}
+              buttonText="카카오톡으로 로그인하기"
+              onClick={() => onSocialButtonClick('kakao')}
+            />
+            <SocialButton
+              src={naver}
+              buttonText="네이버로 로그인하기"
+              onClick={() => onSocialButtonClick('naver')}
+            />
             {/* <GoogleLogIn o기GoogleSignIn={onGoogleLogIn} /> */}
           </ButtonContainer>
         </LogInPageWrapper>
