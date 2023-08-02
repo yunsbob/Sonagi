@@ -12,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fa.sonagi.oauth.dto.ProviderType;
+import com.fa.sonagi.user.utils.BaseTimeEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -37,71 +38,72 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-public class Users implements UserDetails {
+public class Users extends BaseTimeEntity implements UserDetails {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id", nullable = false, columnDefinition = "BIGINT UNSIGNED")
+	private Long userId;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "user_id", nullable = false, columnDefinition = "BIGINT UNSIGNED")
-  private Long userId;
+	@Column(name = "password")
+	private String password;
 
-  @Column(name = "email", length = 100, nullable = false)
-  private String email;
+	@Column(name = "email", length = 100)
+	private String email;
 
-  @Column(name = "name", length = 25)
-  private String name;
+	@Column(name = "name", length = 25)
+	private String name;
 
-  @Column(name = "roles")
-  @ElementCollection(fetch = FetchType.EAGER)
-  @Builder.Default
-  private List<String> roles = new ArrayList<>();
+	@Column(name = "roles")
+	@ElementCollection(fetch = FetchType.EAGER)
+	@Builder.Default
+	private List<String> roles = new ArrayList<>();
 
-  @Column(name = "created_at")
-  @CreatedDate
-  private LocalDateTime createdAt;
+	@Column(name = "provider_type", length = 20)
+	@Enumerated(EnumType.STRING)
+	@NotNull
+	private ProviderType providerType;
 
-  @Column(name = "provider_type", length = 20)
-  @Enumerated(EnumType.STRING)
-  @NotNull
-  private ProviderType providerType;
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+	}
 
+	@Override
+	public String getPassword() {
+		return password;
+	}
 
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-  }
+	@Override
+	public String getUsername() {
+		return email;
+	}
 
-  @Override
-  public String getPassword() {
-    return null;
-  }
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
 
-  @Override
-  public String getUsername() {
-    return email;
-  }
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
 
-  @Override
-  public boolean isAccountNonExpired() {
-    return true;
-  }
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
 
-  @Override
-  public boolean isAccountNonLocked() {
-    return true;
-  }
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 
-  @Override
-  public boolean isCredentialsNonExpired() {
-    return true;
-  }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-  @Override
-  public boolean isEnabled() {
-    return true;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }

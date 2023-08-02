@@ -1,6 +1,7 @@
 package com.fa.sonagi.oauth.info.inpl;
 
 import java.util.Map;
+import java.util.Optional;
 
 import com.fa.sonagi.oauth.info.OAuth2UserInfo;
 
@@ -28,8 +29,7 @@ public class NaverOAuth2UserInfo extends OAuth2UserInfo {
 		if (response == null) {
 			return null;
 		}
-
-		return (String)response.get("nickname");
+		return (String)response.get("name");
 	}
 
 	@Override
