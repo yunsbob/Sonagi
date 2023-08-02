@@ -1,4 +1,4 @@
-package com.fa.sonagi.oauth.dto;
+package com.fa.sonagi.oauth.entity;
 
 import lombok.Getter;
 

@@ -10,12 +10,12 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.fa.sonagi.oauth.dto.ProviderType;
-import com.fa.sonagi.oauth.dto.UserPrincipal;
+import com.fa.sonagi.oauth.entity.ProviderType;
+import com.fa.sonagi.oauth.entity.UserPrincipal;
 import com.fa.sonagi.oauth.exception.OAuthProviderMissMatchException;
 import com.fa.sonagi.oauth.info.OAuth2UserInfo;
 import com.fa.sonagi.oauth.info.OAuth2UserInfoFactory;
-import com.fa.sonagi.user.dto.Authority;
+import com.fa.sonagi.oauth.entity.RoleType;
 import com.fa.sonagi.user.entity.Users;
 import com.fa.sonagi.user.repository.UserRepository;
 
@@ -68,7 +68,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 			.email(userInfo.getEmail())
 			.name(userInfo.getName())
 			.providerType(providerType)
-			.roles(Collections.singletonList(Authority.ROLE_USER.name()))
+			.roles(Collections.singletonList(RoleType.ROLE_USER.name()))
 			.build();
 		return userRepository.saveAndFlush(user);
 	}

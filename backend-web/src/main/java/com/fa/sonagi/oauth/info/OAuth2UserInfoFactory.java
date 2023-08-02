@@ -2,7 +2,7 @@ package com.fa.sonagi.oauth.info;
 
 import java.util.Map;
 
-import com.fa.sonagi.oauth.dto.ProviderType;
+import com.fa.sonagi.oauth.entity.ProviderType;
 import com.fa.sonagi.oauth.info.inpl.GoogleOAuth2UserInfo;
 import com.fa.sonagi.oauth.info.inpl.KakaoOAuth2UserInfo;
 import com.fa.sonagi.oauth.info.inpl.NaverOAuth2UserInfo;
