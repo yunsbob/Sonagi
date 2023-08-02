@@ -6,7 +6,7 @@ const getOptionStyling = (
   option: Required<ButtonProps>['option'],
   props: ButtonProps
 ) => {
-  const style = {
+  const defaultStyle = {
     default: css`
       background: ${({ theme }) => theme.color.white1};
     `,
@@ -24,7 +24,7 @@ const getOptionStyling = (
       border: none;
     `,
     ActivatedBlue: css`
-      background: ${({ theme }) => theme.gradient.skyBtn};
+      background: ${({ theme }) => theme.gradient.skyblueBtn};
       box-shadow: ${({ theme }) => theme.shadow.shadow1};
       border: none;
     `,
@@ -46,7 +46,11 @@ const getOptionStyling = (
     `,
   };
 
-  return style[option];
+  return props.$backgroundColor
+    ? css`
+        background: ${props.$backgroundColor};
+      `
+    : defaultStyle[option];
 };
 
 const getSizeStyling = (size: Required<ButtonProps>['size']) => {
@@ -80,9 +84,11 @@ const getSizeStyling = (size: Required<ButtonProps>['size']) => {
 const Button = styled.button<ButtonProps>`
   width: 100%;
   text-align: ${props => props.$textAlign || 'center'};
-  border: 1px solid ${props => props.$borderColor || props.theme.color.gray2};
   color: ${({ theme }) => theme.color.black3};
   border-radius: ${props => props.$borderRadius || '22px'};
+  border: ${props =>
+    props.$border ||
+    `1px solid ${props.$borderColor || props.theme.color.gray2}`};
   ${({ size = 'large' }) => getSizeStyling(size)};
   ${({ option = 'default', ...props }) => getOptionStyling(option, props)};
   background-color: ${props => props.$backgroundColor}; // 유형으로 만들기
