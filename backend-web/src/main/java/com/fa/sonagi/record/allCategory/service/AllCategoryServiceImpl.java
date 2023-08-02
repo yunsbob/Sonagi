@@ -42,7 +42,7 @@ public class AllCategoryServiceImpl implements AllCategoryService{
 	 * 모든 기록들을 찾아 한 객체 모아서 보내기
 	 */
 	@Override
-	public AllCategoryResDto getCombinedCategory(Long babyId, LocalDate createdDate) {
+	public AllCategoryResDto combineCategory(Long babyId, LocalDate createdDate) {
 		AllCategoryResDto allCategoryResDto = new AllCategoryResDto();
 
 		List<ActivityResDto> plays = activityCategoryService.findAllPlay(babyId, createdDate);

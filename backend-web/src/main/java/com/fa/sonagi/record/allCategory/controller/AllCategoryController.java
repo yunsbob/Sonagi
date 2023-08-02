@@ -26,7 +26,7 @@ public class AllCategoryController {
 	 */
 	@GetMapping
 	public ResponseEntity<?> getAllRecord(@RequestParam Long babyId, @RequestParam LocalDate createdDate) {
-		AllCategoryResDto allData = allCategoryService.getCombinedCategory(babyId, createdDate);
+		AllCategoryResDto allData = allCategoryService.combineCategory(babyId, createdDate);
 
 		return ResponseEntity.ok().body(allData);
 	}

@@ -5,5 +5,5 @@ import java.time.LocalDate;
 import com.fa.sonagi.record.allCategory.dto.AllCategoryResDto;
 
 public interface AllCategoryService {
-	AllCategoryResDto getCombinedCategory(Long babyId, LocalDate createdDate);
+	AllCategoryResDto combineCategory(Long babyId, LocalDate createdDate);
 }
