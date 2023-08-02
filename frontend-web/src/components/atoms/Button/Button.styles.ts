@@ -23,6 +23,14 @@ const getVariantStyling = (
       border-color: ${props.$borderColor || theme.color.gray3};
       background: ${({ theme }) => theme.color.white1};
     `,
+    block: css`
+      border-radius: 14px;
+      border: 1px solid ${({ theme }) => theme.color.gray3};
+      font-size: 16px;
+      background: ${({ theme }) => theme.color.white1};
+      display: flex;
+      margin: 0 1rem 1rem 1rem;
+    `,
     birthday: css`
       border-radius: 0.5625rem;
       border: 1px solid var(--grey-2, #c3c3c3);
@@ -55,7 +63,7 @@ const getSizeStyling = (size: Required<ButtonProps>['size']) => {
     medium: css`
       width: 100%;
       height: 62px;
-      flex-shrink: 0;
+      /* flex-shrink: 0; */
     `,
     large: css`
       width: 100%;

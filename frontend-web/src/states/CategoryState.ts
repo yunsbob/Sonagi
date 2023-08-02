@@ -40,12 +40,12 @@ export const CategoryState = atom<CategoryStateType>({
   },
 });
 
-export const selectedCategory = selector<Category | undefined>({
+export const selectedCategory = selector<Category>({
   key: 'selectedCategory',
   get: ({ get }) => {
     const category = get(CategoryState);
     return (Object.keys(category) as Category[]).find(
       key => category[key] === true
-    );
+    )!;
   },
 });
