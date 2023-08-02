@@ -26,7 +26,10 @@ const RecordBar = () => {
 
   const handleClick = (recordType: string) => {
     const date = new Date();
-    const time = `${date.getHours()} : ${date.getMinutes()}`;
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const time = `${hours}:${minutes}`;
+
     setRecordBlocks(oldRecordBlocks => [
       ...oldRecordBlocks,
       { recordType, time, color: strokeColor },
@@ -41,7 +44,7 @@ const RecordBar = () => {
           option="default"
           size="xSmall"
           key={index}
-          style={{ padding: '0.8rem', alignItems: 'center', display: 'flex' }}
+          style={{ padding: '0.8rem' }}
           $borderColor={strokeColor}
           onClick={() => handleClick(record.type)}
         >
