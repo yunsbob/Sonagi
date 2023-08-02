@@ -31,6 +31,16 @@ const getVariantStyling = (
       display: flex;
       margin: 0 1rem 1rem 1rem;
     `,
+    birthday: css`
+      border-radius: 0.5625rem;
+      border: 1px solid var(--grey-2, #c3c3c3);
+      background: var(--white-1, #fff);
+    `,
+    gender: css`
+      border-radius: 0.5625rem;
+      border: 1px solid var(--grey-2, #c3c3c3);
+      background: var(--white-1, #fff);
+    `,
   };
 
   return style[variant];
@@ -46,7 +56,7 @@ const getSizeStyling = (size: Required<ButtonProps>['size']) => {
       padding-right: 0.6rem;
     `,
     small: css`
-      width: 4.375rem;
+      width: 100%;
       height: 2.5rem;
       flex-shrink: 0;
     `,
@@ -54,6 +64,11 @@ const getSizeStyling = (size: Required<ButtonProps>['size']) => {
       width: 100%;
       height: 62px;
       /* flex-shrink: 0; */
+    `,
+    large: css`
+      width: 100%;
+      height: 3.5rem;
+      flex-shrink: 0;
     `,
   };
   return style[size];

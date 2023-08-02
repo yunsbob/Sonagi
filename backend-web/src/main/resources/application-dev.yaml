@@ -26,7 +26,7 @@ spring:
             client-name: Kakao
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8080/api/login/oauth2/code/kakao
-            client-authentication-method: POST
+            client-authentication-method: client_secret_post
 
         provider:
           naver:
@@ -63,10 +63,11 @@ logging:
     org:
       hibernate: info
 
+
 # front - redirect uri
 app:
   oauth2:
-    authorizedRedirectUris: https://sonagi.site/oauth/redirect
+    authorizedRedirectUris: http://localhost:3001/oauth/redirect
 
 jwt:
   key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope

@@ -13,6 +13,7 @@ import GraphPage from '@/pages/GraphPage/GraphPage';
 import OurBabyPage from '@/pages/OurBabyPage/OurBabyPage';
 import DiaryPage from '@/pages/DiaryPage/DiaryPage';
 import MyPagePage from '@/pages/MyPagePage/MyPagePage';
+import RegisterBabyProfilePage from '@/pages/RegisterBabyProfilePage/RegisterBabyProfilePage';
 import RegisterPage from '@/pages/RegisterPage/RegisterPage';
 import BabyCodePage from '@/pages/BabyCodePage/BabyCodePage';
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: PATH.REGISTER,
     element: <RegisterPage />,
+  },
+  {
+    path: PATH.REGISTERBABYPROFILE,
+    element: <RegisterBabyProfilePage />,
   },
   {
     path: PATH.BABYCODE,

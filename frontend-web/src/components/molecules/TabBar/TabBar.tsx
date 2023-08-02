@@ -1,6 +1,6 @@
 import { Image } from '@/components/atoms/Image/Image';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { PATH } from '@/constants/path';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { StyledTabBar } from './TabBar.style';
 
 // 탭바 비활성화 이미지
@@ -15,8 +15,9 @@ import tabBarDiaryBlue from '@/assets/images/tabbar-diary-blue.png';
 import tabBarGraphBlue from '@/assets/images/tabbar-graph-blue.png';
 import tabBarMyPageBlue from '@/assets/images/tabbar-mypage-blue.png';
 import tabBarOurBabyBlue from '@/assets/images/tabbar-ourbaby-blue.png';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { CategoryState, selectedCategory } from '@/states/CategoryState';
+
+import { useRecoilState } from 'recoil';
+import { CategoryState } from '@/states/CategoryState';
 import { produce } from 'immer';
 
 const tabBarInfo = [

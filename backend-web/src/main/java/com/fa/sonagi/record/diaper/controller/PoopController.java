@@ -30,7 +30,7 @@ public class PoopController {
    * 대변 기록 조회
    */
   @GetMapping("/{poopId}")
-  public ResponseEntity<?> getPoop(@RequestBody Long poopId) {
+  public ResponseEntity<?> getPoop(@PathVariable Long poopId) {
     DiaperResDto diaperResDto = poopService.findPoopById(poopId);
 
     return ResponseEntity.ok().body(diaperResDto);

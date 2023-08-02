@@ -26,7 +26,9 @@ public class TummytimeServiceImpl implements TummytimeService {
     Tummytime tummytime = tummytimeRepository.findById(id).orElseThrow();
 
     ActivityResDto activityResDto = ActivityResDto.builder()
+        .id(tummytime.getId())
         .createdTime(tummytime.getCreatedTime())
+        .endTime(tummytime.getEndTime())
         .memo(tummytime.getMemo())
         .build();
 

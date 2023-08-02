@@ -160,6 +160,9 @@
   .react-calendar__tile--active {
     background: #49B3FF;
     border-radius: 8px;
+  }
+  
+  .react-calendar__tile--active abbr {
     color: white !important;
   }
   

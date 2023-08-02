@@ -5,8 +5,8 @@ import type { ForwardedRef } from 'react';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'default' | 'register' | 'record' | 'block';
-  size?: 'small' | 'xSmall' | 'medium';
+  variant?: 'default' | 'register' | 'record' | 'block' | 'birthday' | 'gender';
+  size?: 'small' | 'xSmall' | 'medium' | 'large';
   $backgroundColor?: string;
   $borderColor?: string;
 }
