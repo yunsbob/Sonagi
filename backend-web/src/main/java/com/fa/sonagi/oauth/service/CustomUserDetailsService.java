@@ -1,4 +1,4 @@
-package com.fa.sonagi.user.service;
+package com.fa.sonagi.oauth.service;
 
 import lombok.RequiredArgsConstructor;
 

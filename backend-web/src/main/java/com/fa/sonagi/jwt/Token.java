@@ -1,4 +1,4 @@
-package com.fa.sonagi.user.dto;
+package com.fa.sonagi.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

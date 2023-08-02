@@ -1,17 +1,15 @@
 package com.fa.sonagi.user.entity;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fa.sonagi.oauth.dto.ProviderType;
+import com.fa.sonagi.oauth.entity.ProviderType;
 import com.fa.sonagi.user.utils.BaseTimeEntity;
 
 import jakarta.persistence.Column;

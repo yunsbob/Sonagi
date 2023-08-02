@@ -1,8 +1,6 @@
 package com.fa.sonagi.jwt;
 
 
-import com.fa.sonagi.user.dto.Token;
-
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
