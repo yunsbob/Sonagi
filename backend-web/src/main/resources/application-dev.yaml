@@ -67,7 +67,7 @@ logging:
 # front - redirect uri
 app:
   oauth2:
-    authorizedRedirectUris: http://localhost:3001/oauth/redirect
+    authorizedRedirectUris: http://localhost:3000/oauth/redirect
 
 jwt:
   key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope

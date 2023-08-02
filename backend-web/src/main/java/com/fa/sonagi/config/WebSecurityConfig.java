@@ -3,7 +3,6 @@ package com.fa.sonagi.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -16,8 +15,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.fa.sonagi.jwt.JwtAuthenticationFilter;
 import com.fa.sonagi.jwt.JwtTokenProvider;
+import com.fa.sonagi.oauth.exception.RestAuthenticationEntryPoint;
 import com.fa.sonagi.oauth.handler.OAuth2AuthenticationFailureHandler;
 import com.fa.sonagi.oauth.handler.OAuth2AuthenticationSuccessHandler;
+import com.fa.sonagi.oauth.handler.TokenAccessDeniedHandler;
 import com.fa.sonagi.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.fa.sonagi.oauth.service.CustomOAuth2UserService;
 
@@ -30,10 +31,12 @@ public class WebSecurityConfig {
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisTemplate<String, String> redisTemplate;
 	private final CustomOAuth2UserService customOAuth2UserService;
+	private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
+			// cors 설정
 			.cors()
 			.configurationSource(corsConfigurationSource());
 
@@ -44,7 +47,7 @@ public class WebSecurityConfig {
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 사용 X
 			.and()
 			.authorizeHttpRequests()
-			.requestMatchers(HttpMethod.GET).permitAll()
+			.requestMatchers(new AntPathRequestMatcher("/api/oauth2/authorization"),new AntPathRequestMatcher("/api/login/oauth2/code/**")).permitAll()
 			.requestMatchers(new AntPathRequestMatcher("/**")).hasAnyRole("USER", "ADMIN");
 
 		httpSecurity
@@ -53,12 +56,15 @@ public class WebSecurityConfig {
 			.baseUri("/api/oauth2/authorization") // 인가 요청을 해야하는 인가 요청url의 앞부분
 			.authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
 			.and()
+
 			.redirectionEndpoint()
 			.baseUri("/api/login/oauth2/code/*") // 인가요청이의 응답으로 인가코드를 보내오는 어플리케이션 등록시의 redirect uri
 			.and()
+
 			.userInfoEndpoint()
 			.userService(customOAuth2UserService)
 			.and()
+
 			.successHandler(oAuth2AuthenticationSuccessHandler())
 			.failureHandler(oAuth2AuthenticationFailureHandler());
 
