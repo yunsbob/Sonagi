@@ -35,7 +35,7 @@ const RegisterBabyProfilePage = () => {
             <AddBaby />
           </div>
           <Button
-            variant="register"
+            option="default"
             size="large"
             $backgroundColor={theme.gradient.orangeBtn}
           >
