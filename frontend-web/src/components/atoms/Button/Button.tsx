@@ -5,15 +5,25 @@ import type { ForwardedRef } from 'react';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'default' | 'register' | 'record' | 'block' | 'birthday' | 'gender';
-  size?: 'small' | 'xSmall' | 'medium' | 'large';
+  option?:
+    | 'default'
+    | 'imgBtn'
+    | 'deActivated'
+    | 'ActivatedOrange'
+    | 'ActivatedBlue'
+    | 'activated'
+    | 'primary'
+    | 'danger';
+  size?: 'small' | 'xSmall' | 'medium' | 'large' | 'xLarge';
   $backgroundColor?: string;
   $borderColor?: string;
+  $borderRadius?: string;
+  $textAlign?: string;
 }
 
 const Button = (
   {
-    variant,
+    option,
     size,
     $backgroundColor,
     $borderColor,
@@ -25,7 +35,7 @@ const Button = (
   return (
     <S.Button
       ref={ref}
-      variant={variant}
+      option={option}
       size={size}
       $backgroundColor={$backgroundColor}
       $borderColor={$borderColor}

@@ -10,7 +10,7 @@ const BabyBar = () => {
     <BabyBarContainer>
       {BabyArray.map((item, index) => (
         <Button
-          variant="record"
+          option="default"
           size="xSmall"
           key={index}
           style={{

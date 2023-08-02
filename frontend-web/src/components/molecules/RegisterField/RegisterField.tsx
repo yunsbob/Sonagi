@@ -15,7 +15,15 @@ import {
 } from 'react';
 
 interface RegisterFieldProps {
-  variant?: 'default' | 'register' | 'record';
+  option?:
+    | 'default'
+    | 'imgBtn'
+    | 'deActivated'
+    | 'ActivatedOrange'
+    | 'ActivatedBlue'
+    | 'activated'
+    | 'primary'
+    | 'danger';
   size?: 'small' | 'xSmall' | 'medium';
   $backgroundColor?: typeof theme.color;
   alertMessage?: string;
@@ -25,7 +33,7 @@ interface RegisterFieldProps {
 }
 
 const RegisterField = ({
-  variant,
+  option,
   size,
   alertMessage,
   onClickButtonAction,
@@ -61,7 +69,7 @@ const RegisterField = ({
         fontSize={theme.fontSize.large}
       />
       <Button
-        variant={variant}
+        option={option}
         size={size}
         $backgroundColor={bgColor}
         onClick={onClickButton}
