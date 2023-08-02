@@ -11,6 +11,7 @@ import com.fa.sonagi.record.health.dto.HealthResDto;
 import com.fa.sonagi.record.meal.dto.FeedingResDto;
 import com.fa.sonagi.record.meal.dto.MealResDto;
 import com.fa.sonagi.record.meal.dto.SnackResDto;
+import com.fa.sonagi.record.pumpingBreast.dto.PumpingBreastResDto;
 import com.fa.sonagi.record.sleep.dto.SleepResDto;
 
 import lombok.Getter;
@@ -32,7 +33,7 @@ public class AllCategoryResDto {
 	private List<MealResDto> infantFormulas;
 	private List<MealResDto> milks;
 	private List<SnackResDto> snacks;
-	private List<MealResDto> pumpingBreasts;
+	private List<PumpingBreastResDto> pumpingBreasts;
 	private List<SleepResDto> sleeps;
 	private List<ExtraResDto> extras;
 

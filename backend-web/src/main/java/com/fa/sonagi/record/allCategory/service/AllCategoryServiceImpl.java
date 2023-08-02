@@ -20,7 +20,8 @@ import com.fa.sonagi.record.meal.dto.FeedingResDto;
 import com.fa.sonagi.record.meal.dto.MealResDto;
 import com.fa.sonagi.record.meal.dto.SnackResDto;
 import com.fa.sonagi.record.meal.service.MealCategoryService;
-import com.fa.sonagi.record.meal.service.PumpingBreastCategoryService;
+import com.fa.sonagi.record.pumpingBreast.dto.PumpingBreastResDto;
+import com.fa.sonagi.record.pumpingBreast.service.PumpingBreastCategoryService;
 import com.fa.sonagi.record.sleep.dto.SleepResDto;
 import com.fa.sonagi.record.sleep.service.SleepCategoryService;
 
@@ -84,8 +85,8 @@ public class AllCategoryServiceImpl implements AllCategoryService{
 		List<SnackResDto> snacks = mealCategoryService.findAllSnack(babyId, createdDate);
 		allCategoryResDto.setSnacks(snacks);
 
-		List<MealResDto> pumpingBreasts = pumpingBreastCategoryService.findAllPumpingBreast(babyId, createdDate);
-		allCategoryResDto.setBreastFeedings(pumpingBreasts);
+		List<PumpingBreastResDto> pumpingBreasts = pumpingBreastCategoryService.findAllPumpingBreast(babyId, createdDate);
+		allCategoryResDto.setPumpingBreasts(pumpingBreasts);
 
 		List<SleepResDto> sleeps = sleepCategoryService.findAllSleep(babyId, createdDate);
 		allCategoryResDto.setSleeps(sleeps);
