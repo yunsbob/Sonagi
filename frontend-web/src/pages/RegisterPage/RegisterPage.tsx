@@ -37,14 +37,14 @@ const RegisterPage = () => {
           </S.LogoContainer>
           <S.ButtonContainer>
             <Button
-              variant="register"
+              option="activated"
               size="medium"
               $backgroundColor={theme.gradient.skyblueBtn}
             >
               우리 아기 등록하기
             </Button>
             <Button
-              variant="register"
+              option="activated"
               size="medium"
               $backgroundColor={theme.gradient.orangeBtn}
               onClick={toBabyCode}

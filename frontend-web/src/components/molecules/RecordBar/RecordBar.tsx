@@ -38,7 +38,7 @@ const RecordBar = () => {
     <RecordBarContainer>
       {records.map((record, index) => (
         <Button
-          variant="record"
+          option="default"
           size="xSmall"
           key={index}
           style={{ padding: '0.8rem', alignItems: 'center', display: 'flex' }}
