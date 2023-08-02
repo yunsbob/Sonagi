@@ -7,7 +7,6 @@ import kakao from '@/assets/images/img-logo-kakao.png';
 import naver from '@/assets/images/img-logo-naver.png';
 import { Image } from '@/components/atoms/Image/Image';
 import { Text } from '@/components/atoms/Text/Text.styles';
-import { GoogleLogIn } from '@/components/organisms/GoogleLogIn/GoogleLogIn';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import Button from './../../components/atoms/Button/Button';
@@ -23,17 +22,9 @@ import SocialButton from '@/components/molecules/SocialButton/SocialButton';
 const LogInPage = () => {
   const navigate = useNavigate();
 
-  const onGoogleLogIn = (res: CredentialResponse) => {
-    const { credential } = res;
-    if (credential) {
-      console.log(res.credential);
-      navigate(PATH.SIGNIN);
-    }
-  };
-
   const OAUTH2_REDIERECT_URI = 'http://localhost:3000/oauth/redirect';
 
-  const GOOGLE_AUTH_URL = `${process.env.REACT_APP_SERVER_URL}/api/oauth2/authorization/google?redirect_uri=${OAUTH2_REDIERECT_URI}`;
+  const GOOGLE_AUTH_URL = `${process.env.REACT_APP_SERVER_URL}/api/oauth2/authorization/naver?redirect_uri=${OAUTH2_REDIERECT_URI}`;
 
   return (
     <Background $background={babyBackground}>
