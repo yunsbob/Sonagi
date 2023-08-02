@@ -49,6 +49,7 @@ const CategoryBar = () => {
         <Image
           key={index}
           src={item.img}
+          id={item.name}
           onClick={() => onClickCategory(item.name as Category)}
           style={{
             filter:

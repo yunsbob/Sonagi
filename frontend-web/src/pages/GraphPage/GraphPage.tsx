@@ -4,13 +4,25 @@ import CalendarBar from '@/components/molecules/CalendarBar/CalendarBar';
 import CategoryBar from '@/components/molecules/CategoryBar/CategoryBar';
 import { PATH } from '@/constants/path';
 import theme from '@/styles/theme';
-import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const GraphPage = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const AllCategoryButton = document.getElementById('All');
+    AllCategoryButton!.style.display = 'none';
+  }, []);
+
   const childPath = [
     { name: '일별 그래프', path: PATH.GRAPHBYDAY },
     { name: '주별 그래프', path: PATH.GRAPHBYWEEK },
   ];
+
+  const onClickGraphToggle = (path: string) => {
+    navigate(path);
+  };
 
   return (
     <>
@@ -19,7 +31,12 @@ const GraphPage = () => {
         <CategoryBar></CategoryBar>
         {childPath.map(child => {
           return (
-            <Button variant="gender" size="small" $borderColor={theme.} key={child.path}>
+            <Button
+              variant="gender"
+              size="small"
+              key={child.path}
+              onClick={() => onClickGraphToggle(child.path)}
+            >
               {child.name}
             </Button>
           );

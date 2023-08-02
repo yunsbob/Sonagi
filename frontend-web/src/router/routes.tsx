@@ -54,7 +54,7 @@ const router = createBrowserRouter([
         path: 'graph',
         element: <GraphPage />,
         children: [
-          { path: 'day', element: <GraphByDay /> },
+          { index: true, element: <GraphByDay /> },
           { path: 'week', element: <GraphByWeek /> },
         ],
       },
