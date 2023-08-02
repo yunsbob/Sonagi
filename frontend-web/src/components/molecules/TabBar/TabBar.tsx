@@ -1,6 +1,6 @@
 import { Image } from '@/components/atoms/Image/Image';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { PATH } from '@/constants/path';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { StyledTabBar } from './TabBar.style';
 
 // 탭바 비활성화 이미지
@@ -16,6 +16,10 @@ import tabBarGraphBlue from '@/assets/images/tabbar-graph-blue.png';
 import tabBarMyPageBlue from '@/assets/images/tabbar-mypage-blue.png';
 import tabBarOurBabyBlue from '@/assets/images/tabbar-ourbaby-blue.png';
 
+import { useRecoilState } from 'recoil';
+import { CategoryState } from '@/states/CategoryState';
+import { produce } from 'immer';
+
 const tabBarInfo = [
   { src: [tabBarRecordGrey, tabBarRecordBlue], path: PATH.MAIN },
   { src: [tabBarGraphGrey, tabBarGraphBlue], path: PATH.GRAPH },
@@ -27,6 +31,14 @@ const tabBarInfo = [
 export default function TabBar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [category, setCategory] = useRecoilState(CategoryState);
+
+  const navigatePage = (path: string) => {
+    if (path === PATH.GRAPH) {
+      setCategory({ ...category, Meal: true, All: false });
+    }
+    navigate(path);
+  };
 
   return (
     <StyledTabBar>
@@ -34,7 +46,7 @@ export default function TabBar() {
         <Image
           key={path}
           src={location.pathname === path ? src[1] : src[0]}
-          onClick={() => navigate(path)}
+          onClick={() => navigatePage(path)}
           height={52}
           $unit="px"
         />

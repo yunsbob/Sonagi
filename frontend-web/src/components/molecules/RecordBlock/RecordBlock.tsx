@@ -17,10 +17,12 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
 }) => {
   return (
     <div style={{ display: 'flex' }}>
-      <RoundedRect color={color} />
-      <Text size="headSmall">{time}</Text>
-      <div style={{ marginRight: '10px' }}> </div>
-      <Text size="headSmall">{recordType}</Text>
+      <Button variant="block" size="medium">
+        <RoundedRect color={color} />
+        <Text size="headSmall">{time}</Text>
+        <div style={{ marginRight: '10px' }}> </div>
+        <Text size="headSmall">{recordType}</Text>
+      </Button>
     </div>
   );
 };

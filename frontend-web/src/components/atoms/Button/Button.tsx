@@ -1,12 +1,11 @@
 import { forwardRef } from 'react';
 import * as S from './Button.styles';
 
-import type { ComponentPropsWithRef, ForwardedRef } from 'react';
-import theme from '@/styles/theme';
+import type { ForwardedRef } from 'react';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'default' | 'register' | 'record' | 'birthday' | 'gender';
+  variant?: 'default' | 'register' | 'record' | 'block' | 'birthday' | 'gender';
   size?: 'small' | 'xSmall' | 'medium' | 'large';
   $backgroundColor?: string;
   $borderColor?: string;
