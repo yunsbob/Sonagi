@@ -9,15 +9,12 @@ const BabyBar = () => {
   return (
     <BabyBarContainer>
       {BabyArray.map((item, index) => (
+        // 예외적으로 BabyBar의 Button은 padding-right값을 inline style으로 적용
         <Button
           option="default"
           size="xSmall"
           key={index}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            // padding: '4px',
-          }}
+          style={{ paddingRight: '10px' }}
         >
           <Image
             src={babyCircleBlue}

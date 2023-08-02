@@ -56,9 +56,13 @@ const getOptionStyling = (
 const getSizeStyling = (size: Required<ButtonProps>['size']) => {
   const style = {
     xSmall: css`
+      width: auto;
       height: 30px;
       font-size: ${({ theme }) => theme.fontSize.medium3};
-      border-radius: 9px;
+      border-radius: 22px;
+      align-items: center;
+      display: flex;
+      padding: 4px;
     `,
     small: css`
       height: 36px;
@@ -91,7 +95,7 @@ const Button = styled.button<ButtonProps>`
     `1px solid ${props.$borderColor || props.theme.color.gray2}`};
   ${({ size = 'large' }) => getSizeStyling(size)};
   ${({ option = 'default', ...props }) => getOptionStyling(option, props)};
-  background-color: ${props => props.$backgroundColor}; // 유형으로 만들기
+  background-color: ${props => props.$backgroundColor};
 `;
 
 export { Button };
