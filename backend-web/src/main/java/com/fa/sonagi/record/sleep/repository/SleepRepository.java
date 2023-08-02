@@ -1,8 +1,12 @@
 package com.fa.sonagi.record.sleep.repository;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fa.sonagi.record.sleep.entity.Sleep;
 
 public interface SleepRepository extends JpaRepository<Sleep, Long> {
+	List<Sleep> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
 }
