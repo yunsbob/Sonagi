@@ -1,4 +1,4 @@
-package com.fa.sonagi.record.meal.controller;
+package com.fa.sonagi.record.pumpingBreast.controller;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fa.sonagi.record.meal.dto.AllPumpingBreastResDto;
-import com.fa.sonagi.record.meal.dto.MealResDto;
-import com.fa.sonagi.record.meal.service.PumpingBreastCategoryService;
+import com.fa.sonagi.record.pumpingBreast.dto.AllPumpingBreastResDto;
+import com.fa.sonagi.record.pumpingBreast.dto.PumpingBreastResDto;
+import com.fa.sonagi.record.pumpingBreast.service.PumpingBreastCategoryService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-@Tag(name = "PumpingBreast", description = "유축 api")
+@Tag(name = "PumpingBreast", description = "유축 카테고리 api")
 @RequestMapping("/api/pumpingBreastRecords")
 @RestController
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class PumpingBreastCategoryController {
 	 */
 	@GetMapping
 	public ResponseEntity<?> getPumpingBreastRecord(@RequestParam Long babyId, @RequestParam LocalDate createdDate) {
-		List<MealResDto> pumpingBreastList = pumpingBreastCategoryService.findAllPumpingBreast(babyId, createdDate);
+		List<PumpingBreastResDto> pumpingBreastList = pumpingBreastCategoryService.findAllPumpingBreast(babyId, createdDate);
 
 		AllPumpingBreastResDto allPumpingBreastResDto = new AllPumpingBreastResDto();
 		allPumpingBreastResDto.setPumpingBreasts(pumpingBreastList);

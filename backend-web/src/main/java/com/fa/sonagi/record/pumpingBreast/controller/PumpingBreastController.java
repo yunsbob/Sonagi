@@ -1,6 +1,5 @@
-package com.fa.sonagi.record.meal.controller;
+package com.fa.sonagi.record.pumpingBreast.controller;
 
-import com.fa.sonagi.record.meal.dto.MealResDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fa.sonagi.record.meal.dto.MealPostDto;
-import com.fa.sonagi.record.meal.dto.MealPutDto;
-import com.fa.sonagi.record.meal.service.PumpingBreastService;
+import com.fa.sonagi.record.pumpingBreast.dto.PumpingBreastPostDto;
+import com.fa.sonagi.record.pumpingBreast.dto.PumpingBreastPutDto;
+import com.fa.sonagi.record.pumpingBreast.dto.PumpingBreastResDto;
+import com.fa.sonagi.record.pumpingBreast.service.PumpingBreastService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,16 +31,16 @@ public class PumpingBreastController {
    */
   @GetMapping("{pumpingBreastId}")
   public ResponseEntity<?> getPumpingBreast(@PathVariable Long pumpingBreastId) {
-    MealResDto mealResDto = pumpingBreastService.findPumpingBreastById(pumpingBreastId);
-    return ResponseEntity.ok().body(mealResDto);
+    PumpingBreastResDto pumpingBreastResDto = pumpingBreastService.findPumpingBreastById(pumpingBreastId);
+    return ResponseEntity.ok().body(pumpingBreastResDto);
   }
 
   /**
    * 유축 기록 등록
    */
   @PostMapping
-  public ResponseEntity<?> registPumpingBreast(@RequestBody MealPostDto mealPostDto) {
-    pumpingBreastService.registPumpingBreast(mealPostDto);
+  public ResponseEntity<?> registPumpingBreast(@RequestBody PumpingBreastPostDto pumpingBreastPostDto) {
+    pumpingBreastService.registPumpingBreast(pumpingBreastPostDto);
     return ResponseEntity.ok().build();
   }
 
@@ -48,8 +48,8 @@ public class PumpingBreastController {
    * 유축 기록 수정
    */
   @PutMapping
-  public ResponseEntity<?> updatePumpingBreast(@RequestBody MealPutDto mealPutDto) {
-    pumpingBreastService.updatePumpingBreast(mealPutDto);
+  public ResponseEntity<?> updatePumpingBreast(@RequestBody PumpingBreastPutDto pumpingBreastPutDto) {
+    pumpingBreastService.updatePumpingBreast(pumpingBreastPutDto);
     return ResponseEntity.ok().build();
   }
 
