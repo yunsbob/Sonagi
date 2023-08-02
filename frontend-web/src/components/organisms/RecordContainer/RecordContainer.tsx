@@ -4,23 +4,22 @@ import RecordBar from '@/components/molecules/RecordBar/RecordBar';
 import RecordBlock from '@/components/molecules/RecordBlock/RecordBlock';
 import { useRecoilValue } from 'recoil';
 import { recordedValues } from '@/states/RecordState';
-
+import { RecordContainerStyle } from '@/components/organisms/RecordContainer/RecordContainer.styles';
 const RecordContainer: React.FC = () => {
   const recordedList = useRecoilValue(recordedValues);
 
   return (
-    <div className="scrollable">
+    <RecordContainerStyle className="scrollable">
       {recordedList.map((record, index) => (
-        <Text size="headXLarge" key={index}>
-          <RecordBlock
-            color={record.color}
-            recordType={record.recordType}
-            time={record.time}
-          ></RecordBlock>
-        </Text>
+        <RecordBlock
+          key={index}
+          color={record.color}
+          recordType={record.recordType}
+          time={record.time}
+        ></RecordBlock>
       ))}
       <RecordBar></RecordBar>
-    </div>
+    </RecordContainerStyle>
   );
 };
 
