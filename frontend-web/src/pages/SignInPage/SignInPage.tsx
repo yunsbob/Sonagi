@@ -14,6 +14,7 @@ import { userInfoState } from '@/states/UserState';
 import { produce } from 'immer';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
+import Memo from '@/components/atoms/Memo/Memo';
 
 const SignInPage = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
@@ -56,6 +57,7 @@ const SignInPage = () => {
             //   disabled ? theme.color.gray2 : theme.gradient.orangeBtn
             // }
           />
+          <Memo></Memo>
         </S.SignInPageWrapper>
       </S.SignInPageContainer>
     </Background>
