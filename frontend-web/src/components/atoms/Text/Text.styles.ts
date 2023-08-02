@@ -67,7 +67,7 @@ const getSizeStyling = (size: Required<TextProps>['size'] = 'headMedium') => {
 
 const Text = styled.p<TextProps>`
   ${({ size = 'headMedium' }) => getSizeStyling(size)};
-  color: ${props => props.theme.color[props.color]};
+  color: ${props => props.color || props.theme.color.black3};
 `;
 
 export { Text };

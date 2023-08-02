@@ -19,6 +19,7 @@ export interface ButtonProps
   $borderColor?: string;
   $borderRadius?: string;
   $textAlign?: string;
+  $border?: string;
 }
 
 const Button = (

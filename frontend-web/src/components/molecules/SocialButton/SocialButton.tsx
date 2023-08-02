@@ -15,8 +15,7 @@ const SocialButton = ({ src, buttonText, onClick }: SocialButtonProps) => {
   return (
     <Button
       option="imgBtn"
-      size="medium"
-      $backgroundColor={theme.color.white2}
+      size="xLarge"
       $borderColor={theme.color.white2}
       onClick={onClick}
     >
