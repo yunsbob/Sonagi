@@ -56,13 +56,13 @@ const getOptionStyling = (
 const getSizeStyling = (size: Required<ButtonProps>['size']) => {
   const style = {
     xSmall: css`
-      width: auto;
-      height: 30px;
+      width: fit-content;
+      min-width: fit-content;
       font-size: ${({ theme }) => theme.fontSize.medium3};
       border-radius: 22px;
       align-items: center;
       display: flex;
-      padding: 4px;
+      padding: 0.4rem 0.9rem;
     `,
     small: css`
       height: 36px;

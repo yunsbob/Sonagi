@@ -28,7 +28,6 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
   recordType,
   time,
 }) => {
-  // 예외적으로 inline-style display: flex / align-items: center 지정
   return (
     <>
       <BlockButton option="default" size="xLarge">
