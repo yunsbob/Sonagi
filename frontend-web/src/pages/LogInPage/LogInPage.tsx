@@ -1,5 +1,4 @@
 import { Background } from '@/components/atoms/Background/Background.styles';
-
 import babyBackground from '@/assets/images/background.png';
 import blueBaby from '@/assets/images/img-baby-blue.png';
 import google from '@/assets/images/img-logo-google.png';
@@ -8,15 +7,12 @@ import naver from '@/assets/images/img-logo-naver.png';
 import { Image } from '@/components/atoms/Image/Image';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { useNavigate } from 'react-router-dom';
-import { PATH } from '@/constants/path';
-import Button from './../../components/atoms/Button/Button';
 import {
   ButtonContainer,
   LogInPageContainer,
   LogInPageWrapper,
   LogoContainer,
 } from '@/pages/LogInPage/LogInPage.styles';
-import theme from '@/styles/theme';
 import SocialButton from '@/components/molecules/SocialButton/SocialButton';
 
 const LogInPage = () => {
