@@ -26,7 +26,7 @@ spring:
             client-name: Kakao
             authorization-grant-type: authorization_code
             redirect-uri: https://sonagi.site/api/login/oauth2/code/kakao
-            client-authentication-method: POST
+            client-authentication-method: client_secret_post
 
         provider:
           naver:
@@ -75,14 +75,12 @@ jwt:
 cloud:
   aws:
     s3:
-      bucket: ssafy601
-    region:
-      static: ap-northeast-2 #Asia Pacific -> seoul
-    stack:
-      auto: false
+      bucket: sonagi-application
+    stack.auto: false
+    region.static: ap-northeast-2
     credentials:
-      access-key: AKIA4KMX2KNB3Q5COKEX
-      secret-key: 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
+      accessKey: AKIA6E5N5REX4NIVDL7A
+      secretKey: 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
 
 server:
   ssl:

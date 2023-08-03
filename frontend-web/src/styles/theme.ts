@@ -11,6 +11,7 @@ const color = {
   gray1: '#999999',
   gray2: '#c3c3c3',
   gray3: '#d7d7d7',
+  gray4: 'rgba(215, 215, 215, 0.50)',
 
   // main color
   mainblue: '#38A1ED',
@@ -37,13 +38,13 @@ const color = {
   categoryExtra: '#d7d7d7',
 
   // 기록 block color
-  blockMeal: '#FCBEC9',
-  blockDiaper: '#F8CFB6',
-  blockPumpingBreast: '#F8F2BF',
-  blockSleep: '#CAD5F7',
-  blockActivity: '#EFC9EC',
-  blockHealth: '#C8E8B9',
-  blockExtra: '#D1D7E1',
+  // blockMeal: '#FCBEC9',
+  // blockDiaper: '#F8CFB6',
+  // blockPumpingBreast: '#F8F2BF',
+  // blockSleep: '#CAD5F7',
+  // blockActivity: '#EFC9EC',
+  // blockHealth: '#C8E8B9',
+  // blockExtra: '#D1D7E1',
 
   // 그래프 - meal color
   graphFeeding: '#FF089E',

@@ -22,15 +22,8 @@ public class SleepServiceImpl implements SleepService {
 	 */
 	@Override
 	public SleepResDto findSleepById(Long id) {
-		Sleep sleep = sleepRepository.findById(id).orElseThrow();
-
-		SleepResDto sleepResDto = SleepResDto.builder()
-			.id(sleep.getId())
-			.createdTime(sleep.getCreatedTime())
-			.endTime(sleep.getEndTime())
-			.memo(sleep.getMemo())
-			.build();
-		return sleepResDto;
+		SleepResDto sleep = sleepRepository.findSleepRecord(id);
+		return sleep;
 	}
 
 	/**

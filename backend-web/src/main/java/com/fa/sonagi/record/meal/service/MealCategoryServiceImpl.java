@@ -44,11 +44,11 @@ public class MealCategoryServiceImpl implements MealCategoryService{
 	public List<MealResDto> findAllBabyFood(Long babyId, LocalDate createdDate) {
 		List<BabyFood> findBabyFoods = babyFoodRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
 
-		List<MealResDto> babyFoods = findBabyFoods.stream()
+		List<MealResDto> babyfoods = findBabyFoods.stream()
 			.map(bf -> new MealResDto(bf.getId(), bf.getAmount(), bf.getMemo(), bf.getCreatedTime()))
 			.collect(Collectors.toList());
 
-		return babyFoods;
+		return babyfoods;
 	}
 
 	/**

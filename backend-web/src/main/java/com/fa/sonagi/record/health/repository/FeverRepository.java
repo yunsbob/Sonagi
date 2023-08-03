@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fa.sonagi.record.health.entity.Fever;
 
-public interface FeverRepository extends JpaRepository<Fever, Long> {
+public interface FeverRepository extends JpaRepository<Fever, Long>, FeverRepositoryCustom {
 	List<Fever> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
 
 }

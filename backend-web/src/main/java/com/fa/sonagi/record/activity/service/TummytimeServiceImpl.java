@@ -23,16 +23,9 @@ public class TummytimeServiceImpl implements TummytimeService {
    */
   @Override
   public ActivityResDto findTummytimeById(Long id) {
-    Tummytime tummytime = tummytimeRepository.findById(id).orElseThrow();
+    ActivityResDto tummytime = tummytimeRepository.findTummytimeRecord(id);
 
-    ActivityResDto activityResDto = ActivityResDto.builder()
-        .id(tummytime.getId())
-        .createdTime(tummytime.getCreatedTime())
-        .endTime(tummytime.getEndTime())
-        .memo(tummytime.getMemo())
-        .build();
-
-    return activityResDto;
+    return tummytime;
   }
 
   /**

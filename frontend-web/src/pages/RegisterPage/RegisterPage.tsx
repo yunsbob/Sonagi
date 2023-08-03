@@ -5,21 +5,25 @@ import yellowBaby from '@/assets/images/img-baby-yellow.png';
 import { Image } from '@/components/atoms/Image/Image';
 import * as S from '@/pages/RegisterPage/RegisterPages.styles';
 import Back from '@/components/atoms/Back/Back';
-import RegisterField from '@/components/molecules/RegisterField/RegisterField';
-import Button from '@/components/atoms/Button/Button';
-import theme from '@/styles/theme';
-import { LogoContainer } from '@/pages/LogInPage/LogInPage.styles';
 import { useRecoilValue } from 'recoil';
 import { userInfoState } from '@/states/UserState';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
+import RegisterButton from '@/components/molecules/RegisterButton/RegisterButton';
+
+import baby from '@/assets/images/img-baby.png';
+import babyCard from '@/assets/images/img-baby-card.png';
+
 const RegisterPage = () => {
   const userInfo = useRecoilValue(userInfoState);
-
   const navigate = useNavigate();
 
   const toBabyCode = () => {
     navigate(PATH.BABYCODE);
+  };
+
+  const toBabyAdd = () => {
+    navigate(PATH.REGISTERBABYPROFILE);
   };
 
   return (
@@ -36,24 +40,17 @@ const RegisterPage = () => {
             </Text>
           </S.LogoContainer>
           <S.ButtonContainer>
-            <Button
-              variant="register"
-              size="medium"
-              $backgroundColor={theme.gradient.skyblueBtn}
-            >
-              우리 아기 등록하기
-            </Button>
-            <Button
-              variant="register"
-              size="medium"
-              $backgroundColor={theme.gradient.orangeBtn}
+            <RegisterButton
+              src={baby}
+              buttonText="우리 아이 등록하기"
+              onClick={toBabyAdd}
+            />
+
+            <RegisterButton
+              src={babyCard}
+              buttonText="초대 코드 등록"
               onClick={toBabyCode}
-              // $backgroundColor={
-              //   disabled ? theme.color.gray2 : theme.gradient.orangeBtn
-              // }
-            >
-              등록 코드 입력하기
-            </Button>
+            />
           </S.ButtonContainer>
         </S.RegisterPageWrapper>
       </S.RegisterPageContainer>
