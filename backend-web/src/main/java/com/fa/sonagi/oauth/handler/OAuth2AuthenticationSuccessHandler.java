@@ -81,7 +81,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
 		RoleType roleType = hasAuthority(authorities, RoleType.ROLE_ADMIN.name()) ? RoleType.ROLE_ADMIN : RoleType.ROLE_USER;
 
-		Token tokenInfo = jwtTokenProvider.createToken(userInfo.getEmail(), roleType.name());
+		Token tokenInfo = jwtTokenProvider.createToken(userInfo.getId(), roleType.name());
 
 		redisTemplate.opsForValue()
 			.set("RT:" + authentication.getName(), tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(), TimeUnit.MILLISECONDS);
