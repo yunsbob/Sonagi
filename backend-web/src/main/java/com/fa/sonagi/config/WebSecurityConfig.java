@@ -41,10 +41,14 @@ public class WebSecurityConfig {
 			.configurationSource(corsConfigurationSource());
 
 		httpSecurity
-			.httpBasic().disable() // 기본 설정된 것, JWT 토큰 사용할 거면 필요 없어서 disable
-			.csrf().disable() // 보안 기능, JWT랑 OAuth 쓰면 필요 없음
-			.formLogin().disable() // form 로그인 사용 X
+			.httpBasic().disable()
+			.csrf().disable()
+			.formLogin().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 사용 X
+			.and()
+			.exceptionHandling()
+			.authenticationEntryPoint(new RestAuthenticationEntryPoint())
+			.accessDeniedHandler(tokenAccessDeniedHandler)
 			.and()
 			.authorizeHttpRequests()
 			.requestMatchers(new AntPathRequestMatcher("/api/oauth2/authorization"),new AntPathRequestMatcher("/api/login/oauth2/code/**")).permitAll()

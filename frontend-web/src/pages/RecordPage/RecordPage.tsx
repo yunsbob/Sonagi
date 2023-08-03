@@ -9,7 +9,9 @@ const RecordPage = () => {
         <CalendarBar></CalendarBar>
         <CategoryBar></CategoryBar>
       </section>
-      <RecordContainer></RecordContainer>
+      <div style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+        <RecordContainer></RecordContainer>
+      </div>
     </>
   );
 };
