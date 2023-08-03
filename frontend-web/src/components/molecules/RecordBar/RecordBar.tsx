@@ -3,9 +3,12 @@ import { RecordBarContainer } from '@/components/molecules/RecordBar/RecordBar.s
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCategory } from '@/states/CategoryState';
 import { recordedValues, recordsByCategory } from '@/states/RecordState';
-import theme from '@/styles/theme';
-import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import { Text } from '@/components/atoms/Text/Text.styles';
+import styled from 'styled-components';
+
+const LowBorderButton = styled(Button)<{ $borderColor: string }>`
+  border-color: ${({ $borderColor }) => $borderColor + '96'};
+`;
 
 export type RecordData = {
   recordType: string;
@@ -21,11 +24,8 @@ const RecordBar = () => {
   // 상태가 변경될 때마다 UI가 최신 상태를 반영
   const currentCategory = useRecoilValue(selectedCategory);
   const records = recordsByCategory[currentCategory || 'All'] || [];
-  const colorKey = categoryToColorMap[currentCategory || 'All'];
-  const strokeColor = theme.color[colorKey];
-  console.log(strokeColor);
 
-  const handleClick = (recordType: string) => {
+  const handleClick = (recordType: string, color: string) => {
     const date = new Date();
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
@@ -33,23 +33,22 @@ const RecordBar = () => {
 
     setRecordBlocks(oldRecordBlocks => [
       ...oldRecordBlocks,
-      { recordType, time, color: strokeColor },
+      { recordType, time, color },
     ]);
   };
-  console.log(recordBlocks);
 
   return (
     <RecordBarContainer>
       {records.map((record, index) => (
-        <Button
+        <LowBorderButton
           option="default"
           size="xSmall"
           key={index}
-          $borderColor={strokeColor}
-          onClick={() => handleClick(record.type)}
+          $borderColor={record.color}
+          onClick={() => handleClick(record.type, record.color)}
         >
           <Text size="medium3">{record.type}</Text>
-        </Button>
+        </LowBorderButton>
       ))}
     </RecordBarContainer>
   );
