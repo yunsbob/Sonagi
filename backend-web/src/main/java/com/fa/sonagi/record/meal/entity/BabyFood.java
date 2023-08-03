@@ -6,9 +6,6 @@ import jakarta.persistence.*;
 import java.sql.Time;
 import java.time.LocalDate;
 
-import org.hibernate.annotations.ColumnDefault;
-
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
