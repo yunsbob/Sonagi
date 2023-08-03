@@ -14,11 +14,8 @@ import { userInfoState } from '@/states/UserState';
 import { produce } from 'immer';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
-<<<<<<< HEAD
-import Memo from '@/components/atoms/Memo/Memo';
-=======
 import jwt from 'jwt-decode';
->>>>>>> 0db85ac39c54a2f66077fdab1b61a6f324ef3e90
+import Timer from '@/components/molecules/Timer/Timer';
 
 const SignInPage = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
@@ -61,9 +58,9 @@ const SignInPage = () => {
             //   disabled ? theme.color.gray2 : theme.gradient.orangeBtn
             // }
           />
-          <Memo></Memo>
         </S.SignInPageWrapper>
       </S.SignInPageContainer>
+      <Timer></Timer>
     </Background>
   );
 };
