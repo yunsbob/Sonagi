@@ -10,5 +10,6 @@ import lombok.Getter;
 public class MemoResDto {
 	private Long id;
 	private Long userId;
+	private String name;
 	private String memo;
 }
