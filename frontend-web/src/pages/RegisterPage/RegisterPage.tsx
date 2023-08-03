@@ -22,6 +22,10 @@ const RegisterPage = () => {
     navigate(PATH.BABYCODE);
   };
 
+  const toBabyAdd = () => {
+    navigate(PATH.REGISTERBABYPROFILE);
+  };
+
   return (
     <Background $background={orangeBackground}>
       <Back />
@@ -39,13 +43,13 @@ const RegisterPage = () => {
             <RegisterButton
               src={baby}
               buttonText="우리 아이 등록하기"
-              // onClick
+              onClick={toBabyAdd}
             />
 
             <RegisterButton
               src={babyCard}
               buttonText="초대 코드 등록"
-              // onClick
+              onClick={toBabyCode}
             />
           </S.ButtonContainer>
         </S.RegisterPageWrapper>
