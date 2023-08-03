@@ -9,4 +9,5 @@ import com.fa.sonagi.record.diaper.entity.Pee;
 
 public interface PeeRepository extends JpaRepository<Pee, Long> {
 	List<Pee> findByBabyIdAndCreatedDate(Long babyOd, LocalDate createdDate);
+
 }
