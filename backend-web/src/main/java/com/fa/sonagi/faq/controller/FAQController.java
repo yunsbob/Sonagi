@@ -1,5 +1,7 @@
 package com.fa.sonagi.faq.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FAQController {
 	private final FAQService faqService;
+
+	/**
+	 * FAQ 기록 전체 조회
+	 */
+	@GetMapping
+	public List<FAQResDto> getAllFAQs() {
+		return faqService.findAllFAQs();
+	}
 
 	/**
 	 * FAQ 기록 조회
