@@ -11,6 +11,28 @@ const RecordContainer: React.FC = () => {
 
   useEffect(() => {
     const container = containerRef.current;
+    const savedScrollTop = localStorage.getItem('scrollPosition');
+    if (container && savedScrollTop) {
+      container.scrollTop = Number(savedScrollTop);
+    }
+  }, []);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      const onScroll = () => {
+        localStorage.setItem('scrollPosition', String(container.scrollTop));
+      };
+
+      container.addEventListener('scroll', onScroll);
+      return () => {
+        container.removeEventListener('scroll', onScroll);
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    const container = containerRef.current;
     if (container) {
       const targetScrollTop = container.scrollHeight; // 목표 스크롤 위치
       container.scrollTo({
