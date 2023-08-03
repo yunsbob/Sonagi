@@ -1,5 +1,5 @@
-import Button, { ButtonProps } from '@/components/atoms/Button/Button';
-import Input, { InputProps } from '@/components/atoms/Input/Input';
+import Button from '@/components/atoms/Button/Button';
+import Input from '@/components/atoms/Input/Input';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import theme from '@/styles/theme';
 import * as S from '@/components/molecules/RegisterField/RegisterField.style';
@@ -15,7 +15,15 @@ import {
 } from 'react';
 
 interface RegisterFieldProps {
-  variant?: 'default' | 'register' | 'record';
+  option?:
+    | 'default'
+    | 'imgBtn'
+    | 'deActivated'
+    | 'ActivatedOrange'
+    | 'ActivatedBlue'
+    | 'activated'
+    | 'primary'
+    | 'danger';
   size?: 'small' | 'xSmall' | 'medium';
   $backgroundColor?: typeof theme.color;
   alertMessage?: string;
@@ -25,7 +33,6 @@ interface RegisterFieldProps {
 }
 
 const RegisterField = ({
-  variant,
   size,
   alertMessage,
   onClickButtonAction,
@@ -34,6 +41,11 @@ const RegisterField = ({
 }: RegisterFieldProps) => {
   const [value, setValue] = useState<string>('');
   const [bgColor, setBgColor] = useState<string>(theme.color.gray3);
+  const [option, setOption] = useState<'deActivated' | 'activated'>(
+    'deActivated'
+  );
+  const textColor =
+    option === 'activated' ? theme.color.white1 : theme.color.gray1;
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -46,8 +58,10 @@ const RegisterField = ({
   useEffect(() => {
     if (value.length > 0) {
       setBgColor(activeButtonColor);
+      setOption('activated'); // 값이 유효하면 activated 설정
     } else {
       setBgColor(theme.color.gray3);
+      setOption('deActivated'); // 값이 유효하지 않으면 default 설정
     }
   }, [value.length, activeButtonColor]);
 
@@ -61,12 +75,13 @@ const RegisterField = ({
         fontSize={theme.fontSize.large}
       />
       <Button
-        variant={variant}
-        size={size}
-        $backgroundColor={bgColor}
+        option={option} // 상태에 따른 option 전달
+        size="large"
         onClick={onClickButton}
       >
-        <Text size="large">등록하기</Text>
+        <Text size="headSmall" color={textColor}>
+          등록하기
+        </Text>
       </Button>
     </S.RegisterFieldStyle>
   );
