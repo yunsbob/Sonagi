@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fa.sonagi.record.diaper.entity.Pee;
 
-public interface PeeRepository extends JpaRepository<Pee, Long> {
+public interface PeeRepository extends JpaRepository<Pee, Long>, PeeRepositoryCustom {
 	List<Pee> findByBabyIdAndCreatedDate(Long babyOd, LocalDate createdDate);
-
 }
