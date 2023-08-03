@@ -1,16 +1,16 @@
 package com.fa.sonagi.user.repository;
 
-import com.fa.sonagi.user.entity.Users;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<Users, Long> {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-  Users findUserByEmail(String email);
+import com.fa.sonagi.user.entity.Users;
 
-  Optional<Users> findByEmail(String email);
+public interface UserRepository extends JpaRepository<Users, Long>, UserRepositoryCustom {
 
-  boolean existsByEmail(String email);
+	Users findUserByEmail(String email);
+
+	Optional<Users> findByEmail(String email);
+
+	boolean existsByEmail(String email);
 }

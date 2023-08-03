@@ -3,14 +3,14 @@ import {
   DonutGraphContainer,
   GrapByDayContainer,
 } from '@/components/organisms/GraphByDay/GraphByDay.styles';
-import { selectedCategory } from '@/states/CategoryState';
+import { selectedCategoryState } from '@/states/CategoryState';
 import { useRecoilValue } from 'recoil';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import theme from '@/styles/theme';
 import { Text } from '@/components/atoms/Text/Text.styles';
 
 const GraphByDay = () => {
-  const currentCategory = useRecoilValue(selectedCategory);
+  const currentCategory = useRecoilValue(selectedCategoryState);
   const currentTheme = categoryToColorMap[currentCategory];
 
   console.log(theme.color[currentTheme]);

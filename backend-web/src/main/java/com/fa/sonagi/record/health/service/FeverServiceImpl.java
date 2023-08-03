@@ -23,16 +23,8 @@ public class FeverServiceImpl implements FeverService {
    */
   @Override
   public FeverResDto findFeverById(Long id) {
-    Fever fever = feverRepository.findById(id).orElseThrow();
-
-    FeverResDto feverResDto = FeverResDto.builder()
-        .id(fever.getId())
-        .createdTime(fever.getCreatedTime())
-        .fever(fever.getFever())
-        .memo(fever.getMemo())
-        .build();
-
-    return feverResDto;
+    FeverResDto fever = feverRepository.findFeverRecord(id);
+    return fever;
   }
 
   /**
@@ -46,7 +38,7 @@ public class FeverServiceImpl implements FeverService {
         .babyId(feverPostDto.getBabyId())
         .createdDate(feverPostDto.getCreatedDate())
         .createdTime(feverPostDto.getCreatedTime())
-        .fever(feverPostDto.getFever())
+        .bodyTemperature(feverPostDto.getBodyTemperature())
         .memo(feverPostDto.getMemo())
         .build();
 
@@ -60,7 +52,7 @@ public class FeverServiceImpl implements FeverService {
   @Transactional
   public void updateFever(FeverPutDto feverPutDto) {
     Fever fever = feverRepository.findById(feverPutDto.getId()).orElseThrow();
-    fever.updateFever(feverPutDto.getCreatedTime(), feverPutDto.getFever(),
+    fever.updateFever(feverPutDto.getCreatedTime(), feverPutDto.getBodyTemperature(),
         feverPutDto.getMemo());
   }
 

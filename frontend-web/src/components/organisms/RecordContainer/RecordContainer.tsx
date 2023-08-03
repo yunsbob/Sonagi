@@ -3,11 +3,44 @@ import RecordBar from '@/components/molecules/RecordBar/RecordBar';
 import RecordBlock from '@/components/molecules/RecordBlock/RecordBlock';
 import { useRecoilValue } from 'recoil';
 import { recordedValues } from '@/states/RecordState';
+import { selectedCategoryState } from '@/states/CategoryState';
 import { RecordContainerStyle } from '@/components/organisms/RecordContainer/RecordContainer.styles';
 
 const RecordContainer: React.FC = () => {
   const recordedList = useRecoilValue(recordedValues);
+  const currentCategory = useRecoilValue(selectedCategoryState);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // 선택된 카테고리에 따라 쌓인 기록 블록들 필터링
+  const filteredRecordList = recordedList.filter(record => {
+    if (currentCategory === 'All') {
+      return true;
+    }
+
+    return record.category === currentCategory;
+  });
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const savedScrollTop = localStorage.getItem('scrollPosition');
+    if (container && savedScrollTop) {
+      container.scrollTop = Number(savedScrollTop);
+    }
+  }, []);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      const onScroll = () => {
+        localStorage.setItem('scrollPosition', String(container.scrollTop));
+      };
+
+      container.addEventListener('scroll', onScroll);
+      return () => {
+        container.removeEventListener('scroll', onScroll);
+      };
+    }
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -23,7 +56,7 @@ const RecordContainer: React.FC = () => {
   return (
     <>
       <RecordContainerStyle className="scrollable" ref={containerRef}>
-        {recordedList.map((record, index) => (
+        {filteredRecordList.map((record, index) => (
           <RecordBlock
             key={index}
             color={record.color}

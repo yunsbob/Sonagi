@@ -23,15 +23,8 @@ public class HospitalServiceImpl implements HospitalService {
    */
   @Override
   public HealthResDto findHospitalById(Long id) {
-    Hospital hospital = hospitalRepository.findById(id).orElseThrow();
-
-    HealthResDto healthResDto = HealthResDto.builder()
-        .id(hospital.getId())
-        .createdTime(hospital.getCreatedTime())
-        .memo(hospital.getMemo())
-        .build();
-
-    return healthResDto;
+    HealthResDto hospital = hospitalRepository.findHospitalRecord(id);
+    return hospital;
   }
 
   /**
