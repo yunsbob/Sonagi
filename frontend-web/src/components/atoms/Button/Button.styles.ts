@@ -36,6 +36,7 @@ const getOptionStyling = (
     `,
     // 배경색상이 white, txt가 blue
     primary: css`
+      background: ${({ theme }) => theme.color.white1};
       border-color: ${({ theme }) => theme.color.skyblue};
       color: ${({ theme }) => theme.color.blue};
     `,
@@ -89,6 +90,7 @@ const Button = styled.button<ButtonProps>`
   width: 100%;
   text-align: ${props => props.$textAlign || 'center'};
   border-radius: ${props => props.$borderRadius || '22px'};
+  color: ${props => props.$color || props.theme.color.black3};
   border: ${props =>
     props.$border ||
     `1px solid ${props.$borderColor || props.theme.color.gray2}`};
