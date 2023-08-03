@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fa.sonagi.record.health.entity.Hospital;
 
-public interface HospitalRepository extends JpaRepository<Hospital, Long> {
+public interface HospitalRepository extends JpaRepository<Hospital, Long>, HospitalRepositoryCustom {
 	List<Hospital> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
 }

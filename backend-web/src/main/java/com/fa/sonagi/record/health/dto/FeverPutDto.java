@@ -17,6 +17,6 @@ public class FeverPutDto {
   private Time createdTime;
 
   @NotNull
-  private Double fever;
+  private Double bodyTemperature;
   private String memo;
 }
