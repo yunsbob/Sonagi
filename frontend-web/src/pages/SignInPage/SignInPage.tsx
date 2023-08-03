@@ -6,7 +6,7 @@ import { Image } from '@/components/atoms/Image/Image';
 import * as S from '@/pages/SignInPage/SignInPage.style';
 import Back from '@/components/atoms/Back/Back';
 import RegisterField from '@/components/molecules/RegisterField/RegisterField';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import theme from '@/styles/theme';
 import RegisterBabyProfile from '@/components/organisms/RegisterBabyProfile/RegisterBabyProfile';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -14,7 +14,11 @@ import { userInfoState } from '@/states/UserState';
 import { produce } from 'immer';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
+<<<<<<< HEAD
 import Memo from '@/components/atoms/Memo/Memo';
+=======
+import jwt from 'jwt-decode';
+>>>>>>> 0db85ac39c54a2f66077fdab1b61a6f324ef3e90
 
 const SignInPage = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
@@ -49,7 +53,7 @@ const SignInPage = () => {
           </Text>
           <RegisterField
             onClickButtonAction={onClickButtonAction}
-            variant="register"
+            option="default"
             size="medium"
             placeholder={placeholder}
             alertMessage={alertMessage}

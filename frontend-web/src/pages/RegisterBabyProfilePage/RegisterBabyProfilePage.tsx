@@ -8,8 +8,12 @@ import RegisterBabyProfile from '@/components/organisms/RegisterBabyProfile/Regi
 import AddBaby from '@/components/molecules/AddBaby/AddBaby';
 import Button from '@/components/atoms/Button/Button';
 import theme from '@/styles/theme';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
 
 const RegisterBabyProfilePage = () => {
+  const navigate = useNavigate();
+
   const [babyNum, setBabyNum] = useState(1);
 
   const regBaby = () => {
@@ -22,6 +26,10 @@ const RegisterBabyProfilePage = () => {
 
   const handleBabyNum = () => setBabyNum(prevBabyNum => prevBabyNum + 1);
 
+  const toMain = () => {
+    navigate(PATH.MAIN);
+  };
+
   return (
     <Background $background={orangeBackground}>
       <Back />
@@ -30,14 +38,17 @@ const RegisterBabyProfilePage = () => {
           <Text>
             출생일과 성별, <br /> 이름을 입력해주세요
           </Text>
-          <div className="scrollable">{regBaby()}</div>
-          <div onClick={handleBabyNum}>
+          <S.RegisterBabyProfileWrapper className="scrollable">
+            {regBaby()}
+          </S.RegisterBabyProfileWrapper>
+          <S.AddBabyWrapper onClick={handleBabyNum}>
             <AddBaby />
-          </div>
+          </S.AddBabyWrapper>
           <Button
-            variant="register"
-            size="large"
+            option="default"
+            size="medium"
             $backgroundColor={theme.gradient.orangeBtn}
+            onClick={toMain}
           >
             등록하기
           </Button>

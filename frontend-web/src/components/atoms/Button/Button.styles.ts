@@ -2,86 +2,102 @@ import styled, { css } from 'styled-components';
 import { ButtonProps } from './Button';
 import theme from '@/styles/theme';
 
-const getVariantStyling = (
-  variant: Required<ButtonProps>['variant'],
+const getOptionStyling = (
+  option: Required<ButtonProps>['option'],
   props: ButtonProps
 ) => {
-  const style = {
-    default: css``,
-    register: css`
-      color: ${({ theme }) => theme.color.black3};
-      font-size: 22px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      box-shadow: 0px 8px 21px 0px rgba(0, 0, 0, 0.16);
-    `,
-    record: css`
-      border-radius: 1.375rem;
-      border: 1px solid;
-      font-size: 16px;
-      border-color: ${props.$borderColor || theme.color.gray3};
+  const defaultStyle = {
+    default: css`
       background: ${({ theme }) => theme.color.white1};
     `,
-    block: css`
-      border-radius: 14px;
-      border: 1px solid ${({ theme }) => theme.color.gray3};
-      font-size: 16px;
+    // 배경색상의 white1 OPACITY가 60%
+    imgBtn: css`
+      background: ${({ theme }) => theme.color.white2};
+      border-color: ${({ theme }) => theme.color.white};
+    `,
+    deActivated: css`
+      background: ${({ theme }) => theme.color.gray4};
+    `,
+    ActivatedOrange: css`
+      background: ${({ theme }) => theme.gradient.orangeBtn};
+      box-shadow: ${({ theme }) => theme.shadow.shadow1};
+      border: none;
+    `,
+    ActivatedBlue: css`
+      background: ${({ theme }) => theme.gradient.skyblueBtn};
+      box-shadow: ${({ theme }) => theme.shadow.shadow1};
+      border: none;
+    `,
+    // 배경색상이 blue, txt가 white
+    activated: css`
+      background: ${({ theme }) => theme.color.primaryblue};
+      color: ${({ theme }) => theme.color.white1};
+      border: none;
+    `,
+    // 배경색상이 white, txt가 blue
+    primary: css`
       background: ${({ theme }) => theme.color.white1};
-      display: flex;
-      margin: 0 1rem 1rem 1rem;
+      border-color: ${({ theme }) => theme.color.skyblue};
+      color: ${({ theme }) => theme.color.blue};
     `,
-    birthday: css`
-      border-radius: 0.5625rem;
-      border: 1px solid var(--grey-2, #c3c3c3);
-      background: var(--white-1, #fff);
-    `,
-    gender: css`
-      border-radius: 0.5625rem;
-      border: 1px solid var(--grey-2, #c3c3c3);
-      background: var(--white-1, #fff);
+    danger: css`
+      background: ${({ theme }) => theme.gradient.danger};
+      color: ${({ theme }) => theme.color.white1};
+      border: none;
     `,
   };
 
-  return style[variant];
+  return props.$backgroundColor
+    ? css`
+        background: ${props.$backgroundColor};
+      `
+    : defaultStyle[option];
 };
 
 const getSizeStyling = (size: Required<ButtonProps>['size']) => {
   const style = {
     xSmall: css`
-      width: auto;
-      height: 2.1rem;
-      flex-shrink: 0;
-      padding: 0.3rem;
-      padding-right: 0.6rem;
+      width: fit-content;
+      min-width: fit-content;
+      font-size: ${({ theme }) => theme.fontSize.medium3};
+      border-radius: 22px;
+      align-items: center;
+      display: flex;
+      padding: 0.4rem 0.9rem;
     `,
     small: css`
-      width: 100%;
-      height: 2.5rem;
-      flex-shrink: 0;
+      height: 36px;
+      font-size: ${({ theme }) => theme.fontSize.medium1};
     `,
     medium: css`
-      width: 100%;
-      height: 62px;
-      /* flex-shrink: 0; */
+      height: 44px;
+      font-size: ${({ theme }) => theme.fontSize.medium2};
+      border-radius: 9px;
     `,
     large: css`
-      width: 100%;
-      height: 3.5rem;
-      flex-shrink: 0;
+      height: 55px;
+      font-size: ${({ theme }) => theme.fontSize.medium1};
+    `,
+    xLarge: css`
+      height: 62px;
+      font-size: ${({ theme }) => theme.fontSize.large};
     `,
   };
   return style[size];
 };
 
 const Button = styled.button<ButtonProps>`
-  cursor: pointer;
-  border-radius: 22px;
-  text-align: center;
-  background: ${props => props.$backgroundColor};
-  border: 1px solid ${props => props.$borderColor || props.theme.color.gray2};
-  ${({ variant = 'default', ...props }) => getVariantStyling(variant, props)}
-  ${({ size = 'small' }) => getSizeStyling(size)}
+  width: 100%;
+  text-align: ${props => props.$textAlign || 'center'};
+  border-radius: ${props => props.$borderRadius || '22px'};
+  color: ${props => props.$color || props.theme.color.black3};
+  border: ${props =>
+    props.$border ||
+    `1px solid ${props.$borderColor || props.theme.color.gray2}`};
+  ${({ size = 'large' }) => getSizeStyling(size)};
+  ${({ option = 'default', ...props }) => getOptionStyling(option, props)};
+  background-color: ${props => props.$backgroundColor};
+  color: ${props => props.$color || props.theme.color.black3};
 `;
 
 export { Button };

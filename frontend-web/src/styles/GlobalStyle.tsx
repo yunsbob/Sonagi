@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
    .scrollable {
-        height: 80vh;
+        height: calc(100vh - 17rem);
         overflow: auto;
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */

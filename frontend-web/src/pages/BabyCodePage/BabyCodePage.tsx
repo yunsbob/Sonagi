@@ -27,6 +27,7 @@ const BabyCodePage = () => {
   };
 
   return (
+<<<<<<< HEAD
     <>
       {modalOpen && <CheckBabyModal onModalClose={onModalClose} />}
       <Background $background={orangeBackground}>
@@ -50,6 +51,28 @@ const BabyCodePage = () => {
         </S.BabyCodePageContainer>
       </Background>
     </>
+=======
+    <Background $background={orangeBackground}>
+      <Back />
+      <S.BabyCodePageContainer>
+        <S.BabyCodePageWrapper>
+          <Text color={'black3'}>
+            공동 양육자에게 발급된
+            <br />
+            코드를 입력해주세요.
+          </Text>
+          <RegisterField
+            onClickButtonAction={onClickButtonAction}
+            option="default"
+            size="medium"
+            placeholder={placeholder}
+            alertMessage={alertMessage}
+            activeButtonColor={theme.gradient.skyblueBtn}
+          />
+        </S.BabyCodePageWrapper>
+      </S.BabyCodePageContainer>
+    </Background>
+>>>>>>> 0db85ac39c54a2f66077fdab1b61a6f324ef3e90
   );
 };
 

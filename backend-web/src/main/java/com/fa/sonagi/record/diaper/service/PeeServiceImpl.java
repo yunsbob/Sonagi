@@ -23,15 +23,8 @@ public class PeeServiceImpl implements PeeService {
    */
   @Override
   public DiaperResDto findPeeById(Long id) {
-    Pee pee = peeRepository.findById(id).orElseThrow();
-
-    DiaperResDto diaperResDto = DiaperResDto.builder()
-        .id(pee.getId())
-        .createdTime(pee.getCreatedTime())
-        .memo(pee.getMemo())
-        .build();
-
-    return diaperResDto;
+    DiaperResDto pee = peeRepository.findPeeRecord(id);
+    return pee;
   }
 
   /**

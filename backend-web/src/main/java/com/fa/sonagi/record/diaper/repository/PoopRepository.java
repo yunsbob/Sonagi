@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fa.sonagi.record.diaper.entity.Poop;
 
-public interface PoopRepository extends JpaRepository<Poop, Long> {
+public interface PoopRepository extends JpaRepository<Poop, Long>, PoopRepositoryCustom {
 	List<Poop> findByBabyIdAndCreatedDate(Long babyOd, LocalDate createdDate);
 }

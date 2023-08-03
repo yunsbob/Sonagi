@@ -23,15 +23,9 @@ public class PoopServiceImpl implements PoopService {
    */
   @Override
   public DiaperResDto findPoopById(Long id) {
-    Poop poop = poopRepository.findById(id).orElseThrow();
+    DiaperResDto poop = poopRepository.findPoopRecord(id);
 
-    DiaperResDto diaperResDto = DiaperResDto.builder()
-        .id(poop.getId())
-        .createdTime(poop.getCreatedTime())
-        .memo(poop.getMemo())
-        .build();
-
-    return diaperResDto;
+    return poop;
   }
 
   /**
