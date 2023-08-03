@@ -29,6 +29,7 @@ const Button = (
     size,
     $backgroundColor,
     $borderColor,
+    $border,
     $color,
     children,
     ...attributes
@@ -40,6 +41,7 @@ const Button = (
       ref={ref}
       option={option}
       size={size}
+      $border={$border}
       $backgroundColor={$backgroundColor}
       $borderColor={$borderColor}
       $color={$color}
