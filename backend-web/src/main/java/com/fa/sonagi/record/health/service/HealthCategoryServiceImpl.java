@@ -34,7 +34,7 @@ public class HealthCategoryServiceImpl implements HealthCategoryService {
 		List<Fever> findFevers = feverRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
 
 		List<FeverResDto> fevers = findFevers.stream()
-			.map(f -> new FeverResDto(f.getId(), f.getCreatedTime(), f.getFever(), f.getMemo()))
+			.map(f -> new FeverResDto(f.getId(), f.getCreatedTime(), f.getBodyTemperature(), f.getMemo()))
 			.collect(Collectors.toList());
 
 		return fevers;

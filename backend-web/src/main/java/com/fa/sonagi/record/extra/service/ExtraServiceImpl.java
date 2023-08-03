@@ -23,15 +23,8 @@ public class ExtraServiceImpl implements ExtraService {
    */
   @Override
   public ExtraResDto findExtraById(Long id) {
-    Extra extra = extraRepository.findById(id).orElseThrow();
-
-    ExtraResDto extraResDto = ExtraResDto.builder()
-        .id(extra.getId())
-        .createdTime(extra.getCreatedTime())
-        .memo(extra.getMemo())
-        .build();
-
-    return extraResDto;
+    ExtraResDto extra = extraRepository.findExtraRecord(id);
+    return extra;
   }
 
   /**

@@ -3,6 +3,9 @@ package com.fa.sonagi.record.health.entity;
 import java.sql.Time;
 import java.time.LocalDate;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @Builder
+@DynamicInsert
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "fever",
@@ -41,15 +45,16 @@ public class Fever {
   @Column(name = "created_time", nullable = false)
   private Time createdTime;
 
-  @Column(name = "fever", nullable = false)
-  private Double fever;
+  @Column(name = "body_temperature")
+  @ColumnDefault("36.5")
+  private Double bodyTemperature;
 
   @Column(name = "memo", length = 100)
   private String memo;
 
-  public void updateFever(Time createdTime, Double fever, String memo) {
+  public void updateFever(Time createdTime, Double bodyTemperature, String memo) {
     this.createdTime = createdTime;
-    this.fever = fever;
+    this.bodyTemperature = bodyTemperature;
     this.memo = memo;
   }
 }

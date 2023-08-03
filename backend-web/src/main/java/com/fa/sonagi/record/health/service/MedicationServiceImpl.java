@@ -23,15 +23,8 @@ public class MedicationServiceImpl implements MedicationService {
    */
   @Override
   public HealthResDto findMedicationById(Long id) {
-    Medication medication = medicationRepository.findById(id).orElseThrow();
-
-    HealthResDto healthResDto = HealthResDto.builder()
-        .id(medication.getId())
-        .createdTime(medication.getCreatedTime())
-        .memo(medication.getMemo())
-        .build();
-
-    return healthResDto;
+    HealthResDto medication = medicationRepository.findMedicationRecord(id);
+    return medication;
   }
 
   /**
