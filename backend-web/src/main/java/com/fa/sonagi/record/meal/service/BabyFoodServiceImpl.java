@@ -21,16 +21,9 @@ public class BabyFoodServiceImpl implements BabyFoodService {
    */
   @Override
   public MealResDto findBabyFoodById(Long id) {
-    BabyFood babyFood = babyFoodRepository.findById(id).orElseThrow();
-
-    MealResDto mealResDto = MealResDto.builder()
-        .id(babyFood.getId())
-        .amount(babyFood.getAmount())
-        .memo(babyFood.getMemo())
-        .createdTime(babyFood.getCreatedTime())
-        .build();
+    MealResDto babyFood = babyFoodRepository.findBabyFoodDetailRecord(id);
     
-    return mealResDto;
+    return babyFood;
   }
 
   /**

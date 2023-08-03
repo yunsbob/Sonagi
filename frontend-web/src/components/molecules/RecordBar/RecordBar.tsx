@@ -5,6 +5,7 @@ import { selectedCategory } from '@/states/CategoryState';
 import { recordedValues, recordsByCategory } from '@/states/RecordState';
 import theme from '@/styles/theme';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
+import { Text } from '@/components/atoms/Text/Text.styles';
 
 export type RecordData = {
   recordType: string;
@@ -26,7 +27,10 @@ const RecordBar = () => {
 
   const handleClick = (recordType: string) => {
     const date = new Date();
-    const time = `${date.getHours()} : ${date.getMinutes()}`;
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const time = `${hours}:${minutes}`;
+
     setRecordBlocks(oldRecordBlocks => [
       ...oldRecordBlocks,
       { recordType, time, color: strokeColor },
@@ -38,14 +42,13 @@ const RecordBar = () => {
     <RecordBarContainer>
       {records.map((record, index) => (
         <Button
-          variant="record"
+          option="default"
           size="xSmall"
           key={index}
-          style={{ padding: '0.8rem', alignItems: 'center', display: 'flex' }}
           $borderColor={strokeColor}
           onClick={() => handleClick(record.type)}
         >
-          {record.type}
+          <Text size="medium3">{record.type}</Text>
         </Button>
       ))}
     </RecordBarContainer>

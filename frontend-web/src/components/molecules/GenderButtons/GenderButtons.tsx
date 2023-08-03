@@ -24,7 +24,7 @@ const GenderButtons = () => {
           src={genderState === '남' ? blueBabyCircle : yellowBabyCircle}
         />
         <Button
-          variant="gender"
+          option="primary"
           // size
           onClick={handleMaleState}
           style={{
@@ -39,7 +39,7 @@ const GenderButtons = () => {
           남자
         </Button>
         <Button
-          variant="gender"
+          option="primary"
           // size="gender"
           onClick={handleFemaleState}
           style={{

@@ -19,13 +19,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fa.sonagi.jwt.JwtTokenProvider;
-import com.fa.sonagi.oauth.dto.ProviderType;
+import com.fa.sonagi.oauth.entity.ProviderType;
 import com.fa.sonagi.oauth.info.OAuth2UserInfo;
 import com.fa.sonagi.oauth.info.OAuth2UserInfoFactory;
 import com.fa.sonagi.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.fa.sonagi.oauth.utils.CookieUtil;
-import com.fa.sonagi.user.dto.Authority;
-import com.fa.sonagi.user.dto.Token;
+import com.fa.sonagi.oauth.entity.RoleType;
+import com.fa.sonagi.jwt.Token;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -79,9 +79,9 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
 		Collection<? extends GrantedAuthority> authorities = ((OidcUser)authentication.getPrincipal()).getAuthorities();
 
-		Authority roleType = hasAuthority(authorities, Authority.ROLE_ADMIN.name()) ? Authority.ROLE_ADMIN : Authority.ROLE_USER;
+		RoleType roleType = hasAuthority(authorities, RoleType.ROLE_ADMIN.name()) ? RoleType.ROLE_ADMIN : RoleType.ROLE_USER;
 
-		Token tokenInfo = jwtTokenProvider.createToken(userInfo.getEmail(), roleType.name());
+		Token tokenInfo = jwtTokenProvider.createToken(userInfo.getId(), roleType.name());
 
 		redisTemplate.opsForValue()
 			.set("RT:" + authentication.getName(), tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(), TimeUnit.MILLISECONDS);

@@ -32,7 +32,7 @@ const BabyCodePage = () => {
           </Text>
           <RegisterField
             onClickButtonAction={onClickButtonAction}
-            variant="register"
+            option="default"
             size="medium"
             placeholder={placeholder}
             alertMessage={alertMessage}

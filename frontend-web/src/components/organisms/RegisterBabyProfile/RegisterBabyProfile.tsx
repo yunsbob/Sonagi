@@ -27,7 +27,7 @@ const RegisterBabyProfile = () => {
     <>
       <GenderButtons />
       <Button
-        variant="birthday"
+        option="default"
         size="large"
         style={{ fontSize: theme.fontSize.large, color: theme.color.black3 }}
       >

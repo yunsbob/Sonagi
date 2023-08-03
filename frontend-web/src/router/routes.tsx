@@ -18,6 +18,7 @@ import RegisterPage from '@/pages/RegisterPage/RegisterPage';
 import BabyCodePage from '@/pages/BabyCodePage/BabyCodePage';
 import { GraphByDay } from '@/components/organisms/GraphByDay/GraphByDay';
 import { GraphByWeek } from '@/components/organisms/GraphByWeek/GraphByWeek';
+import RedirectPage from '@/pages/RedirectPage/RedirectPage';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: PATH.LOGIN,
     element: <LogInPage />,
+  },
+  {
+    path: PATH.REDIRECT,
+    element: <RedirectPage />,
   },
   {
     path: PATH.SIGNIN,

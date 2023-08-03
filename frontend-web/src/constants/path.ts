@@ -2,6 +2,7 @@
 const PATH = {
   ROOT: '/',
   LOGIN: '/logIn',
+  REDIRECT: '/oauth/redirect',
   SIGNIN: '/signIn',
   REGISTER: '/register',
   BABYCODE: '/babycode',
