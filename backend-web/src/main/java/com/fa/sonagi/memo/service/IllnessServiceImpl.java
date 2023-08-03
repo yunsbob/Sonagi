@@ -11,6 +11,7 @@ import com.fa.sonagi.memo.dto.MemoPutDto;
 import com.fa.sonagi.memo.dto.MemoResDto;
 import com.fa.sonagi.memo.entity.Illness;
 import com.fa.sonagi.memo.repository.IllnessRepository;
+import com.fa.sonagi.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class IllnessServiceImpl implements IllnessService {
 	private final IllnessRepository illnessRepository;
+	private final UserRepository userRepository;
 
 	/**
 	 * 질병 메모 리스트 아이디로 조회
@@ -30,6 +32,7 @@ public class IllnessServiceImpl implements IllnessService {
 			.map(i -> MemoResDto.builder()
 				.id(i.getId())
 				.userId(i.getUserId())
+				.name(userRepository.findName(i.getUserId()).getName())
 				.memo(i.getMemo())
 				.build())
 			.collect(Collectors.toList());
@@ -44,6 +47,8 @@ public class IllnessServiceImpl implements IllnessService {
 
 		MemoResDto memoResDto = MemoResDto.builder()
 			.id(illness.getId())
+			.userId(illness.getUserId())
+			.name(userRepository.findName(illness.getUserId()).getName())
 			.memo(illness.getMemo())
 			.build();
 
