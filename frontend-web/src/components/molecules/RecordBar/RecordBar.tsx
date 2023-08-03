@@ -6,9 +6,9 @@ import { recordedValues, recordsByCategory } from '@/states/RecordState';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import styled from 'styled-components';
 
-const LowBorderButton = styled(Button)<{ $borderColor: string }>`
-  border-color: ${({ $borderColor }) => $borderColor + '96'};
-`;
+// const LowBorderButton = styled(Button)<{ $borderColor: string }>`
+//   border-color: ${({ $borderColor }) => $borderColor + '96'};
+// `;
 
 export type RecordData = {
   recordType: string;
@@ -45,7 +45,7 @@ const RecordBar = () => {
   return (
     <RecordBarContainer>
       {records.map((record, index) => (
-        <LowBorderButton
+        <Button
           option="default"
           size="xSmall"
           key={index}
@@ -55,7 +55,7 @@ const RecordBar = () => {
           }
         >
           <Text size="medium3">{record.type}</Text>
-        </LowBorderButton>
+        </Button>
       ))}
     </RecordBarContainer>
   );
