@@ -7,7 +7,6 @@ import kakao from '@/assets/images/img-logo-kakao.png';
 import naver from '@/assets/images/img-logo-naver.png';
 import { Image } from '@/components/atoms/Image/Image';
 import { Text } from '@/components/atoms/Text/Text.styles';
-import { GoogleLogIn } from '@/components/organisms/GoogleLogIn/GoogleLogIn';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import Button from './../../components/atoms/Button/Button';
@@ -21,14 +20,11 @@ import theme from '@/styles/theme';
 import SocialButton from '@/components/molecules/SocialButton/SocialButton';
 
 const LogInPage = () => {
-  const navigate = useNavigate();
+  const OAUTH2_REDIERECT_URI = `${process.env.REACT_APP_BASE_URL}/oauth/redirect`;
 
-  const onGoogleLogIn = (res: CredentialResponse) => {
-    const { credential } = res;
-    if (credential) {
-      console.log(res.credential);
-      navigate(PATH.SIGNIN);
-    }
+  const onSocialButtonClick = (socialName: string) => {
+    const AUTH_URL = `${process.env.REACT_APP_SERVER_URL}/api/oauth2/authorization/${socialName}?redirect_uri=${OAUTH2_REDIERECT_URI}`;
+    window.location.href = AUTH_URL;
   };
 
   return (
@@ -41,9 +37,21 @@ const LogInPage = () => {
             <Text size="headXLarge">소나기</Text>
           </LogoContainer>
           <ButtonContainer>
-            <SocialButton src={google} buttonText="구글로 로그인하기" />
-            <SocialButton src={kakao} buttonText="카카오톡으로 로그인하기" />
-            <SocialButton src={naver} buttonText="네이버로 로그인하기" />
+            <SocialButton
+              src={google}
+              buttonText="구글로 로그인하기"
+              onClick={() => onSocialButtonClick('google')}
+            />
+            <SocialButton
+              src={kakao}
+              buttonText="카카오톡으로 로그인하기"
+              onClick={() => onSocialButtonClick('kakao')}
+            />
+            <SocialButton
+              src={naver}
+              buttonText="네이버로 로그인하기"
+              onClick={() => onSocialButtonClick('naver')}
+            />
             {/* <GoogleLogIn o기GoogleSignIn={onGoogleLogIn} /> */}
           </ButtonContainer>
         </LogInPageWrapper>

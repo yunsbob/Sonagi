@@ -14,6 +14,7 @@ const RoundedRect = styled.div<RoundedRectProps>`
   background-color: ${({ color }) => color};
   border-radius: ${({ borderRadius = '6px' }) => borderRadius};
   margin: 0.5rem;
+  opacity: 40%;
 `;
 
 export { RoundedRect };

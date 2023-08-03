@@ -14,9 +14,8 @@ interface SocialButtonProps {
 const SocialButton = ({ src, buttonText, onClick }: SocialButtonProps) => {
   return (
     <Button
-      variant="register"
-      size="medium"
-      $backgroundColor={theme.color.white2}
+      option="imgBtn"
+      size="xLarge"
       $borderColor={theme.color.white2}
       onClick={onClick}
     >
