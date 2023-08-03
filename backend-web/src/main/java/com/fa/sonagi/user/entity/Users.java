@@ -104,4 +104,7 @@ public class Users extends BaseTimeEntity implements UserDetails {
 		this.name = name;
 	}
 
+	public void updateName(String name) {
+		this.name = name;
+	}
 }
