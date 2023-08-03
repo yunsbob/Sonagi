@@ -56,13 +56,13 @@ const getOptionStyling = (
 const getSizeStyling = (size: Required<ButtonProps>['size']) => {
   const style = {
     xSmall: css`
-      width: auto;
-      height: 30px;
+      width: fit-content;
+      min-width: fit-content;
       font-size: ${({ theme }) => theme.fontSize.medium3};
       border-radius: 22px;
       align-items: center;
       display: flex;
-      padding: 4px;
+      padding: 0.4rem 0.9rem;
     `,
     small: css`
       height: 36px;
@@ -88,7 +88,6 @@ const getSizeStyling = (size: Required<ButtonProps>['size']) => {
 const Button = styled.button<ButtonProps>`
   width: 100%;
   text-align: ${props => props.$textAlign || 'center'};
-  color: ${({ theme }) => theme.color.black3};
   border-radius: ${props => props.$borderRadius || '22px'};
   border: ${props =>
     props.$border ||
@@ -96,6 +95,7 @@ const Button = styled.button<ButtonProps>`
   ${({ size = 'large' }) => getSizeStyling(size)};
   ${({ option = 'default', ...props }) => getOptionStyling(option, props)};
   background-color: ${props => props.$backgroundColor};
+  color: ${props => props.$color || props.theme.color.black3};
 `;
 
 export { Button };
