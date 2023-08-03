@@ -37,21 +37,13 @@ const RegisterPage = () => {
           </S.LogoContainer>
           <S.ButtonContainer>
             <Button
-              variant="register"
-              size="medium"
-              $backgroundColor={theme.gradient.skyblueBtn}
+              option="ActivatedBlue"
+              size="xLarge"
+              $border={theme.color.white1}
             >
               우리 아기 등록하기
             </Button>
-            <Button
-              variant="register"
-              size="medium"
-              $backgroundColor={theme.gradient.orangeBtn}
-              onClick={toBabyCode}
-              // $backgroundColor={
-              //   disabled ? theme.color.gray2 : theme.gradient.orangeBtn
-              // }
-            >
+            <Button option="ActivatedOrange" size="xLarge" onClick={toBabyCode}>
               등록 코드 입력하기
             </Button>
           </S.ButtonContainer>
