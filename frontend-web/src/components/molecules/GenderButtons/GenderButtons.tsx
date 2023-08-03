@@ -6,50 +6,35 @@ import blueBabyCircle from '@/assets/images/img-baby-blue-circle.png';
 import yellowBabyCircle from '@/assets/images/img-baby-yellow-circle.png';
 
 const GenderButtons = () => {
-  const [genderState, setGenderState] = useState('여');
+  const [genderState, setGenderState] = useState<'male' | 'female'>('male');
 
   const handleMaleState = () => {
-    setGenderState('남');
+    setGenderState('male');
   };
+
   const handleFemaleState = () => {
-    setGenderState('여');
+    setGenderState('female');
   };
 
   return (
     <>
       <GenderButtonsContainer>
+        {/* TODO 이미지 크기 서로 다른거 고치기 */}
         <Image
-          width={7.5}
-          style={{ transform: 'rotate(11.758deg)' }}
-          src={genderState === '남' ? blueBabyCircle : yellowBabyCircle}
+          width={5}
+          src={genderState === 'male' ? blueBabyCircle : yellowBabyCircle}
         />
         <Button
-          option="primary"
-          // size
+          option={genderState === 'male' ? 'primary' : 'default'}
+          size="medium"
           onClick={handleMaleState}
-          style={{
-            border:
-              genderState === '남'
-                ? '2px solid var(--skyblue, #8CC8FF)'
-                : '1px solid var(--grey-3, #D7D7D7)',
-            color: genderState === '남' ? 'var(--blue, #0094FF)' : 'initial',
-            width: '4.5rem',
-          }}
         >
           남자
         </Button>
         <Button
-          option="primary"
-          // size="gender"
+          option={genderState === 'female' ? 'primary' : 'default'}
+          size="medium"
           onClick={handleFemaleState}
-          style={{
-            border:
-              genderState === '여'
-                ? '2px solid var(--skyblue, #8CC8FF)'
-                : '1px solid var(--grey-3, #D7D7D7)',
-            color: genderState === '여' ? 'var(--blue, #0094FF)' : 'initial',
-            width: '4.5rem',
-          }}
         >
           여자
         </Button>

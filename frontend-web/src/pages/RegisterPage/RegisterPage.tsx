@@ -22,6 +22,10 @@ const RegisterPage = () => {
     navigate(PATH.BABYCODE);
   };
 
+  const toBabyAdd = () => {
+    navigate(PATH.REGISTERBABYPROFILE);
+  };
+
   return (
     <Background $background={orangeBackground}>
       <Back />
@@ -40,6 +44,7 @@ const RegisterPage = () => {
               option="ActivatedBlue"
               size="xLarge"
               $border={theme.color.white1}
+              onClick={toBabyAdd}
             >
               우리 아기 등록하기
             </Button>
