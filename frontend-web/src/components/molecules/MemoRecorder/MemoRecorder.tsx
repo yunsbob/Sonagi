@@ -1,8 +1,8 @@
 import React, { useState, ChangeEvent } from 'react';
-import * as S from '@/components/atoms/Memo/Memo.style';
+import * as S from '@/components/atoms/MemoRecorder/Memo.style';
 import { Text } from '@/components/atoms/Text/Text.styles';
 
-const Memo = () => {
+const MemoRecorder = () => {
   const [inputCount, setInputCount] = useState(0);
 
   const onInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -23,4 +23,4 @@ const Memo = () => {
   );
 };
 
-export default Memo;
+export default MemoRecorder;

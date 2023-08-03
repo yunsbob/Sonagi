@@ -15,8 +15,6 @@ import { produce } from 'immer';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import jwt from 'jwt-decode';
-import Timer from '@/components/molecules/Timer/Timer';
-import BreastFeed from '@/components/molecules/BreastFeed/BreastFeed';
 
 const SignInPage = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
@@ -61,7 +59,6 @@ const SignInPage = () => {
           />
         </S.SignInPageWrapper>
       </S.SignInPageContainer>
-      <BreastFeed></BreastFeed>
     </Background>
   );
 };

@@ -1,8 +1,7 @@
 import { Text } from '@/components/atoms/Text/Text.styles';
 import Button from '@/components/atoms/Button/Button';
 import theme from '@/styles/theme';
-import * as S from '@/components/molecules/BreastFeed/BreastFeed.style';
-import { BreastFeedWrapper, ButtonWrapper } from './BreastFeed.style';
+import * as S from '@/components/molecules/BreastFeedRecorder/BreastFeedRecorder.style';
 import LeftBreast from '@/assets/images/img-breast-left.png';
 import RightBreast from '@/assets/images/img-breast-right.png';
 import { Image } from '@/components/atoms/Image/Image';

@@ -1,7 +1,7 @@
 import { Text } from '@/components/atoms/Text/Text.styles';
 import Button from '@/components/atoms/Button/Button';
-import * as S from '@/components/molecules/Timer/Timer.style';
-import { ButtonWrapper } from './Timer.style';
+import * as S from '@/components/molecules/TimeRecorder/TimeRecorder.style';
+import { ButtonWrapper } from './TimeRecorder.style';
 import theme from '@/styles/theme';
 
 interface TimerProps {
