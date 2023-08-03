@@ -5,6 +5,7 @@ import { selectedCategory } from '@/states/CategoryState';
 import { recordedValues, recordsByCategory } from '@/states/RecordState';
 import theme from '@/styles/theme';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
+import { Text } from '@/components/atoms/Text/Text.styles';
 
 export type RecordData = {
   recordType: string;
@@ -44,11 +45,10 @@ const RecordBar = () => {
           option="default"
           size="xSmall"
           key={index}
-          style={{ padding: '0.8rem' }}
           $borderColor={strokeColor}
           onClick={() => handleClick(record.type)}
         >
-          {record.type}
+          <Text size="medium3">{record.type}</Text>
         </Button>
       ))}
     </RecordBarContainer>
