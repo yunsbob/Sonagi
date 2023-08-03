@@ -20,9 +20,7 @@ import theme from '@/styles/theme';
 import SocialButton from '@/components/molecules/SocialButton/SocialButton';
 
 const LogInPage = () => {
-  const navigate = useNavigate();
-
-  const OAUTH2_REDIERECT_URI = 'http://localhost:3000/oauth/redirect';
+  const OAUTH2_REDIERECT_URI = `${process.env.REACT_APP_BASE_URL}/oauth/redirect`;
 
   const onSocialButtonClick = (socialName: string) => {
     const AUTH_URL = `${process.env.REACT_APP_SERVER_URL}/api/oauth2/authorization/${socialName}?redirect_uri=${OAUTH2_REDIERECT_URI}`;
