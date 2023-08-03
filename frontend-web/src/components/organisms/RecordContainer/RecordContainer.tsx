@@ -9,17 +9,19 @@ const RecordContainer: React.FC = () => {
   const recordedList = useRecoilValue(recordedValues);
 
   return (
-    <RecordContainerStyle className="scrollable">
-      {recordedList.map((record, index) => (
-        <RecordBlock
-          key={index}
-          color={record.color}
-          recordType={record.recordType}
-          time={record.time}
-        ></RecordBlock>
-      ))}
+    <>
+      <RecordContainerStyle className="scrollable">
+        {recordedList.map((record, index) => (
+          <RecordBlock
+            key={index}
+            color={record.color}
+            recordType={record.recordType}
+            time={record.time}
+          ></RecordBlock>
+        ))}
+      </RecordContainerStyle>
       <RecordBar></RecordBar>
-    </RecordContainerStyle>
+    </>
   );
 };
 
