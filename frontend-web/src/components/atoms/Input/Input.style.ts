@@ -13,7 +13,7 @@ const getTypeStyling = (inputType: Required<InputStyleProps>['inputType']) => {
   const style = {
     // 기본 input
     text: css`
-      border: 2px solid ${({ theme }) => theme.color.gray2};
+      border: 1.25px solid ${({ theme }) => theme.color.gray2};
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -41,9 +41,9 @@ const getTypeStyling = (inputType: Required<InputStyleProps>['inputType']) => {
 
 const InputContainer = styled.input<InputStyleProps>`
   ${({ inputType = 'text' }) => getTypeStyling(inputType)};
-  width: ${props => '100%' || `${props.width}${props.$unit}`};
+  width: ${props => `${props.width}${props.$unit}` || '100%'};
   height: ${props => `${props.height}${props.$unit}`};
-  border-radius: ${props => '22px' || `${props.borderRadius}px`};
+  border-radius: ${props => `${props.borderRadius}px` || '22px'};
   font-size: ${props => props.fontSize};
 `;
 
