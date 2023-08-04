@@ -61,14 +61,20 @@ export const oneTimeStringPaddingAndToDegrees = (timeString: string) => {
   return [leftDegree, rightDegree];
 };
 
-const DougnutCharByJun = () => {
+const DoughnutChartByJun = () => {
   const timeStrings: string[] = ['7시32분', '7시36분'];
   const testString = '12시00분';
   const [start, finished] = timeStringToDegrees(timeStrings);
   const [start1, finished1] = oneTimeStringPaddingAndToDegrees(testString);
 
   return (
-    <svg width="500" height="500" viewBox="0 0 100 100">
+    <svg width="300" height="300" viewBox="0 0 100 100">
+      <path
+        d={getArc(0, 360)}
+        stroke="green"
+        fill="transparent"
+        strokeWidth="20"
+      />
       <path
         d={getArc(start, finished)}
         stroke="green"
@@ -85,4 +91,4 @@ const DougnutCharByJun = () => {
   );
 };
 
-export { DougnutCharByJun };
+export { DoughnutChartByJun };

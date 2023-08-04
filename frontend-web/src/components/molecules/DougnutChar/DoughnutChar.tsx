@@ -41,7 +41,7 @@ const DoughnutChart = () => {
           strokeDasharray={`${2 * Math.PI * 90 * 0.01} ${
             2 * Math.PI * 90 * 0.99
           }`}
-          strokeDashoffset={2 * Math.PI * 90 * 0.0416}
+          strokeDashoffset={2 * Math.PI * 90 * 0.75}
         />
       </svg>
     </DonutGraphContainer>
