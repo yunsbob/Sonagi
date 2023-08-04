@@ -17,3 +17,5 @@ export const TimerTextWrapper = styled.p`
   text-align: left;
   margin-bottom: 20px;
 `;
+
+export const TimePickerWrapper = styled.p``;
