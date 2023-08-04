@@ -48,7 +48,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 		ProviderType providerType = ProviderType.valueOf(userRequest.getClientRegistration().getRegistrationId().toUpperCase());
 
 		OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
-		Users savedUser = userRepository.findUserByEmail(userInfo.getEmail());
+		log.info(userInfo.getId());
+		Users savedUser = userRepository.findBySocialId(userInfo.getId());
 
 		if (savedUser != null) {
 			if (providerType != savedUser.getProviderType()) {
@@ -65,6 +66,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
 	private Users createUser(OAuth2UserInfo userInfo, ProviderType providerType) {
 		Users user = Users.builder()
+			.socialId(userInfo.getId())
 			.email(userInfo.getEmail())
 			.name(userInfo.getName())
 			.providerType(providerType)
@@ -75,6 +77,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
 	private void updateUser(Users user, OAuth2UserInfo userInfo) {
 		if (userInfo.getName() != null && !user.getUsername().equals(userInfo.getName())) {
+			user.setName(userInfo.getName());
+		}
+		if (userInfo.getEmail() != null && !user.getEmail().equals(userInfo.getEmail())) {
 			user.setName(userInfo.getName());
 		}
 	}
