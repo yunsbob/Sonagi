@@ -47,10 +47,11 @@ const color = {
   // blockExtra: '#D1D7E1',
 
   // 그래프 - meal color
-  graphFeeding: '#FF089E',
+  graphFeeding: '#FF809E',
   graphInfantFormula: '#FFb7C8',
   graphBreastFeeding: '#FFCCF1',
   graphBabyFood: '#FFF1CC',
+  graphSnack: '#FFE4CC',
   graphMilk: '#D3DEFF',
 
   // 그래프 - diaper color
