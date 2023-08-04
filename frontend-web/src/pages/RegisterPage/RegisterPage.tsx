@@ -10,6 +10,7 @@ import { userInfoState } from '@/states/UserState';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import RegisterButton from '@/components/molecules/RegisterButton/RegisterButton';
+import theme from '@/styles/theme';
 
 import baby from '@/assets/images/img-baby.png';
 import babyCard from '@/assets/images/img-baby-card.png';
@@ -32,8 +33,8 @@ const RegisterPage = () => {
       <S.RegisterPageContainer>
         <S.RegisterPageWrapper>
           <S.LogoContainer>
-            <Image src={yellowBaby} width={10} />
-            <Text color={'black3'}>
+            <Image src={yellowBaby} width={8} />
+            <Text color={theme.color.black3} size="large">
               {userInfo.name}님의
               <br />
               아이 정보를 추가해주세요

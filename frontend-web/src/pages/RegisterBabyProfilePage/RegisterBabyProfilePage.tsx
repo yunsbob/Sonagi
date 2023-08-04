@@ -13,7 +13,6 @@ import { PATH } from '@/constants/path';
 
 const RegisterBabyProfilePage = () => {
   const navigate = useNavigate();
-
   const [babyNum, setBabyNum] = useState(1);
 
   const regBaby = () => {
@@ -38,20 +37,20 @@ const RegisterBabyProfilePage = () => {
           <Text>
             출생일과 성별, <br /> 이름을 입력해주세요
           </Text>
-          <S.RegisterBabyProfileWrapper className="scrollable">
+          <S.RegisterBabyProfileWrapper
+            className="scrollable"
+            style={{ width: '300px' }}
+          >
             {regBaby()}
+            ㅇㅇ
           </S.RegisterBabyProfileWrapper>
           <S.AddBabyWrapper onClick={handleBabyNum}>
+            ㅇㅇ
             <AddBaby />
+            <Button option="default" size="medium" onClick={toMain}>
+              등록하기
+            </Button>
           </S.AddBabyWrapper>
-          <Button
-            option="default"
-            size="medium"
-            $backgroundColor={theme.gradient.orangeBtn}
-            onClick={toMain}
-          >
-            등록하기
-          </Button>
         </S.RegisterBabyProfilePageWrapper>
       </S.RegisterBabyProfilePageContainer>
     </Background>
