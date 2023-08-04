@@ -1,13 +1,14 @@
 import { styled } from 'styled-components';
 
+const CategoryBarContainer = styled.div`
+  background-color: white;
+`;
+
 const GraphContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: space-between; */
-  /* width: 80vw; */
-  /* margin-left: auto;
-  margin-right: auto; */
+  background-color: white;
 `;
 
 const ToggleContainer = styled.div`
@@ -18,4 +19,4 @@ const ToggleContainer = styled.div`
   margin-bottom: 10px;
 `;
 
-export { GraphContainer, ToggleContainer };
+export { CategoryBarContainer, GraphContainer, ToggleContainer };
