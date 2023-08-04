@@ -1,5 +1,8 @@
 package com.fa.sonagi.faq.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +19,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FAQServiceImpl implements FAQService {
 	private final FAQRepository faqRepository;
+
+	@Override
+	public List<FAQResDto> findAllFAQs() {
+		List<FAQ> allFAQs = faqRepository.findAll();
+		return allFAQs.stream()
+			.map(faq -> FAQResDto.builder()
+				.id(faq.getId())
+				.title(faq.getTitle())
+				.content(faq.getContent())
+				.build())
+			.collect(Collectors.toList());
+	}
 
 	/**
 	 * FAQ 기록 아이디로 조회
