@@ -3,6 +3,7 @@ package com.fa.sonagi.user.entity;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -22,11 +23,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -35,19 +38,25 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"social_id"}))
 public class Users extends BaseTimeEntity implements UserDetails {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id", nullable = false, columnDefinition = "BIGINT UNSIGNED")
 	private Long userId;
 
+	@Column(name = "social_id", length = 64)
+	private String socialId;
+
 	@Column(name = "password")
 	private String password;
 
+	@Setter
 	@Column(name = "email", length = 100)
 	private String email;
 
+	@Setter
 	@Column(name = "name", length = 25)
 	private String name;
 
@@ -68,7 +77,7 @@ public class Users extends BaseTimeEntity implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return password;
+		return "No_Password";
 	}
 
 	@Override
@@ -95,13 +104,4 @@ public class Users extends BaseTimeEntity implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 }
