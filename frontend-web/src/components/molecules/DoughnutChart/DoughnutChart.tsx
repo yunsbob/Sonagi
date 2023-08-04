@@ -1,6 +1,8 @@
 // DoughnutChartByJun 수정본
 import theme from '@/styles/theme';
+import { Text } from '@/components/atoms/Text/Text.styles';
 
+// 도넛 뿌리기용 consts
 const MAX_DEGREE = 360;
 const VIEW_BOX = '0 0 300 300';
 const xCenter = 150;
@@ -8,6 +10,10 @@ const yCenter = 150;
 const radius = 80; // 도넛 크기
 const sectorHeight = 70; // 도넛 두께
 const sectorPadding = 7; // 기록 부채꼴 두께
+
+// 글자 뿌리기용 consts
+const outerRadius = 107; // Define outer radius for doughnut
+const textRadius = outerRadius + 20; // A little outside the doughnut
 
 // 시초선에서 n도 벌어진 점의 좌표
 const getCoordsOnCircle = (degree: number) => {
@@ -74,21 +80,52 @@ const DoughnutChart: React.FC = () => {
   // 기록 도넛조각
   const recordedTimes: string[] = ['12:00', '03:48', '18:23', '16:08'];
   const testDegrees = recordedTimes.map(timeToDegreeAddPadding);
+  const numbers = [];
+
+  for (let i = 0; i <= 23; i++) {
+    // for (let i = 0; i <= 23; i += 2) {
+    const angle = ((i * 15 - 90) * Math.PI) / 180; // Center the text in each slice
+    const x = xCenter + textRadius * Math.cos(angle);
+    const y = yCenter + textRadius * Math.sin(angle);
+    let displayText = i.toString();
+    console.log(displayText);
+
+    if (i % 2 === 1) {
+      displayText = '•';
+    }
+    numbers.push(
+      <text
+        fontSize="9px"
+        fill={theme.color.gray1}
+        key={i}
+        x={x}
+        y={y}
+        textAnchor="middle"
+        alignmentBaseline="middle"
+      >
+        {displayText}
+      </text>
+    );
+  }
+  console.log(numbers);
 
   return (
     <svg viewBox={VIEW_BOX}>
+      {numbers}
       <path // 배경 도넛
         d={getArc(0, 359.99)}
         stroke={theme.color.lightgrey}
         fill="transparent"
         strokeWidth={sectorHeight}
       />
+
       {/* <path // 구간 도넛
         d={getArc(start, finished)}
         stroke={theme.color.categoryDiaper}
         fill="transparent"
         strokeWidth={sectorHeight}
       /> */}
+
       {testDegrees.map((degree, index) => (
         <DoughnutSlice
           key={index}
