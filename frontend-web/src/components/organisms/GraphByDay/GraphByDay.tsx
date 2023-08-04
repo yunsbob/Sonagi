@@ -12,8 +12,8 @@ import { DoughnutChart } from '@/components/molecules/DougnutChar/DoughnutChar';
 const GraphByDay = () => {
   return (
     <GrapByDayContainer className="scrollable">
-      <DoughnutChart />
-      {/* <DoughnutChartByJun /> */}
+      {/* <DoughnutChart /> */}
+      <DoughnutChartByJun />
       <Card />
     </GrapByDayContainer>
   );
