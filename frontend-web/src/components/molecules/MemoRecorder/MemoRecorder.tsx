@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
-import * as S from '@/components/atoms/MemoRecorder/Memo.style';
+import * as S from '@/components/molecules/MemoRecorder/MemoRecorder.style';
 import { Text } from '@/components/atoms/Text/Text.styles';
 
 const MemoRecorder = () => {
