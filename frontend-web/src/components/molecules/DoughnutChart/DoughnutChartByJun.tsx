@@ -76,19 +76,19 @@ const DoughnutChartByJun = () => {
       <path
         d={getArc(0, 359.99)} // 0, 360이 되면 안 그려지는 이유가 뭘까? -> dist가 0이 돼서 그러함
         stroke={theme.color.lightgrey}
-        fill="transparent"
+        // fill="transparent"
         strokeWidth={sectorHeight}
       />
       <path
         d={getArc(start, finished)}
         stroke={theme.color.categoryDiaper}
-        fill="transparent"
+        // fill="transparent"
         strokeWidth={sectorHeight}
       />
       <path
         d={getArc(start1, finished1)}
         stroke={theme.color.categoryMeal}
-        fill="transparent"
+        // fill="transparent"
         strokeWidth={sectorHeight}
       />
     </svg>
