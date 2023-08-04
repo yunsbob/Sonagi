@@ -11,6 +11,7 @@ import com.fa.sonagi.memo.dto.MemoPutDto;
 import com.fa.sonagi.memo.dto.MemoResDto;
 import com.fa.sonagi.memo.entity.Illness;
 import com.fa.sonagi.memo.repository.IllnessRepository;
+import com.fa.sonagi.user.entity.Users;
 import com.fa.sonagi.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -31,8 +32,8 @@ public class IllnessServiceImpl implements IllnessService {
 		return allIllness.stream()
 			.map(i -> MemoResDto.builder()
 				.id(i.getId())
-				.userId(i.getUserId())
-				.name(userRepository.findName(i.getUserId()).getName())
+				.userId(i.getUser().getUserId())
+				.name(i.getUser().getUsername())
 				.memo(i.getMemo())
 				.build())
 			.collect(Collectors.toList());
@@ -45,14 +46,12 @@ public class IllnessServiceImpl implements IllnessService {
 	public MemoResDto findIllnessById(Long id) {
 		Illness illness = illnessRepository.findById(id).orElseThrow();
 
-		MemoResDto memoResDto = MemoResDto.builder()
+		return MemoResDto.builder()
 			.id(illness.getId())
-			.userId(illness.getUserId())
-			.name(userRepository.findName(illness.getUserId()).getName())
+			.userId(illness.getUser().getUserId())
+			.name(illness.getUser().getUsername())
 			.memo(illness.getMemo())
 			.build();
-
-		return memoResDto;
 	}
 
 	/**
@@ -61,9 +60,10 @@ public class IllnessServiceImpl implements IllnessService {
 	@Override
 	@Transactional
 	public void registIllness(MemoPostDto memoPostDto) {
+		Users user = userRepository.findById(memoPostDto.getUserId()).orElseThrow();
 		Illness illness = Illness.builder()
 			.babyId(memoPostDto.getBabyId())
-			.userId(memoPostDto.getUserId())
+			.user(user)
 			.memo(memoPostDto.getMemo())
 			.build();
 

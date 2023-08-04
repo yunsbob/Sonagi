@@ -1,6 +1,7 @@
 package com.fa.sonagi.memo.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import com.fa.sonagi.memo.dto.MemoPutDto;
 import com.fa.sonagi.memo.dto.MemoResDto;
 import com.fa.sonagi.memo.entity.Caution;
 import com.fa.sonagi.memo.repository.CautionRepository;
+import com.fa.sonagi.user.entity.Users;
 import com.fa.sonagi.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -28,11 +30,12 @@ public class CautionServiceImpl implements CautionService {
 	@Override
 	public List<MemoResDto> findCautionMemosByBabyId(Long babyId) {
 		List<Caution> caution = cautionRepository.findByBabyId(babyId);
+
 		return caution.stream()
 			.map(c -> MemoResDto.builder()
 				.id(c.getId())
-				.userId(c.getUserId())
-				.name(userRepository.findName(c.getUserId()).getName())
+				.userId(c.getUser().getUserId())
+				.name(c.getUser().getName())
 				.memo(c.getMemo())
 				.build())
 			.collect(Collectors.toList());
@@ -45,13 +48,12 @@ public class CautionServiceImpl implements CautionService {
 	public MemoResDto findCautionById(Long id) {
 		Caution caution = cautionRepository.findById(id).orElseThrow();
 
-		MemoResDto memoResDto = MemoResDto.builder()
+		return MemoResDto.builder()
 			.id(caution.getId())
-			.userId(caution.getUserId())
-			.name(userRepository.findName(caution.getUserId()).getName())
+			.userId(caution.getUser().getUserId())
+			.name(caution.getUser().getUsername())
 			.memo(caution.getMemo())
 			.build();
-		return memoResDto;
 	}
 
 	/**
@@ -60,9 +62,10 @@ public class CautionServiceImpl implements CautionService {
 	@Override
 	@Transactional
 	public void registCaution(MemoPostDto memoPostDto) {
+		Users user = userRepository.findById(memoPostDto.getUserId()).orElseThrow();
 		Caution caution = Caution.builder()
 			.babyId(memoPostDto.getBabyId())
-			.userId(memoPostDto.getUserId())
+			.user(user)
 			.memo(memoPostDto.getMemo())
 			.build();
 
