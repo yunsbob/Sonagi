@@ -20,7 +20,7 @@ const Input = (
     alertMessage,
     inputType,
     height,
-    borderRadius,
+    $borderRadius,
     $unit,
     fontSize,
     onChange,
@@ -35,7 +35,7 @@ const Input = (
       ref={ref}
       inputType={inputType}
       height={height ?? 4}
-      borderRadius={borderRadius}
+      $borderRadius={$borderRadius ?? 22}
       $unit={$unit ?? 'rem'}
       fontSize={fontSize ?? 20}
       maxLength={10}

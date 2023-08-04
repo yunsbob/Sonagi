@@ -66,7 +66,7 @@ const RegisterBabyProfile = () => {
         onChange={changeInput}
         value={value}
         placeholder={placeholder}
-        borderRadius={14}
+        $borderRadius={14}
         fontSize={theme.fontSize.headSmall}
         height={3.5}
       />
