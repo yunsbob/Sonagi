@@ -51,6 +51,7 @@ public class WebSecurityConfig {
 			.accessDeniedHandler(tokenAccessDeniedHandler)
 			.and()
 			.authorizeHttpRequests()
+			.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
 			.requestMatchers(new AntPathRequestMatcher("/api/oauth2/authorization"),new AntPathRequestMatcher("/api/login/oauth2/code/**")).permitAll()
 			.requestMatchers(new AntPathRequestMatcher("/**")).hasAnyRole("USER", "ADMIN");
 
