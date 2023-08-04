@@ -19,7 +19,9 @@ const BreastFeed = () => {
 
   return (
     <>
-      <Text size={'headSmall'}>수유 방향</Text>
+      <S.BreastFeedTextWrapper>
+        <Text size={'headSmall'}>수유 방향</Text>
+      </S.BreastFeedTextWrapper>
       <S.BreastFeedWrapper>
         <Button
           size="xLarge"
@@ -28,6 +30,7 @@ const BreastFeed = () => {
           style={{
             filter: isLeft ? undefined : 'grayscale(100%)',
           }}
+          $borderRadius="14px"
           onClick={leftHandler}
         >
           <S.ButtonWrapper>
@@ -42,6 +45,7 @@ const BreastFeed = () => {
           style={{
             filter: !isLeft ? undefined : 'grayscale(100%)',
           }}
+          $borderRadius="14px"
           onClick={rightHandler}
         >
           <S.ButtonWrapper>

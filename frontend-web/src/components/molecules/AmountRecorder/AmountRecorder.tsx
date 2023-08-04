@@ -1,57 +1,65 @@
 import Button from '@/components/atoms/Button/Button';
 import { Text } from '@/components/atoms/Text/Text.styles';
-import { AmountButtonWrapper } from '@/components/molecules/AmountRecorder/AmountRecorder.style';
+import {
+  AmountButtonWrapper,
+  LeftWrapper,
+  AmountRecorderContainer,
+} from '@/components/molecules/AmountRecorder/AmountRecorder.style';
 import { useState } from 'react';
 
-export interface AmountRecorderProps {
-  type?: string;
+interface AmountRecorderProps {
+  unitType: string;
+  unit: string;
+  unitArray: number[];
+  defaultValue: number;
+  minValue: number;
+  maxValue: number;
 }
 
-const AmountRecorder = ({ type }: AmountRecorderProps) => {
-  const [isTemperature, setIsTemperature] = useState(true);
-  const [temperature, setTemperature] = useState<number>(365);
-  const [amount, setAmount] = useState<number>(100);
-
-  const amountSetArray = [-20, -10, -5, +5, +10, +20];
-  const temperatureSetArray = [-1, -0.5, -0.1, +0.1, +0.5, +1];
-
-  const setArray = isTemperature ? temperatureSetArray : amountSetArray;
-
-  const recorderTitle = type;
-  const recorderLabel = isTemperature ? '온도, ℃' : '용량, mL';
+const AmountRecorder = ({
+  unitType,
+  unit,
+  unitArray,
+  defaultValue,
+  minValue,
+  maxValue,
+}: AmountRecorderProps) => {
+  const [value, setValue] = useState(defaultValue);
 
   return (
-    <>
-      <Text size="medium1">{recorderTitle}</Text>
-      <Text size="headSmall">{recorderLabel}</Text>
-      <Text size="headLarge">{isTemperature ? temperature / 10 : amount}</Text>
+    <AmountRecorderContainer>
+      <LeftWrapper>
+        <Text size="headSmall">
+          {unitType}, {unit}
+        </Text>
+      </LeftWrapper>
+      <Text size="headLarge">
+        {value}
+        {unit}
+      </Text>
       <AmountButtonWrapper>
-        {setArray.map((record, index) => (
+        {unitArray.map((number, index) => (
           <Button
-            option="primary"
+            style={{ padding: '0px, 10px' }}
             key={index}
             size="small"
+            option="primary"
+            $borderRadius="9px"
             onClick={() => {
-              if (isTemperature) {
-                if (temperature + record * 10 >= 350) {
-                  setTemperature(temperature + record * 10);
-                } else {
-                  setTemperature(350);
-                }
+              if (value + number >= minValue && value + number < maxValue) {
+                setValue(value + number);
+              } else if (value + number < minValue) {
+                setValue(minValue);
               } else {
-                if (amount + record >= 0) {
-                  setAmount(amount + record);
-                } else {
-                  setAmount(0);
-                }
+                setValue(maxValue);
               }
             }}
           >
-            {record}
+            <Text size="medium3">{number}</Text>
           </Button>
         ))}
       </AmountButtonWrapper>
-    </>
+    </AmountRecorderContainer>
   );
 };
 

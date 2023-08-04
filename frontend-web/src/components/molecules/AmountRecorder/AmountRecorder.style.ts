@@ -3,6 +3,16 @@ import styled from 'styled-components';
 export const AmountButtonWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
-  gap: 2rem;
   width: 100%;
+  gap: 5px;
+`;
+
+export const LeftWrapper = styled.div`
+  text-align: left;
+`;
+
+export const AmountRecorderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;

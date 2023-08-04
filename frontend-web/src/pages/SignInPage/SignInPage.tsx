@@ -15,9 +15,6 @@ import { produce } from 'immer';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import jwt from 'jwt-decode';
-import RecordContainer from '@/components/organisms/RecordContainer/RecordContainer';
-import AmountRecorder from '../../components/molecules/AmountRecorder/AmountRecorder';
-import TimeRecorder from '../../components/molecules/TimeRecorder/TimeRecorder';
 
 const SignInPage = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);

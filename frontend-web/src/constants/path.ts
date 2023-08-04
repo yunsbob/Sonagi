@@ -14,6 +14,7 @@ const PATH = {
   DIARY: '/main/diary',
   MYPAGE: '/main/myPage',
   REGISTERBABYPROFILE: '/regBabyProfile',
+  DETAILRECORD: '/detailRecord',
 } as const;
 
 export { PATH };

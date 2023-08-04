@@ -36,4 +36,9 @@ const WordCount = styled.span`
   font-size: 1rem;
 `;
 
-export { MemoArea, MemoWrapper, WordCount };
+const MemoTextWrapper = styled.p`
+  text-align: left;
+  margin-bottom: 20px;
+`;
+
+export { MemoArea, MemoWrapper, WordCount, MemoTextWrapper };

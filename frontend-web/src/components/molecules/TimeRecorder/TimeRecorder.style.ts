@@ -12,3 +12,8 @@ export const ButtonWrapper = styled.div`
   align-items: center;
   gap: 5px;
 `;
+
+export const TimerTextWrapper = styled.p`
+  text-align: left;
+  margin-bottom: 20px;
+`;

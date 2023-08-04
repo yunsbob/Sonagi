@@ -10,16 +10,21 @@ const MemoRecorder = () => {
   };
 
   return (
-    <S.MemoWrapper>
-      <S.MemoArea
-        onChange={onInputHandler}
-        maxLength={49}
-        placeholder="필요한 메모를 입력해 보세요"
-      ></S.MemoArea>
-      <Text>
-        <S.WordCount>{inputCount}/50</S.WordCount>
-      </Text>
-    </S.MemoWrapper>
+    <>
+      <S.MemoTextWrapper>
+        <Text size="headSmall"> 메모 </Text>
+      </S.MemoTextWrapper>
+      <S.MemoWrapper>
+        <S.MemoArea
+          onChange={onInputHandler}
+          maxLength={49}
+          placeholder="필요한 메모를 입력해 보세요"
+        ></S.MemoArea>
+        <Text>
+          <S.WordCount>{inputCount}/50</S.WordCount>
+        </Text>
+      </S.MemoWrapper>
+    </>
   );
 };
 

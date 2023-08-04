@@ -16,3 +16,8 @@ export const ButtonWrapper = styled.div`
   align-items: center;
   gap: 5px;
 `;
+
+export const BreastFeedTextWrapper = styled.p`
+  text-align: left;
+  margin-bottom: 20px;
+`;

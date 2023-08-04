@@ -8,24 +8,34 @@ interface TimerProps {
   isStart?: boolean;
 }
 
-const Timer = ({ isStart = false }: TimerProps) => {
+const Timer = ({ isStart = true }: TimerProps) => {
   return (
     <>
-      <Text size={'headSmall'}>{isStart ? '시작' : '종료'} 시간</Text>
+      <S.TimerTextWrapper>
+        <Text size={'headSmall'}>{isStart ? '시작' : '종료'} 시간</Text>
+      </S.TimerTextWrapper>
       <S.TimerButtonWrapper>
-        <Button size="large" $backgroundColor={theme.color.lightgrey}>
+        <Button
+          $borderRadius="8px"
+          size="large"
+          $backgroundColor={theme.color.lightgrey}
+        >
           <ButtonWrapper>
             <Text size="headMedium">03</Text>
             <Text size="medium1">시</Text>
           </ButtonWrapper>
         </Button>
-        <Button size="large" $backgroundColor={theme.color.lightgrey}>
+        <Button
+          $borderRadius="8px"
+          size="large"
+          $backgroundColor={theme.color.lightgrey}
+        >
           <ButtonWrapper>
             <Text size="headMedium">55</Text>
             <Text size="medium1">분</Text>
           </ButtonWrapper>
         </Button>
-        <Button size="large">
+        <Button $borderRadius="8px" size="large">
           <Text size="headMedium">PM</Text>
         </Button>
       </S.TimerButtonWrapper>
