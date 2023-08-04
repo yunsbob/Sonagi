@@ -4,7 +4,7 @@ import { css, styled } from 'styled-components';
 export interface InputStyleProps {
   inputType?: 'text' | 'memo';
   height?: number | string;
-  borderRadius?: number;
+  $borderRadius?: number;
   $unit?: 'rem' | 'px' | 'em';
   fontSize?: typeof theme.fontSize;
 }
@@ -43,7 +43,7 @@ const InputContainer = styled.input<InputStyleProps>`
   ${({ inputType = 'text' }) => getTypeStyling(inputType)};
   width: ${props => `${props.width}${props.$unit}` || '100%'};
   height: ${props => `${props.height}${props.$unit}`};
-  border-radius: ${props => `${props.borderRadius}px` || '22px'};
+  border-radius: ${props => `${props.$borderRadius}px` || '22px'};
   font-size: ${props => props.fontSize};
 `;
 
