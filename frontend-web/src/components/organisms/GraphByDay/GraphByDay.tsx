@@ -1,6 +1,7 @@
 import { GrapByDayContainer } from '@/components/organisms/GraphByDay/GraphByDay.styles';
 import { Card } from '@/components/organisms/Card/Card';
 import {
+  DoughnutChartByJun,
   getArc,
   oneTimeStringPaddingAndToDegrees,
   timeStringToDegrees,
@@ -12,6 +13,7 @@ const GraphByDay = () => {
   return (
     <GrapByDayContainer className="scrollable">
       <DoughnutChart />
+      {/* <DoughnutChartByJun /> */}
       <Card />
     </GrapByDayContainer>
   );
