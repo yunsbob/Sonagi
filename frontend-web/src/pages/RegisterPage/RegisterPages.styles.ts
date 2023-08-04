@@ -22,6 +22,7 @@ const LogoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1.2rem;
 `;
 
 const ButtonContainer = styled.div`
