@@ -1,22 +1,15 @@
 package com.fa.sonagi.baby.entity;
 
-import com.fa.sonagi.record.meal.entity.BabyFood;
-import com.fa.sonagi.record.meal.entity.BreastFeeding;
-
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.sql.Date;
-
-import org.hibernate.annotations.ColumnDefault;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -31,13 +24,13 @@ public class Baby {
     @Column(name = "baby_id")
     private Long id;
 
-    @Column(name = "birth_date")
-    private Date birthDate;
+    @Column(name = "birth_date", nullable = false)
+    private LocalDate birthDate;
 
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = false, length = 2)
     private String gender;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 25)
     private String name;
 
     @Column(name = "code")
@@ -50,9 +43,12 @@ public class Baby {
     private LocalDateTime lastDiaryTime;
 
     @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
+    private LocalDate deletedAt;
 
-    @ColumnDefault("0")
-    @Column(name = "is_deleted")
-    private Boolean isDeleted;
+    @Column(name = "is_deleted", nullable = false, length = 2)
+    private String isDeleted;
+
+    public void updateCode(String code) {
+        this.code = code;
+    }
 }

@@ -8,8 +8,11 @@ import RegisterBabyProfile from '@/components/organisms/RegisterBabyProfile/Regi
 import AddBaby from '@/components/molecules/AddBaby/AddBaby';
 import Button from '@/components/atoms/Button/Button';
 import theme from '@/styles/theme';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
 
 const RegisterBabyProfilePage = () => {
+  const navigate = useNavigate();
   const [babyNum, setBabyNum] = useState(1);
 
   const regBaby = () => {
@@ -22,25 +25,37 @@ const RegisterBabyProfilePage = () => {
 
   const handleBabyNum = () => setBabyNum(prevBabyNum => prevBabyNum + 1);
 
+  const toMain = () => {
+    navigate(PATH.MAIN);
+  };
+
   return (
     <Background $background={orangeBackground}>
       <Back />
       <S.RegisterBabyProfilePageContainer>
         <S.RegisterBabyProfilePageWrapper>
           <Text>
-            출생일과 성별, <br /> 이름을 입력해주세요
+            우리 아이의 출생일과
+            <br /> 성별, 이름을 입력해주세요
           </Text>
-          <div className="scrollable">{regBaby()}</div>
-          <div onClick={handleBabyNum}>
-            <AddBaby />
-          </div>
-          <Button
-            option="default"
-            size="large"
-            $backgroundColor={theme.gradient.orangeBtn}
+          <S.RegisterBabyProfileWrapper
+            className="scrollable"
+            style={{ width: '300px' }}
           >
-            등록하기
-          </Button>
+            {regBaby()}
+          </S.RegisterBabyProfileWrapper>
+          <S.AddBabyWrapper onClick={handleBabyNum}>
+            <AddBaby />
+
+            <Button
+              option="activated"
+              size="medium"
+              onClick={toMain}
+              style={{ width: '280px', marginTop: '20px' }}
+            >
+              등록하기
+            </Button>
+          </S.AddBabyWrapper>
         </S.RegisterBabyProfilePageWrapper>
       </S.RegisterBabyProfilePageContainer>
     </Background>

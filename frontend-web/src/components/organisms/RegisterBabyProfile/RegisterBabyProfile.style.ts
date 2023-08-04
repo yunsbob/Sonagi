@@ -1,5 +1,10 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+const RBPWrapper = styled.div`
+  margin: 10px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-flow: column;
+  gap: 15px;
+`;
 
-const RegisterBabyProfile = css``;
-
-export default { RegisterBabyProfile };
+export default RBPWrapper;

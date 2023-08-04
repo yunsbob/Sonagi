@@ -3,7 +3,7 @@ import { CategoryBarContainer } from '@/components/molecules/CategoryBar/Categor
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   CategoryState,
-  selectedCategory,
+  selectedCategoryState,
   Category,
   CategoryStateType,
 } from '@/states/CategoryState';
@@ -30,7 +30,7 @@ const CategoryBar = () => {
   ];
 
   const [categoryState, setCategoryState] = useRecoilState(CategoryState);
-  const currentCategory = useRecoilValue(selectedCategory);
+  const currentCategory = useRecoilValue(selectedCategoryState);
 
   const onClickCategory = (categoryName: Category) => {
     setCategoryState(prevState => {
@@ -49,6 +49,7 @@ const CategoryBar = () => {
         <Image
           key={index}
           src={item.img}
+          id={item.name}
           onClick={() => onClickCategory(item.name as Category)}
           style={{
             filter:
