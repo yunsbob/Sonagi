@@ -34,7 +34,7 @@ const RegisterPage = () => {
         <S.RegisterPageWrapper>
           <S.LogoContainer>
             <Image src={yellowBaby} width={8} />
-            <Text color={theme.color.black3} size="large">
+            <Text color={theme.color.black3}>
               {userInfo.name}님의
               <br />
               아이 정보를 추가해주세요
