@@ -24,7 +24,7 @@ interface RegisterFieldProps {
     | 'activated'
     | 'primary'
     | 'danger';
-  size?: 'small' | 'xSmall' | 'medium';
+  size?: 'small' | 'xSmall' | 'medium' | 'large';
   $backgroundColor?: typeof theme.color;
   alertMessage?: string;
   onClickButtonAction?: (value: string) => void;
