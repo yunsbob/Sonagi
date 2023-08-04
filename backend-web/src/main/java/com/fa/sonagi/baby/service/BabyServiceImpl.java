@@ -5,6 +5,7 @@ import java.util.Base64;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fa.sonagi.baby.dto.BabyCodePosDto;
 import com.fa.sonagi.baby.dto.BabyCodeResDto;
 import com.fa.sonagi.baby.dto.BabyInfoPostDto;
 import com.fa.sonagi.baby.entity.Baby;
@@ -46,7 +47,8 @@ public class BabyServiceImpl implements BabyService {
 
 		baby.updateCode(createBabyCode(babyInfoPostDto.getUserId(), baby.getId()));
 
-		registUserBaby(babyInfoPostDto.getUserId(), baby, "Y");
+		Users user = userRepository.findById(babyInfoPostDto.getUserId()).orElseThrow();
+		registUserBaby(user, baby, "Y");
 	}
 
 	/**
@@ -71,11 +73,10 @@ public class BabyServiceImpl implements BabyService {
 	}
 
 	/**
-	 * 아기의 아이디랑 유저 아이디 매칭해서 UserBaby 생성
+	 * 아기의 아이디랑 유저 아이디 매칭
 	 */
 	@Override
-	public void registUserBaby(Long userId, Baby baby, String authority) {
-		Users user = userRepository.findById(userId).orElseThrow();
+	public void registUserBaby(Users user, Baby baby, String authority) {
 
 		UserBaby userBaby = UserBaby.builder()
 			.user(user)
@@ -84,5 +85,17 @@ public class BabyServiceImpl implements BabyService {
 			.build();
 
 		userBabyRepository.save(userBaby);
+	}
+
+	/**
+	 * 아기 코드로 아기를 찾아 아기의 아이디랑 유저 아이디 매칭
+	 */
+	@Override
+	@Transactional
+	public void registUserBabyByCode(BabyCodePosDto babyCodePosDto) {
+		Baby baby = babyRepository.findByCode(babyCodePosDto.getCode());
+		Users user = userRepository.findById(babyCodePosDto.getUserId()).orElseThrow();
+
+		registUserBaby(user, baby, "N");
 	}
 }
