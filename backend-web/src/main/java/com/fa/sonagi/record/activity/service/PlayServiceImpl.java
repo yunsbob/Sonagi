@@ -23,16 +23,9 @@ public class PlayServiceImpl implements PlayServeice {
    */
   @Override
   public ActivityResDto findPlayById(Long id) {
-    Play play = playRepository.findById(id).orElseThrow();
+    ActivityResDto play = playRepository.findPlayRecord(id);
 
-    ActivityResDto activityResDto = ActivityResDto.builder()
-        .id(play.getId())
-        .createdTime(play.getCreatedTime())
-        .endTime(play.getEndTime())
-        .memo(play.getMemo())
-        .build();
-
-    return activityResDto;
+    return play;
   }
 
   /**

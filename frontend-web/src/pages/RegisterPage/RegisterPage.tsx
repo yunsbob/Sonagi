@@ -5,21 +5,26 @@ import yellowBaby from '@/assets/images/img-baby-yellow.png';
 import { Image } from '@/components/atoms/Image/Image';
 import * as S from '@/pages/RegisterPage/RegisterPages.styles';
 import Back from '@/components/atoms/Back/Back';
-import RegisterField from '@/components/molecules/RegisterField/RegisterField';
-import Button from '@/components/atoms/Button/Button';
-import theme from '@/styles/theme';
-import { LogoContainer } from '@/pages/LogInPage/LogInPage.styles';
 import { useRecoilValue } from 'recoil';
 import { userInfoState } from '@/states/UserState';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
+import RegisterButton from '@/components/molecules/RegisterButton/RegisterButton';
+import theme from '@/styles/theme';
+
+import baby from '@/assets/images/img-baby.png';
+import babyCard from '@/assets/images/img-baby-card.png';
+
 const RegisterPage = () => {
   const userInfo = useRecoilValue(userInfoState);
-
   const navigate = useNavigate();
 
   const toBabyCode = () => {
     navigate(PATH.BABYCODE);
+  };
+
+  const toBabyAdd = () => {
+    navigate(PATH.REGISTERBABYPROFILE);
   };
 
   return (
@@ -28,24 +33,25 @@ const RegisterPage = () => {
       <S.RegisterPageContainer>
         <S.RegisterPageWrapper>
           <S.LogoContainer>
-            <Image src={yellowBaby} width={10} />
-            <Text color={'black3'}>
+            <Image src={yellowBaby} width={8} />
+            <Text color={theme.color.black3}>
               {userInfo.name}님의
               <br />
               아이 정보를 추가해주세요
             </Text>
           </S.LogoContainer>
           <S.ButtonContainer>
-            <Button
-              option="ActivatedBlue"
-              size="xLarge"
-              $border={theme.color.white1}
-            >
-              우리 아기 등록하기
-            </Button>
-            <Button option="ActivatedOrange" size="xLarge" onClick={toBabyCode}>
-              등록 코드 입력하기
-            </Button>
+            <RegisterButton
+              src={baby}
+              buttonText="우리 아이 등록하기"
+              onClick={toBabyAdd}
+            />
+
+            <RegisterButton
+              src={babyCard}
+              buttonText="초대 코드 등록"
+              onClick={toBabyCode}
+            />
           </S.ButtonContainer>
         </S.RegisterPageWrapper>
       </S.RegisterPageContainer>

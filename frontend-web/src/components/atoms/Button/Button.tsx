@@ -20,6 +20,7 @@ export interface ButtonProps
   $borderRadius?: string;
   $textAlign?: string;
   $border?: string;
+  $color?: string;
 }
 
 const Button = (
@@ -28,6 +29,8 @@ const Button = (
     size,
     $backgroundColor,
     $borderColor,
+    $border,
+    $color,
     children,
     ...attributes
   }: ButtonProps,
@@ -38,8 +41,10 @@ const Button = (
       ref={ref}
       option={option}
       size={size}
+      $border={$border}
       $backgroundColor={$backgroundColor}
       $borderColor={$borderColor}
+      $color={$color}
       {...attributes}
     >
       {children}

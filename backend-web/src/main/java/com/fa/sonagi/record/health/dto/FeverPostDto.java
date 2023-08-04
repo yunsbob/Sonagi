@@ -23,7 +23,6 @@ public class FeverPostDto {
   @NotNull
   private Time createdTime;
 
-  @NotNull
-  private Double fever;
+  private Double bodyTemperature;
   private String memo;
 }

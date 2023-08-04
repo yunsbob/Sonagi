@@ -7,6 +7,8 @@ const LogInPageContainer = styled.div`
 `;
 
 const LogInPageWrapper = styled.div`
+  max-width: 390px;
+  min-width: 300px;
   padding: 0px 40px;
   width: 100vw;
   height: 70vh;

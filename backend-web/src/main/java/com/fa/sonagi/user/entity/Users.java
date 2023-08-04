@@ -3,7 +3,6 @@ package com.fa.sonagi.user.entity;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -40,7 +39,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"social_id"}))
 public class Users extends BaseTimeEntity implements UserDetails {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id", nullable = false, columnDefinition = "BIGINT UNSIGNED")
