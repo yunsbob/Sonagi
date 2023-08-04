@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 const DonutGraphContainer = styled.div`
   width: 90vw;
-  background-color: white;
+  transform: rotate(-2deg);
   margin-left: auto;
   margin-right: auto;
 `;
