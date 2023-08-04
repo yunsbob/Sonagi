@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fa.sonagi.baby.dto.BabyCodePosDto;
 import com.fa.sonagi.baby.dto.BabyCodeResDto;
 import com.fa.sonagi.baby.dto.BabyInfoPostDto;
 import com.fa.sonagi.baby.service.BabyService;
@@ -39,5 +40,14 @@ public class BabyController {
 	public ResponseEntity<?> getBabyCode(@RequestParam Long babyId) {
 		BabyCodeResDto babyCode = babyService.getBabyCode(babyId);
 		return ResponseEntity.ok().body(babyCode);
+	}
+
+	/**
+	 * 아기 코드로 아기 정보 등록
+	 */
+	@PostMapping("/babyCode")
+	public ResponseEntity<?> registBabyByBabyCode(@RequestBody BabyCodePosDto babyCodePosDto) {
+		babyService.registUserBabyByCode(babyCodePosDto);
+		return ResponseEntity.ok().build();
 	}
 }

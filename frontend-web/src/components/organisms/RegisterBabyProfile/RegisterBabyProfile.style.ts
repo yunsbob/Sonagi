@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 const RBPWrapper = styled.div`
-  margin: 20px;
+  margin: 10px;
+  margin-bottom: 30px;
   display: flex;
   flex-flow: column;
-  gap: 20px;
+  gap: 15px;
 `;
 
 export default RBPWrapper;

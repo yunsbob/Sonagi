@@ -7,8 +7,8 @@ const RegisterBabyProfilePageContainer = styled.div`
   justify-content: center;
 `;
 const RegisterBabyProfilePageWrapper = styled.div`
-  padding: 0px 40px;
-  /* width: 100vw; */
+  /* padding: 0px 40px; */
+  width: 100vw;
   height: 70vh;
   display: flex;
   flex-direction: column;
@@ -18,11 +18,11 @@ const RegisterBabyProfilePageWrapper = styled.div`
   font-family: 'Happiness-Sans';
 `;
 const RegisterBabyProfileWrapper = styled.div`
-  /* margin: 30px; */
+  margin: 30px;
 `;
 
 const AddBabyWrapper = styled.div`
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 `;
 export {
   RegisterBabyProfilePageContainer,

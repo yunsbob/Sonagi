@@ -20,15 +20,13 @@ const CardContentText = ({
     <CardContentTextWrapper>
       <Text size="medium2">
         {type}
-        {/* <Text size="headSmall"> */}
+
         <b>{data}</b>
-        {/* </Text> */}
+
         {unit}
         {data2 && (
           <>
-            {/* <Text size="headSmall"> */}
             <b>{data2}</b>
-            {/* </Text> */}
             {unit2}
           </>
         )}
