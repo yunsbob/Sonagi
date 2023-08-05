@@ -1,5 +1,3 @@
-import React from 'react';
-
 const OurBabyPage = ({ time = '14:00' }) => {
   const slices = [];
   const numbers = [];
