@@ -23,11 +23,18 @@ const CalendarBar = () => {
   const onCalendarChange = (value: Value) => {
     if (value instanceof Date) {
       setPickDate(value);
+      console.log(value);
     }
   };
 
   const onModalClose = () => {
     setModalOpen(false);
+  };
+
+  const onChangeDay = (days: number) => {
+    const newDate = new Date(pickDate);
+    newDate.setDate(newDate.getDate() + days);
+    setPickDate(newDate);
   };
 
   return (
@@ -40,15 +47,25 @@ const CalendarBar = () => {
         />
       )}
       <CalendarBarContainer>
-        <Image src={iconArrowMiniLeftGrey} width={1.3} height={1.3}></Image>
+        <Image
+          src={iconArrowMiniLeftGrey}
+          width={1.3}
+          height={1.3}
+          onClick={() => onChangeDay(-1)}
+        />
         <Text
           onClick={onClickCalendarBar}
           size="medium1"
           style={{ margin: '0px 10px' }}
         >
-          {moment(pickDate).format('YYYY년 MM월 D일')}
+          {moment(pickDate).format('YYYY년 M월 D일')}
         </Text>
-        <Image src={iconArrowMiniRightGrey} width={1.3} height={1.3}></Image>
+        <Image
+          src={iconArrowMiniRightGrey}
+          width={1.3}
+          height={1.3}
+          onClick={() => onChangeDay(1)}
+        />
       </CalendarBarContainer>
     </>
   );

@@ -1,5 +1,20 @@
+import { MealBarGraph } from '@/components/molecules/BarGraph/Meal/MealBarGraph';
+import { Card } from '@/components/organisms/Card/Card';
+import { GraphByWeekContainer } from '@/components/organisms/GraphByWeek/GraphByWeek.style';
+import { selectedCategoryState } from '@/states/CategoryState';
+import { useRecoilValue } from 'recoil';
+
 const GraphByWeek = () => {
-  return <div>주별 그래프</div>;
+  const currentCategory = useRecoilValue(selectedCategoryState);
+
+  console.log(currentCategory);
+
+  return (
+    <GraphByWeekContainer className="scrollable">
+      {currentCategory === 'Meal' && <MealBarGraph />}
+      <Card />
+    </GraphByWeekContainer>
+  );
 };
 
 export { GraphByWeek };
