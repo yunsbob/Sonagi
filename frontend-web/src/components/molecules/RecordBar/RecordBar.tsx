@@ -4,7 +4,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCategoryState, Category } from '@/states/CategoryState';
 import { recordedValues, recordsByCategory } from '@/states/RecordState';
 import { Text } from '@/components/atoms/Text/Text.styles';
-import styled from 'styled-components';
 
 // const LowBorderButton = styled(Button)<{ $borderColor: string }>`
 //   border-color: ${({ $borderColor }) => $borderColor + '96'};

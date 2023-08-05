@@ -15,6 +15,7 @@ export interface TextProps {
     | 'small'
     | 'xSmall';
   color?: typeof theme.color;
+  width?: number; // px임
 }
 
 const getSizeStyling = (size: Required<TextProps>['size'] = 'headMedium') => {
@@ -68,6 +69,7 @@ const getSizeStyling = (size: Required<TextProps>['size'] = 'headMedium') => {
 const Text = styled.p<TextProps>`
   ${({ size = 'headMedium' }) => getSizeStyling(size)};
   color: ${props => props.color || props.theme.color.black3};
+  width: ${props => `${props.width}px`};
 `;
 
 export { Text };
