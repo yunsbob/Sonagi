@@ -7,10 +7,12 @@ import Back from '@/components/atoms/Back/Back';
 import { Background } from '@/components/atoms/Background/Background.styles';
 import orangeBackground from '@/assets/images/background-orange-to-blue.png';
 
+const detailName = '수유 기록 상세';
+
 const DetailRecordPage = () => {
   return (
-    <Background $background={orangeBackground}>
-      <Back> 수유 상세 기록</Back>
+    <>
+      <Back>{detailName}</Back>
       <S.DetailRecordPageContainer>
         <S.DetailRecordPageWrapper>
           <S.Divider>
@@ -37,7 +39,7 @@ const DetailRecordPage = () => {
           </S.Divider>
         </S.DetailRecordPageWrapper>
       </S.DetailRecordPageContainer>
-    </Background>
+    </>
   );
 };
 

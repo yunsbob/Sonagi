@@ -7,6 +7,10 @@ import RightBreast from '@/assets/images/img-breast-right.png';
 import { Image } from '@/components/atoms/Image/Image';
 import { useState } from 'react';
 
+interface BreastFeedProps {
+  isLeft: boolean;
+}
+
 const BreastFeed = () => {
   const [isLeft, setIsLeft] = useState(true);
 

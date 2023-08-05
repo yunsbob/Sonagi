@@ -4,6 +4,7 @@ export const TimerButtonWrapper = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 17px;
+  position: relative;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -18,4 +19,8 @@ export const TimerTextWrapper = styled.p`
   margin-bottom: 20px;
 `;
 
-export const TimePickerWrapper = styled.p``;
+// export const LocalizationProviderWrapper = styled.div`
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+// `;

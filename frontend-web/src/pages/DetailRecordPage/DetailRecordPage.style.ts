@@ -6,13 +6,13 @@ export const DetailRecordPageContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: white;
 `;
 
 export const DetailRecordPageWrapper = styled.div`
   margin-top: 80px;
   padding: 0px 40px;
   width: 100vw;
-  /* height: 0vh; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;

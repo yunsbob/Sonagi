@@ -52,10 +52,6 @@ const router = createBrowserRouter([
     element: <BabyCodePage />,
   },
   {
-    path: PATH.DETAILRECORD,
-    element: <DetailRecordPage />,
-  },
-  {
     path: PATH.MAIN,
     element: <MainPage />,
     children: [
@@ -71,6 +67,7 @@ const router = createBrowserRouter([
       { path: 'ourBaby', element: <OurBabyPage /> },
       { path: 'diary', element: <DiaryPage /> },
       { path: 'myPage', element: <MyPagePage /> },
+      { path: 'detailRecord', element: <DetailRecordPage /> },
     ],
   },
 ]);
