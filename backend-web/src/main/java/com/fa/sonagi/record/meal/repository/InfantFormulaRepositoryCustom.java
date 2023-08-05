@@ -12,4 +12,6 @@ public interface InfantFormulaRepositoryCustom {
 	List<MealStatisticsQueryDto> findInfantFormulaByDay(Long babyId, LocalDate createdDate);
 
 	Long findInfantFormulaCnt(Long babyId, LocalDate createdDate);
+
+	Long findInfantFormulaAmount(Long babyId, LocalDate createdDate);
 }

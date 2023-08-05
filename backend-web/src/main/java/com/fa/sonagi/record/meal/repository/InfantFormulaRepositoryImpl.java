@@ -55,4 +55,15 @@ public class InfantFormulaRepositoryImpl implements InfantFormulaRepositoryCusto
 
 		return cnt;
 	}
+
+	@Override
+	public Long findInfantFormulaAmount(Long babyId, LocalDate createdDate) {
+		Long amount = queryFactory
+			.select(infantFormula.amount.sum().coalesce(0L))
+			.from(infantFormula)
+			.where(infantFormula.babyId.eq(babyId), infantFormula.createdDate.eq(createdDate))
+			.fetchFirst();
+
+		return amount;
+	}
 }

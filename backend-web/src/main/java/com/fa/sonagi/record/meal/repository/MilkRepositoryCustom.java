@@ -12,4 +12,6 @@ public interface MilkRepositoryCustom {
 	List<MealStatisticsQueryDto> findMilkByDay(Long babyId, LocalDate createdDate);
 
 	Long findMilkCnt(Long babyId, LocalDate createdDate);
+
+	Long findMilkAmount(Long babyId, LocalDate createdDate);
 }

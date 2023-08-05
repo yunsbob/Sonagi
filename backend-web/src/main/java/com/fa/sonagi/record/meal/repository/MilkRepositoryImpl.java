@@ -55,4 +55,15 @@ public class MilkRepositoryImpl implements MilkRepositoryCustom{
 
 		return cnt;
 	}
+
+	@Override
+	public Long findMilkAmount(Long babyId, LocalDate createdDate) {
+		Long amount = queryFactory
+			.select(milk.amount.sum().coalesce(0L))
+			.from(milk)
+			.where(milk.babyId.eq(babyId), milk.createdDate.eq(createdDate))
+			.fetchFirst();
+
+		return amount;
+	}
 }

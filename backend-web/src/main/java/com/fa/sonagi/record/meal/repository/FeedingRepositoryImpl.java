@@ -47,7 +47,7 @@ public class FeedingRepositoryImpl implements FeedingRepostioryCustom{
 	}
 
 	@Override
-	public Long findSnackCnt(Long babyId, LocalDate createdDate) {
+	public Long findFeedingCnt(Long babyId, LocalDate createdDate) {
 		Long cnt = queryFactory
 			.select(feeding.count())
 			.from(feeding)

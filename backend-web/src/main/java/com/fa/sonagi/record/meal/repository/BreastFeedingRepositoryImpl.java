@@ -55,4 +55,15 @@ public class BreastFeedingRepositoryImpl implements BreastFeedingRepositoryCusto
 
 		return cnt;
 	}
+
+	@Override
+	public Long findBreastFeedingAmount(Long babyId, LocalDate createdDate) {
+		Long amount = queryFactory
+			.select(breastFeeding.amount.sum().coalesce(0L))
+			.from(breastFeeding)
+			.where(breastFeeding.babyId.eq(babyId), breastFeeding.createdDate.eq(createdDate))
+			.fetchFirst();
+
+		return amount;
+	}
 }

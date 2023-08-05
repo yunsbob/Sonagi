@@ -12,4 +12,6 @@ public interface BabyFoodRepositoryCustom{
 	List<MealStatisticsQueryDto> findBabyFoodByDay(Long babyId, LocalDate createdDate);
 
 	Long findBabyFoodCnt(Long babyId, LocalDate createdDate);
+
+	Long findBabyFoodAmount(Long babyId, LocalDate createdDate);
 }

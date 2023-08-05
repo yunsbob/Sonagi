@@ -12,4 +12,6 @@ public interface BreastFeedingRepositoryCustom {
 	List<MealStatisticsQueryDto> findBreastFeedingByDay(Long babyId, LocalDate createdDate);
 
 	Long findBreastFeedingCnt(Long babyId, LocalDate createdDate);
+
+	Long findBreastFeedingAmount(Long babyId, LocalDate createdDate);
 }

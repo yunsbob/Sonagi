@@ -55,4 +55,15 @@ public class BabyFoodRepositoryImpl implements BabyFoodRepositoryCustom{
 
 		return cnt;
 	}
+
+	@Override
+	public Long findBabyFoodAmount(Long babyId, LocalDate createdDate) {
+		Long amount = queryFactory
+			.select(babyFood.amount.sum().coalesce(0L))
+			.from(babyFood)
+			.where(babyFood.babyId.eq(babyId), babyFood.createdDate.eq(createdDate))
+			.fetchFirst();
+
+		return amount;
+	}
 }
