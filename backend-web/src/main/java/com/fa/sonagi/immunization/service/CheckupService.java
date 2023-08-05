@@ -9,4 +9,7 @@ public interface CheckupService {
 	List<CheckupResDto> findCheckupList(Long babyId);
 
 	void updateCheckupDate(CheckupPutDto checkupPutDto);
+
+	CheckupResDto findCheckup(Long babyId, Long checkupId);
+
 }

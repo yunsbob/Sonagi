@@ -24,14 +24,29 @@ import lombok.RequiredArgsConstructor;
 public class CheckupController {
 	private final CheckupService checkupService;
 
+	/**
+	 * 건강검진 리스트 조회
+	 */
 	@GetMapping("/{babyId}")
 	public List<CheckupResDto> findCheckupList(@PathVariable Long babyId) {
 		return checkupService.findCheckupList(babyId);
 	}
 
+	/**
+	 * 건강검진일 등록, 수정
+	 */
 	@PutMapping
 	public ResponseEntity<?> updateCheckupDate(@RequestBody CheckupPutDto checkupPutDto) {
 		checkupService.updateCheckupDate(checkupPutDto);
 		return ResponseEntity.ok().build();
+	}
+
+	/**
+	 * 건강검진 상세 정보 조회
+	 */
+	@GetMapping("/{babyId}/{checkupId}")
+	public ResponseEntity<?> findCheckup(@PathVariable Long babyId, @PathVariable Long checkupId) {
+		CheckupResDto checkupResDto = checkupService.findCheckup(babyId, checkupId);
+		return ResponseEntity.ok().body(checkupResDto);
 	}
 }

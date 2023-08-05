@@ -12,4 +12,6 @@ public interface BabyService {
 	BabyCodeResDto getBabyCode(Long babyId);
 
 	void registUserBaby(Long userId, Baby baby, String authority);
+
+	void registCheckup(Baby baby);
 }

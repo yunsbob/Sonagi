@@ -43,4 +43,5 @@ public class CheckupStatus {
 	public void updateCheckup(LocalDate checkupDate) {
 		this.checkupDate = checkupDate;
 	}
+
 }

@@ -11,9 +11,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public class CheckupResDto {
 	private Long id;
+	private Long checkupId;
 	private String checkupName;
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private LocalDate checkupDate;
+	private String content;
 
 }

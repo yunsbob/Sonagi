@@ -8,4 +8,6 @@ import com.fa.sonagi.immunization.entity.CheckupStatus;
 
 public interface CheckupStatusRepository extends JpaRepository<CheckupStatus, Long> {
 	List<CheckupStatus> findByBabyId(Long babyId);
+
+	CheckupStatus findByBabyIdAndCheckupId(Long babyId, Long checkupId);
 }
