@@ -1,6 +1,7 @@
 package com.fa.sonagi.baby.service;
 
 import java.util.Base64;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,10 @@ import com.fa.sonagi.baby.entity.Baby;
 import com.fa.sonagi.baby.entity.UserBaby;
 import com.fa.sonagi.baby.repository.BabyRepository;
 import com.fa.sonagi.baby.repository.UserBabyRepository;
+import com.fa.sonagi.immunization.entity.Checkup;
+import com.fa.sonagi.immunization.entity.CheckupStatus;
+import com.fa.sonagi.immunization.repository.CheckupRepository;
+import com.fa.sonagi.immunization.repository.CheckupStatusRepository;
 import com.fa.sonagi.user.entity.Users;
 import com.fa.sonagi.user.repository.UserRepository;
 
@@ -25,6 +30,8 @@ public class BabyServiceImpl implements BabyService {
 	private final BabyRepository babyRepository;
 	private final UserRepository userRepository;
 	private final UserBabyRepository userBabyRepository;
+	private final CheckupStatusRepository checkupStatusRepository;
+	private final CheckupRepository checkupRepository;
 
 	/**
 	 * 아기 정보 등록
