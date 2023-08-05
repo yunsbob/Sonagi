@@ -56,6 +56,7 @@ public class BabyServiceImpl implements BabyService {
 
 		Users user = userRepository.findById(babyInfoPostDto.getUserId()).orElseThrow();
 		registUserBaby(user, baby, "Y");
+		registCheckup(baby);
 	}
 
 	/**
@@ -104,5 +105,23 @@ public class BabyServiceImpl implements BabyService {
 		Users user = userRepository.findById(babyCodePosDto.getUserId()).orElseThrow();
 
 		registUserBaby(user, baby, "N");
+	}
+
+	/**
+	 * CheckupStatus 생성
+	 */
+	@Override
+	@Transactional
+	public void registCheckup(Baby baby) {
+		List<Checkup> checkup = checkupRepository.findAll();
+
+		for (Checkup item : checkup) {
+			CheckupStatus checkupStatus = CheckupStatus.builder()
+				.baby(baby)
+				.checkup(item)
+				.build();
+			checkupStatusRepository.save(checkupStatus);
+		}
+
 	}
 }

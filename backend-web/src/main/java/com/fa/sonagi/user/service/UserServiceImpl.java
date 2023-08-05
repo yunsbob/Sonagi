@@ -55,14 +55,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public NameDto findName(Long id) {
-		Users user = userRepository
-			.findById(id)
-			.orElseThrow();
-		return NameDto.
-			builder()
-			.name(user.getName())
-			.id(id)
-			.build();
+		return userRepository.findName(id);
 	}
 
 }

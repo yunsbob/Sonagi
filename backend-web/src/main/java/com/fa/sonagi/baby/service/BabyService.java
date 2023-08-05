@@ -16,4 +16,6 @@ public interface BabyService {
 	void registUserBaby(Users user, Baby baby, String authority);
 
 	void registUserBabyByCode(BabyCodePosDto babyCodePosDto);
+
+	void registCheckup(Baby baby);
 }
