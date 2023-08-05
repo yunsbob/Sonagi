@@ -14,5 +14,4 @@ public interface UserService {
 	NameDto findName(Long id);
 	// 재발급 로직 필요함.
 	// ResponseEntity<?> reissue(UserTestReqDto.Reissue reissue);
-
 }

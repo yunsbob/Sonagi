@@ -1,6 +1,7 @@
 package com.fa.sonagi.baby.service;
 
 import java.util.Base64;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,14 @@ import com.fa.sonagi.baby.entity.Baby;
 import com.fa.sonagi.baby.entity.UserBaby;
 import com.fa.sonagi.baby.repository.BabyRepository;
 import com.fa.sonagi.baby.repository.UserBabyRepository;
+import com.fa.sonagi.immunization.entity.Checkup;
+import com.fa.sonagi.immunization.entity.CheckupStatus;
+import com.fa.sonagi.immunization.entity.Vaccination;
+import com.fa.sonagi.immunization.entity.VaccinationStatus;
+import com.fa.sonagi.immunization.repository.CheckupRepository;
+import com.fa.sonagi.immunization.repository.CheckupStatusRepository;
+import com.fa.sonagi.immunization.repository.VaccinationRepository;
+import com.fa.sonagi.immunization.repository.VaccinationStatusRepository;
 import com.fa.sonagi.user.entity.Users;
 import com.fa.sonagi.user.repository.UserRepository;
 
@@ -25,6 +34,10 @@ public class BabyServiceImpl implements BabyService {
 	private final BabyRepository babyRepository;
 	private final UserRepository userRepository;
 	private final UserBabyRepository userBabyRepository;
+	private final CheckupStatusRepository checkupStatusRepository;
+	private final CheckupRepository checkupRepository;
+	private final VaccinationStatusRepository vaccinationStatusRepository;
+	private final VaccinationRepository vaccinationRepository;
 
 	/**
 	 * 아기 정보 등록
@@ -49,6 +62,8 @@ public class BabyServiceImpl implements BabyService {
 
 		Users user = userRepository.findById(babyInfoPostDto.getUserId()).orElseThrow();
 		registUserBaby(user, baby, "Y");
+		registCheckup(baby);
+		registVaccination(baby);
 	}
 
 	/**
@@ -97,5 +112,41 @@ public class BabyServiceImpl implements BabyService {
 		Users user = userRepository.findById(babyCodePosDto.getUserId()).orElseThrow();
 
 		registUserBaby(user, baby, "N");
+	}
+
+	/**
+	 * CheckupStatus 생성
+	 */
+	@Override
+	@Transactional
+	public void registCheckup(Baby baby) {
+		List<Checkup> checkups = checkupRepository.findAll();
+
+		for (Checkup checkup : checkups) {
+			CheckupStatus checkupStatus = CheckupStatus.builder()
+				.baby(baby)
+				.checkup(checkup)
+				.build();
+			checkupStatusRepository.save(checkupStatus);
+		}
+
+	}
+
+	/**
+	 * VaccinationStatus 생성
+	 */
+	@Override
+	@Transactional
+	public void registVaccination(Baby baby) {
+		List<Vaccination> vaccinations = vaccinationRepository.findAll();
+
+		for (Vaccination vaccination : vaccinations) {
+			VaccinationStatus vaccinationStatus = VaccinationStatus.builder()
+				.baby(baby)
+				.vaccination(vaccination)
+				.build();
+			vaccinationStatusRepository.save(vaccinationStatus);
+		}
+
 	}
 }

@@ -49,5 +49,4 @@ public class Diary {
 	@CreatedDate
 	@Column(name = "created_at", nullable = false)
 	private LocalDateTime createdAt;
-
 }
