@@ -1,6 +1,5 @@
 // DoughnutChartByJun 수정본
 import theme from '@/styles/theme';
-import { Text } from '@/components/atoms/Text/Text.styles';
 
 // 도넛 뿌리기용 consts
 const MAX_DEGREE = 360;
@@ -107,7 +106,6 @@ const DoughnutChart: React.FC = () => {
       </text>
     );
   }
-  console.log(numbers);
 
   return (
     <svg viewBox={VIEW_BOX}>
