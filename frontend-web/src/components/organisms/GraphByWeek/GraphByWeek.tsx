@@ -1,4 +1,6 @@
+import { DiaperBarGraph } from '@/components/molecules/BarGraph/Diaper/DiaperBarGraph';
 import { MealBarGraph } from '@/components/molecules/BarGraph/Meal/MealBarGraph';
+import { PumpingBreastBarGraph } from '@/components/molecules/BarGraph/PumpingBreast/PumpingBreastBarGraph';
 import { Card } from '@/components/organisms/Card/Card';
 import { GraphByWeekContainer } from '@/components/organisms/GraphByWeek/GraphByWeek.style';
 import { selectedCategoryState } from '@/states/CategoryState';
@@ -12,6 +14,8 @@ const GraphByWeek = () => {
   return (
     <GraphByWeekContainer className="scrollable">
       {currentCategory === 'Meal' && <MealBarGraph />}
+      {currentCategory === 'Diaper' && <DiaperBarGraph />}
+      {currentCategory === 'Pump' && <PumpingBreastBarGraph />}
       <Card />
     </GraphByWeekContainer>
   );
