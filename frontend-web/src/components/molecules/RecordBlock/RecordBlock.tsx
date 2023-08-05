@@ -3,6 +3,9 @@ import { RoundedRect } from '@/components/atoms/RoundedRect/RoundedRect';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import theme from '@/styles/theme';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { PATH } from '@/constants/path';
 
 interface RecordBlockProps {
   color: string;
@@ -28,9 +31,14 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
   recordType,
   time,
 }) => {
+  const navigate = useNavigate();
+
+  const OnClickButton = () => {
+    navigate(PATH.DETAILRECORD);
+  };
   return (
     <>
-      <BlockButton option="default" size="xLarge">
+      <BlockButton option="default" size="xLarge" onClick={OnClickButton}>
         <RoundedRect color={color} />
         <TimeText size="medium2">{time}</TimeText>
         <Text size="medium1">{recordType}</Text>
