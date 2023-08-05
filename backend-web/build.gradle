@@ -31,13 +31,15 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.projectlombok:lombok:1.18.22'
 
+    //dev
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
 
     // test
     testImplementation 'org.assertj:assertj-core:3.20.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     // AWS S3
-    implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.12.385'
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
     // validation
