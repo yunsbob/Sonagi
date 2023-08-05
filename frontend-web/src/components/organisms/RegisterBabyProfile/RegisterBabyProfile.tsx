@@ -57,7 +57,7 @@ const RegisterBabyProfile = () => {
       <Button
         option="default"
         size="large"
-        style={{ fontSize: theme.fontSize.large, color: theme.color.black3 }}
+        $borderRadius="14px"
         onClick={onClickAction}
       >
         {moment(pickDate).format('YYYY년 MM월 D일')}
@@ -66,7 +66,8 @@ const RegisterBabyProfile = () => {
         onChange={changeInput}
         value={value}
         placeholder={placeholder}
-        fontSize={theme.fontSize.large}
+        $borderRadius={14}
+        fontSize={theme.fontSize.headSmall}
         height={3.5}
       />
     </RBPWrapper>
