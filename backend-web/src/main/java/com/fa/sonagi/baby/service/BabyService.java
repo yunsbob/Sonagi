@@ -18,4 +18,6 @@ public interface BabyService {
 	void registUserBabyByCode(BabyCodePosDto babyCodePosDto);
 
 	void registCheckup(Baby baby);
+
+	void registVaccination(Baby baby);
 }
