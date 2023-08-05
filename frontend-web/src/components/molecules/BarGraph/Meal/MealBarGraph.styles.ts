@@ -20,11 +20,12 @@ const MealBarGraphLineContainer = styled.div`
 `;
 
 const MealBarGraphLine = styled.div`
-  border: 1px solid ${({ theme }) => theme.color.lightgrey};
+  border: 1px solid ${({ theme }) => theme.color.gray4};
 `;
 
 const MealBarGraphBarContainer = styled.div`
   width: inherit;
+  padding: 0px 15px;
   height: inherit;
   display: flex;
   justify-content: space-between;
@@ -34,7 +35,7 @@ const MealBarGraphBarContainer = styled.div`
 `;
 
 const MealBarGraphWrapper = styled.div<MealBarGraphStyleProps>`
-  width: 33px;
+  width: 35px;
   height: ${props => `${props.$barHeight}%`};
   display: flex;
   flex-direction: column-reverse;
@@ -49,6 +50,7 @@ const MealBar = styled.div<{ height: number; color: string }>`
 const MealBarGraphDateContainer = styled.div`
   width: 100%;
   height: 10%;
+  padding: 0px 15px;
   position: absolute;
   bottom: 0;
   display: flex;
@@ -59,6 +61,7 @@ const MealBarGraphDateContainer = styled.div`
 const MealBarGraphCategoryContainer = styled.div`
   display: flex;
   width: inherit;
+  padding: 0px 15px;
   justify-content: space-between;
 `;
 

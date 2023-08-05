@@ -71,7 +71,7 @@ const color = {
   graphTummyTime: '#C8BBFA',
 
   // 그래프 - pumping breast color
-  graphAmountsOfPumpingBreast: '#FFE4AF',
+  graphAmountsOfPumpingBreast: '#FFE6A6',
   graphCountsOfPumpingBreast: '#FFD056',
 
   // 그래프 - etc color
