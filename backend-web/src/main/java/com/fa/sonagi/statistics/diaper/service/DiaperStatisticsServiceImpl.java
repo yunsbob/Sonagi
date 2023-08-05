@@ -30,37 +30,37 @@ public class DiaperStatisticsServiceImpl implements DiaperStatisticsService{
 		diaperStatisticsResDto.setPees(pees);
 		List<DiaperStatisticsQueryDto> poops = findPoops(babyId, createdDate);
 		diaperStatisticsResDto.setPoops(poops);
-		Integer peeCnt = Integer.parseInt(String.valueOf(findPeeCnt(babyId, createdDate)));
+		Long peeCnt = findPeeCnt(babyId, createdDate);
 		diaperStatisticsResDto.setPeeCnt(peeCnt);
-		Integer poopCnt = Integer.parseInt(String.valueOf(findPoopCnt(babyId, createdDate)));
+		Long poopCnt = findPoopCnt(babyId, createdDate);
 		diaperStatisticsResDto.setPoopCnt(poopCnt);
 
 		createdDate = createdDate.minus(1, ChronoUnit.DAYS);
 
-		Integer yesterdayPeeCnt = Integer.parseInt(String.valueOf(findPeeCnt(babyId, createdDate)));
-		Integer yesterdayPoopCnt = Integer.parseInt(String.valueOf(findPoopCnt(babyId, createdDate)));
+		Long yesterdayPeeCnt = findPeeCnt(babyId, createdDate);
+		Long yesterdayPoopCnt = findPoopCnt(babyId, createdDate);
 
-		Integer peePercent, poopPercent, yesterdayPeePercent, yesterdayPoopPercent;
+		Long peePercent, poopPercent, yesterdayPeePercent, yesterdayPoopPercent;
 		if (peeCnt >= yesterdayPeeCnt) {
-			if (peeCnt == 0) peePercent = 0;
-			else peePercent = 100;
-			if (yesterdayPeeCnt == 0) yesterdayPeePercent = 0;
+			if (peeCnt == 0) peePercent = 0L;
+			else peePercent = 100L;
+			if (yesterdayPeeCnt == 0) yesterdayPeePercent = 0L;
 			else yesterdayPeePercent = yesterdayPeeCnt * 100 / peeCnt;
 		}
 		else {
-			yesterdayPeePercent = 100;
-			if (peeCnt == 0) peePercent = 0;
+			yesterdayPeePercent = 100L;
+			if (peeCnt == 0) peePercent = 0L;
 			else peePercent = peeCnt * 100 / yesterdayPeeCnt;
 		}
 		if (poopCnt >= yesterdayPoopCnt) {
-			if (poopCnt == 0) poopPercent = 0;
-			else poopPercent = 100;
-			if (yesterdayPoopCnt == 0) yesterdayPoopPercent = 0;
+			if (poopCnt == 0) poopPercent = 0L;
+			else poopPercent = 100L;
+			if (yesterdayPoopCnt == 0) yesterdayPoopPercent = 0L;
 			else yesterdayPoopPercent = yesterdayPoopCnt * 100 / poopCnt;
 		}
 		else {
-			yesterdayPoopPercent = 100;
-			if (poopCnt == 0) poopPercent = 0;
+			yesterdayPoopPercent = 100L;
+			if (poopCnt == 0) poopPercent = 0L;
 			else poopPercent = poopCnt * 100 / yesterdayPoopCnt;
 		}
 
@@ -74,25 +74,21 @@ public class DiaperStatisticsServiceImpl implements DiaperStatisticsService{
 
 	@Override
 	public List<DiaperStatisticsQueryDto> findPees(Long babyId, LocalDate createdDate) {
-		List<DiaperStatisticsQueryDto> pees = peeRepository.findPeeByDay(babyId, createdDate);
-		return pees;
+		return peeRepository.findPeeByDay(babyId, createdDate);
 	}
 
 	@Override
 	public List<DiaperStatisticsQueryDto> findPoops(Long babyId, LocalDate createdDate) {
-		List<DiaperStatisticsQueryDto> poops = poopRepository.findPoopByDay(babyId, createdDate);
-		return poops;
+		return poopRepository.findPoopByDay(babyId, createdDate);
 	}
 
 	@Override
 	public Long findPeeCnt(Long babyId, LocalDate createdDate) {
-		Long peeCnt = peeRepository.findPeeCnt(babyId, createdDate);
-		return peeCnt;
+		return peeRepository.findPeeCnt(babyId, createdDate);
 	}
 
 	@Override
 	public Long findPoopCnt(Long babyId, LocalDate createdDate) {
-		Long poopCnt = poopRepository.findPoopCnt(babyId, createdDate);
-		return poopCnt;
+		return poopRepository.findPoopCnt(babyId, createdDate);
 	}
 }
