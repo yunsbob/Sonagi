@@ -29,13 +29,13 @@ const color = {
   danger: '#FA6C4D',
 
   //category color
-  categoryMeal: '#ff6c6c',
-  categoryDiaper: '#FF8D24',
-  categoryPumpingBreast: '#ffe76c',
-  categorySleep: '#6CB8FF',
-  categoryHealth: '#33e16f',
-  categoryActivity: '#e26cff',
-  categoryExtra: '#d7d7d7',
+  categoryMeal: '#ff6c6c96',
+  categoryDiaper: '#FF8D2496',
+  categoryPumpingBreast: '#ffe76c96',
+  categorySleep: '#6CB8FF96',
+  categoryHealth: '#33e16f96',
+  categoryActivity: '#e26cff96',
+  categoryExtra: '#d7d7d796',
 
   // 기록 block color
   // blockMeal: '#FCBEC9',
@@ -47,10 +47,11 @@ const color = {
   // blockExtra: '#D1D7E1',
 
   // 그래프 - meal color
-  graphFeeding: '#FF089E',
+  graphFeeding: '#FF809E',
   graphInfantFormula: '#FFb7C8',
   graphBreastFeeding: '#FFCCF1',
   graphBabyFood: '#FFF1CC',
+  graphSnack: '#FFE4CC',
   graphMilk: '#D3DEFF',
 
   // 그래프 - diaper color
@@ -70,7 +71,7 @@ const color = {
   graphTummyTime: '#C8BBFA',
 
   // 그래프 - pumping breast color
-  graphAmountsOfPumpingBreast: '#FFE4AF',
+  graphAmountsOfPumpingBreast: '#FFE6A6',
   graphCountsOfPumpingBreast: '#FFD056',
 
   // 그래프 - etc color

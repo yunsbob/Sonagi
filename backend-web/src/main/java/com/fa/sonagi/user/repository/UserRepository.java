@@ -7,10 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.fa.sonagi.user.entity.Users;
 
 public interface UserRepository extends JpaRepository<Users, Long>, UserRepositoryCustom {
+	Users findBySocialId(String social);
 
-	Users findUserByEmail(String email);
+	@Override
+	Optional<Users> findById(Long id);
 
 	Optional<Users> findByEmail(String email);
 
-	boolean existsByEmail(String email);
 }

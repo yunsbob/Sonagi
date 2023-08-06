@@ -21,6 +21,7 @@ import com.fa.sonagi.oauth.handler.OAuth2AuthenticationSuccessHandler;
 import com.fa.sonagi.oauth.handler.TokenAccessDeniedHandler;
 import com.fa.sonagi.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.fa.sonagi.oauth.service.CustomOAuth2UserService;
+import com.fa.sonagi.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,6 +33,7 @@ public class WebSecurityConfig {
 	private final RedisTemplate<String, String> redisTemplate;
 	private final CustomOAuth2UserService customOAuth2UserService;
 	private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
+	private final UserRepository userRepository;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -41,18 +43,26 @@ public class WebSecurityConfig {
 			.configurationSource(corsConfigurationSource());
 
 		httpSecurity
-			.httpBasic().disable()
-			.csrf().disable()
-			.formLogin().disable()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 사용 X
+			.httpBasic()
+			.disable()
+			.csrf()
+			.disable()
+			.formLogin()
+			.disable()
+			.sessionManagement()
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 사용 X
 			.and()
 			.exceptionHandling()
 			.authenticationEntryPoint(new RestAuthenticationEntryPoint())
 			.accessDeniedHandler(tokenAccessDeniedHandler)
 			.and()
 			.authorizeHttpRequests()
-			.requestMatchers(new AntPathRequestMatcher("/api/oauth2/authorization"),new AntPathRequestMatcher("/api/login/oauth2/code/**")).permitAll()
-			.requestMatchers(new AntPathRequestMatcher("/**")).hasAnyRole("USER", "ADMIN");
+			.requestMatchers(new AntPathRequestMatcher("/**"))
+			.permitAll()
+			.requestMatchers(new AntPathRequestMatcher("/api/oauth2/authorization"), new AntPathRequestMatcher("/api/login/oauth2/code/**"))
+			.permitAll()
+			.requestMatchers(new AntPathRequestMatcher("/**"))
+			.hasAnyRole("USER", "ADMIN");
 
 		httpSecurity
 			.oauth2Login()
@@ -90,7 +100,9 @@ public class WebSecurityConfig {
 		return new OAuth2AuthenticationSuccessHandler(
 			oAuth2AuthorizationRequestBasedOnCookieRepository(),
 			jwtTokenProvider,
-			redisTemplate);
+			redisTemplate,
+			userRepository
+		);
 	}
 
 	// Oauth 인증 실패 핸들러

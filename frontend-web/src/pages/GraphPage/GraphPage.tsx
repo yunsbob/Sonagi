@@ -4,6 +4,7 @@ import CalendarBar from '@/components/molecules/CalendarBar/CalendarBar';
 import CategoryBar from '@/components/molecules/CategoryBar/CategoryBar';
 import { PATH } from '@/constants/path';
 import {
+  CategoryBarContainer,
   GraphContainer,
   ToggleContainer,
 } from '@/pages/GraphPage/GraphPage.style';
@@ -39,7 +40,9 @@ const GraphPage = () => {
     <>
       <section>
         <CalendarBar></CalendarBar>
-        <CategoryBar></CategoryBar>
+        <CategoryBarContainer>
+          <CategoryBar path={PATH.GRAPH}></CategoryBar>
+        </CategoryBarContainer>
       </section>
       <GraphContainer>
         <ToggleContainer>

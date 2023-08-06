@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fa.sonagi.record.meal.entity.Milk;
 
-public interface MilkRepository extends JpaRepository<Milk, Long> {
+public interface MilkRepository extends JpaRepository<Milk, Long>, MilkRepositoryCustom {
 
 	List<Milk> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
 }

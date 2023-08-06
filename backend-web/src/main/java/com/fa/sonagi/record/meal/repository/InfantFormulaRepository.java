@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fa.sonagi.record.meal.entity.InfantFormula;
 
-public interface InfantFormulaRepository extends JpaRepository<InfantFormula, Long> {
+public interface InfantFormulaRepository extends JpaRepository<InfantFormula, Long>, InfantFormulaRepositoryCustom {
 
 	List<InfantFormula> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
 }

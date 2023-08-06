@@ -38,7 +38,6 @@ const SignInPage = () => {
 
   return (
     <Background $background={orangeBackground}>
-      <Back />
       <S.SignInPageContainer>
         <S.SignInPageWrapper>
           <Image src={family} width={12} />

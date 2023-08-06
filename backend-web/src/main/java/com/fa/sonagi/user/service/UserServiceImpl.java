@@ -22,13 +22,15 @@ public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 	private final JwtTokenProvider jwtTokenProvider;
 	private final AuthenticationManagerBuilder authenticationManagerBuilder;
-	private final RedisTemplate<String, String> redisTemplate;
+	private final RedisTemplate<String, Object> redisTemplate;
 
 	@Override
 	public boolean checkEmail(String email) throws Exception {
 		log.info("check email : {}", email);
 
-		return userRepository.findByEmail(email).isPresent();
+		return userRepository
+			.findByEmail(email)
+			.isPresent();
 	}
 
 	@Override
@@ -42,7 +44,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void updateName(NameDto nameDto) {
-		Users user = userRepository.findById(nameDto.getId()).orElseThrow();
+		Users user = userRepository
+			.findById(nameDto.getId())
+			.orElseThrow();
 		user.updateName(nameDto.getName());
 	}
 
@@ -51,9 +55,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public NameDto findName(Long id) {
-		NameDto name = userRepository.findName(id);
-
-		return name;
+		return userRepository.findName(id);
 	}
 
 }

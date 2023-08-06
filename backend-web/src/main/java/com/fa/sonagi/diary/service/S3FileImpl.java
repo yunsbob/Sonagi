@@ -30,26 +30,23 @@ import java.nio.file.Paths;
 @RequiredArgsConstructor
 public class S3FileImpl implements S3File {
 
+	final String dirName = "img";
 	private final AmazonS3Client amazonS3Client;
-
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
-	final String dirName = "diary_img";
 
 	@Override
-	public String upload(MultipartFile multipartFile, String dirName, String socialId) throws IOException {
+	public String upload(MultipartFile multipartFile, String dirName, String id) throws IOException {
 		// 파일 업로드
 		log.info("file : {}, dirName : {}", multipartFile, dirName);
 		File uploadFile = convertToFile(multipartFile)
 			.orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 변환에 실패했습니다."));
-
-		String fileName = dirName + "/" + socialId + " " + uploadFile.getName();
 		// 파일명 중복을 피하기 위해 회원 정보 추가
+		String fileName = dirName + "/" + id + " " + uploadFile.getName();
 		log.info("created fileName : {}", fileName);
 
 		// put - S3로 업로드
 		String uploadImageUrl = putS3(uploadFile, fileName);
-
 		// 로컬 파일 삭제
 		removeFile(uploadFile);
 
@@ -61,7 +58,7 @@ public class S3FileImpl implements S3File {
 	public boolean delete(String url) {
 		// S3에서 삭제
 		log.info("file url : {}", url);
-		Pattern tokenPattern = Pattern.compile("(?<=diary_img/).*");
+		Pattern tokenPattern = Pattern.compile("(?<=img/).*");
 		Matcher matcher = tokenPattern.matcher(url);
 
 		String temp = null;
@@ -97,7 +94,9 @@ public class S3FileImpl implements S3File {
 	private String putS3(File uploadFile, String fileName) {
 		amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile)
 			.withCannedAcl(CannedAccessControlList.PublicRead));
-		return amazonS3Client.getUrl(bucket, fileName).toString();
+		return amazonS3Client
+			.getUrl(bucket, fileName)
+			.toString();
 	}
 
 	// multipartFile -> File 형식으로 변환 및 로컬에 저장

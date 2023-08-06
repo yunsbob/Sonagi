@@ -1,8 +1,4 @@
 spring:
-  servlet :
-    multipart :
-      max-file-size : 10MB
-      max-request-size : 10MB
   security:
     oauth2:
       client:
@@ -59,9 +55,13 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 logging:
   level:
     org:

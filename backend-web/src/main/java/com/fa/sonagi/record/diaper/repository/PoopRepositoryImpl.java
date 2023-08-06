@@ -1,15 +1,20 @@
 package com.fa.sonagi.record.diaper.repository;
 
-import static com.fa.sonagi.record.diaper.entity.QPoop.*;
+import java.time.LocalDate;
+import java.util.List;
 
 import com.fa.sonagi.record.diaper.dto.DiaperResDto;
+import com.fa.sonagi.statistics.diaper.dto.DiaperStatisticsQueryDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.fa.sonagi.record.diaper.entity.QPoop.poop;
+
 @RequiredArgsConstructor
-public class PoopRepositoryImpl implements PoopRepositoryCustom {
+public class PoopRepositoryImpl implements PoopRepositoryCustom{
+
 	private final JPAQueryFactory queryFactory;
 
 	@Override
@@ -24,5 +29,29 @@ public class PoopRepositoryImpl implements PoopRepositoryCustom {
 			.fetchOne();
 
 		return poops;
+	}
+
+
+	@Override
+	public List<DiaperStatisticsQueryDto> findPoopByDay(Long babyId, LocalDate createdDate) {
+		List<DiaperStatisticsQueryDto> diaperStatisticsQueryDto = queryFactory
+			.select(Projections.bean(DiaperStatisticsQueryDto.class,
+				poop.createdTime))
+			.from(poop)
+			.where(poop.babyId.eq(babyId), poop.createdDate.eq(createdDate))
+			.fetch();
+
+		return diaperStatisticsQueryDto;
+	}
+
+	@Override
+	public Long findPoopCnt(Long babyId, LocalDate createdDate) {
+		Long cnt = queryFactory
+			.select(poop.count())
+			.from(poop)
+			.where(poop.babyId.eq(babyId), poop.createdDate.eq(createdDate))
+			.fetchFirst();
+
+		return cnt;
 	}
 }

@@ -4,11 +4,11 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCategoryState, Category } from '@/states/CategoryState';
 import { recordedValues, recordsByCategory } from '@/states/RecordState';
 import { Text } from '@/components/atoms/Text/Text.styles';
-import styled from 'styled-components';
+import { PATH } from '@/constants/path';
 
-const LowBorderButton = styled(Button)<{ $borderColor: string }>`
-  border-color: ${({ $borderColor }) => $borderColor + '96'};
-`;
+// const LowBorderButton = styled(Button)<{ $borderColor: string }>`
+//   border-color: ${({ $borderColor }) => $borderColor + '96'};
+// `;
 
 export type RecordData = {
   recordType: string;
@@ -23,7 +23,7 @@ const RecordBar = () => {
 
   // useRecoilValue는 Recoil상태(atom이나 selector)의 현재 값을 읽어오는 것
   // 상태가 변경될 때마다 UI가 최신 상태를 반영
-  const currentCategory = useRecoilValue(selectedCategoryState);
+  const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const records = recordsByCategory[currentCategory || 'All'] || [];
 
   const handleClick = (
@@ -45,7 +45,7 @@ const RecordBar = () => {
   return (
     <RecordBarContainer>
       {records.map((record, index) => (
-        <LowBorderButton
+        <Button
           option="default"
           size="xSmall"
           key={index}
@@ -55,7 +55,7 @@ const RecordBar = () => {
           }
         >
           <Text size="medium3">{record.type}</Text>
-        </LowBorderButton>
+        </Button>
       ))}
     </RecordBarContainer>
   );

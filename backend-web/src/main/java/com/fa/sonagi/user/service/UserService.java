@@ -12,7 +12,8 @@ public interface UserService {
 	void updateName(NameDto nameDto);
 
 	NameDto findName(Long id);
-	// 재발급 로직 필요함.
-	// ResponseEntity<?> reissue(UserTestReqDto.Reissue reissue);
 
+	// ResponseEntity<?> logout(UserTestReqDto.Logout logout);
+	//
+	// ResponseEntity<?> reissue(UserTestReqDto.Reissue reissue);
 }
