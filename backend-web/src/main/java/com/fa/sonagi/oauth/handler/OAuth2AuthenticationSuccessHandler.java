@@ -19,13 +19,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fa.sonagi.jwt.JwtTokenProvider;
+import com.fa.sonagi.jwt.Token;
 import com.fa.sonagi.oauth.entity.ProviderType;
+import com.fa.sonagi.oauth.entity.RoleType;
 import com.fa.sonagi.oauth.info.OAuth2UserInfo;
 import com.fa.sonagi.oauth.info.OAuth2UserInfoFactory;
 import com.fa.sonagi.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.fa.sonagi.oauth.utils.CookieUtil;
-import com.fa.sonagi.oauth.entity.RoleType;
-import com.fa.sonagi.jwt.Token;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,15 +38,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
+	private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
+	private final JwtTokenProvider jwtTokenProvider;
+	private final RedisTemplate<String, String> redisTemplate;
 	@Value("${app.oauth2.authorizedRedirectUris}")
 	private String redirectUri;
-
-	private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
-
-	private final JwtTokenProvider jwtTokenProvider;
-
-	private final RedisTemplate<String, String> redisTemplate;
-
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
@@ -62,7 +58,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 	}
 
 	protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-		Optional<String> redirectUri = CookieUtil.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
+		Optional<String> redirectUri = CookieUtil
+			.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
 			.map(Cookie::getValue);
 
 		if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
@@ -73,7 +70,9 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
 
 		OAuth2AuthenticationToken authToken = (OAuth2AuthenticationToken)authentication;
-		ProviderType providerType = ProviderType.valueOf(authToken.getAuthorizedClientRegistrationId().toUpperCase());
+		ProviderType providerType = ProviderType.valueOf(authToken
+			.getAuthorizedClientRegistrationId()
+			.toUpperCase());
 
 		OidcUser user = ((OidcUser)authentication.getPrincipal());
 		OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
@@ -83,16 +82,18 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
 		Token tokenInfo = jwtTokenProvider.createToken(userInfo.getId(), roleType.name());
 
-		redisTemplate.opsForValue()
+		redisTemplate
+			.opsForValue()
 			.set("RT:" + authentication.getName(), tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(), TimeUnit.MILLISECONDS);
 
 		CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
 		CookieUtil.addCookie(response, REFRESH_TOKEN, tokenInfo.getRefreshToken(), JwtTokenProvider.getRefreshTokenExpireTimeCookie());
 
-		return UriComponentsBuilder.fromUriString(targetUrl)
-			.queryParam("accessToken", tokenInfo.getAccessToken())
+		return UriComponentsBuilder
+			.fromUriString(targetUrl)
 			.queryParam("refreshToken", tokenInfo.getRefreshToken())
-			.build().toUriString();
+			.build()
+			.toUriString();
 	}
 
 	protected void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
@@ -116,7 +117,9 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		URI clientRedirectUri = URI.create(uri);
 		URI authorizedUri = URI.create(redirectUri);
 
-		return authorizedUri.getHost().equalsIgnoreCase(clientRedirectUri.getHost())
+		return authorizedUri
+			.getHost()
+			.equalsIgnoreCase(clientRedirectUri.getHost())
 			&& authorizedUri.getPort() == clientRedirectUri.getPort();
 	}
 
