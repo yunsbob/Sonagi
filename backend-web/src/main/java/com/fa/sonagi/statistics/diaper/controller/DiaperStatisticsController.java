@@ -14,7 +14,7 @@ import com.fa.sonagi.statistics.diaper.service.DiaperStatisticsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-@Tag(name = "DiaperCategory", description = "기저귀 통계 API")
+@Tag(name = "DiaperStatistics", description = "기저귀 통계 API")
 @RequestMapping("/api/diaperStatistics")
 @RestController
 @RequiredArgsConstructor
