@@ -3,7 +3,7 @@ package com.fa.sonagi.statistics.activity.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fa.sonagi.statistics.activity.service.ActivityStatisticsServiceImpl;
+import com.fa.sonagi.statistics.common.StatisticsTime;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ActivityStatisticsResDto {
-	private List<ActivityStatisticsServiceImpl.SnPTime> plays;
-	private List<ActivityStatisticsServiceImpl.SnPTime> tummytimes;
+	private List<StatisticsTime> plays;
+	private List<StatisticsTime> tummytimes;
 	private Long activityCnt;
 	private Long activityHour;
 	private Long activityMinute;
