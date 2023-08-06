@@ -11,8 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ActivityStatisticsResDto {
-	private List<StatisticsTime> plays;
-	private List<StatisticsTime> tummytimes;
+	private List<ActivityStatisticsQueryDto> plays;
+	private List<ActivityStatisticsQueryDto> tummytimes;
 	private Long activityCnt;
 	private Long activityHour;
 	private Long activityMinute;

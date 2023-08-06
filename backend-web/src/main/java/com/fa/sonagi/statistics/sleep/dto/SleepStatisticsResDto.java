@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SleepStatisticsResDto {
-	private List<StatisticsTime> sleeps;
+	private List<SleepStatisticsQueryDto> sleeps;
 	private Long sleepCnt;
 	private Long allSleepHour;
 	private Long allSleepMinute;
