@@ -44,11 +44,9 @@ public class Users extends BaseTimeEntity implements UserDetails {
 	@Column(name = "user_id", nullable = false, columnDefinition = "BIGINT UNSIGNED")
 	private Long userId;
 
+	@NotNull
 	@Column(name = "social_id", length = 64)
 	private String socialId;
-
-	@Column(name = "password")
-	private String password;
 
 	@Setter
 	@Column(name = "email", length = 100)
@@ -70,7 +68,10 @@ public class Users extends BaseTimeEntity implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+		return this.roles
+			.stream()
+			.map(SimpleGrantedAuthority::new)
+			.collect(Collectors.toList());
 	}
 
 	@Override
@@ -80,7 +81,7 @@ public class Users extends BaseTimeEntity implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return email;
+		return socialId;
 	}
 
 	@Override

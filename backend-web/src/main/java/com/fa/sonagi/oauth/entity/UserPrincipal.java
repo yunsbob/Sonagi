@@ -24,7 +24,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class UserPrincipal implements OAuth2User, UserDetails, OidcUser {
-	private final String id;
+	private final String socialId;
 	private final String email;
 	private final String name;
 	private final String password;
@@ -61,13 +61,8 @@ public class UserPrincipal implements OAuth2User, UserDetails, OidcUser {
 	}
 
 	@Override
-	public String getName() {
-		return String.valueOf(id);
-	}
-
-	@Override
 	public String getUsername() {
-		return String.valueOf(id);
+		return socialId;
 	}
 
 	@Override

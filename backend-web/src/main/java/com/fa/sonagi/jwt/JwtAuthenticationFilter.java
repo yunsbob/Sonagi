@@ -5,17 +5,14 @@ import java.io.IOException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 public class JwtAuthenticationFilter extends GenericFilterBean {
 	private static final String AUTHORIZATION_HEADER = "Authorization";
 	private static final String BEARER_TYPE = "Bearer";
-
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisTemplate<String, String> redisTemplate;
 
@@ -36,7 +32,9 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 		if (token != null && jwtTokenProvider.validateToken(token)) {
 			// 토큰이 유효할 경우 토큰에서 Authentication 객체를 가지고 와서 SecurityContext 에 저장
 			Authentication authentication = jwtTokenProvider.getAuthentication(token);
-			SecurityContextHolder.getContext().setAuthentication(authentication);
+			SecurityContextHolder
+				.getContext()
+				.setAuthentication(authentication);
 		}
 		chain.doFilter(request, response);
 	}
