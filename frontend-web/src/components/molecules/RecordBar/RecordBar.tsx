@@ -17,7 +17,11 @@ export type RecordData = {
   category: Category;
 };
 
-const RecordBar = () => {
+interface RecordBarProps {
+  onRecordUpdated: () => void;
+}
+
+const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
   const [recordBlocks, setRecordBlocks] =
     useRecoilState<RecordData[]>(recordedValues);
 
@@ -40,6 +44,8 @@ const RecordBar = () => {
       ...oldRecordBlocks,
       { recordType, time, color, category },
     ]);
+
+    onRecordUpdated();
   };
 
   return (
