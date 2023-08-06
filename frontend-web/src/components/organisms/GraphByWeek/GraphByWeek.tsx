@@ -5,9 +5,10 @@ import { Card } from '@/components/organisms/Card/Card';
 import { GraphByWeekContainer } from '@/components/organisms/GraphByWeek/GraphByWeek.style';
 import { selectedCategoryState } from '@/states/CategoryState';
 import { useRecoilValue } from 'recoil';
+import { PATH } from '@/constants/path';
 
 const GraphByWeek = () => {
-  const currentCategory = useRecoilValue(selectedCategoryState);
+  const currentCategory = useRecoilValue(selectedCategoryState(PATH.GRAPH));
 
   console.log(currentCategory);
 

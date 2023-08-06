@@ -17,7 +17,6 @@ import tabBarMyPageBlue from '@/assets/images/tabbar-mypage-blue.png';
 import tabBarOurBabyBlue from '@/assets/images/tabbar-ourbaby-blue.png';
 
 import { useRecoilState } from 'recoil';
-import { CategoryState } from '@/states/CategoryState';
 import { produce } from 'immer';
 
 const tabBarInfo = [
@@ -31,12 +30,8 @@ const tabBarInfo = [
 export default function TabBar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [category, setCategory] = useRecoilState(CategoryState);
 
   const navigatePage = (path: string) => {
-    if (path === PATH.GRAPH) {
-      setCategory({ ...category, Meal: true, All: false });
-    }
     navigate(path);
   };
 

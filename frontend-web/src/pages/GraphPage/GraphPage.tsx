@@ -41,7 +41,7 @@ const GraphPage = () => {
       <section>
         <CalendarBar></CalendarBar>
         <CategoryBarContainer>
-          <CategoryBar></CategoryBar>
+          <CategoryBar path={PATH.GRAPH}></CategoryBar>
         </CategoryBarContainer>
       </section>
       <GraphContainer>

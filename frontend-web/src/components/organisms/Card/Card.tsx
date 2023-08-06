@@ -7,9 +7,10 @@ import { selectedCategoryState } from '@/states/CategoryState';
 import theme from '@/styles/theme';
 import { useRecoilValue } from 'recoil';
 import meal from '@/assets/images/img-meal.png';
+import { PATH } from '@/constants/path';
 
 const Card = () => {
-  const currentCategory = useRecoilValue(selectedCategoryState);
+  const currentCategory = useRecoilValue(selectedCategoryState(PATH.GRAPH));
   const currentTheme = categoryToColorMap[currentCategory];
 
   // const categoryDetail = {
