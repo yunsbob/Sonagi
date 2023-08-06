@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SleepStatisticsQueryDto {
-	Time createdTime;
-	Time endTime;
+	private Time createdTime;
+	private Time endTime;
 }

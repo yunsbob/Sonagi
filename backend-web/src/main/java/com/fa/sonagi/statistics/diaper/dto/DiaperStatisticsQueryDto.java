@@ -8,5 +8,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DiaperStatisticsQueryDto {
-	Time createdTime;
+	private Time createdTime;
 }
