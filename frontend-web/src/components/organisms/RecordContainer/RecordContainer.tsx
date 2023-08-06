@@ -29,6 +29,17 @@ const RecordContainer: React.FC = () => {
     }
   }, []);
 
+  const onRecordUpdated = () => {
+    const container = containerRef.current;
+    if (container) {
+      const targetScrollTop = container.scrollHeight; // 목표 스크롤 위치
+      container.scrollTo({
+        top: targetScrollTop,
+        behavior: 'smooth', // html 태그에 기본으로 있는 ScrolOptions..
+      });
+    }
+  };
+
   useEffect(() => {
     const container = containerRef.current;
     if (container) {
@@ -43,17 +54,6 @@ const RecordContainer: React.FC = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (container) {
-      const targetScrollTop = container.scrollHeight; // 목표 스크롤 위치
-      container.scrollTo({
-        top: targetScrollTop,
-        behavior: 'smooth', // html 태그에 기본으로 있는 ScrolOptions..
-      });
-    }
-  }, [recordedList.length]);
-
   return (
     <>
       <RecordContainerStyle className="scrollable" ref={containerRef}>
@@ -66,7 +66,7 @@ const RecordContainer: React.FC = () => {
           ></RecordBlock>
         ))}
       </RecordContainerStyle>
-      <RecordBar></RecordBar>
+      <RecordBar onRecordUpdated={onRecordUpdated}></RecordBar>
     </>
   );
 };
