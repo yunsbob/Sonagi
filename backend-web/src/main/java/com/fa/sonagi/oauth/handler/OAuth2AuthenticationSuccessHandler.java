@@ -26,6 +26,7 @@ import com.fa.sonagi.oauth.info.OAuth2UserInfo;
 import com.fa.sonagi.oauth.info.OAuth2UserInfoFactory;
 import com.fa.sonagi.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.fa.sonagi.oauth.utils.CookieUtil;
+import com.fa.sonagi.user.repository.UserRepository;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,6 +42,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 	private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisTemplate<String, String> redisTemplate;
+	private final UserRepository userRepository;
 	@Value("${app.oauth2.authorizedRedirectUris}")
 	private String redirectUri;
 
@@ -80,7 +82,9 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
 		RoleType roleType = hasAuthority(authorities, RoleType.ROLE_ADMIN.name()) ? RoleType.ROLE_ADMIN : RoleType.ROLE_USER;
 
-		Token tokenInfo = jwtTokenProvider.createToken(userInfo.getId(), roleType.name());
+		Token tokenInfo = jwtTokenProvider.createToken(String.valueOf(userRepository
+			.findBySocialId(userInfo.getId())
+			.getUserId()), roleType.name());
 
 		redisTemplate
 			.opsForValue()
