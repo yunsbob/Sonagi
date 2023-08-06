@@ -22,77 +22,92 @@ public class DiaperStatisticsServiceImpl implements DiaperStatisticsService{
 	private final PeeRepository peeRepository;
 	private final PoopRepository poopRepository;
 
+	/**
+	 * 일별 통계 계산
+	 */
 	@Override
 	public DiaperStatisticsResDto getDiaperStatisticsDay(Long babyId, LocalDate createdDate) {
 		DiaperStatisticsResDto diaperStatisticsResDto = new DiaperStatisticsResDto();
 
+		// 데이터 조회
 		List<DiaperStatisticsQueryDto> pees = findPees(babyId, createdDate);
 		diaperStatisticsResDto.setPees(pees);
 		List<DiaperStatisticsQueryDto> poops = findPoops(babyId, createdDate);
 		diaperStatisticsResDto.setPoops(poops);
-		Integer peeCnt = Integer.parseInt(String.valueOf(findPeeCnt(babyId, createdDate)));
+
+		// 횟수 통계
+		Long peeCnt = (long)pees.size();
 		diaperStatisticsResDto.setPeeCnt(peeCnt);
-		Integer poopCnt = Integer.parseInt(String.valueOf(findPoopCnt(babyId, createdDate)));
+		Long poopCnt = (long)poops.size();
 		diaperStatisticsResDto.setPoopCnt(poopCnt);
 
 		createdDate = createdDate.minus(1, ChronoUnit.DAYS);
 
-		Integer yesterdayPeeCnt = Integer.parseInt(String.valueOf(findPeeCnt(babyId, createdDate)));
-		Integer yesterdayPoopCnt = Integer.parseInt(String.valueOf(findPoopCnt(babyId, createdDate)));
+		Long yesterdayPeeCnt = findPeeCnt(babyId, createdDate);
+		Long yesterdayPoopCnt = findPoopCnt(babyId, createdDate);
 
-		Integer peePercent, poopPercent, yesterdayPeePercent, yesterdayPoopPercent;
+		Long peePercent, poopPercent, yesterdayPeePercent, yesterdayPoopPercent;
+
 		if (peeCnt >= yesterdayPeeCnt) {
-			if (peeCnt == 0) peePercent = 0;
-			else peePercent = 100;
-			if (yesterdayPeeCnt == 0) yesterdayPeePercent = 0;
+			if (peeCnt == 0) peePercent = 0L;
+			else peePercent = 100L;
+			if (yesterdayPeeCnt == 0) yesterdayPeePercent = 0L;
 			else yesterdayPeePercent = yesterdayPeeCnt * 100 / peeCnt;
 		}
 		else {
-			yesterdayPeePercent = 100;
-			if (peeCnt == 0) peePercent = 0;
+			yesterdayPeePercent = 100L;
+			if (peeCnt == 0) peePercent = 0L;
 			else peePercent = peeCnt * 100 / yesterdayPeeCnt;
 		}
+		diaperStatisticsResDto.setPeePercent(peePercent);
+		diaperStatisticsResDto.setYesterdayPeePercent(yesterdayPeePercent);
+
 		if (poopCnt >= yesterdayPoopCnt) {
-			if (poopCnt == 0) poopPercent = 0;
-			else poopPercent = 100;
-			if (yesterdayPoopCnt == 0) yesterdayPoopPercent = 0;
+			if (poopCnt == 0) poopPercent = 0L;
+			else poopPercent = 100L;
+			if (yesterdayPoopCnt == 0) yesterdayPoopPercent = 0L;
 			else yesterdayPoopPercent = yesterdayPoopCnt * 100 / poopCnt;
 		}
 		else {
-			yesterdayPoopPercent = 100;
-			if (poopCnt == 0) poopPercent = 0;
+			yesterdayPoopPercent = 100L;
+			if (poopCnt == 0) poopPercent = 0L;
 			else poopPercent = poopCnt * 100 / yesterdayPoopCnt;
 		}
-
-		diaperStatisticsResDto.setPeePercent(peePercent);
-		diaperStatisticsResDto.setYesterdayPeePercent(yesterdayPeePercent);
 		diaperStatisticsResDto.setPoopPercent(poopPercent);
 		diaperStatisticsResDto.setYesterdayPoopPercent(yesterdayPoopPercent);
 
 		return diaperStatisticsResDto;
 	}
 
+	/**
+	 * 소변 일별 데이터 조회
+	 */
 	@Override
 	public List<DiaperStatisticsQueryDto> findPees(Long babyId, LocalDate createdDate) {
-		List<DiaperStatisticsQueryDto> pees = peeRepository.findPeeByDay(babyId, createdDate);
-		return pees;
+		return peeRepository.findPeeByDay(babyId, createdDate);
 	}
 
+	/**
+	 * 대변 일별 데이터 조회
+	 */
 	@Override
 	public List<DiaperStatisticsQueryDto> findPoops(Long babyId, LocalDate createdDate) {
-		List<DiaperStatisticsQueryDto> poops = poopRepository.findPoopByDay(babyId, createdDate);
-		return poops;
+		return poopRepository.findPoopByDay(babyId, createdDate);
 	}
 
+	/**
+	 * 소변 일별 횟수 조회
+	 */
 	@Override
 	public Long findPeeCnt(Long babyId, LocalDate createdDate) {
-		Long peeCnt = peeRepository.findPeeCnt(babyId, createdDate);
-		return peeCnt;
+		return peeRepository.findPeeCnt(babyId, createdDate);
 	}
 
+	/**
+	 * 대변 일별 횟수 조회
+	 */
 	@Override
 	public Long findPoopCnt(Long babyId, LocalDate createdDate) {
-		Long poopCnt = poopRepository.findPoopCnt(babyId, createdDate);
-		return poopCnt;
+		return poopRepository.findPoopCnt(babyId, createdDate);
 	}
 }

@@ -2,7 +2,11 @@ package com.fa.sonagi.record.sleep.repository;
 
 import static com.fa.sonagi.record.sleep.entity.QSleep.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import com.fa.sonagi.record.sleep.dto.SleepResDto;
+import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsQueryDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -27,4 +31,16 @@ public class SleepRepositoryImpl implements SleepRepositoryCustom {
 		return sleeps;
 	}
 
+	@Override
+	public List<SleepStatisticsQueryDto> findSleepByDay(Long babyId, LocalDate createdDate) {
+		List<SleepStatisticsQueryDto> sleepStatisticsQueryDto = queryFactory
+			.select(Projections.bean(SleepStatisticsQueryDto.class,
+				sleep.createdTime,
+				sleep.endTime))
+			.from(sleep)
+			.where(sleep.babyId.eq(babyId), sleep.createdDate.eq(createdDate))
+			.fetch();
+
+		return sleepStatisticsQueryDto;
+	}
 }
