@@ -32,23 +32,16 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 		List<SleepStatisticsQueryDto> sleeps = findSleeps(babyId, createdDate);
 
 		Long sleepTime = 0L;
-		List<StatisticsTime> statisticsTimes = new ArrayList<>();
 		for (int i = 0; i < sleeps.size(); i++) {
 			long startTime = sleeps.get(i).getCreatedTime().getTime() / 1000 / 60;
 			long endTime = sleeps.get(i).getEndTime().getTime() / 1000 / 60;
 			long passTime = endTime - startTime;
 
 			sleepTime += passTime;
-
-			StatisticsTime statisticsTime = new StatisticsTime();
-			statisticsTime.setStartTime(startTime);
-			statisticsTime.setPassTime(passTime);
-
-			statisticsTimes.add(statisticsTime);
 		}
 
 		long cnt = sleeps.size();
-		sleepStatisticsResDto.setSleeps(statisticsTimes);
+		sleepStatisticsResDto.setSleeps(sleeps);
 		sleepStatisticsResDto.setSleepCnt(cnt);
 		sleepStatisticsResDto.setAllSleepHour(sleepTime / 60);
 		sleepStatisticsResDto.setAllSleepMinute(sleepTime % 60);
