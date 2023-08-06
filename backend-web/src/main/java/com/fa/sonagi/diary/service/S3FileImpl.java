@@ -34,20 +34,22 @@ public class S3FileImpl implements S3File {
 
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
-	final String dirName = "img";
+	final String dirName = "diary_img";
 
 	@Override
-	public String upload(MultipartFile multipartFile, String dirName, String id) throws IOException {
+	public String upload(MultipartFile multipartFile, String dirName, String socialId) throws IOException {
 		// 파일 업로드
 		log.info("file : {}, dirName : {}", multipartFile, dirName);
 		File uploadFile = convertToFile(multipartFile)
 			.orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 변환에 실패했습니다."));
+
+		String fileName = dirName + "/" + socialId + " " + uploadFile.getName();
 		// 파일명 중복을 피하기 위해 회원 정보 추가
-		String fileName = dirName + "/" + id + " " + uploadFile.getName();
 		log.info("created fileName : {}", fileName);
 
 		// put - S3로 업로드
 		String uploadImageUrl = putS3(uploadFile, fileName);
+
 		// 로컬 파일 삭제
 		removeFile(uploadFile);
 
@@ -59,7 +61,7 @@ public class S3FileImpl implements S3File {
 	public boolean delete(String url) {
 		// S3에서 삭제
 		log.info("file url : {}", url);
-		Pattern tokenPattern = Pattern.compile("(?<=profile/).*");
+		Pattern tokenPattern = Pattern.compile("(?<=diary_img/).*");
 		Matcher matcher = tokenPattern.matcher(url);
 
 		String temp = null;
