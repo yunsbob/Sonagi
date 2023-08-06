@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PumpingBreastStatisticsQueryDto {
-	Time createdTime;
-	Long amount;
+	private Time createdTime;
+	private Long amount;
 }
