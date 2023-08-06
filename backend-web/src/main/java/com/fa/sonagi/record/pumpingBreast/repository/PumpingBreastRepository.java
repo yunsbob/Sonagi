@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fa.sonagi.record.pumpingBreast.entity.PumpingBreast;
 
-public interface PumpingBreastRepository extends JpaRepository<PumpingBreast, Long> {
+public interface PumpingBreastRepository extends JpaRepository<PumpingBreast, Long>, PumpingBreastRepositoryCutom {
 	List<PumpingBreast> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
 }
