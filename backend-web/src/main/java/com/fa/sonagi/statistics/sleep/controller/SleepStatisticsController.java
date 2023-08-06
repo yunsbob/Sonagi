@@ -14,7 +14,7 @@ import com.fa.sonagi.statistics.sleep.service.SleepStatisticsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-@Tag(name = "SleepCategory", description = "취침 통계 API")
+@Tag(name = "SleepStatistics", description = "취침 통계 API")
 @RequestMapping("/api/sleepStatistics")
 @RestController
 @RequiredArgsConstructor
