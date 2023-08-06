@@ -18,6 +18,7 @@ import {
 } from '@/utils/doughnutUtils';
 
 import DoughnutSlice from '@/components/molecules/DoughnutSlices/DoughnutSlices';
+import { PATH } from '@/constants/path';
 
 const DoughnutChart: React.FC = () => {
   // numbers도 따로 molcules로 빼고 싶었지만 ... JSX의 svg Elements 관련 지식 무지로 보류
@@ -46,7 +47,7 @@ const DoughnutChart: React.FC = () => {
     );
   }
 
-  const currentCategory = useRecoilValue(selectedCategoryState);
+  const currentCategory = useRecoilValue(selectedCategoryState(PATH.GRAPH));
   const currentColor = categoryToColorMap[currentCategory];
 
   const timeSections: string[] = ['07:32', '09:08'];

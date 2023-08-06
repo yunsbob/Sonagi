@@ -2,11 +2,11 @@ import { Image } from '@/components/atoms/Image/Image';
 import { CategoryBarContainer } from '@/components/molecules/CategoryBar/CategoryBar.style';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
-  CategoryState,
   selectedCategoryState,
   Category,
   CategoryStateType,
 } from '@/states/CategoryState';
+import { PATH } from '@/constants/path';
 
 import All from '@/assets/images/icon-category-all.png';
 import Meal from '@/assets/images/icon-category-meal.png';
@@ -17,7 +17,11 @@ import Activity from '@/assets/images/icon-category-activity.png';
 import Health from '@/assets/images/icon-category-health.png';
 import Extra from '@/assets/images/icon-category-extra.png';
 
-const CategoryBar = () => {
+interface CategoryBarProps {
+  path: string;
+}
+
+const CategoryBar = ({ path }: CategoryBarProps) => {
   const CategoryArray = [
     { name: 'All', img: All },
     { name: 'Meal', img: Meal },
@@ -29,18 +33,12 @@ const CategoryBar = () => {
     { name: 'Extra', img: Extra },
   ];
 
-  const [categoryState, setCategoryState] = useRecoilState(CategoryState);
-  const currentCategory = useRecoilValue(selectedCategoryState);
+  const [currentCategory, setCurrentCategory] = useRecoilState(
+    selectedCategoryState(path)
+  );
 
   const onClickCategory = (categoryName: Category) => {
-    setCategoryState(prevState => {
-      return Object.keys(prevState).reduce((acc, category) => {
-        return {
-          ...acc,
-          [category]: category === categoryName,
-        };
-      }, {} as CategoryStateType);
-    });
+    setCurrentCategory(categoryName);
   };
 
   return (
