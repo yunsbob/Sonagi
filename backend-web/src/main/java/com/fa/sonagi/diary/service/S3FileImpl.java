@@ -1,40 +1,37 @@
 package com.fa.sonagi.diary.service;
 
-import com.amazonaws.SdkClientException;
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.*;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.nio.file.Paths;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.amazonaws.SdkClientException;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
 @RequiredArgsConstructor
 public class S3FileImpl implements S3File {
 
+	final String dirName = "img";
 	private final AmazonS3Client amazonS3Client;
-
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
-	final String dirName = "img";
 
 	@Override
 	public String upload(MultipartFile multipartFile, String dirName, String id) throws IOException {
@@ -59,7 +56,7 @@ public class S3FileImpl implements S3File {
 	public boolean delete(String url) {
 		// S3에서 삭제
 		log.info("file url : {}", url);
-		Pattern tokenPattern = Pattern.compile("(?<=profile/).*");
+		Pattern tokenPattern = Pattern.compile("(?<=img/).*");
 		Matcher matcher = tokenPattern.matcher(url);
 
 		String temp = null;
@@ -95,7 +92,9 @@ public class S3FileImpl implements S3File {
 	private String putS3(File uploadFile, String fileName) {
 		amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile)
 			.withCannedAcl(CannedAccessControlList.PublicRead));
-		return amazonS3Client.getUrl(bucket, fileName).toString();
+		return amazonS3Client
+			.getUrl(bucket, fileName)
+			.toString();
 	}
 
 	// multipartFile -> File 형식으로 변환 및 로컬에 저장
