@@ -41,14 +41,8 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 			long passTime = endTime - startTime;
 
 			activityTime += passTime;
-
-			StatisticsTime snPTime = new StatisticsTime();
-			snPTime.setStartTime(startTime);
-			snPTime.setPassTime(passTime);
-
-			statisticsTimes.add(snPTime);
 		}
-		activityStatisticsResDto.setPlays(statisticsTimes);
+		activityStatisticsResDto.setPlays(plays);
 
 		List<ActivityStatisticsQueryDto> tummytimes = findTummytimes(babyId, createdDate);
 		statisticsTimes = new ArrayList<>();
@@ -58,14 +52,8 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 			long passTime = endTime - startTime;
 
 			activityTime += passTime;
-
-			StatisticsTime statisticsTime = new StatisticsTime();
-			statisticsTime.setStartTime(startTime);
-			statisticsTime.setPassTime(passTime);
-
-			statisticsTimes.add(statisticsTime);
 		}
-		activityStatisticsResDto.setTummytimes(statisticsTimes);
+		activityStatisticsResDto.setTummytimes(tummytimes);
 
 		long cnt = plays.size() + tummytimes.size();
 		activityStatisticsResDto.setActivityCnt(cnt);
