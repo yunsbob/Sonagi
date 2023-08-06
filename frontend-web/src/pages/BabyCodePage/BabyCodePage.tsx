@@ -7,17 +7,23 @@ import RegisterField from '@/components/molecules/RegisterField/RegisterField';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import theme from '@/styles/theme';
+import { useState } from 'react';
+import CheckBabyModal from '@/components/organisms/CheckBabyModal/CheckBabyModal';
 
 const BabyCodePage = () => {
   const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const placeholder = '코드를 입력하세요';
-
   const alertMessage = '10자 이내로 입력해주세요';
 
   const onClickButtonAction = () => {
     //TODO: 코드 입력으로 애기 등록 api 호출
-    navigate(PATH.MAIN);
+    // navigate(PATH.MAIN);
+    setModalOpen(true);
+  };
+  const onModalClose = () => {
+    setModalOpen(false);
   };
 
   return (

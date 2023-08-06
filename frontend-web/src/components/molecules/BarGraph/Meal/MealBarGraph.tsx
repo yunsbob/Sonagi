@@ -21,11 +21,14 @@ const MealBarGraph = () => {
     lines = [...lines, <MealBarGraphLine key={i} />];
   }
 
+  const lineLen = 10;
+  const percent100 = (100 - 100 / lineLen) / 100;
+
   return (
     <MealBarGraphContainer>
       <MealBarGraphLineContainer>{lines}</MealBarGraphLineContainer>
       <MealBarGraphBarContainer>
-        <MealBarGraphWrapper $barHeight={70}>
+        <MealBarGraphWrapper $barHeight={percent100 * 70}>
           <MealBar height={50} color={theme.color.graphFeeding} />
           <MealBar height={50} color={theme.color.graphInfantFormula} />
           <MealBar height={50} color={theme.color.graphBreastFeeding} />
@@ -33,7 +36,7 @@ const MealBarGraph = () => {
           <MealBar height={50} color={theme.color.graphSnack} />
           <MealBar height={50} color={theme.color.graphMilk} />
         </MealBarGraphWrapper>
-        <MealBarGraphWrapper $barHeight={60}>
+        <MealBarGraphWrapper $barHeight={percent100 * 60}>
           <MealBar height={50} color={theme.color.graphFeeding} />
           <MealBar height={50} color={theme.color.graphInfantFormula} />
           <MealBar height={50} color={theme.color.graphBreastFeeding} />
@@ -41,7 +44,7 @@ const MealBarGraph = () => {
           <MealBar height={50} color={theme.color.graphSnack} />
           <MealBar height={50} color={theme.color.graphMilk} />
         </MealBarGraphWrapper>
-        <MealBarGraphWrapper $barHeight={90}>
+        <MealBarGraphWrapper $barHeight={percent100 * 90}>
           <MealBar height={50} color={theme.color.graphFeeding} />
           <MealBar height={50} color={theme.color.graphInfantFormula} />
           <MealBar height={50} color={theme.color.graphBreastFeeding} />
@@ -49,7 +52,7 @@ const MealBarGraph = () => {
           <MealBar height={50} color={theme.color.graphSnack} />
           <MealBar height={50} color={theme.color.graphMilk} />
         </MealBarGraphWrapper>
-        <MealBarGraphWrapper $barHeight={50}>
+        <MealBarGraphWrapper $barHeight={percent100 * 50}>
           <MealBar height={50} color={theme.color.graphFeeding} />
           <MealBar height={50} color={theme.color.graphInfantFormula} />
           <MealBar height={50} color={theme.color.graphBreastFeeding} />
@@ -57,7 +60,7 @@ const MealBarGraph = () => {
           <MealBar height={50} color={theme.color.graphSnack} />
           <MealBar height={50} color={theme.color.graphMilk} />
         </MealBarGraphWrapper>
-        <MealBarGraphWrapper $barHeight={80}>
+        <MealBarGraphWrapper $barHeight={percent100 * 80}>
           <MealBar height={50} color={theme.color.graphFeeding} />
           <MealBar height={50} color={theme.color.graphInfantFormula} />
           <MealBar height={50} color={theme.color.graphBreastFeeding} />
@@ -65,7 +68,7 @@ const MealBarGraph = () => {
           <MealBar height={50} color={theme.color.graphSnack} />
           <MealBar height={50} color={theme.color.graphMilk} />
         </MealBarGraphWrapper>
-        <MealBarGraphWrapper $barHeight={90}>
+        <MealBarGraphWrapper $barHeight={percent100 * 100}>
           <MealBar height={50} color={theme.color.graphFeeding} />
           <MealBar height={50} color={theme.color.graphInfantFormula} />
           <MealBar height={50} color={theme.color.graphBreastFeeding} />
@@ -73,7 +76,7 @@ const MealBarGraph = () => {
           <MealBar height={50} color={theme.color.graphSnack} />
           <MealBar height={50} color={theme.color.graphMilk} />
         </MealBarGraphWrapper>
-        <MealBarGraphWrapper $barHeight={30}>
+        <MealBarGraphWrapper $barHeight={percent100 * 30}>
           <MealBar height={50} color={theme.color.graphFeeding} />
           <MealBar height={50} color={theme.color.graphInfantFormula} />
           <MealBar height={50} color={theme.color.graphBreastFeeding} />
@@ -83,13 +86,27 @@ const MealBarGraph = () => {
         </MealBarGraphWrapper>
       </MealBarGraphBarContainer>
       <MealBarGraphDateContainer>
-        <Text size="xSmall">7월 9일</Text>
-        <Text size="xSmall">7월 10일</Text>
-        <Text size="xSmall">7월 11일</Text>
-        <Text size="xSmall">7월 12일</Text>
-        <Text size="xSmall">7월 13일</Text>
-        <Text size="xSmall">7월 14일</Text>
-        <Text size="xSmall">7월 15일</Text>
+        <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
+          12/3
+        </Text>
+        <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
+          12/5
+        </Text>
+        <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
+          12/10
+        </Text>
+        <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
+          3/9
+        </Text>
+        <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
+          12/30
+        </Text>
+        <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
+          12/31
+        </Text>
+        <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
+          1/1
+        </Text>
       </MealBarGraphDateContainer>
       <MealBarGraphCategoryContainer>
         <MealBarGraphCategoryWrapper>
