@@ -3,7 +3,7 @@ package com.fa.sonagi.statistics.sleep.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fa.sonagi.statistics.sleep.service.SleepStatisticsServiceImpl;
+import com.fa.sonagi.statistics.common.StatisticsTime;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SleepStatisticsResDto {
-	private List<SleepStatisticsServiceImpl.SnPTime> sleeps;
+	private List<StatisticsTime> sleeps;
 	private Long sleepCnt;
 	private Long allSleepHour;
 	private Long allSleepMinute;
