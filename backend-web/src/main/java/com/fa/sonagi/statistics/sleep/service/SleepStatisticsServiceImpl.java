@@ -9,13 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.sleep.repository.SleepRepository;
+import com.fa.sonagi.statistics.common.StatisticsTime;
 import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsQueryDto;
 import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsResDto;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -34,7 +32,7 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 		List<SleepStatisticsQueryDto> sleeps = findSleeps(babyId, createdDate);
 
 		Long sleepTime = 0L;
-		List<SnPTime> snPTimes = new ArrayList<>();
+		List<StatisticsTime> statisticsTimes = new ArrayList<>();
 		for (int i = 0; i < sleeps.size(); i++) {
 			long startTime = sleeps.get(i).getCreatedTime().getTime() / 1000 / 60;
 			long endTime = sleeps.get(i).getEndTime().getTime() / 1000 / 60;
@@ -42,15 +40,15 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 
 			sleepTime += passTime;
 
-			SnPTime snPTime = new SnPTime();
-			snPTime.setStartTime(startTime);
-			snPTime.setPassTime(passTime);
+			StatisticsTime statisticsTime = new StatisticsTime();
+			statisticsTime.setStartTime(startTime);
+			statisticsTime.setPassTime(passTime);
 
-			snPTimes.add(snPTime);
+			statisticsTimes.add(statisticsTime);
 		}
 
 		long cnt = sleeps.size();
-		sleepStatisticsResDto.setSleeps(snPTimes);
+		sleepStatisticsResDto.setSleeps(statisticsTimes);
 		sleepStatisticsResDto.setSleepCnt(cnt);
 		sleepStatisticsResDto.setAllSleepHour(sleepTime / 60);
 		sleepStatisticsResDto.setAllSleepMinute(sleepTime % 60);
@@ -118,12 +116,5 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 	@Override
 	public List<SleepStatisticsQueryDto> findSleeps(Long babyId, LocalDate createdDate) {
 		return sleepRepository.findSleepByDay(babyId, createdDate);
-	}
-
-	@Getter
-	@Setter
-	public class SnPTime {
-		Long startTime;
-		Long passTime;
 	}
 }

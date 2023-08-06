@@ -12,10 +12,9 @@ import com.fa.sonagi.record.activity.repository.PlayRepository;
 import com.fa.sonagi.record.activity.repository.TummytimeRepository;
 import com.fa.sonagi.statistics.activity.dto.ActivityStatisticsQueryDto;
 import com.fa.sonagi.statistics.activity.dto.ActivityStatisticsResDto;
+import com.fa.sonagi.statistics.common.StatisticsTime;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Service
 @Transactional(readOnly = true)
@@ -35,7 +34,7 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 		List<ActivityStatisticsQueryDto> plays = findPlays(babyId, createdDate);
 
 		Long activityTime = 0L;
-		List<SnPTime> snPTimes = new ArrayList<>();
+		List<StatisticsTime> statisticsTimes = new ArrayList<>();
 		for (int i = 0; i < plays.size(); i++) {
 			long startTime = plays.get(i).getCreatedTime().getTime() / 1000 / 60;
 			long endTime = plays.get(i).getEndTime().getTime() / 1000 / 60;
@@ -43,16 +42,16 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 
 			activityTime += passTime;
 
-			SnPTime snPTime = new SnPTime();
+			StatisticsTime snPTime = new StatisticsTime();
 			snPTime.setStartTime(startTime);
 			snPTime.setPassTime(passTime);
 
-			snPTimes.add(snPTime);
+			statisticsTimes.add(snPTime);
 		}
-		activityStatisticsResDto.setPlays(snPTimes);
+		activityStatisticsResDto.setPlays(statisticsTimes);
 
 		List<ActivityStatisticsQueryDto> tummytimes = findTummytimes(babyId, createdDate);
-		snPTimes = new ArrayList<>();
+		statisticsTimes = new ArrayList<>();
 		for (int i = 0; i < tummytimes.size(); i++) {
 			long startTime = tummytimes.get(i).getCreatedTime().getTime() / 1000 / 60;
 			long endTime = tummytimes.get(i).getEndTime().getTime() / 1000 / 60;
@@ -60,13 +59,13 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 
 			activityTime += passTime;
 
-			SnPTime snPTime = new SnPTime();
-			snPTime.setStartTime(startTime);
-			snPTime.setPassTime(passTime);
+			StatisticsTime statisticsTime = new StatisticsTime();
+			statisticsTime.setStartTime(startTime);
+			statisticsTime.setPassTime(passTime);
 
-			snPTimes.add(snPTime);
+			statisticsTimes.add(statisticsTime);
 		}
-		activityStatisticsResDto.setTummytimes(snPTimes);
+		activityStatisticsResDto.setTummytimes(statisticsTimes);
 
 		long cnt = plays.size() + tummytimes.size();
 		activityStatisticsResDto.setActivityCnt(cnt);
@@ -152,12 +151,5 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 	@Override
 	public List<ActivityStatisticsQueryDto> findTummytimes(Long babyId, LocalDate createdDate) {
 		return tummytimeRepository.findTummytimeByDay(babyId, createdDate);
-	}
-
-	@Getter
-	@Setter
-	public class SnPTime {
-		Long startTime;
-		Long passTime;
 	}
 }
