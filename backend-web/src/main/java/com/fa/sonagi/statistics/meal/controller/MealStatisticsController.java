@@ -14,7 +14,7 @@ import com.fa.sonagi.statistics.meal.service.MealStatisticsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-@Tag(name = "DiaperCategory", description = "식사 통계 API")
+@Tag(name = "MealCategory", description = "식사 통계 API")
 @RequestMapping("/api/mealStatistics")
 @RestController
 @RequiredArgsConstructor

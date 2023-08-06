@@ -43,17 +43,4 @@ public class SleepRepositoryImpl implements SleepRepositoryCustom {
 
 		return sleepStatisticsQueryDto;
 	}
-
-	@Override
-	public Long findSleepCnt(Long babyId, LocalDate createdDate) {
-		Long cnt = queryFactory
-			.select(sleep.count())
-			.from(sleep)
-			.from(sleep)
-			.where(sleep.babyId.eq(babyId), sleep.createdDate.eq(createdDate))
-			.fetchFirst();
-
-		return cnt;
-	}
-
 }

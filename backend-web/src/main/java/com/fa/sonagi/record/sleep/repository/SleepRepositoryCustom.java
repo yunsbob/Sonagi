@@ -10,6 +10,4 @@ public interface SleepRepositoryCustom {
 	SleepResDto findSleepRecord(Long sleepId);
 
 	List<SleepStatisticsQueryDto> findSleepByDay(Long babyId, LocalDate createdDate);
-
-	Long findSleepCnt(Long babyId, LocalDate createdDate);
 }
