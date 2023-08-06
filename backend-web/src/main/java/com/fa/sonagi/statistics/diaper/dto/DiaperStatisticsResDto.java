@@ -3,7 +3,6 @@ package com.fa.sonagi.statistics.diaper.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,12 +11,12 @@ import lombok.Setter;
 public class DiaperStatisticsResDto {
 	private List<DiaperStatisticsQueryDto> pees;
 	private List<DiaperStatisticsQueryDto> poops;
-	private Integer peeCnt;
-	private Integer poopCnt;
-	private Integer peePercent;
-	private Integer yesterdayPeePercent;
-	private Integer poopPercent;
-	private Integer yesterdayPoopPercent;
+	private Long peeCnt;
+	private Long poopCnt;
+	private Long peePercent;
+	private Long yesterdayPeePercent;
+	private Long poopPercent;
+	private Long yesterdayPoopPercent;
 
 	public DiaperStatisticsResDto() {
 		this.pees = new ArrayList<>();
