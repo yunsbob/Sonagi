@@ -23,7 +23,7 @@ public class ExtraServiceImpl implements ExtraService {
    */
   @Override
   public ExtraResDto findExtraById(Long id) {
-    ExtraResDto extra = extraRepository.findExtraRecord(id);
+    ExtraResDto extra = extraRepository.findExtraByDay(id);
     return extra;
   }
 
