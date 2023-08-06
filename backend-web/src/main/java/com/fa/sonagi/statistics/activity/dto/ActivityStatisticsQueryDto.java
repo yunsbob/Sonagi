@@ -1,4 +1,4 @@
-package com.fa.sonagi.statistics.diaper.dto;
+package com.fa.sonagi.statistics.activity.dto;
 
 import java.sql.Time;
 
@@ -7,6 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DiaperStatisticsQueryDto {
+public class ActivityStatisticsQueryDto {
 	private Time createdTime;
+	private Time endTime;
 }
