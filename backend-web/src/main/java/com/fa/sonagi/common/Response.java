@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 /**
- * How to use
+ * 사용법
  * 1. Make Controller's return type 'ResponseEntity<?>'
  * 2. Use Response.makeResponse(HttpStatus, message, result)
  */

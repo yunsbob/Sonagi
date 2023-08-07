@@ -20,7 +20,7 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "files")
+@Table(name = "diaryFiles")
 public class DiaryFile {
 
 	@Id
@@ -28,8 +28,8 @@ public class DiaryFile {
 	@Column(name = "file_id")
 	private Long fileId;
 
-	@ManyToOne
 	@Setter
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "diary_diary_id")
 	private Diary diary;
 
