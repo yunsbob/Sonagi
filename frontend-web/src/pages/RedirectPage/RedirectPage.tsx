@@ -13,7 +13,6 @@ interface JwtProps {
 }
 
 const RedirectPage = () => {
-  console.log('리다이렉트 페이지 왔다');
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
   const params = new URLSearchParams(location.search);
@@ -23,7 +22,7 @@ const RedirectPage = () => {
 
   setUserInfo(
     produce(draft => {
-      draft.userId = parseInt(
+      draft.id = parseInt(
         jwt<JwtProps>(localStorage.getItem('accessToken')!).sub
       );
     })
