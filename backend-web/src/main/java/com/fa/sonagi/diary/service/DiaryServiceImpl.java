@@ -2,7 +2,6 @@ package com.fa.sonagi.diary.service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +11,6 @@ import com.fa.sonagi.diary.dto.DiaryPostDto;
 import com.fa.sonagi.diary.entity.Diary;
 import com.fa.sonagi.diary.entity.DiaryFile;
 import com.fa.sonagi.diary.repository.DiaryRepository;
-import com.fa.sonagi.user.entity.Users;
 import com.fa.sonagi.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -116,11 +114,12 @@ public class DiaryServiceImpl implements DiaryService {
 
 	@Override
 	public void deleteDiary(Long diaryId) {
-
+		diaryRepository.deleteById(diaryId);
 	}
 
 	@Override
 	public List<LocalDate> findAllDiaryByMonth(LocalDate curDate) {
+
 		return null;
 	}
 }
