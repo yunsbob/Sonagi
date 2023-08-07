@@ -1,5 +1,5 @@
 import GenderButtons from '@/components/molecules/GenderButtons/GenderButtons';
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react'; // UserState에 접근하여 userId를 가져오기 위해 useContext 사용
 import Button from '@/components/atoms/Button/Button';
 import Input from '@/components/atoms/Input/Input';
 import theme from '@/styles/theme';
@@ -8,11 +8,30 @@ import moment from 'moment';
 import { CalendarModal } from '@/components/organisms/CalendarModal/CalendarModal';
 import RBPWrapper from '@/components/organisms/RegisterBabyProfile/RegisterBabyProfile.style';
 
-const RegisterBabyProfile = () => {
+import { useAddBaby } from '@/apis/Baby/Mutations/useAddBaby';
+import { userInfoState } from '@/states/UserState';
+import { useRecoilState } from 'recoil';
+import { Baby } from '@/types';
+// TODO: 아가 정보들을 user처럼 state에 저장해야한다
+
+interface RegisterBabyProfileProps {
+  onRegister: (baby: Baby | null) => void;
+  addBabyProfile: () => void;
+}
+
+const RegisterBabyProfile: React.FC<RegisterBabyProfileProps> = ({
+  onRegister,
+}) => {
+  // 상태를 여기에서 관리
+  const [baby, setBaby] = useState<Baby | null>(null);
   const placeholder = '이름을 입력하세요';
 
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState<string>(''); // input의 value
   const [bgColor, setBgColor] = useState<string>(theme.color.gray3);
+
+  const { mutate } = useAddBaby();
+  const [gender, setGender] = useState<'male' | 'female'>('male');
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState); // userInfo.name을 가져다쓸것
 
   useEffect(() => {
     if (value.length > 0) {
@@ -44,6 +63,23 @@ const RegisterBabyProfile = () => {
   const onModalClose = () => {
     setModalOpen(false);
   };
+
+  const addBabyProfile = () => {
+    const baby: Baby = {
+      birthDate: moment(pickDate).format('YYYY-MM-DD'),
+      gender: gender,
+      name: value,
+      userId: userInfo.id, // this assumes that you have the userId stored in a context or similar state management
+    };
+
+    console.log(baby);
+    setBaby(baby);
+  };
+
+  useEffect(() => {
+    onRegister(baby);
+  }, [baby, onRegister]);
+
   return (
     <RBPWrapper>
       {modalOpen && (
@@ -53,7 +89,7 @@ const RegisterBabyProfile = () => {
           onCalendarChange={onCalendarChange}
         />
       )}
-      <GenderButtons />
+      <GenderButtons gender={gender} setGender={setGender} />
       <Button
         option="default"
         size="large"
