@@ -15,10 +15,10 @@ public class HealthStatisticsResDto {
 	private Long hospitalCnt;
 	private Long medicationCnt;
 	private Long feverAvgPercent;
-	private Long hospitalCntPercent;
-	private Long medicationCntPercent;
 	private Long yesterdayFeverAvgPercent;
+	private Long hospitalCntPercent;
 	private Long yesterdayHospitalCntPercent;
+	private Long medicationCntPercent;
 	private Long yesterdayMedicationCntPercent;
 
 	public HealthStatisticsResDto() {

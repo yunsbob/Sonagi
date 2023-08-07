@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 import com.fa.sonagi.record.health.dto.FeverResDto;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.MathExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ public class FeverRepositoryImpl implements FeverRepositoryCustom {
 	@Override
 	public Double findFeverAvgByDay(Long babyId, LocalDate createdDate) {
 		Double bodyTemperature = queryFactory
-			.select(fever.bodyTemperature.avg())
+			.select(MathExpressions.round(fever.bodyTemperature.avg(), 1))
 			.from(fever)
 			.where(fever.babyId.eq(babyId), fever.createdDate.eq(createdDate))
 			.fetchOne();
