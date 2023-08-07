@@ -22,8 +22,7 @@ const SignInPage = () => {
   const alertMessage = '10자 이내로 입력해주세요';
 
   const onClickButtonAction = async (value: string) => {
-    console.log(value);
-    await updateUserMutation.mutate({
+    await updateUserMutation.mutateAsync({
       id: userInfo.id,
       name: value,
     });
@@ -31,19 +30,9 @@ const SignInPage = () => {
     setUserInfo(
       produce(draft => {
         draft['name'] = value;
-        // TODO: 2안
-        // updateUserMutation.mutate(userInfo);
+        console.log(Date(), 'now2');
       })
     );
-
-    // TODO: 3안
-    // updateUserMutation.mutate({
-    //   id: userInfo.id,
-    //   name: value,
-    // });
-
-    // TODO: 1안
-    // updateUserMutation.mutate(userInfo);
 
     navigate(PATH.REGISTER);
   };
@@ -64,9 +53,6 @@ const SignInPage = () => {
             size="medium"
             placeholder={placeholder}
             alertMessage={alertMessage}
-            // $backgroundColor={
-            //   disabled ? theme.color.gray2 : theme.gradient.orangeBtn
-            // }
           />
         </S.SignInPageWrapper>
       </S.SignInPageContainer>
