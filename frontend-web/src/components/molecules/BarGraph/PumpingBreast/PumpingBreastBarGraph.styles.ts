@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import theme from './../../../../styles/theme';
 
 interface PumpingBreastBarGraphStyleProps {
   $barHeight: number;
@@ -57,6 +58,23 @@ const PumpingBreastBar = styled.div<{ height: number; color: string }>`
   border-radius: 4px;
 `;
 
+// 횟수
+const PumpingBreastBarCountContainer = styled.div`
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PumpingBreastBarCountWrapper = styled.div`
+  border: 1px solid ${({ theme }) => theme.color.graphCountsOfPumpingBreast};
+  border-radius: 11px;
+  width: 33px;
+  text-align: center;
+  padding: 5px 0px;
+`;
+
+// 날짜
 const PumpingBreastBarGraphDateContainer = styled.div`
   width: 100%;
   height: calc(100% / 9);
@@ -103,6 +121,8 @@ export {
   PumpingBreastBarGraphBarContainer,
   PumpingBreastBarGraphWrapper,
   PumpingBreastBar,
+  PumpingBreastBarCountContainer,
+  PumpingBreastBarCountWrapper,
   PumpingBreastBarGraphDateContainer,
   PumpingBreastBarGraphCategoryContainer,
   PumpingBreastBarGraphCategoryWrapper,
