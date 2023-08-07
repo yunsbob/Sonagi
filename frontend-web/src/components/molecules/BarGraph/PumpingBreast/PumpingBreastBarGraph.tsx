@@ -12,6 +12,8 @@ import {
   PumpingBreastBarGraphCategoryContainer,
   PumpingBreastBarGraphCategoryWrapper,
   PumpingBreastBarGraphCategoryCircle,
+  PumpingBreastBarCountContainer,
+  PumpingBreastBarCountWrapper,
 } from '@/components/molecules/BarGraph/PumpingBreast/PumpingBreastBarGraph.styles';
 import theme from '@/styles/theme';
 
@@ -25,8 +27,6 @@ const PumpingBreastBarGraph = () => {
 
   const lineLen = 9;
   const percent100 = (100 - 100 / lineLen) / 100;
-
-  const times = [0, 3, 9, 12, 15, 18, 21, 24];
 
   return (
     <PumpingBreastBarGraphContainer>
@@ -74,6 +74,29 @@ const PumpingBreastBarGraph = () => {
           />
         </PumpingBreastBarGraphWrapper>
       </PumpingBreastBarGraphBarContainer>
+      <PumpingBreastBarCountContainer>
+        <PumpingBreastBarCountWrapper>
+          <Text size="xSmall">7회</Text>
+        </PumpingBreastBarCountWrapper>
+        <PumpingBreastBarCountWrapper>
+          <Text size="xSmall">7회</Text>
+        </PumpingBreastBarCountWrapper>
+        <PumpingBreastBarCountWrapper>
+          <Text size="xSmall">10회</Text>
+        </PumpingBreastBarCountWrapper>
+        <PumpingBreastBarCountWrapper>
+          <Text size="xSmall">7회</Text>
+        </PumpingBreastBarCountWrapper>
+        <PumpingBreastBarCountWrapper>
+          <Text size="xSmall">7회</Text>
+        </PumpingBreastBarCountWrapper>
+        <PumpingBreastBarCountWrapper>
+          <Text size="xSmall">123회</Text>
+        </PumpingBreastBarCountWrapper>
+        <PumpingBreastBarCountWrapper>
+          <Text size="xSmall">7회</Text>
+        </PumpingBreastBarCountWrapper>
+      </PumpingBreastBarCountContainer>
       <PumpingBreastBarGraphDateContainer>
         <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
           12/26
