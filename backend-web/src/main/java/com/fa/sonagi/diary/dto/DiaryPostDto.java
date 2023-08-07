@@ -1,6 +1,9 @@
 package com.fa.sonagi.diary.dto;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -16,8 +19,7 @@ public class DiaryPostDto {
 	@NotNull
 	private Long babyId;
 
-	@NotNull
-	private LocalDate writeDay;
+	private List<MultipartFile> imgFiles;
 
 	private String content;
 

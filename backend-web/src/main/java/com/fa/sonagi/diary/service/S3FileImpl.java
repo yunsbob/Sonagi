@@ -7,6 +7,7 @@ import com.amazonaws.services.s3.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,13 +37,17 @@ public class S3FileImpl implements S3File {
 	private String bucket;
 
 	@Override
-	public String upload(MultipartFile multipartFile, String dirName, String id) throws IOException {
+	public String upload(MultipartFile multipartFile, String dirName) throws IOException {
 		// 파일 업로드
 		log.info("file : {}, dirName : {}", multipartFile, dirName);
 		File uploadFile = convertToFile(multipartFile)
 			.orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 변환에 실패했습니다."));
-		// 파일명 중복을 피하기 위해 회원 정보 추가
-		String fileName = dirName + "/" + id + " " + uploadFile.getName();
+		// 파일명 중복을 피하기 위해 시간 정보 삽입
+		LocalDateTime currentTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String formattedTime = currentTime.format(formatter);
+
+		String fileName = dirName + "/" + formattedTime + " " + uploadFile.getName();
 		log.info("created fileName : {}", fileName);
 
 		// put - S3로 업로드
