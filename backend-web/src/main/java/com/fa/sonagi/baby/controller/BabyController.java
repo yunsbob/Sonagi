@@ -1,7 +1,10 @@
 package com.fa.sonagi.baby.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fa.sonagi.baby.dto.BabyCodePosDto;
 import com.fa.sonagi.baby.dto.BabyCodeResDto;
 import com.fa.sonagi.baby.dto.BabyInfoPostDto;
+import com.fa.sonagi.baby.dto.BabyInfoResDto;
 import com.fa.sonagi.baby.service.BabyService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -49,5 +53,13 @@ public class BabyController {
 	public ResponseEntity<?> registBabyByBabyCode(@RequestBody BabyCodePosDto babyCodePosDto) {
 		babyService.registUserBabyByCode(babyCodePosDto);
 		return ResponseEntity.ok().build();
+	}
+
+	/**
+	 * 사용자별 아기 리스트(상단바) 조회
+	 */
+	@GetMapping("/babyInfos/{userId}")
+	public List<BabyInfoResDto> getBabyListByUserId(@PathVariable Long userId) {
+		return babyService.findBabyListByUserId(userId);
 	}
 }
