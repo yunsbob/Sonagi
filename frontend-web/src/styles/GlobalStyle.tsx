@@ -18,8 +18,8 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Happiness-Sans', 'Inter', sans-serif;
     }
 
-   .scrollable {
-        height: calc(100vh - 17rem);
+    .scrollable {
+        /* height: calc(100vh - 17rem); */
         overflow: auto;
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */

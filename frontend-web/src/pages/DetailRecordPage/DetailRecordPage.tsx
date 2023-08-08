@@ -3,6 +3,7 @@ import FeedingPage from '@/pages/DetailRecordPage/FeedingPage/FeedingPage';
 import InfantFormulaPage from '@/pages/DetailRecordPage/InfantFormulaPage/InfantFormulaPage';
 import SleepPage from '@/pages/DetailRecordPage/SleepPage/SleepPage';
 import TemperaturePage from '@/pages/DetailRecordPage/TemperaturePage/TemperaturePage';
+import * as S from '@/pages/DetailRecordPage/DetailRecordPage.style';
 
 import { useLocation } from 'react-router-dom';
 
@@ -30,7 +31,11 @@ const DetailRecordPage: React.FC = () => {
     }
   };
 
-  return <>{DetailRecordRenderer()}</>;
+  return (
+    <S.DetailRecordPageWrapper>
+      {DetailRecordRenderer()}
+    </S.DetailRecordPageWrapper>
+  );
 };
 
 export { DetailRecordPage };
