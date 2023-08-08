@@ -1,11 +1,10 @@
 import { styled } from 'styled-components';
-import theme from './../../../../styles/theme';
 
 interface PumpingBreastBarGraphStyleProps {
   $barHeight: number;
 }
 
-const PumpingBreastBarGraphContainer = styled.div`
+const Container = styled.div`
   width: 90vw;
   height: 50vh;
   margin: 30px auto 30px;
@@ -13,28 +12,14 @@ const PumpingBreastBarGraphContainer = styled.div`
   flex-direction: column;
 `;
 
-const PumpingBreastBarGraphLineContainer = styled.div`
-  display: flex;
-  height: inherit;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-`;
-
-const PumpingBreastBarGraphTime = styled.div`
+const Time = styled.div`
   width: max-content;
   display: flex;
   flex-direction: column;
   height: 100%;
 `;
 
-const PumpingBreastBarGraphLine = styled.div`
-  border: 1px solid ${({ theme }) => theme.color.gray4};
-  width: calc(100% - 20px);
-  height: 0.1px;
-`;
-
-const PumpingBreastBarGraphBarContainer = styled.div`
+const BarContainer = styled.div`
   width: inherit;
   height: 100%;
   display: flex;
@@ -43,7 +28,7 @@ const PumpingBreastBarGraphBarContainer = styled.div`
   bottom: calc(100% / 9 + 3px);
 `;
 
-const PumpingBreastBarGraphWrapper = styled.div<PumpingBreastBarGraphStyleProps>`
+const Wrapper = styled.div<PumpingBreastBarGraphStyleProps>`
   width: 33px;
   height: 100%;
   display: flex;
@@ -52,21 +37,21 @@ const PumpingBreastBarGraphWrapper = styled.div<PumpingBreastBarGraphStyleProps>
   background-color: ${({ theme }) => theme.color.gray4};
 `;
 
-const PumpingBreastBar = styled.div<{ height: number; color: string }>`
+const Bar = styled.div<{ height: number; color: string }>`
   height: ${props => `${props.height}%`};
   background-color: ${props => props.color};
   border-radius: 4px;
 `;
 
 // 횟수
-const PumpingBreastBarCountContainer = styled.div`
+const CountContainer = styled.div`
   width: 100%;
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
 `;
 
-const PumpingBreastBarCountWrapper = styled.div`
+const CountWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.color.graphCountsOfPumpingBreast};
   border-radius: 11px;
   width: 33px;
@@ -75,7 +60,7 @@ const PumpingBreastBarCountWrapper = styled.div`
 `;
 
 // 날짜
-const PumpingBreastBarGraphDateContainer = styled.div`
+const DateContainer = styled.div`
   width: 100%;
   height: calc(100% / 9);
   margin: 10px 0px;
@@ -85,14 +70,15 @@ const PumpingBreastBarGraphDateContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-align: center;
 `;
 
-const PumpingBreastBarGraphCategoryContainer = styled.div`
+const CategoryContainer = styled.div`
   display: flex;
   justify-content: end;
 `;
 
-const PumpingBreastBarGraphCategoryWrapper = styled.div`
+const CategoryWrapper = styled.div`
   display: flex;
   margin-left: 4.5%;
 
@@ -101,7 +87,7 @@ const PumpingBreastBarGraphCategoryWrapper = styled.div`
   }
 `;
 
-const PumpingBreastBarGraphCategoryCircle = styled.div<{
+const CategoryCircle = styled.div<{
   $bgColor: string;
   $borderColor?: string;
 }>`
@@ -114,17 +100,15 @@ const PumpingBreastBarGraphCategoryCircle = styled.div<{
 `;
 
 export {
-  PumpingBreastBarGraphContainer,
-  PumpingBreastBarGraphLineContainer,
-  PumpingBreastBarGraphTime,
-  PumpingBreastBarGraphLine,
-  PumpingBreastBarGraphBarContainer,
-  PumpingBreastBarGraphWrapper,
-  PumpingBreastBar,
-  PumpingBreastBarCountContainer,
-  PumpingBreastBarCountWrapper,
-  PumpingBreastBarGraphDateContainer,
-  PumpingBreastBarGraphCategoryContainer,
-  PumpingBreastBarGraphCategoryWrapper,
-  PumpingBreastBarGraphCategoryCircle,
+  Container,
+  Time,
+  BarContainer,
+  Wrapper,
+  Bar,
+  CountContainer,
+  CountWrapper,
+  DateContainer,
+  CategoryContainer,
+  CategoryWrapper,
+  CategoryCircle,
 };
