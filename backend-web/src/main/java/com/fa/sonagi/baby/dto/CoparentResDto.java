@@ -14,5 +14,4 @@ import lombok.Setter;
 public class CoparentResDto {
 	private Long userId;
 	private String name;
-	private String authority;
 }

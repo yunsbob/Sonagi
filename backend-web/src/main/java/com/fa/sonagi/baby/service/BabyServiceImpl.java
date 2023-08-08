@@ -209,14 +209,22 @@ public class BabyServiceImpl implements BabyService {
 	 * 공동양육자 리스트 조회
 	 */
 	@Override
-	public List<CoparentResDto> findCoparentListByBabyId(Long babyId) {
-		List<UserBaby> users = userBabyRepository.findByBabyId(babyId);
-		return users.stream()
-			.map(u -> CoparentResDto.builder()
-				.userId(u.getUser().getUserId())
-				.name(u.getUser().getName())
-				.authority(u.getAuthority())
-				.build())
-			.collect(Collectors.toList());
+	public List<CoparentResDto> findCoparentListByBabyId(Long babyId, Long userId) {
+		BabyDetailResDto babyDetail = findBabyDetail(babyId, userId);
+		// 사용자가 주양육자인 경우에만 조회
+		if (babyDetail != null) {
+			List<UserBaby> users = userBabyRepository.findByBabyId(babyId);
+
+			return users.stream()
+				.filter(u -> !u.getUser().getUserId().equals(userId)) // userId가 다른 경우만 필터링
+				.map(u -> CoparentResDto.builder()
+					.userId(u.getUser().getUserId())
+					.name(u.getUser().getName())
+					.build())
+				.collect(Collectors.toList());
+		} else {
+			return null;
+		}
+
 	}
 }
