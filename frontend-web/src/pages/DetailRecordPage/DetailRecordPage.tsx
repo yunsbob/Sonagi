@@ -1,46 +1,36 @@
-import TimeRecorder from '@/components/molecules/TimeRecorder/TimeRecorder';
-import AmountRecorder from '@/components/molecules/AmountRecorder/AmountRecorder';
-import MemoRecorder from '@/components/molecules/MemoRecorder/MemoRecorder';
-import BreastFeedRecorder from '@/components/molecules/BreastFeedRecorder/BreastFeedRecorder';
-import * as S from '@/pages/DetailRecordPage/DetailRecordPage.style';
-import Back from '@/components/atoms/Back/Back';
-import { Background } from '@/components/atoms/Background/Background.styles';
-import orangeBackground from '@/assets/images/background-orange-to-blue.png';
+import DiaperPage from '@/pages/DetailRecordPage/DiaperPage/DiaperPage';
+import FeedingPage from '@/pages/DetailRecordPage/FeedingPage/FeedingPage';
+import InfantFormulaPage from '@/pages/DetailRecordPage/InfantFormulaPage/InfantFormulaPage';
+import SleepPage from '@/pages/DetailRecordPage/SleepPage/SleepPage';
+import TemperaturePage from '@/pages/DetailRecordPage/TemperaturePage/TemperaturePage';
 
-const detailName = '수유 기록 상세';
+import { useLocation } from 'react-router-dom';
 
-const DetailRecordPage = () => {
-  return (
-    <>
-      <Back>{detailName}</Back>
-      <S.DetailRecordPageContainer>
-        <S.DetailRecordPageWrapper>
-          <S.Divider>
-            <BreastFeedRecorder></BreastFeedRecorder>
-          </S.Divider>
-          <S.Divider>
-            <TimeRecorder></TimeRecorder>
-          </S.Divider>
-          <S.Divider>
-            <TimeRecorder isStart={false}></TimeRecorder>
-          </S.Divider>
-          <S.Divider>
-            <AmountRecorder
-              unitType="용량"
-              unit="mL"
-              unitArray={[-20, -10, -5, +5, +10, +20]}
-              defaultValue={15}
-              minValue={0}
-              maxValue={50}
-            ></AmountRecorder>
-          </S.Divider>
-          <S.Divider>
-            <MemoRecorder></MemoRecorder>
-          </S.Divider>
-        </S.DetailRecordPageWrapper>
-      </S.DetailRecordPageContainer>
-    </>
-  );
+const DetailRecordPage: React.FC = () => {
+  const location = useLocation();
+  const name = location.state.recordType;
+
+  const DetailRecordRenderer = () => {
+    if (name === '체온') {
+      return <TemperaturePage name={name} />;
+    } else if (name === '수유') {
+      return <FeedingPage name={name} />;
+    } else if (name === '수면' || name === '놀이' || name === '터미 타임') {
+      return <SleepPage name={name} />;
+    } else if (
+      name === '유축 수유' ||
+      name === '분유' ||
+      name === '이유식' ||
+      name === '우유' ||
+      name === '유축'
+    ) {
+      return <InfantFormulaPage name={name}></InfantFormulaPage>;
+    } else {
+      return <DiaperPage name={name} />;
+    }
+  };
+
+  return <>{DetailRecordRenderer()}</>;
 };
 
-export default DetailRecordPage;
+export { DetailRecordPage };
