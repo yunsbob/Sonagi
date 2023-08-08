@@ -13,9 +13,9 @@ import { PATH } from '@/constants/path';
 import { useUpdateUser } from '@/apis/User/Mutations/useUpdateUser';
 
 const SignInPage = () => {
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const updateUserMutation = useUpdateUser();
-  const navigate = useNavigate();
 
   const placeholder = '이름을 입력하세요';
   const alertMessage = '10자 이내로 입력해주세요';
