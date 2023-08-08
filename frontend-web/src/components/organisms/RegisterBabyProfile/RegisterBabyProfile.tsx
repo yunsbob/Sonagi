@@ -24,9 +24,9 @@ const RegisterBabyProfile = () => {
 
   useEffect(() => {
     if (value.length > 0) {
-      setOption('activated'); // 값이 유효하면 activated 설정
+      setOption('activated');
     } else {
-      setOption('deActivated'); // 값이 유효하지 않으면 deActivated 설정
+      setOption('deActivated');
     }
   }, [value]);
 
@@ -38,7 +38,7 @@ const RegisterBabyProfile = () => {
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [pickDate, setPickDate] = useState<Date>(today);
-
+  // TODO: 아기 추가시 오늘 날짜보다 늦은 날짜면 선택할 수 없게 하기
   const onClickAction = () => {
     setModalOpen(true);
   };
@@ -55,6 +55,7 @@ const RegisterBabyProfile = () => {
 
   const toMain = () => {
     if (option === 'activated') {
+      // TODO: 아기 한 명 추가
       navigate(PATH.MAIN);
     }
   };
