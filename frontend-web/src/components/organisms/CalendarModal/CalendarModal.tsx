@@ -1,10 +1,8 @@
 import Modal from '@/components/organisms/Modal/Modal';
 import moment from 'moment';
-import { useState } from 'react';
 import Calendar from 'react-calendar';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
 import '@/components/organisms/CalendarModal/Calendar.css';
-import theme from '@/styles/theme';
 
 interface CalendarModalProps {
   onModalClose: () => void;
@@ -18,20 +16,6 @@ const CalendarModal = ({
   onCalendarChange,
 }: CalendarModalProps) => {
   const today = new Date();
-  //   const onClickDate = (e: any) => {
-  //     setModalOpen(true);
-  //   };
-
-  //   const onCalendarChange = (value: Value) => {
-  //     if (value instanceof Date) {
-  //       setPickDate(value);
-  //     }
-  //   };
-
-  //   const onModalClose = () => {
-  //     setModalOpen(false);
-  //   };
-
   return (
     <Modal height={22} onClose={onModalClose}>
       <Calendar
