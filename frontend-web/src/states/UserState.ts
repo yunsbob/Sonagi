@@ -1,3 +1,4 @@
+import { User } from '@/types';
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
@@ -6,11 +7,6 @@ const { persistAtom } = recoilPersist({
   key: 'UserState',
   storage: localStorage,
 });
-
-interface User {
-  userId: number;
-  name: string;
-}
 
 // 사용자 정보
 export const userInfoState = atom<User>({

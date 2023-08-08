@@ -7,18 +7,30 @@ import { Value } from 'react-calendar/dist/cjs/shared/types';
 import moment from 'moment';
 import { CalendarModal } from '@/components/organisms/CalendarModal/CalendarModal';
 import RBPWrapper from '@/components/organisms/RegisterBabyProfile/RegisterBabyProfile.style';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
+import { Baby } from '@/types';
+import { userInfoState } from '@/states/UserState';
+import { useRecoilState } from 'recoil';
+import { useAddBaby } from '@/apis/Baby/Mutations/useAddBaby';
 
 const RegisterBabyProfile = () => {
-  const placeholder = '이름을 입력하세요';
-
+  const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState); // userInfo.name을 가져다쓸것
   const [value, setValue] = useState<string>('');
-  const [bgColor, setBgColor] = useState<string>(theme.color.gray3);
+  const [gender, setGender] = useState<'M' | 'F'>('M');
+  const placeholder = '이름을 입력하세요';
+  const [option, setOption] = useState<'deActivated' | 'activated'>(
+    'deActivated'
+  );
+
+  const addBabyMutation = useAddBaby();
 
   useEffect(() => {
     if (value.length > 0) {
-      setBgColor(theme.gradient.orangeBtn);
+      setOption('activated');
     } else {
-      setBgColor(theme.color.gray3);
+      setOption('deActivated');
     }
   }, [value]);
 
@@ -30,7 +42,6 @@ const RegisterBabyProfile = () => {
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [pickDate, setPickDate] = useState<Date>(today);
-
   const onClickAction = () => {
     setModalOpen(true);
   };
@@ -44,6 +55,23 @@ const RegisterBabyProfile = () => {
   const onModalClose = () => {
     setModalOpen(false);
   };
+
+  const toMain = () => {
+    if (option === 'activated') {
+      addBabyMutation.mutate({
+        birthDate: moment(pickDate).format('YYYY-MM-DD'),
+        gender,
+        name: value,
+        userId: userInfo.id, // userInfo는 recoil에!
+      });
+
+      // RecoilState에 아이 데이터 저장하는 것은 get으로
+      navigate(PATH.MAIN);
+      // TODO: get 요청 보내기
+      // TODO: recoilState에 아이 데이터 연결해주기
+    }
+  };
+
   return (
     <RBPWrapper>
       {modalOpen && (
@@ -53,7 +81,7 @@ const RegisterBabyProfile = () => {
           onCalendarChange={onCalendarChange}
         />
       )}
-      <GenderButtons />
+      <GenderButtons gender={gender} setGender={setGender} />
       <Button
         option="default"
         size="large"
@@ -70,6 +98,14 @@ const RegisterBabyProfile = () => {
         fontSize={theme.fontSize.headSmall}
         height={3.5}
       />
+      <Button
+        option={option}
+        size="medium"
+        onClick={toMain}
+        style={{ width: '16rem', height: '50px', borderRadius: '13px' }}
+      >
+        등록하기
+      </Button>
     </RBPWrapper>
   );
 };

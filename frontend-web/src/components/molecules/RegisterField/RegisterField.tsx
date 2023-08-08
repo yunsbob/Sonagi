@@ -3,16 +3,7 @@ import Input from '@/components/atoms/Input/Input';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import theme from '@/styles/theme';
 import * as S from '@/components/molecules/RegisterField/RegisterField.style';
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  MouseEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 interface RegisterFieldProps {
   option?:

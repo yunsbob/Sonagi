@@ -1,15 +1,18 @@
 package com.fa.sonagi.baby.entity;
 
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Getter
@@ -50,5 +53,11 @@ public class Baby {
 
     public void updateCode(String code) {
         this.code = code;
+    }
+
+    public void updateBaby(String name, String gender, LocalDate birthDate) {
+        this.name = name;
+        this.gender = gender;
+        this.birthDate = birthDate;
     }
 }

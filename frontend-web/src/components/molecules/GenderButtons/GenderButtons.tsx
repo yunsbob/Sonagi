@@ -1,19 +1,21 @@
 import Button from '@/components/atoms/Button/Button';
 import { Image } from '@/components/atoms/Image/Image';
 import { GenderButtonsContainer } from '@/components/molecules/GenderButtons/GenderButtons.style';
-import { useState } from 'react';
 import blueBabyCircle from '@/assets/images/img-baby-blue-circle.png';
 import yellowBabyCircle from '@/assets/images/img-baby-yellow-circle.png';
 
-const GenderButtons = () => {
-  const [genderState, setGenderState] = useState<'male' | 'female'>('male');
+interface Props {
+  gender: 'M' | 'F';
+  setGender: (gender: 'M' | 'F') => void;
+}
 
+const GenderButtons: React.FC<Props> = ({ gender, setGender }) => {
   const handleMaleState = () => {
-    setGenderState('male');
+    setGender('M');
   };
 
   const handleFemaleState = () => {
-    setGenderState('female');
+    setGender('F');
   };
 
   return (
@@ -22,17 +24,17 @@ const GenderButtons = () => {
         {/* TODO 이미지 크기 서로 다른거 고치기 */}
         <Image
           width={5}
-          src={genderState === 'male' ? blueBabyCircle : yellowBabyCircle}
+          src={gender === 'M' ? blueBabyCircle : yellowBabyCircle}
         />
         <Button
-          option={genderState === 'male' ? 'primary' : 'default'}
+          option={gender === 'M' ? 'primary' : 'default'}
           size="medium"
           onClick={handleMaleState}
         >
           남자
         </Button>
         <Button
-          option={genderState === 'female' ? 'primary' : 'default'}
+          option={gender === 'F' ? 'primary' : 'default'}
           size="medium"
           onClick={handleFemaleState}
         >

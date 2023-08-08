@@ -1,6 +1,6 @@
 package com.fa.sonagi.diary.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +14,7 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "diary")
+@Table(name = "diary",
+	indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id,created_date")
+)
 public class Diary {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,10 +46,28 @@ public class Diary {
 	@Column(name = "content")
 	private String content;
 
-	@OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "diary", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<DiaryFile> diaryFiles = new ArrayList<DiaryFile>();
 
 	@CreatedDate
-	@Column(name = "created_at", nullable = false)
-	private LocalDateTime createdAt;
+	@Column(name = "created_date")
+	private LocalDate createdDate;
+
+	@CreatedDate
+	@Column(name = "created_time")
+	private LocalDate createdTime;
+
+	public void addDiaryFile(DiaryFile diaryFile) {
+		diaryFiles.add(diaryFile);
+		diaryFile.setDiary(this);
+	}
+
+	public void removeDiaryFile(DiaryFile diaryFile) {
+		diaryFiles.remove(diaryFile);
+		diaryFile.setDiary(null);
+	}
+
+	public void updateContent(String content) {
+		this.content = content;
+	}
 }
