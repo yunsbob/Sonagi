@@ -1,5 +1,5 @@
 import GenderButtons from '@/components/molecules/GenderButtons/GenderButtons';
-import { useState, ChangeEvent, useEffect } from 'react'; // UserState에 접근하여 userId를 가져오기 위해 useContext 사용
+import { useState, ChangeEvent, useEffect } from 'react';
 import Button from '@/components/atoms/Button/Button';
 import Input from '@/components/atoms/Input/Input';
 import theme from '@/styles/theme';
@@ -7,37 +7,26 @@ import { Value } from 'react-calendar/dist/cjs/shared/types';
 import moment from 'moment';
 import { CalendarModal } from '@/components/organisms/CalendarModal/CalendarModal';
 import RBPWrapper from '@/components/organisms/RegisterBabyProfile/RegisterBabyProfile.style';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
 
-import { useAddBaby } from '@/apis/Baby/Mutations/useAddBaby';
-import { userInfoState } from '@/states/UserState';
-import { useRecoilState } from 'recoil';
-import { Baby } from '@/types';
-// TODO: 아가 정보들을 user처럼 state에 저장해야한다
+const RegisterBabyProfile = () => {
+  const navigate = useNavigate();
 
-interface RegisterBabyProfileProps {
-  onRegister: (baby: Baby | null) => void;
-  addBabyProfile: () => void;
-}
-
-const RegisterBabyProfile: React.FC<RegisterBabyProfileProps> = ({
-  onRegister,
-}) => {
-  // 상태를 여기에서 관리
-  const [baby, setBaby] = useState<Baby | null>(null);
   const placeholder = '이름을 입력하세요';
 
-  const [value, setValue] = useState<string>(''); // input의 value
-  const [bgColor, setBgColor] = useState<string>(theme.color.gray3);
-
-  const { mutate } = useAddBaby();
+  const [value, setValue] = useState<string>('');
   const [gender, setGender] = useState<'male' | 'female'>('male');
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState); // userInfo.name을 가져다쓸것
+
+  const [option, setOption] = useState<'deActivated' | 'activated'>(
+    'deActivated'
+  );
 
   useEffect(() => {
     if (value.length > 0) {
-      setBgColor(theme.gradient.orangeBtn);
+      setOption('activated'); // 값이 유효하면 activated 설정
     } else {
-      setBgColor(theme.color.gray3);
+      setOption('deActivated'); // 값이 유효하지 않으면 deActivated 설정
     }
   }, [value]);
 
@@ -64,21 +53,11 @@ const RegisterBabyProfile: React.FC<RegisterBabyProfileProps> = ({
     setModalOpen(false);
   };
 
-  const addBabyProfile = () => {
-    const baby: Baby = {
-      birthDate: moment(pickDate).format('YYYY-MM-DD'),
-      gender: gender,
-      name: value,
-      userId: userInfo.id, // this assumes that you have the userId stored in a context or similar state management
-    };
-
-    console.log(baby);
-    setBaby(baby);
+  const toMain = () => {
+    if (option === 'activated') {
+      navigate(PATH.MAIN);
+    }
   };
-
-  useEffect(() => {
-    onRegister(baby);
-  }, [baby, onRegister]);
 
   return (
     <RBPWrapper>
@@ -106,6 +85,14 @@ const RegisterBabyProfile: React.FC<RegisterBabyProfileProps> = ({
         fontSize={theme.fontSize.headSmall}
         height={3.5}
       />
+      <Button
+        option={option}
+        size="medium"
+        onClick={toMain}
+        style={{ width: '16rem', height: '50px', borderRadius: '13px' }}
+      >
+        등록하기
+      </Button>
     </RBPWrapper>
   );
 };

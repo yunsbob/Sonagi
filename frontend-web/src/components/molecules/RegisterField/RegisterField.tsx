@@ -44,8 +44,6 @@ const RegisterField = ({
 
   const onClickButton = () => {
     onClickButtonAction && onClickButtonAction(value);
-    console.log('herehere', value);
-    // TODO: 데이터 바인딩 !
   };
 
   useEffect(() => {

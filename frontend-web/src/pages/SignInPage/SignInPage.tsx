@@ -20,8 +20,8 @@ const SignInPage = () => {
   const placeholder = '이름을 입력하세요';
   const alertMessage = '10자 이내로 입력해주세요';
 
-  const onClickButtonAction = async (value: string) => {
-    await updateUserMutation.mutateAsync({
+  const onClickButtonAction = (value: string) => {
+    updateUserMutation.mutate({
       id: userInfo.id,
       name: value,
     });
@@ -29,7 +29,6 @@ const SignInPage = () => {
     setUserInfo(
       produce(draft => {
         draft['name'] = value;
-        console.log(Date(), 'now2');
       })
     );
 
