@@ -70,9 +70,9 @@ public class BabyController {
 	/**
 	 * 아기 상세 정보 조회
 	 */
-	@GetMapping("/babyDetail/{babyId}")
-	public ResponseEntity<?> getBaby(@PathVariable Long babyId) {
-		BabyDetailResDto babyDetailResDto = babyService.findBabyDetail(babyId);
+	@GetMapping("/babyDetail/{babyId}/{userId}")
+	public ResponseEntity<?> getBaby(@PathVariable Long babyId, @PathVariable Long userId) {
+		BabyDetailResDto babyDetailResDto = babyService.findBabyDetail(babyId, userId);
 		return ResponseEntity.ok().body(babyDetailResDto);
 	}
 
