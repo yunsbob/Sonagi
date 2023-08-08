@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.baby.dto.BabyCodePosDto;
 import com.fa.sonagi.baby.dto.BabyCodeResDto;
+import com.fa.sonagi.baby.dto.BabyDetailPutDto;
+import com.fa.sonagi.baby.dto.BabyDetailResDto;
 import com.fa.sonagi.baby.dto.BabyInfoPostDto;
 import com.fa.sonagi.baby.dto.BabyInfoResDto;
 import com.fa.sonagi.baby.entity.Baby;
@@ -72,7 +74,6 @@ public class BabyServiceImpl implements BabyService {
 	/**
 	 * 아기 정보 코드 생성
 	 */
-	@Override
 	public String createBabyCode(Long userId, Long babyId) {
 		String specialCode = userId + "angel" + babyId ;
 
@@ -166,5 +167,33 @@ public class BabyServiceImpl implements BabyService {
 				.name(u.getBaby().getName())
 				.build())
 			.collect(Collectors.toList());
+	}
+
+	/**
+	 * 아기 상세 정보 수정
+	 */
+	@Override
+	@Transactional
+	public void updateBabyDetail(BabyDetailPutDto babyDetailPutDto) {
+		Baby baby = babyRepository.findById(babyDetailPutDto.getId()).orElseThrow();
+		baby.updateBaby(babyDetailPutDto.getName(), babyDetailPutDto.getGender(), babyDetailPutDto.getBirthDate());
+
+	}
+
+	/**
+	 * 아기 상세 정보 조회
+	 */
+	@Override
+	public BabyDetailResDto findBabyDetail(Long babyId) {
+		Baby baby = babyRepository.findById(babyId).orElseThrow();
+		UserBaby userBaby = userBabyRepository.findByBaby(baby);
+
+		return BabyDetailResDto.builder()
+			.id(baby.getId())
+			.name(baby.getName())
+			.gender(baby.getGender())
+			.birthDate(baby.getBirthDate())
+			.authority(userBaby.getAuthority())
+			.build();
 	}
 }
