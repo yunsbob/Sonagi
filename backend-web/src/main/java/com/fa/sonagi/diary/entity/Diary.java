@@ -1,7 +1,6 @@
 package com.fa.sonagi.diary.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,13 +14,13 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @Entity
@@ -29,7 +28,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "diary")
+@Table(name = "diary",
+	indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id,created_date")
+)
 public class Diary {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,8 +50,12 @@ public class Diary {
 	private List<DiaryFile> diaryFiles = new ArrayList<DiaryFile>();
 
 	@CreatedDate
-	@Column(name = "created_at", nullable = false)
-	private LocalDateTime createdAt;
+	@Column(name = "created_date")
+	private LocalDate createdDate;
+
+	@CreatedDate
+	@Column(name = "created_time")
+	private LocalDate createdTime;
 
 	public void addDiaryFile(DiaryFile diaryFile) {
 		diaryFiles.add(diaryFile);
@@ -61,7 +66,8 @@ public class Diary {
 		diaryFiles.remove(diaryFile);
 		diaryFile.setDiary(null);
 	}
-	public void updateContent(String content){
+
+	public void updateContent(String content) {
 		this.content = content;
 	}
 }
