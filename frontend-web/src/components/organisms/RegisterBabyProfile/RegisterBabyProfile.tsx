@@ -9,6 +9,9 @@ import { CalendarModal } from '@/components/organisms/CalendarModal/CalendarModa
 import RBPWrapper from '@/components/organisms/RegisterBabyProfile/RegisterBabyProfile.style';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
+import { Baby } from '@/types';
+import { userInfoState } from '@/states/UserState';
+import { useRecoilState } from 'recoil';
 
 const RegisterBabyProfile = () => {
   const navigate = useNavigate();
@@ -17,7 +20,7 @@ const RegisterBabyProfile = () => {
 
   const [value, setValue] = useState<string>('');
   const [gender, setGender] = useState<'male' | 'female'>('male');
-
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState); // userInfo.name을 가져다쓸것
   const [option, setOption] = useState<'deActivated' | 'activated'>(
     'deActivated'
   );
@@ -38,13 +41,13 @@ const RegisterBabyProfile = () => {
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [pickDate, setPickDate] = useState<Date>(today);
-  // TODO: 아기 추가시 오늘 날짜보다 늦은 날짜면 선택할 수 없게 하기
   const onClickAction = () => {
     setModalOpen(true);
   };
 
   const onCalendarChange = (value: Value) => {
     if (value instanceof Date) {
+      // value값이 Date 객체의 인스턴스인지 검사
       setPickDate(value);
     }
   };
@@ -55,7 +58,15 @@ const RegisterBabyProfile = () => {
 
   const toMain = () => {
     if (option === 'activated') {
-      // TODO: 아기 한 명 추가
+      const baby: Baby = {
+        birthDate: moment(pickDate).format('YYYY-MM-DD'),
+        gender,
+        name: value,
+        userId: userInfo.id, // userInfo는 recoil에!
+      };
+      // TODO: 이제 이걸 add(post) 해보자 !
+      // TODO: RecoilState에도 저장해야함 !
+      console.log(baby);
       navigate(PATH.MAIN);
     }
   };
