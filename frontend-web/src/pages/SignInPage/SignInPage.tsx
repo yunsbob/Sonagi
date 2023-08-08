@@ -4,34 +4,34 @@ import { Text } from '@/components/atoms/Text/Text.styles';
 import family from '@/assets/images/img-family.png';
 import { Image } from '@/components/atoms/Image/Image';
 import * as S from '@/pages/SignInPage/SignInPage.style';
-import Back from '@/components/atoms/Back/Back';
 import RegisterField from '@/components/molecules/RegisterField/RegisterField';
-import { useEffect, useState } from 'react';
-import theme from '@/styles/theme';
-import RegisterBabyProfile from '@/components/organisms/RegisterBabyProfile/RegisterBabyProfile';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { userInfoState } from '@/states/UserState';
 import { produce } from 'immer';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
-import jwt from 'jwt-decode';
+import { useUpdateUser } from '@/apis/User/Mutations/useUpdateUser';
 
 const SignInPage = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const updateUserMutation = useUpdateUser();
   const navigate = useNavigate();
 
   const placeholder = '이름을 입력하세요';
-
   const alertMessage = '10자 이내로 입력해주세요';
 
-  const onClickButtonAction = (value: string) => {
+  const onClickButtonAction = async (value: string) => {
+    await updateUserMutation.mutateAsync({
+      id: userInfo.id,
+      name: value,
+    });
+
     setUserInfo(
       produce(draft => {
         draft['name'] = value;
+        console.log(Date(), 'now2');
       })
     );
-
-    //TODO: 사용자 정보 저장 api 호출
 
     navigate(PATH.REGISTER);
   };
@@ -44,7 +44,7 @@ const SignInPage = () => {
           <Text color={'black3'}>
             환영합니다!
             <br />
-            이름을 입력해주세요
+            양육자의 이름을 입력해주세요
           </Text>
           <RegisterField
             onClickButtonAction={onClickButtonAction}
@@ -52,9 +52,6 @@ const SignInPage = () => {
             size="medium"
             placeholder={placeholder}
             alertMessage={alertMessage}
-            // $backgroundColor={
-            //   disabled ? theme.color.gray2 : theme.gradient.orangeBtn
-            // }
           />
         </S.SignInPageWrapper>
       </S.SignInPageContainer>

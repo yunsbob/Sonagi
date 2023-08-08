@@ -2,8 +2,11 @@ package com.fa.sonagi.record.health.repository;
 
 import static com.fa.sonagi.record.health.entity.QFever.*;
 
+import java.time.LocalDate;
+
 import com.fa.sonagi.record.health.dto.FeverResDto;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.MathExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -24,5 +27,16 @@ public class FeverRepositoryImpl implements FeverRepositoryCustom {
 			.where(fever.id.eq(feverId))
 			.fetchOne();
 		return fevers;
+	}
+
+	@Override
+	public Double findFeverAvgByDay(Long babyId, LocalDate createdDate) {
+		Double bodyTemperature = queryFactory
+			.select(MathExpressions.round(fever.bodyTemperature.avg(), 1))
+			.from(fever)
+			.where(fever.babyId.eq(babyId), fever.createdDate.eq(createdDate))
+			.fetchOne();
+
+		return bodyTemperature;
 	}
 }

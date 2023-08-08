@@ -24,20 +24,6 @@ public class UserServiceImpl implements UserService {
 	private final AuthenticationManagerBuilder authenticationManagerBuilder;
 	private final RedisTemplate<String, Object> redisTemplate;
 
-	@Override
-	public boolean checkEmail(String email) throws Exception {
-		log.info("check email : {}", email);
-
-		return userRepository
-			.findByEmail(email)
-			.isPresent();
-	}
-
-	@Override
-	public ResponseEntity<?> getUserInfo(String email) {
-		return null;
-	}
-
 	/**
 	 * 사용자 이름 등록, 수정
 	 */

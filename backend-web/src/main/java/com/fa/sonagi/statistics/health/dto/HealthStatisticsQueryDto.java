@@ -8,5 +8,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class HealthStatisticsQueryDto {
-	Time createdTime;
+	private Time createdTime;
 }

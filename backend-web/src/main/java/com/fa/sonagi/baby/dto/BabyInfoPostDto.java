@@ -20,7 +20,4 @@ public class BabyInfoPostDto {
 
 	@NotNull
 	private Long userId;
-
-	@NotNull
-	private String authority;
 }

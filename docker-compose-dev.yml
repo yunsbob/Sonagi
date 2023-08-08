@@ -16,7 +16,8 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - /app/node-modules
-      - ./:/app
+      - /usr/src/app/node_modules
+      - ./frontend-web:/usr/src/app
+    stdin_open: true
     depends_on:
       - backend
