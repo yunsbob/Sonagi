@@ -5,17 +5,17 @@ import blueBabyCircle from '@/assets/images/img-baby-blue-circle.png';
 import yellowBabyCircle from '@/assets/images/img-baby-yellow-circle.png';
 
 interface Props {
-  gender: 'male' | 'female';
-  setGender: (gender: 'male' | 'female') => void;
+  gender: 'M' | 'F';
+  setGender: (gender: 'M' | 'F') => void;
 }
 
 const GenderButtons: React.FC<Props> = ({ gender, setGender }) => {
   const handleMaleState = () => {
-    setGender('male');
+    setGender('M');
   };
 
   const handleFemaleState = () => {
-    setGender('female');
+    setGender('F');
   };
 
   return (
@@ -24,17 +24,17 @@ const GenderButtons: React.FC<Props> = ({ gender, setGender }) => {
         {/* TODO 이미지 크기 서로 다른거 고치기 */}
         <Image
           width={5}
-          src={gender === 'male' ? blueBabyCircle : yellowBabyCircle}
+          src={gender === 'M' ? blueBabyCircle : yellowBabyCircle}
         />
         <Button
-          option={gender === 'male' ? 'primary' : 'default'}
+          option={gender === 'M' ? 'primary' : 'default'}
           size="medium"
           onClick={handleMaleState}
         >
           남자
         </Button>
         <Button
-          option={gender === 'female' ? 'primary' : 'default'}
+          option={gender === 'F' ? 'primary' : 'default'}
           size="medium"
           onClick={handleFemaleState}
         >
