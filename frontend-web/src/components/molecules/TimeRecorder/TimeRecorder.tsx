@@ -10,11 +10,10 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
 
 interface TimerProps {
-  isStart?: boolean;
-  isLeft?: boolean;
+  name?: string;
 }
 
-const Timer = ({ isStart = true, isLeft = false }: TimerProps) => {
+const Timer = ({ name = '기록 시간' }: TimerProps) => {
   const [value, setValue] = React.useState<Dayjs | null>(
     dayjs('2022-04-17T17:30')
   );
@@ -22,7 +21,7 @@ const Timer = ({ isStart = true, isLeft = false }: TimerProps) => {
   return (
     <>
       <S.TimerTextWrapper>
-        <Text size="headSmall">{isStart ? '시작 시간' : '종료 시간'}</Text>
+        <Text size="headSmall">{name}</Text>
       </S.TimerTextWrapper>
       <S.TimerButtonWrapper>
         <LocalizationProvider dateAdapter={AdapterDayjs}>

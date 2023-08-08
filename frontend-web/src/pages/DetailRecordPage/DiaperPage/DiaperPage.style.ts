@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import theme from '@/styles/theme';
 
-export const DetailRecordPageContainer = styled.div`
+const DiaperPageContainer = styled.div`
   /* height: 100vh; */
   display: flex;
   align-items: center;
@@ -9,7 +9,7 @@ export const DetailRecordPageContainer = styled.div`
   background-color: white;
 `;
 
-export const DetailRecordPageWrapper = styled.div`
+const DiaperPageWrapper = styled.div`
   margin-top: 80px;
   padding: 0px 40px;
   width: 100vw;
@@ -21,8 +21,10 @@ export const DetailRecordPageWrapper = styled.div`
   font-family: 'Happiness-Sans';
 `;
 
-export const Divider = styled.div`
+const Divider = styled.div`
   border-top: 1px solid ${theme.color.gray2};
   padding: 20px 0px;
   width: 70vw;
 `;
+
+export { DiaperPageContainer, DiaperPageWrapper, Divider };
