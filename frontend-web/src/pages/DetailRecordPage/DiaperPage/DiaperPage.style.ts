@@ -2,8 +2,7 @@ import styled from 'styled-components';
 import theme from '@/styles/theme';
 
 const DiaperPageContainer = styled.div`
-  height: calc(100vh - 3rem);
-  width: calc(100% - 20px);
+  /* width: calc(100% - 20px); */
   display: flex;
   /* align-items: center; */
   justify-content: center;
@@ -11,9 +10,10 @@ const DiaperPageContainer = styled.div`
 `;
 
 const DiaperPageWrapper = styled.div`
-  margin-top: 80px;
-  padding: 0px 40px;
-  width: 100vw;
+  height: calc(100vh - 8rem);
+  margin-top: 60px;
+  padding: 30px 40px;
+  /* width: 100vw; */
   display: flex;
   flex-direction: column;
   /* justify-content: space-around; */

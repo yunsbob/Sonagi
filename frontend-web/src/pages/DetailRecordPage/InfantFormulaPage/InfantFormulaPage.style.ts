@@ -2,20 +2,21 @@ import styled from 'styled-components';
 import theme from '@/styles/theme';
 
 export const InfantFormulaPageContainer = styled.div`
-  /* height: 100vh; */
+  /* width: calc(100% - 20px); */
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   background-color: white;
 `;
 
 export const InfantFormulaPageWrapper = styled.div`
-  margin-top: 80px;
-  padding: 0px 40px;
-  width: 100vw;
+  height: calc(100vh - 8rem);
+  margin-top: 60px;
+  padding: 30px 40px;
+  /* width: 100vw; */
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
   text-align: center;
   font-family: 'Happiness-Sans';
