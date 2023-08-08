@@ -2,10 +2,11 @@ import { styled } from 'styled-components';
 import theme from '@/styles/theme';
 
 const MemoArea = styled.textarea`
-  padding: 1.5rem;
+  padding: 1rem, 0.5rem;
   width: 90%;
-  height: 20vh;
+  height: 10vh;
   /* background: var(--white-1, #fff); */
+  font-size: ${theme.fontSize.medium2};
   border: none;
   &:focus {
     border: none;
@@ -18,14 +19,14 @@ const MemoArea = styled.textarea`
 `;
 
 const MemoWrapper = styled.div`
-  position: relative; /* Needed for absolute positioning */
+  position: relative;
   border-radius: 0.5rem;
   background-color: ${theme.color.lightgrey};
   width: 100%;
   display: flex;
-  flex-direction: column; /* Stack items vertically */
-  align-items: flex-start; /* Align items to the start (left) */
-  padding: 1rem; /* Add padding for the word count */
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
 `;
 
 const WordCount = styled.span`
