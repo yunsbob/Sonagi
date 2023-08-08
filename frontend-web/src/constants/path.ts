@@ -6,6 +6,7 @@ const PATH = {
   SIGNIN: '/signIn',
   REGISTER: '/register',
   BABYCODE: '/babycode',
+  VACCINATION: '/vaccination',
   MAIN: '/main',
   GRAPH: '/main/graph',
   GRAPHBYDAY: '/main/graph',

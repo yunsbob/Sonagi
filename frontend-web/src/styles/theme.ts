@@ -12,6 +12,9 @@ const color = {
   gray2: '#c3c3c3',
   gray3: '#d7d7d7',
   gray4: 'rgba(215, 215, 215, 0.50)',
+  gray5: '#AAAAAA', // 예방접종용 회색
+  blue1: '#1A73E9', // 예방접종용 파란색
+  red1: '#F85734', // 예방접종용 빨간색
 
   // main color
   mainblue: '#38A1ED',

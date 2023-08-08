@@ -20,6 +20,7 @@ import { GraphByDay } from '@/components/organisms/GraphByDay/GraphByDay';
 import { GraphByWeek } from '@/components/organisms/GraphByWeek/GraphByWeek';
 import RedirectPage from '@/pages/RedirectPage/RedirectPage';
 import { DetailRecordPage } from '@/pages/DetailRecordPage/DetailRecordPage';
+import VaccinationPage from '@/pages/VaccinationPage/VaccinationPage';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: PATH.BABYCODE,
     element: <BabyCodePage />,
+  },
+  {
+    path: PATH.VACCINATION,
+    element: <VaccinationPage />,
   },
   {
     path: PATH.MAIN,

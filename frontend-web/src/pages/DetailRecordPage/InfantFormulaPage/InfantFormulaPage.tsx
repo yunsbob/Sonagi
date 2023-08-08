@@ -15,7 +15,7 @@ interface NameProps {
 const InfantFormulaPage: React.FC<NameProps> = ({ name }) => {
   return (
     <>
-      <Back>{name}</Back>
+      <Back>{`${name} 상세 기록`}</Back>
       <S.InfantFormulaPageContainer>
         <S.InfantFormulaPageWrapper>
           <S.Divider>

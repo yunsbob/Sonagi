@@ -15,7 +15,7 @@ interface NameProps {
 const SleepPage: React.FC<NameProps> = ({ name }) => {
   return (
     <>
-      <Back>{name}</Back>
+      <Back>{`${name} 상세 기록`}</Back>
       <S.SleepPageContainer>
         <S.SleepPageWrapper>
           <S.Divider>
