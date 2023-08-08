@@ -1,3 +1,7 @@
+/* :root {
+  --gray3: #f0f0f0;
+} */
+
 .react-calendar {
     width: 350px;
     max-width: 100%;
@@ -110,8 +114,8 @@
     /* #007bff; */
   }
   
-  .react-calendar__month-view__days__day--neighboringMonth {
-    color: #cdcccc;
+  .react-calendar__month-view__days__day--neighboringMonth abbr {
+    color: #999999;
   }
   
   .react-calendar__year-view .react-calendar__tile,
@@ -128,8 +132,9 @@
     line-height: 16px;
   }
   
-  .react-calendar__tile:disabled {
-    background-color: #f0f0f0;
+  // TODO: 안되네 !?!? ?!? ㅠㅠ 
+  .react-calendar__tile:disabled{
+    color: #f0f0f0;
   }
   
   .react-calendar__tile:enabled:hover,
@@ -140,6 +145,21 @@
   .react-calendar__tile--now {
     background-color: #49B3FF27;
     border-radius: 8px;
+  }
+
+  // 미래 날짜 클릭 불가
+  .react-calendar__tile--now + .react-calendar__tile abbr {
+    /* text-color: theme.color.gray3 !important; */
+    color: #f0f0f0;
+    pointer-events: none;
+    /* opacity: 40%; */
+  }
+  
+  .react-calendar__tile--now ~ .react-calendar__month-view__days__day abbr {
+    /* text-color: theme.color.gray3 !important; */
+    color: #cdcccc;
+    pointer-events: none;
+    /* opacity: 40%; */
   }
   
   .react-calendar__tile--now:enabled:hover,
@@ -174,4 +194,3 @@
   .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: #e6e6e6;
   }
-  
