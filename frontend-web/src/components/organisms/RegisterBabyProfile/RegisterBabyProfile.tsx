@@ -48,7 +48,6 @@ const RegisterBabyProfile = () => {
 
   const onCalendarChange = (value: Value) => {
     if (value instanceof Date) {
-      // value값이 Date 객체의 인스턴스인지 검사
       setPickDate(value);
     }
   };
