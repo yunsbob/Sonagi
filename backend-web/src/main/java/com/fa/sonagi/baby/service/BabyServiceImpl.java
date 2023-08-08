@@ -188,12 +188,18 @@ public class BabyServiceImpl implements BabyService {
 		Baby baby = babyRepository.findById(babyId).orElseThrow();
 		UserBaby userBaby = userBabyRepository.findByBaby(baby);
 
-		return BabyDetailResDto.builder()
-			.id(baby.getId())
-			.name(baby.getName())
-			.gender(baby.getGender())
-			.birthDate(baby.getBirthDate())
-			.authority(userBaby.getAuthority())
-			.build();
+		if ("N".equals(baby.getIsDeleted())) {
+			return BabyDetailResDto.builder()
+				.id(baby.getId())
+				.name(baby.getName())
+				.gender(baby.getGender())
+				.birthDate(baby.getBirthDate())
+				.authority(userBaby.getAuthority())
+				.isDeleted(baby.getIsDeleted())
+				.build();
+		} else {
+			// 'isDeleted'가 'N'이 아닌 경우에는 null 또는 에러 처리 등을 수행할 수 있습니다.
+			return null;
+		}
 	}
 }
