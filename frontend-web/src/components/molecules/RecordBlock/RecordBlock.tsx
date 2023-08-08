@@ -4,7 +4,6 @@ import { Text } from '@/components/atoms/Text/Text.styles';
 import theme from '@/styles/theme';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { PATH } from '@/constants/path';
 
 interface RecordBlockProps {
@@ -34,16 +33,14 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
   const navigate = useNavigate();
 
   const OnClickButton = () => {
-    navigate(PATH.DETAILRECORD);
+    navigate(PATH.DETAILRECORD, { state: { recordType: recordType } });
   };
   return (
-    <>
-      <BlockButton option="default" size="xLarge" onClick={OnClickButton}>
-        <RoundedRect color={color} />
-        <TimeText size="medium2">{time}</TimeText>
-        <Text size="medium1">{recordType}</Text>
-      </BlockButton>
-    </>
+    <BlockButton option="default" size="xLarge" onClick={OnClickButton}>
+      <RoundedRect color={color} />
+      <TimeText size="medium2">{time}</TimeText>
+      <Text size="medium1">{recordType}</Text>
+    </BlockButton>
   );
 };
 
