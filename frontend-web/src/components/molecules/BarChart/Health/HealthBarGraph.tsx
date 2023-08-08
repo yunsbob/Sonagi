@@ -7,6 +7,7 @@ import {
   BarContainer,
   Wrapper,
   HealthBar,
+  FeverWrapper,
   DateContainer,
   CategoryContainer,
   CategoryWrapper,
@@ -22,8 +23,8 @@ const HealthBarGraph = () => {
   //   lines = [...lines, <Line key={i} />];
   // }
 
-  const lineLen = 9;
-  const percent100 = (100 - 100 / lineLen) / 100;
+  // const lineLen = 5;
+  // const percent100 = (100 - 100 / lineLen) / 100;
 
   // const times = [0, 3, 9, 12, 15, 18, 21, 24];
 
@@ -70,61 +71,59 @@ const HealthBarGraph = () => {
       </LineContainer>
 
       <BarContainer>
-        <Wrapper $barHeight={percent100 * 70}>
-          <HealthBar height={50} color={theme.color.graphFeeding} />
-          <HealthBar height={50} color={theme.color.graphInfantFormula} />
-          <HealthBar height={50} color={theme.color.graphBreastFeeding} />
-          <HealthBar height={50} color={theme.color.graphBabyFood} />
-          <HealthBar height={50} color={theme.color.graphSnack} />
-          <HealthBar height={50} color={theme.color.graphMilk} />
+        <Wrapper $barHeight={(100 / 4) * 4}>
+          <HealthBar height={100} color={theme.color.graphHospital} />
+          <HealthBar height={100} color={theme.color.graphHospital} />
+          <HealthBar height={100} color={theme.color.graphMedication} />
+          <HealthBar height={100} color={theme.color.graphMedication} />
+          <FeverWrapper>
+            <Text size="xSmall">36.4℃</Text>
+          </FeverWrapper>
         </Wrapper>
-        <Wrapper $barHeight={percent100 * 60}>
-          <HealthBar height={50} color={theme.color.graphFeeding} />
-          <HealthBar height={50} color={theme.color.graphInfantFormula} />
-          <HealthBar height={50} color={theme.color.graphBreastFeeding} />
-          <HealthBar height={50} color={theme.color.graphBabyFood} />
-          <HealthBar height={50} color={theme.color.graphSnack} />
-          <HealthBar height={50} color={theme.color.graphMilk} />
+        <Wrapper $barHeight={(100 / 4) * 3}>
+          <HealthBar height={100} color={theme.color.graphHospital} />
+          <HealthBar height={100} color={theme.color.graphMedication} />
+          <HealthBar height={100} color={theme.color.graphMedication} />
+          <FeverWrapper>
+            <Text size="xSmall">36.4℃</Text>
+          </FeverWrapper>
         </Wrapper>
-        <Wrapper $barHeight={percent100 * 100}>
-          <HealthBar height={50} color={theme.color.graphFeeding} />
-          <HealthBar height={50} color={theme.color.graphInfantFormula} />
-          <HealthBar height={50} color={theme.color.graphBreastFeeding} />
-          <HealthBar height={50} color={theme.color.graphBabyFood} />
-          <HealthBar height={50} color={theme.color.graphSnack} />
-          <HealthBar height={50} color={theme.color.graphMilk} />
+        <Wrapper $barHeight={(100 / 4) * 2}>
+          <HealthBar height={100} color={theme.color.graphHospital} />
+          <HealthBar height={100} color={theme.color.graphMedication} />
+          <FeverWrapper>
+            <Text size="xSmall">36.4℃</Text>
+          </FeverWrapper>
         </Wrapper>
-        <Wrapper $barHeight={percent100 * 50}>
-          <HealthBar height={50} color={theme.color.graphFeeding} />
-          <HealthBar height={50} color={theme.color.graphInfantFormula} />
-          <HealthBar height={50} color={theme.color.graphBreastFeeding} />
-          <HealthBar height={50} color={theme.color.graphBabyFood} />
-          <HealthBar height={50} color={theme.color.graphSnack} />
-          <HealthBar height={50} color={theme.color.graphMilk} />
+        <Wrapper $barHeight={(100 / 4) * 3}>
+          <HealthBar height={100} color={theme.color.graphHospital} />
+          <HealthBar height={100} color={theme.color.graphMedication} />
+          <HealthBar height={100} color={theme.color.graphMedication} />
+          <FeverWrapper>
+            <Text size="xSmall">36.4℃</Text>
+          </FeverWrapper>
         </Wrapper>
-        <Wrapper $barHeight={percent100 * 80}>
-          <HealthBar height={50} color={theme.color.graphFeeding} />
-          <HealthBar height={50} color={theme.color.graphInfantFormula} />
-          <HealthBar height={50} color={theme.color.graphBreastFeeding} />
-          <HealthBar height={50} color={theme.color.graphBabyFood} />
-          <HealthBar height={50} color={theme.color.graphSnack} />
-          <HealthBar height={50} color={theme.color.graphMilk} />
+        <Wrapper $barHeight={(100 / 4) * 1}>
+          <HealthBar height={100} color={theme.color.graphMedication} />
+          <FeverWrapper>
+            <Text size="xSmall">36.4℃</Text>
+          </FeverWrapper>
         </Wrapper>
-        <Wrapper $barHeight={percent100 * 90}>
-          <HealthBar height={50} color={theme.color.graphFeeding} />
-          <HealthBar height={50} color={theme.color.graphInfantFormula} />
-          <HealthBar height={50} color={theme.color.graphBreastFeeding} />
-          <HealthBar height={50} color={theme.color.graphBabyFood} />
-          <HealthBar height={50} color={theme.color.graphSnack} />
-          <HealthBar height={50} color={theme.color.graphMilk} />
+        <Wrapper $barHeight={(100 / 4) * 2}>
+          <HealthBar height={100} color={theme.color.graphHospital} />
+          <HealthBar height={100} color={theme.color.graphHospital} />
+          <FeverWrapper>
+            <Text size="xSmall">36℃</Text>
+          </FeverWrapper>
         </Wrapper>
-        <Wrapper $barHeight={percent100 * 30}>
-          <HealthBar height={50} color={theme.color.graphFeeding} />
-          <HealthBar height={50} color={theme.color.graphInfantFormula} />
-          <HealthBar height={50} color={theme.color.graphBreastFeeding} />
-          <HealthBar height={50} color={theme.color.graphBabyFood} />
-          <HealthBar height={50} color={theme.color.graphSnack} />
-          <HealthBar height={50} color={theme.color.graphMilk} />
+        <Wrapper $barHeight={(100 / 4) * 4}>
+          <HealthBar height={100} color={theme.color.graphHospital} />
+          <HealthBar height={100} color={theme.color.graphMedication} />
+          <HealthBar height={100} color={theme.color.graphMedication} />
+          <HealthBar height={100} color={theme.color.graphMedication} />
+          <FeverWrapper>
+            <Text size="xSmall">36.4℃</Text>
+          </FeverWrapper>
         </Wrapper>
       </BarContainer>
       <DateContainer>
@@ -152,12 +151,19 @@ const HealthBarGraph = () => {
       </DateContainer>
       <CategoryContainer>
         <CategoryWrapper>
-          <CategoryCircle $bgColor={theme.color.graphPoop} />
-          <Text size="xSmall">대변</Text>
+          <CategoryCircle
+            $bgColor={'tranasparent'}
+            $borderColor={theme.color.graphFeverAverage}
+          />
+          <Text size="xSmall">평균 체온</Text>
         </CategoryWrapper>
         <CategoryWrapper>
-          <CategoryCircle $bgColor={theme.color.graphPee} />
-          <Text size="xSmall">소변</Text>
+          <CategoryCircle $bgColor={theme.color.graphHospital} />
+          <Text size="xSmall">병원 진료</Text>
+        </CategoryWrapper>
+        <CategoryWrapper>
+          <CategoryCircle $bgColor={theme.color.graphMedication} />
+          <Text size="xSmall">투약</Text>
         </CategoryWrapper>
       </CategoryContainer>
     </Container>
