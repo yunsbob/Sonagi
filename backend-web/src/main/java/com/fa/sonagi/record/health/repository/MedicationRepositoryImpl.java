@@ -4,9 +4,11 @@ import static com.fa.sonagi.record.health.entity.QMedication.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import com.fa.sonagi.record.health.dto.HealthResDto;
 import com.fa.sonagi.statistics.health.dto.HealthStatisticsQueryDto;
+import com.querydsl.core.group.GroupBy;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -44,9 +46,34 @@ public class MedicationRepositoryImpl implements MedicationRepositoryCustom {
 	@Override
 	public Long findMedicationCnt(Long babyId, LocalDate createdDate) {
 		Long cnt = queryFactory
-			.select(medication.count())
+			.select(medication.count().coalesce(0L))
 			.from(medication)
 			.where(medication.babyId.eq(babyId), medication.createdDate.eq(createdDate))
+			.fetchFirst();
+
+		return cnt;
+	}
+
+	@Override
+	public Map<LocalDate, Long> findMedicationCnt(Long babyId, LocalDate monday, LocalDate sunday) {
+		Map<LocalDate, Long> cnts = queryFactory
+			.select(medication.createdDate, medication.count())
+			.from(medication)
+			.where(medication.babyId.eq(babyId))
+			.groupBy(medication.createdDate)
+			.having(medication.createdDate.goe(monday), medication.createdDate.loe(sunday))
+			.transform(GroupBy.groupBy(medication.createdDate).as(medication.count()));
+
+		return cnts;
+	}
+
+	@Override
+	public Long findMedicationCntByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
+		Long cnt = queryFactory
+			.select(medication.count().coalesce(0L))
+			.from(medication)
+			.where(medication.babyId.eq(babyId),
+				medication.createdDate.goe(monday), medication.createdDate.loe(sunday))
 			.fetchFirst();
 
 		return cnt;
