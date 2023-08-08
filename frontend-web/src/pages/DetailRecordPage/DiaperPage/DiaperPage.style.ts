@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import theme from '@/styles/theme';
 
 const DiaperPageContainer = styled.div`
-  /* height: 100vh; */
+  height: calc(100vh - 3rem);
+  width: calc(100% - 20px);
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   background-color: white;
 `;
@@ -15,7 +16,7 @@ const DiaperPageWrapper = styled.div`
   width: 100vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
   text-align: center;
   font-family: 'Happiness-Sans';
