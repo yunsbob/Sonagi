@@ -18,6 +18,7 @@ import com.fa.sonagi.baby.dto.BabyDetailPutDto;
 import com.fa.sonagi.baby.dto.BabyDetailResDto;
 import com.fa.sonagi.baby.dto.BabyInfoPostDto;
 import com.fa.sonagi.baby.dto.BabyInfoResDto;
+import com.fa.sonagi.baby.dto.CoparentResDto;
 import com.fa.sonagi.baby.service.BabyService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -84,4 +85,11 @@ public class BabyController {
 		return ResponseEntity.ok().build();
 	}
 
+	/**
+	 * 공동 양육자 리스트 조회
+	 */
+	@GetMapping("/coparents/{babyId}")
+	public List<CoparentResDto> getCoparentList(@PathVariable Long babyId) {
+		return babyService.findCoparentListByBabyId(babyId);
+	}
 }

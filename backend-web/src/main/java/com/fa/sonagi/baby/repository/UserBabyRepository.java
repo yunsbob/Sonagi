@@ -12,5 +12,7 @@ import com.fa.sonagi.user.entity.Users;
 public interface UserBabyRepository extends JpaRepository<UserBaby, Long> {
 	List<UserBaby> findByUser(Optional<Users> user);
 
+	List<UserBaby> findByBabyId(Long babyId);
+
 	UserBaby findByBaby(Baby baby);
 }
