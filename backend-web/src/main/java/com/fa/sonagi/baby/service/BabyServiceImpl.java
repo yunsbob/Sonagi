@@ -185,9 +185,10 @@ public class BabyServiceImpl implements BabyService {
 	 * 아기 상세 정보 조회
 	 */
 	@Override
-	public BabyDetailResDto findBabyDetail(Long babyId) {
+	public BabyDetailResDto findBabyDetail(Long babyId, Long userId) {
 		Baby baby = babyRepository.findById(babyId).orElseThrow();
-		UserBaby userBaby = userBabyRepository.findByBaby(baby);
+		Users user = userRepository.findById(userId).orElseThrow();
+		UserBaby userBaby = userBabyRepository.findByBabyAndUser(baby, user);
 
 		if ("N".equals(baby.getIsDeleted())) {
 			return BabyDetailResDto.builder()

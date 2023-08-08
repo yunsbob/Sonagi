@@ -29,7 +29,7 @@ public interface BabyService {
 
 	void updateBabyDetail(BabyDetailPutDto babyDetailPutDto);
 
-	BabyDetailResDto findBabyDetail(Long babyId);
+	BabyDetailResDto findBabyDetail(Long babyId, Long userId);
 
 	List<CoparentResDto> findCoparentListByBabyId(Long babyId);
 }
