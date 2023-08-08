@@ -1,18 +1,16 @@
 import { Text } from '@/components/atoms/Text/Text.styles';
 import {
-  DiaperBarGraphContainer,
-  DiaperBarGraphLineContainer,
-  DiaperBarGraphLine,
-  DiaperBarGraphBarContainer,
-  DiaperBarGraphWrapper,
+  Container,
+  LineContainer,
+  Line,
+  BarContainer,
+  Wrapper,
   DiaperBar,
-  DiaperBarGraphTime,
-  // DiaperBarGraphLineAndText,
-  DiaperBarGraphDateContainer,
-  DiaperBarGraphCategoryContainer,
-  DiaperBarGraphCategoryWrapper,
-  DiaperBarGraphCategoryCircle,
-} from '@/components/molecules/BarGraph/Diaper/DiaperBarGraph.styles';
+  DateContainer,
+  CategoryContainer,
+  CategoryWrapper,
+  CategoryCircle,
+} from '@/components/molecules/BarChart/Diaper/DiaperBarGraph.styles';
 import theme from '@/styles/theme';
 
 const DiaperBarGraph = () => {
@@ -20,21 +18,17 @@ const DiaperBarGraph = () => {
   // let lines: JSX.Element[] = [];
 
   // for (let i = 0; i < 9; i++) {
-  //   lines = [...lines, <DiaperBarGraphLine key={i} />];
+  //   lines = [...lines, <Line key={i} />];
   // }
 
   const lineLen = 9;
   const percent100 = (100 - 100 / lineLen) / 100;
 
-  const times = [0, 3, 9, 12, 15, 18, 21, 24];
+  // const times = [0, 3, 9, 12, 15, 18, 21, 24];
 
   return (
-    <DiaperBarGraphContainer>
-      {/* <DiaperBarGraphTime> */}
-      {/* <Text size="xSmall">0</Text> */}
-      {/* </DiaperBarGraphTime> */}
-
-      <DiaperBarGraphLineContainer>
+    <Container>
+      <LineContainer>
         <div
           style={{
             height: '10px',
@@ -47,7 +41,7 @@ const DiaperBarGraph = () => {
           <Text size="xSmall" width={10}>
             0
           </Text>
-          <DiaperBarGraphLine />
+          <Line />
         </div>
         <div
           style={{
@@ -61,7 +55,7 @@ const DiaperBarGraph = () => {
           <Text size="xSmall" width={10}>
             3
           </Text>
-          <DiaperBarGraphLine />
+          <Line />
         </div>
         <div
           style={{
@@ -75,7 +69,7 @@ const DiaperBarGraph = () => {
           <Text size="xSmall" width={10}>
             6
           </Text>
-          <DiaperBarGraphLine />
+          <Line />
         </div>
         <div
           style={{
@@ -89,7 +83,7 @@ const DiaperBarGraph = () => {
           <Text size="xSmall" width={10}>
             9
           </Text>
-          <DiaperBarGraphLine />
+          <Line />
         </div>
         <div
           style={{
@@ -103,7 +97,7 @@ const DiaperBarGraph = () => {
           <Text size="xSmall" width={10}>
             12
           </Text>
-          <DiaperBarGraphLine />
+          <Line />
         </div>
         <div
           style={{
@@ -117,7 +111,7 @@ const DiaperBarGraph = () => {
           <Text size="xSmall" width={10}>
             15
           </Text>
-          <DiaperBarGraphLine />
+          <Line />
         </div>
         <div
           style={{
@@ -131,7 +125,7 @@ const DiaperBarGraph = () => {
           <Text size="xSmall" width={10}>
             18
           </Text>
-          <DiaperBarGraphLine />
+          <Line />
         </div>
         <div
           style={{
@@ -145,7 +139,7 @@ const DiaperBarGraph = () => {
           <Text size="xSmall" width={10}>
             21
           </Text>
-          <DiaperBarGraphLine />
+          <Line />
         </div>
         <div
           style={{
@@ -159,7 +153,7 @@ const DiaperBarGraph = () => {
           <Text size="xSmall" width={10}>
             24
           </Text>
-          <DiaperBarGraphLine />
+          <Line />
         </div>
         <div
           style={{
@@ -170,102 +164,102 @@ const DiaperBarGraph = () => {
           }}
         >
           <Text size="xSmall"></Text>
-          <DiaperBarGraphLine />
+          <Line />
         </div>
-      </DiaperBarGraphLineContainer>
+      </LineContainer>
 
-      <DiaperBarGraphBarContainer>
-        <DiaperBarGraphWrapper $barHeight={percent100 * 70}>
+      <BarContainer>
+        <Wrapper $barHeight={percent100 * 70}>
           <DiaperBar height={50} color={theme.color.graphFeeding} />
           <DiaperBar height={50} color={theme.color.graphInfantFormula} />
           <DiaperBar height={50} color={theme.color.graphBreastFeeding} />
           <DiaperBar height={50} color={theme.color.graphBabyFood} />
           <DiaperBar height={50} color={theme.color.graphSnack} />
           <DiaperBar height={50} color={theme.color.graphMilk} />
-        </DiaperBarGraphWrapper>
-        <DiaperBarGraphWrapper $barHeight={percent100 * 60}>
+        </Wrapper>
+        <Wrapper $barHeight={percent100 * 60}>
           <DiaperBar height={50} color={theme.color.graphFeeding} />
           <DiaperBar height={50} color={theme.color.graphInfantFormula} />
           <DiaperBar height={50} color={theme.color.graphBreastFeeding} />
           <DiaperBar height={50} color={theme.color.graphBabyFood} />
           <DiaperBar height={50} color={theme.color.graphSnack} />
           <DiaperBar height={50} color={theme.color.graphMilk} />
-        </DiaperBarGraphWrapper>
-        <DiaperBarGraphWrapper $barHeight={percent100 * 100}>
+        </Wrapper>
+        <Wrapper $barHeight={percent100 * 100}>
           <DiaperBar height={50} color={theme.color.graphFeeding} />
           <DiaperBar height={50} color={theme.color.graphInfantFormula} />
           <DiaperBar height={50} color={theme.color.graphBreastFeeding} />
           <DiaperBar height={50} color={theme.color.graphBabyFood} />
           <DiaperBar height={50} color={theme.color.graphSnack} />
           <DiaperBar height={50} color={theme.color.graphMilk} />
-        </DiaperBarGraphWrapper>
-        <DiaperBarGraphWrapper $barHeight={percent100 * 50}>
+        </Wrapper>
+        <Wrapper $barHeight={percent100 * 50}>
           <DiaperBar height={50} color={theme.color.graphFeeding} />
           <DiaperBar height={50} color={theme.color.graphInfantFormula} />
           <DiaperBar height={50} color={theme.color.graphBreastFeeding} />
           <DiaperBar height={50} color={theme.color.graphBabyFood} />
           <DiaperBar height={50} color={theme.color.graphSnack} />
           <DiaperBar height={50} color={theme.color.graphMilk} />
-        </DiaperBarGraphWrapper>
-        <DiaperBarGraphWrapper $barHeight={percent100 * 80}>
+        </Wrapper>
+        <Wrapper $barHeight={percent100 * 80}>
           <DiaperBar height={50} color={theme.color.graphFeeding} />
           <DiaperBar height={50} color={theme.color.graphInfantFormula} />
           <DiaperBar height={50} color={theme.color.graphBreastFeeding} />
           <DiaperBar height={50} color={theme.color.graphBabyFood} />
           <DiaperBar height={50} color={theme.color.graphSnack} />
           <DiaperBar height={50} color={theme.color.graphMilk} />
-        </DiaperBarGraphWrapper>
-        <DiaperBarGraphWrapper $barHeight={percent100 * 90}>
+        </Wrapper>
+        <Wrapper $barHeight={percent100 * 90}>
           <DiaperBar height={50} color={theme.color.graphFeeding} />
           <DiaperBar height={50} color={theme.color.graphInfantFormula} />
           <DiaperBar height={50} color={theme.color.graphBreastFeeding} />
           <DiaperBar height={50} color={theme.color.graphBabyFood} />
           <DiaperBar height={50} color={theme.color.graphSnack} />
           <DiaperBar height={50} color={theme.color.graphMilk} />
-        </DiaperBarGraphWrapper>
-        <DiaperBarGraphWrapper $barHeight={percent100 * 30}>
+        </Wrapper>
+        <Wrapper $barHeight={percent100 * 30}>
           <DiaperBar height={50} color={theme.color.graphFeeding} />
           <DiaperBar height={50} color={theme.color.graphInfantFormula} />
           <DiaperBar height={50} color={theme.color.graphBreastFeeding} />
           <DiaperBar height={50} color={theme.color.graphBabyFood} />
           <DiaperBar height={50} color={theme.color.graphSnack} />
           <DiaperBar height={50} color={theme.color.graphMilk} />
-        </DiaperBarGraphWrapper>
-      </DiaperBarGraphBarContainer>
-      <DiaperBarGraphDateContainer>
-        <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
-          12/26
+        </Wrapper>
+      </BarContainer>
+      <DateContainer>
+        <Text width={35} size="xSmall">
+          12/3
         </Text>
-        <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
-          12/27
+        <Text width={35} size="xSmall">
+          12/5
         </Text>
-        <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
-          12/28
+        <Text width={35} size="xSmall">
+          12/10
         </Text>
-        <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
-          12/29
+        <Text width={35} size="xSmall">
+          3/9
         </Text>
-        <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
+        <Text width={35} size="xSmall">
           12/30
         </Text>
-        <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
+        <Text width={35} size="xSmall">
           12/31
         </Text>
-        <Text style={{ width: '35px', textAlign: 'center' }} size="xSmall">
+        <Text width={35} size="xSmall">
           1/1
         </Text>
-      </DiaperBarGraphDateContainer>
-      <DiaperBarGraphCategoryContainer>
-        <DiaperBarGraphCategoryWrapper>
-          <DiaperBarGraphCategoryCircle $bgColor={theme.color.graphPoop} />
+      </DateContainer>
+      <CategoryContainer>
+        <CategoryWrapper>
+          <CategoryCircle $bgColor={theme.color.graphPoop} />
           <Text size="xSmall">대변</Text>
-        </DiaperBarGraphCategoryWrapper>
-        <DiaperBarGraphCategoryWrapper>
-          <DiaperBarGraphCategoryCircle $bgColor={theme.color.graphPee} />
+        </CategoryWrapper>
+        <CategoryWrapper>
+          <CategoryCircle $bgColor={theme.color.graphPee} />
           <Text size="xSmall">소변</Text>
-        </DiaperBarGraphCategoryWrapper>
-      </DiaperBarGraphCategoryContainer>
-    </DiaperBarGraphContainer>
+        </CategoryWrapper>
+      </CategoryContainer>
+    </Container>
   );
 };
 

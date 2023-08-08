@@ -4,14 +4,14 @@ interface DiaperBarGraphStyleProps {
   $barHeight: number;
 }
 
-const DiaperBarGraphContainer = styled.div`
+const Container = styled.div`
   width: 90vw;
   height: 50vh;
   margin: 30px auto 60px;
   position: relative;
 `;
 
-const DiaperBarGraphLineContainer = styled.div`
+const LineContainer = styled.div`
   display: flex;
   height: inherit;
   flex-direction: column;
@@ -19,14 +19,14 @@ const DiaperBarGraphLineContainer = styled.div`
   width: 100%;
 `;
 
-const DiaperBarGraphTime = styled.div`
+const Time = styled.div`
   width: max-content;
   display: flex;
   flex-direction: column;
   height: 100%;
 `;
 
-const DiaperBarGraphLine = styled.div`
+const Line = styled.div`
   border: 1px solid ${({ theme }) => theme.color.gray4};
   /* color: ${({ theme }) => theme.color.gray4}; */
   width: calc(100% - 20px);
@@ -34,7 +34,7 @@ const DiaperBarGraphLine = styled.div`
   height: 0.1px;
 `;
 
-const DiaperBarGraphBarContainer = styled.div`
+const BarContainer = styled.div`
   width: inherit;
   padding: 0px 20px 0px 40px;
   height: calc(100% - 7.5px);
@@ -45,7 +45,7 @@ const DiaperBarGraphBarContainer = styled.div`
   bottom: calc(100% / 9 + 3px);
 `;
 
-const DiaperBarGraphWrapper = styled.div<DiaperBarGraphStyleProps>`
+const Wrapper = styled.div<DiaperBarGraphStyleProps>`
   width: 33px;
   height: ${props => `${props.$barHeight}%`};
   display: flex;
@@ -58,7 +58,7 @@ const DiaperBar = styled.div<{ height: number; color: string }>`
   border-radius: 4px;
 `;
 
-const DiaperBarGraphDateContainer = styled.div`
+const DateContainer = styled.div`
   width: 100%;
   padding: 0px 20px 0px 40px;
   height: calc(100% / 9 + 5px);
@@ -67,9 +67,10 @@ const DiaperBarGraphDateContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-align: center;
 `;
 
-const DiaperBarGraphCategoryContainer = styled.div`
+const CategoryContainer = styled.div`
   display: flex;
   float: right;
   width: calc(66px + ((100% - (33px * 7)) / 6));
@@ -77,7 +78,7 @@ const DiaperBarGraphCategoryContainer = styled.div`
   margin-right: 20px;
 `;
 
-const DiaperBarGraphCategoryWrapper = styled.div`
+const CategoryWrapper = styled.div`
   display: flex;
   width: fit-content;
   margin-top: 10px;
@@ -87,7 +88,7 @@ const DiaperBarGraphCategoryWrapper = styled.div`
   }
 `;
 
-const DiaperBarGraphCategoryCircle = styled.div<{ $bgColor: string }>`
+const CategoryCircle = styled.div<{ $bgColor: string }>`
   width: 14px;
   height: 14px;
   border-radius: 50%;
@@ -95,15 +96,15 @@ const DiaperBarGraphCategoryCircle = styled.div<{ $bgColor: string }>`
 `;
 
 export {
-  DiaperBarGraphContainer,
-  DiaperBarGraphLineContainer,
-  DiaperBarGraphTime,
-  DiaperBarGraphLine,
-  DiaperBarGraphBarContainer,
-  DiaperBarGraphWrapper,
+  Container,
+  LineContainer,
+  Time,
+  Line,
+  BarContainer,
+  Wrapper,
   DiaperBar,
-  DiaperBarGraphDateContainer,
-  DiaperBarGraphCategoryContainer,
-  DiaperBarGraphCategoryWrapper,
-  DiaperBarGraphCategoryCircle,
+  DateContainer,
+  CategoryContainer,
+  CategoryWrapper,
+  CategoryCircle,
 };

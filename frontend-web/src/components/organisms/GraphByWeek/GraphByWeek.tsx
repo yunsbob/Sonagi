@@ -1,11 +1,12 @@
-import { DiaperBarGraph } from '@/components/molecules/BarGraph/Diaper/DiaperBarGraph';
-import { MealBarGraph } from '@/components/molecules/BarGraph/Meal/MealBarGraph';
-import { PumpingBreastBarGraph } from '@/components/molecules/BarGraph/PumpingBreast/PumpingBreastBarGraph';
+import { DiaperBarGraph } from '@/components/molecules/BarChart/Diaper/DiaperBarGraph';
+import { MealBarGraph } from '@/components/molecules/BarChart/Meal/MealBarGraph';
+import { PumpingBreastBarGraph } from '@/components/molecules/BarChart/PumpingBreast/PumpingBreastBarGraph';
 import { Card } from '@/components/organisms/Card/Card';
 import { GraphByWeekContainer } from '@/components/organisms/GraphByWeek/GraphByWeek.style';
 import { selectedCategoryState } from '@/states/CategoryState';
 import { useRecoilValue } from 'recoil';
 import { PATH } from '@/constants/path';
+import { HealthBarGraph } from '@/components/molecules/BarChart/Health/HealthBarGraph';
 
 const GraphByWeek = () => {
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.GRAPH));
@@ -17,6 +18,7 @@ const GraphByWeek = () => {
       {currentCategory === 'Meal' && <MealBarGraph />}
       {currentCategory === 'Diaper' && <DiaperBarGraph />}
       {currentCategory === 'Pump' && <PumpingBreastBarGraph />}
+      {currentCategory === 'Health' && <HealthBarGraph />}
       <Card />
     </GraphByWeekContainer>
   );
