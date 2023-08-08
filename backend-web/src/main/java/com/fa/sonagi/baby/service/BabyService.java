@@ -8,6 +8,7 @@ import com.fa.sonagi.baby.dto.BabyDetailPutDto;
 import com.fa.sonagi.baby.dto.BabyDetailResDto;
 import com.fa.sonagi.baby.dto.BabyInfoPostDto;
 import com.fa.sonagi.baby.dto.BabyInfoResDto;
+import com.fa.sonagi.baby.dto.CoparentResDto;
 import com.fa.sonagi.baby.entity.Baby;
 import com.fa.sonagi.user.entity.Users;
 
@@ -29,4 +30,6 @@ public interface BabyService {
 	void updateBabyDetail(BabyDetailPutDto babyDetailPutDto);
 
 	BabyDetailResDto findBabyDetail(Long babyId);
+
+	List<CoparentResDto> findCoparentListByBabyId(Long babyId);
 }

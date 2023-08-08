@@ -14,6 +14,7 @@ import com.fa.sonagi.baby.dto.BabyDetailPutDto;
 import com.fa.sonagi.baby.dto.BabyDetailResDto;
 import com.fa.sonagi.baby.dto.BabyInfoPostDto;
 import com.fa.sonagi.baby.dto.BabyInfoResDto;
+import com.fa.sonagi.baby.dto.CoparentResDto;
 import com.fa.sonagi.baby.entity.Baby;
 import com.fa.sonagi.baby.entity.UserBaby;
 import com.fa.sonagi.baby.repository.BabyRepository;
@@ -188,12 +189,33 @@ public class BabyServiceImpl implements BabyService {
 		Baby baby = babyRepository.findById(babyId).orElseThrow();
 		UserBaby userBaby = userBabyRepository.findByBaby(baby);
 
-		return BabyDetailResDto.builder()
-			.id(baby.getId())
-			.name(baby.getName())
-			.gender(baby.getGender())
-			.birthDate(baby.getBirthDate())
-			.authority(userBaby.getAuthority())
-			.build();
+		if ("N".equals(baby.getIsDeleted())) {
+			return BabyDetailResDto.builder()
+				.id(baby.getId())
+				.name(baby.getName())
+				.gender(baby.getGender())
+				.birthDate(baby.getBirthDate())
+				.authority(userBaby.getAuthority())
+				.isDeleted(baby.getIsDeleted())
+				.build();
+		} else {
+			// 'isDeleted'가 'N'이 아닌 경우에는 null 또는 에러 처리 등을 수행할 수 있습니다.
+			return null;
+		}
+	}
+
+	/**
+	 * 공동양육자 리스트 조회
+	 */
+	@Override
+	public List<CoparentResDto> findCoparentListByBabyId(Long babyId) {
+		List<UserBaby> users = userBabyRepository.findByBabyId(babyId);
+		return users.stream()
+			.map(u -> CoparentResDto.builder()
+				.userId(u.getUser().getUserId())
+				.name(u.getUser().getName())
+				.authority(u.getAuthority())
+				.build())
+			.collect(Collectors.toList());
 	}
 }

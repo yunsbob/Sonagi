@@ -1,7 +1,5 @@
 package com.fa.sonagi.baby.dto;
 
-import java.time.LocalDate;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,11 +11,8 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BabyDetailResDto {
-	private Long id;
+public class CoparentResDto {
+	private Long userId;
 	private String name;
-	private LocalDate birthDate;
-	private String gender;
 	private String authority;
-	private String isDeleted;
 }
