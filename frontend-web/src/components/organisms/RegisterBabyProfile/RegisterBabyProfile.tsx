@@ -58,14 +58,6 @@ const RegisterBabyProfile = () => {
 
   const toMain = () => {
     if (option === 'activated') {
-      const baby: Baby = {
-        birthDate: moment(pickDate).format('YYYY-MM-DD'),
-        gender,
-        name: value,
-        userId: userInfo.id, // userInfo는 recoil에!
-      };
-      console.log(baby, 'here');
-
       addBabyMutation.mutate({
         birthDate: moment(pickDate).format('YYYY-MM-DD'),
         gender,
@@ -73,10 +65,10 @@ const RegisterBabyProfile = () => {
         userId: userInfo.id, // userInfo는 recoil에!
       });
 
-      // TODO: 이제 이걸 add(post) 해보자 !
       // RecoilState에 아이 데이터 저장하는 것은 get으로
-      // console.log(baby);
       navigate(PATH.MAIN);
+      // TODO: get 요청 보내기
+      // TODO: recoilState에 아이 데이터 연결해주기
     }
   };
 

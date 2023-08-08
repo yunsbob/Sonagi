@@ -9,4 +9,16 @@ const addBaby = async (baby: Baby) => {
   }
 };
 
-export { addBaby };
+const getBaby = async (userId: number) => {
+  try {
+    // 요청 후 결과 받아보고 싶을 때
+    // const response = await instance.get(`/babyInfos/${userId}`);
+    // console.log(response.data);
+    //return response.data;
+    await instance.get(`/babyInfos/${userId}`);
+  } catch (error) {
+    new Error('baby info get error');
+  }
+};
+
+export { addBaby, getBaby };
