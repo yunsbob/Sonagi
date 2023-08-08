@@ -4,14 +4,14 @@ interface MealBarGraphStyleProps {
   $barHeight: number;
 }
 
-const MealBarGraphContainer = styled.div`
+const Container = styled.div`
   width: 90vw;
   height: 50vh;
   margin: 30px auto 60px;
   position: relative;
 `;
 
-const MealBarGraphLineContainer = styled.div`
+const LineContainer = styled.div`
   display: flex;
   height: inherit;
   flex-direction: column;
@@ -19,11 +19,11 @@ const MealBarGraphLineContainer = styled.div`
   position: relative;
 `;
 
-const MealBarGraphLine = styled.div`
+const Line = styled.div`
   border: 1px solid ${({ theme }) => theme.color.gray4};
 `;
 
-const MealBarGraphBarContainer = styled.div`
+const BarContainer = styled.div`
   width: inherit;
   padding: 0px 15px;
   height: inherit;
@@ -34,20 +34,20 @@ const MealBarGraphBarContainer = styled.div`
   bottom: calc(100% / 10);
 `;
 
-const MealBarGraphWrapper = styled.div<MealBarGraphStyleProps>`
+const Wrapper = styled.div<MealBarGraphStyleProps>`
   width: 35px;
   height: ${props => `${props.$barHeight}%`};
   display: flex;
   flex-direction: column-reverse;
 `;
 
-const MealBar = styled.div<{ height: number; color: string }>`
+const Bar = styled.div<{ height: number; color: string }>`
   height: ${props => `${props.height}%`};
   background-color: ${props => props.color};
   border-radius: 4px;
 `;
 
-const MealBarGraphDateContainer = styled.div`
+const DateContainer = styled.div`
   width: 100%;
   height: 10%;
   padding: 0px 15px;
@@ -56,16 +56,17 @@ const MealBarGraphDateContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-align: center;
 `;
 
-const MealBarGraphCategoryContainer = styled.div`
+const CategoryContainer = styled.div`
   display: flex;
   width: inherit;
   padding: 0px 15px;
   justify-content: space-between;
 `;
 
-const MealBarGraphCategoryWrapper = styled.div`
+const CategoryWrapper = styled.div`
   display: flex;
   width: fit-content;
   margin-top: 10px;
@@ -75,7 +76,7 @@ const MealBarGraphCategoryWrapper = styled.div`
   }
 `;
 
-const MealBarGraphCategoryCircle = styled.div<{ $bgColor: string }>`
+const CategoryCircle = styled.div<{ $bgColor: string }>`
   width: 14px;
   height: 14px;
   border-radius: 50%;
@@ -83,14 +84,14 @@ const MealBarGraphCategoryCircle = styled.div<{ $bgColor: string }>`
 `;
 
 export {
-  MealBarGraphContainer,
-  MealBarGraphLineContainer,
-  MealBarGraphLine,
-  MealBarGraphBarContainer,
-  MealBarGraphWrapper,
-  MealBar,
-  MealBarGraphDateContainer,
-  MealBarGraphCategoryContainer,
-  MealBarGraphCategoryWrapper,
-  MealBarGraphCategoryCircle,
+  Container,
+  LineContainer,
+  Line,
+  BarContainer,
+  Wrapper,
+  Bar,
+  DateContainer,
+  CategoryContainer,
+  CategoryWrapper,
+  CategoryCircle,
 };
