@@ -19,10 +19,6 @@ public class DiaryPostDto {
 	@NotNull
 	private Long babyId;
 
-	private List<MultipartFile> imgFiles;
-
 	private String content;
 
-	@NotNull
-	private LocalDate createdDate;
 }
