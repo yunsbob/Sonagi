@@ -14,5 +14,5 @@ public interface UserBabyRepository extends JpaRepository<UserBaby, Long> {
 
 	List<UserBaby> findByBabyId(Long babyId);
 
-	UserBaby findByBaby(Baby baby);
+	UserBaby findByBabyAndUser(Baby baby, Users user);
 }
