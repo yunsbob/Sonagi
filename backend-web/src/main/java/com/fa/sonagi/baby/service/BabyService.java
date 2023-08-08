@@ -31,5 +31,5 @@ public interface BabyService {
 
 	BabyDetailResDto findBabyDetail(Long babyId, Long userId);
 
-	List<CoparentResDto> findCoparentListByBabyId(Long babyId);
+	List<CoparentResDto> findCoparentListByBabyId(Long babyId, Long userId);
 }
