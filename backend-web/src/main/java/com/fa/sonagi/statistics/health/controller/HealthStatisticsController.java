@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fa.sonagi.statistics.health.dto.HealthStatisticsResDto;
+import com.fa.sonagi.statistics.health.dto.HealthStatisticsWeekResDto;
 import com.fa.sonagi.statistics.health.service.HealthStatisticsService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,12 +29,13 @@ public class HealthStatisticsController {
 	public ResponseEntity<?> getHealthStatistics(@RequestParam Long babyId,
 		@RequestParam String period, @RequestParam LocalDate createdDate) {
 		if (period.equals("day")) {
-			HealthStatisticsResDto healthStatisticsResDto = healthStatisticsService.getHealthStatisticsDay(babyId, createdDate);
-			return ResponseEntity.ok().body(healthStatisticsResDto);
+			HealthStatisticsResDto healthStatisticsDay = healthStatisticsService.getHealthStatisticsDay(babyId, createdDate);
+			return ResponseEntity.ok().body(healthStatisticsDay);
 		}
 		else {
-			HealthStatisticsResDto healthStatisticsResDto = healthStatisticsService.getHealthStatisticsDay(babyId, createdDate);
-			return ResponseEntity.ok().body(healthStatisticsResDto);
+			HealthStatisticsWeekResDto healthStatisticsWeek = healthStatisticsService.getHealthStatisticsWeek(babyId,
+				createdDate);
+			return ResponseEntity.ok().body(healthStatisticsWeek);
 		}
 	}
 }

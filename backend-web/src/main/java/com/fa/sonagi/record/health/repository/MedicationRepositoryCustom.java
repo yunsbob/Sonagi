@@ -2,6 +2,7 @@ package com.fa.sonagi.record.health.repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import com.fa.sonagi.record.health.dto.HealthResDto;
 import com.fa.sonagi.statistics.health.dto.HealthStatisticsQueryDto;
@@ -13,4 +14,8 @@ public interface MedicationRepositoryCustom {
 	List<HealthStatisticsQueryDto> findMedicationByDay(Long babyId, LocalDate createdDate);
 
 	Long findMedicationCnt(Long babyId, LocalDate createdDate);
+
+	Map<LocalDate, Long> findMedicationCnt(Long babyId, LocalDate monday, LocalDate sunday);
+
+	Long findMedicationCntByWeek(Long babyId, LocalDate monday, LocalDate sunday);
 }
