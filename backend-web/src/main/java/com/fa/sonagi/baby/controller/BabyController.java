@@ -88,8 +88,8 @@ public class BabyController {
 	/**
 	 * 공동 양육자 리스트 조회
 	 */
-	@GetMapping("/coparents/{babyId}")
-	public List<CoparentResDto> getCoparentList(@PathVariable Long babyId) {
-		return babyService.findCoparentListByBabyId(babyId);
+	@GetMapping("/coparents/{userId}/{babyId}")
+	public List<CoparentResDto> getCoparentList(@PathVariable Long babyId, @PathVariable Long userId) {
+		return babyService.findCoparentListByBabyId(babyId, userId);
 	}
 }
