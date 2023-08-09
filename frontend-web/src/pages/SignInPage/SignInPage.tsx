@@ -5,14 +5,15 @@ import family from '@/assets/images/img-family.png';
 import { Image } from '@/components/atoms/Image/Image';
 import * as S from '@/pages/SignInPage/SignInPage.style';
 import RegisterField from '@/components/molecules/RegisterField/RegisterField';
-import { useRecoilState } from 'recoil';
-import { userInfoState } from '@/states/UserState';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { userFcmTokenState, userInfoState } from '@/states/UserState';
 import { produce } from 'immer';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import { useUpdateUser } from '@/apis/User/Mutations/useUpdateUser';
 
 const SignInPage = () => {
+  const userFcmToken = useRecoilValue(userFcmTokenState);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const updateUserMutation = useUpdateUser();
@@ -45,6 +46,7 @@ const SignInPage = () => {
             <br />
             양육자의 이름을 입력해주세요
           </Text>
+          <p>{userFcmToken}</p>
           <RegisterField
             onClickButtonAction={onClickButtonAction}
             option="default"
