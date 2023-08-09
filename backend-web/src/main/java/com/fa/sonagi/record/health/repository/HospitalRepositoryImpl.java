@@ -5,6 +5,7 @@ import static com.fa.sonagi.record.health.entity.QHospital.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fa.sonagi.record.health.dto.HealthResDto;
 import com.fa.sonagi.statistics.health.dto.HealthStatisticsQueryDto;
@@ -57,12 +58,18 @@ public class HospitalRepositoryImpl implements HospitalRepositoryCustom {
 	@Override
 	public Map<LocalDate, Long> findHospitalCnt(Long babyId, LocalDate monday, LocalDate sunday) {
 		Map<LocalDate, Long> cnts = queryFactory
-			.select(hospital.createdDate, hospital.count())
+			.select(hospital.createdDate,
+				hospital.count())
 			.from(hospital)
 			.where(hospital.babyId.eq(babyId),
 				hospital.createdDate.goe(monday), hospital.createdDate.loe(sunday))
 			.groupBy(hospital.createdDate)
-			.transform(GroupBy.groupBy(hospital.createdDate).as(hospital.count()));
+			.fetch()
+			.stream()
+			.collect(Collectors.toMap(
+				tuple -> tuple.get(hospital.createdDate),
+				tuple -> tuple.get(hospital.count())
+			));
 
 		return cnts;
 	}
