@@ -29,6 +29,7 @@ public class HealthStatisticsServiceImpl implements HealthStatisticsService{
 	private final HospitalRepository hospitalRepository;
 	private final MedicationRepository medicationRepository;
 	private final FeverRepository feverRepository;
+	private final int WEEK = 7;
 
 	/**
 	 * 일별 통계 계산
@@ -94,7 +95,7 @@ public class HealthStatisticsServiceImpl implements HealthStatisticsService{
 
 		// 날짜별 데이터 세팅
 		LocalDate writeDay = monday;
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < WEEK; i++) {
 			HealthStatisticsDayForWeekDto healthDay = new HealthStatisticsDayForWeekDto();
 
 			if (hospitals.containsKey(writeDay))
@@ -117,9 +118,9 @@ public class HealthStatisticsServiceImpl implements HealthStatisticsService{
 		}
 
 		// 카테고리별 일주일 통계 조회
-		Long hospitalCnt = hospitalRepository.findHospitalCntByWeek(babyId, monday, sunday);
+		Long hospitalCnt = getStatisticsWeek(monday, hospitals);
 		healthWeek.setHospitalCnt(hospitalCnt);
-		Long medicationCnt = medicationRepository.findMedicationCntByWeek(babyId, monday, sunday);
+		Long medicationCnt = getStatisticsWeek(monday, medications);
 		healthWeek.setMedicationCnt(medicationCnt);
 		Double feverAvg = feverRepository.findFeverAvgByWeek(babyId, monday, sunday);
 		healthWeek.setFeverAvg(feverAvg);
@@ -175,5 +176,18 @@ public class HealthStatisticsServiceImpl implements HealthStatisticsService{
 		else {
 			return (long)(target * 100 / opponent);
 		}
+	}
+
+	/**
+	 * Long 타입의 일주일 통계 계산하기
+	 */
+	public Long getStatisticsWeek(LocalDate day, Map<LocalDate, Long> data) {
+		Long cnt = 0L;
+		for (int i = 0; i < WEEK; i++) {
+			cnt += data.getOrDefault(day, 0L);
+			day = day.plusDays(1);
+		}
+
+		return cnt;
 	}
 }
