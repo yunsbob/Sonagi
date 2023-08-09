@@ -169,6 +169,7 @@ public class BabyServiceImpl implements BabyService {
 			.map(u -> BabyInfoResDto.builder()
 				.babyId(u.getBaby().getId())
 				.name(u.getBaby().getName())
+				.gender(u.getBaby().getGender())
 				.build())
 			.collect(Collectors.toList());
 	}
