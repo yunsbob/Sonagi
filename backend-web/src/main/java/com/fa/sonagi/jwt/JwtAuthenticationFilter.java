@@ -1,6 +1,7 @@
 package com.fa.sonagi.jwt;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
@@ -28,13 +29,25 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// 1. Request Header 에서 JWT 토큰 추출
 		String token = resolveToken((HttpServletRequest)request);
+		if(token == null){
+			chain.doFilter(request,response);
+			return;
+		}
 		// 2. validateToken 으로 토큰 유효성 검사
-		if (token != null && jwtTokenProvider.validateToken(token)) {
+		String validateResult = jwtTokenProvider.validateToken(token);
+		if (Objects.equals(validateResult, "vaild")) {
 			// 토큰이 유효할 경우 토큰에서 Authentication 객체를 가지고 와서 SecurityContext 에 저장
 			Authentication authentication = jwtTokenProvider.getAuthentication(token);
 			SecurityContextHolder
 				.getContext()
 				.setAuthentication(authentication);
+		}else if(Objects.equals(validateResult, "isExpired")){
+			//
+
+			// cookie의 refresh Token을 확인
+
+			// 재발급 로직 추가.
+
 		}
 		chain.doFilter(request, response);
 	}

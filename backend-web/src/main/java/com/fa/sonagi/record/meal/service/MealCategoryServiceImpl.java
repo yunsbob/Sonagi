@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MealCategoryServiceImpl implements MealCategoryService{
+public class MealCategoryServiceImpl implements MealCategoryService {
 
 	private final BabyFoodRepository babyFoodRepository;
 	private final BreastFeedingRepository breastFeedingRepository;
@@ -44,7 +44,8 @@ public class MealCategoryServiceImpl implements MealCategoryService{
 	public List<MealResDto> findAllBabyFood(Long babyId, LocalDate createdDate) {
 		List<BabyFood> findBabyFoods = babyFoodRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
 
-		List<MealResDto> babyfoods = findBabyFoods.stream()
+		List<MealResDto> babyfoods = findBabyFoods
+			.stream()
 			.map(bf -> new MealResDto(bf.getId(), bf.getAmount(), bf.getMemo(), bf.getCreatedTime()))
 			.collect(Collectors.toList());
 
@@ -58,13 +59,13 @@ public class MealCategoryServiceImpl implements MealCategoryService{
 	public List<MealResDto> findAllBreastFeeding(Long babyId, LocalDate createdDate) {
 		List<BreastFeeding> findBreastFeedings = breastFeedingRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
 
-		List<MealResDto> breastFeedings = findBreastFeedings.stream()
+		List<MealResDto> breastFeedings = findBreastFeedings
+			.stream()
 			.map(bf -> new MealResDto(bf.getId(), bf.getAmount(), bf.getMemo(), bf.getCreatedTime()))
 			.collect(Collectors.toList());
 
 		return breastFeedings;
 	}
-
 
 	/**
 	 * babyId와 createdDate로 모든 수유 데이터 찾기
@@ -73,13 +74,13 @@ public class MealCategoryServiceImpl implements MealCategoryService{
 	public List<FeedingResDto> findAllFeeding(Long babyId, LocalDate createdDate) {
 		List<Feeding> findFeedings = feedingRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
 
-		List<FeedingResDto> feedings =findFeedings.stream()
+		List<FeedingResDto> feedings = findFeedings
+			.stream()
 			.map(f -> new FeedingResDto(f.getId(), f.getLeftStartTime(), f.getRightStartTime(),
 				f.getLeftEndTime(), f.getRightEndTime(), f.getMemo()))
 			.collect(Collectors.toList());
 		return feedings;
 	}
-
 
 	/**
 	 * babyId와 createdDate로 모든 분유 데이터 찾기
@@ -88,13 +89,13 @@ public class MealCategoryServiceImpl implements MealCategoryService{
 	public List<MealResDto> findAllInfantFormula(Long babyId, LocalDate createdDate) {
 		List<InfantFormula> findInfantFormulas = infantFormulaRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
 
-		List<MealResDto> infantFormulas = findInfantFormulas.stream()
+		List<MealResDto> infantFormulas = findInfantFormulas
+			.stream()
 			.map(inf -> new MealResDto(inf.getId(), inf.getAmount(), inf.getMemo(), inf.getCreatedTime()))
 			.collect(Collectors.toList());
 
 		return infantFormulas;
 	}
-
 
 	/**
 	 * babyId와 createdDate로 모든 우유 데이터 찾기
@@ -103,13 +104,13 @@ public class MealCategoryServiceImpl implements MealCategoryService{
 	public List<MealResDto> findAllMilk(Long babyId, LocalDate createdDate) {
 		List<Milk> findMilks = milkRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
 
-		List<MealResDto> milks = findMilks.stream()
+		List<MealResDto> milks = findMilks
+			.stream()
 			.map(m -> new MealResDto(m.getId(), m.getAmount(), m.getMemo(), m.getCreatedTime()))
 			.collect(Collectors.toList());
 
 		return milks;
 	}
-
 
 	/**
 	 * babyId와 createdDate로 모든 간식 데이터 찾기
@@ -118,7 +119,8 @@ public class MealCategoryServiceImpl implements MealCategoryService{
 	public List<SnackResDto> findAllSnack(Long babyId, LocalDate createdDate) {
 		List<Snack> findSnacks = snackRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
 
-		List<SnackResDto> snacks = findSnacks.stream()
+		List<SnackResDto> snacks = findSnacks
+			.stream()
 			.map(s -> new SnackResDto(s.getId(), s.getMemo(), s.getCreatedTime()))
 			.collect(Collectors.toList());
 

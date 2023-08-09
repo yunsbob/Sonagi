@@ -1,6 +1,6 @@
 package com.fa.sonagi.record.meal.dto;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +11,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class FeedingResDto {
 	private Long id;
-	private Time leftStartTime;
-	private Time rightStartTime;
-	private Time leftEndTime;
-	private Time rightEndTime;
+	private LocalTime leftStartTime;
+	private LocalTime rightStartTime;
+	private LocalTime leftEndTime;
+	private LocalTime rightEndTime;
 	private String memo;
 }
