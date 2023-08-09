@@ -7,9 +7,9 @@ import com.fa.sonagi.record.meal.dto.MealResDto;
 public interface InfantFormulaService {
 	MealResDto findInfantFormulaById(Long id);
 
-  void registInfantFormula(MealPostDto mealPostDto);
+	void registInfantFormula(MealPostDto mealPostDto);
 
-  void updateInfantFormula(MealPutDto mealPutDto);
+	void updateInfantFormula(MealPutDto mealPutDto);
 
-  void deleteInfantFormulaById(Long id);
+	void deleteInfantFormulaById(Long id);
 }

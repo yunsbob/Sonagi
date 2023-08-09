@@ -5,11 +5,11 @@ import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.dto.MealResDto;
 
 public interface BabyFoodService {
-  MealResDto findBabyFoodById(Long id);
+	MealResDto findBabyFoodById(Long id);
 
-  void registBabyFood(MealPostDto mealPostDto);
+	void registBabyFood(MealPostDto mealPostDto);
 
-  void updateBabyFood(MealPutDto mealPutDto);
+	void updateBabyFood(MealPutDto mealPutDto);
 
-  void deleteBabyFoodById(Long id);
+	void deleteBabyFoodById(Long id);
 }
