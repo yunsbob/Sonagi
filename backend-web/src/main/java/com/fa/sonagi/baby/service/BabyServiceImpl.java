@@ -271,4 +271,14 @@ public class BabyServiceImpl implements BabyService {
 				.build())
 			.collect(Collectors.toList());
 	}
+
+	/**
+	 * 아이 정보 복원
+	 */
+	@Override
+	@Transactional
+	public void restoreBabyInfo(Long babyId) {
+		Baby babyInfo = babyRepository.findById(babyId).orElseThrow();
+		babyInfo.deleteBabyInfo(null, "N");
+	}
 }
