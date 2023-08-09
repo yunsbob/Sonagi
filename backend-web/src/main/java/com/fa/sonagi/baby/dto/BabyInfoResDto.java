@@ -14,4 +14,5 @@ import lombok.Setter;
 public class BabyInfoResDto {
 	private Long babyId;
 	private String name;
+	private String gender;
 }
