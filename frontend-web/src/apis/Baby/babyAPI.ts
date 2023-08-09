@@ -10,11 +10,12 @@ const addBaby = async (baby: Baby) => {
 };
 
 const getBaby = async (userId: number) => {
-  const response = await instance.get(`/babyInfos/${userId}`);
-  if (!response.data) {
-    throw new Error('No data returned from the API');
+  try {
+    const response = await instance.get(`/babyInfos/${userId}`);
+    return response.data;
+  } catch {
+    new Error('No data returned from the API');
   }
-  return response.data;
 };
 
 export { addBaby, getBaby };

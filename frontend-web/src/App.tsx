@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 import LogInPage from '@/pages/LogInPage/LogInPage';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 function App() {
   return (
