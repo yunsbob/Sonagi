@@ -6,7 +6,7 @@ import kakao from '@/assets/images/img-logo-kakao.png';
 import naver from '@/assets/images/img-logo-naver.png';
 import { Image } from '@/components/atoms/Image/Image';
 import { Text } from '@/components/atoms/Text/Text.styles';
-import { Cookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 import {
   ButtonContainer,
   LogInPageContainer,
@@ -15,12 +15,6 @@ import {
 } from '@/pages/LogInPage/LogInPage.styles';
 import SocialButton from '@/components/molecules/SocialButton/SocialButton';
 
-const cookies = new Cookies();
-
-export const setCookie = (name: string, value: string, option?: any) => {
-  return cookies.set(name, value, { ...option });
-};
-
 const LogInPage = () => {
   const OAUTH2_REDIERECT_URI = `${process.env.REACT_APP_BASE_URL}/oauth/redirect`;
   const onSocialButtonClick = (socialName: string) => {
@@ -28,26 +22,26 @@ const LogInPage = () => {
     window.location.href = AUTH_URL;
   };
 
-  const saveDeviceTokenToCookie = () => {
+  const saveAndroidTokenToCookie = () => {
     // React Native 알림을 위한 기기 Token값 저장
     document.addEventListener('message', (e: any) => {
-      const token = e.data;
+      const androidToken = e.data;
 
-      if (token) {
+      if (androidToken) {
         console.log('saveToken');
         const expires = new Date();
         expires.setMinutes(expires.getMinutes() + 60);
 
-        setCookie('token', token, {
+        Cookies.set('androidToken', androidToken, {
           path: '/',
           expires,
           secure: true,
-          // httpOnly: true,
+          httpOnly: true,
         });
       }
     });
   };
-  saveDeviceTokenToCookie();
+  saveAndroidTokenToCookie();
 
   return (
     <Background $background={babyBackground}>
