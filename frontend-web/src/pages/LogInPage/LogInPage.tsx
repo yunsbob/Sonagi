@@ -42,7 +42,7 @@ const LogInPage = () => {
           path: '/',
           expires,
           secure: true,
-          httpOnly: true,
+          // httpOnly: true,
         });
       }
     });
