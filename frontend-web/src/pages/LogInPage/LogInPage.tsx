@@ -7,6 +7,9 @@ import naver from '@/assets/images/img-logo-naver.png';
 import { Image } from '@/components/atoms/Image/Image';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { userFcmTokenState } from '@/states/UserState';
+
 import {
   ButtonContainer,
   LogInPageContainer,
@@ -14,19 +17,45 @@ import {
   LogoContainer,
 } from '@/pages/LogInPage/LogInPage.styles';
 import SocialButton from '@/components/molecules/SocialButton/SocialButton';
+import { useEffect } from 'react';
 
 const LogInPage = () => {
   const OAUTH2_REDIERECT_URI = `${process.env.REACT_APP_BASE_URL}/oauth/redirect`;
+
+  const [userFcmToken, setUserFcmToken] = useRecoilState(userFcmTokenState);
 
   const onSocialButtonClick = (socialName: string) => {
     const AUTH_URL = `${process.env.REACT_APP_SERVER_URL}/api/oauth2/authorization/${socialName}?redirect_uri=${OAUTH2_REDIERECT_URI}`;
     window.location.href = AUTH_URL;
   };
 
+  useEffect(() => {
+    const handleMessage = (event: any) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.type === 'fcmToken') {
+          // Handle the received fcmToken in your React app
+          console.log('Received fcmToken from React Native:', data.token);
+          // You can now use data.token in your React app
+          setUserFcmToken(data.token);
+        }
+      } catch (error) {
+        console.error('Error parsing received data:', error);
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, [setUserFcmToken]);
+
   return (
     <Background $background={babyBackground}>
       <LogInPageContainer>
         <LogInPageWrapper>
+          <p>{userFcmToken}</p>
           <LogoContainer>
             <Image src={blueBaby} width={11} />
             <Text size="medium1">소중한 우리 아기를 위한 육아일기</Text>
