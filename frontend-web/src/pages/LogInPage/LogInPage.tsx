@@ -55,7 +55,6 @@ const LogInPage = () => {
     <Background $background={babyBackground}>
       <LogInPageContainer>
         <LogInPageWrapper>
-          <p>{userFcmToken}</p>
           <LogoContainer>
             <Image src={blueBaby} width={11} />
             <Text size="medium1">소중한 우리 아기를 위한 육아일기</Text>
