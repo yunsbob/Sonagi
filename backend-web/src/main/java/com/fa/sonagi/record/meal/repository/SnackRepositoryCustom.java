@@ -12,4 +12,6 @@ public interface SnackRepositoryCustom {
 	List<SnackFeedingStatisticsQueryDto> findSnackByDay(Long babyId, LocalDate createdDate);
 
 	Long findSnackCnt(Long babyId, LocalDate createdDate);
+
+	Long findSnackCntByWeek(Long babyId, LocalDate monday, LocalDate sunday);
 }

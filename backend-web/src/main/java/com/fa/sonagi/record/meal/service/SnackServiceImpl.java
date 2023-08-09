@@ -28,18 +28,7 @@ public class SnackServiceImpl implements SnackService {
 	 */
 	@Override
 	public SnackResDto findSnackById(Long id) {
-		Snack snack = snackRepository
-			.findById(id)
-			.orElseThrow();
-
-		SnackResDto snackResDto = SnackResDto
-			.builder()
-			.id(snack.getId())
-			.memo(snack.getMemo())
-			.createdTime(snack.getCreatedTime())
-			.build();
-
-		return snackResDto;
+		return snackRepository.findSnackRecord(id);
 	}
 
 	/**

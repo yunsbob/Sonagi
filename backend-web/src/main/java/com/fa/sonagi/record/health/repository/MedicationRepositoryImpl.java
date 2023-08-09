@@ -5,10 +5,10 @@ import static com.fa.sonagi.record.health.entity.QMedication.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fa.sonagi.record.health.dto.HealthResDto;
 import com.fa.sonagi.statistics.health.dto.HealthStatisticsQueryDto;
-import com.querydsl.core.group.GroupBy;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -57,12 +57,18 @@ public class MedicationRepositoryImpl implements MedicationRepositoryCustom {
 	@Override
 	public Map<LocalDate, Long> findMedicationCnt(Long babyId, LocalDate monday, LocalDate sunday) {
 		Map<LocalDate, Long> cnts = queryFactory
-			.select(medication.createdDate, medication.count())
+			.select(medication.createdDate,
+				medication.count())
 			.from(medication)
 			.where(medication.babyId.eq(babyId),
 				medication.createdDate.goe(monday), medication.createdDate.loe(sunday))
 			.groupBy(medication.createdDate)
-			.transform(GroupBy.groupBy(medication.createdDate).as(medication.count()));
+			.fetch()
+			.stream()
+			.collect(Collectors.toMap(
+				tuple -> tuple.get(medication.createdDate),
+				tuple -> tuple.get(medication.count())
+			));
 
 		return cnts;
 	}

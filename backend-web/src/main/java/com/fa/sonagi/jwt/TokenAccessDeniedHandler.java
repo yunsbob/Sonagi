@@ -1,4 +1,4 @@
-package com.fa.sonagi.oauth.handler;
+package com.fa.sonagi.jwt;
 
 import java.io.IOException;
 
