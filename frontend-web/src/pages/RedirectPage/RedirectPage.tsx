@@ -22,7 +22,7 @@ const RedirectPage = () => {
 
   setUserInfo(
     produce(draft => {
-      draft.id = parseInt(
+      draft.userId = parseInt(
         jwt<JwtProps>(localStorage.getItem('accessToken')!).sub
       );
     })
