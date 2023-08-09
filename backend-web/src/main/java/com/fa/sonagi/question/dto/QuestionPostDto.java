@@ -1,4 +1,4 @@
-package com.fa.sonagi.request.dto;
+package com.fa.sonagi.question.dto;
 
 import java.time.LocalDate;
 
@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RequestPostDto {
+public class QuestionPostDto {
 	@NotNull
 	private Long userId;
 
