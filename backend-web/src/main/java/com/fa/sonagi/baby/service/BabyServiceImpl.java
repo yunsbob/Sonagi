@@ -1,5 +1,6 @@
 package com.fa.sonagi.baby.service;
 
+import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -162,7 +163,9 @@ public class BabyServiceImpl implements BabyService {
 	public List<BabyInfoResDto> findBabyListByUserId(Long userId) {
 		Optional<Users> byId = userRepository.findById(userId);
 		List<UserBaby> userBabies = userBabyRepository.findByUser(byId);
+
 		return userBabies.stream()
+			.filter(u -> "N".equals(u.getBaby().getIsDeleted()))
 			.map(u -> BabyInfoResDto.builder()
 				.babyId(u.getBaby().getId())
 				.name(u.getBaby().getName())
@@ -226,5 +229,27 @@ public class BabyServiceImpl implements BabyService {
 			return null;
 		}
 
+	}
+
+	/**
+	 * 주양육자가 공동양육자 삭제 & 공동양육자가 아이 정보 제거
+	 */
+	@Override
+	@Transactional
+	public void deleteCoparent(Long babyId, Long coparentId) {
+		Baby baby = babyRepository.findById(babyId).orElseThrow();
+		Users user = userRepository.findById(coparentId).orElseThrow();
+		UserBaby userBaby = userBabyRepository.findByBabyAndUser(baby, user);
+		userBabyRepository.delete(userBaby);
+	}
+
+	/**
+	 * 주양육자가 아이 정보 삭제
+	 */
+	@Override
+	@Transactional
+	public void deleteBabyInfo(Long babyId) {
+		Baby babyInfo = babyRepository.findById(babyId).orElseThrow();
+		babyInfo.deleteBabyInfo(LocalDate.now(), "Y");
 	}
 }

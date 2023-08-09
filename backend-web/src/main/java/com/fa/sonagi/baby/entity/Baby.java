@@ -60,4 +60,9 @@ public class Baby {
         this.gender = gender;
         this.birthDate = birthDate;
     }
+
+    public void deleteBabyInfo(LocalDate deletedAt, String isDeleted) {
+        this.deletedAt = deletedAt;
+        this.isDeleted = isDeleted;
+    }
 }

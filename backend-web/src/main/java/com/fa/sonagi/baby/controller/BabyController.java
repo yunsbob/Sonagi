@@ -3,6 +3,7 @@ package com.fa.sonagi.baby.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -91,5 +92,23 @@ public class BabyController {
 	@GetMapping("/coparents/{userId}/{babyId}")
 	public List<CoparentResDto> getCoparentList(@PathVariable Long babyId, @PathVariable Long userId) {
 		return babyService.findCoparentListByBabyId(babyId, userId);
+	}
+
+	/**
+	 * 주양육자가 공동 양육자 삭제, 공동양육자가 아이 정보 삭제
+	 */
+	@DeleteMapping("/coparents/{babyId}/{userId}")
+	public ResponseEntity<?> deleteCoparent(@PathVariable Long babyId, @PathVariable Long userId) {
+		babyService.deleteCoparent(babyId, userId);
+		return ResponseEntity.ok().build();
+	}
+
+	/**
+	 * 아이 정보 삭제
+	 */
+	@PutMapping("/babyState/{babyId}")
+	public ResponseEntity<?> deleteBabyInfo(@PathVariable Long babyId) {
+		babyService.deleteBabyInfo(babyId);
+		return ResponseEntity.ok().build();
 	}
 }

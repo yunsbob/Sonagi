@@ -32,4 +32,8 @@ public interface BabyService {
 	BabyDetailResDto findBabyDetail(Long babyId, Long userId);
 
 	List<CoparentResDto> findCoparentListByBabyId(Long babyId, Long userId);
+
+	void deleteCoparent(Long babyId, Long coparentId);
+
+	void deleteBabyInfo(Long babyId);
 }
