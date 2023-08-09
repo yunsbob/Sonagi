@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { Baby } from '@/types';
+import { Baby, BabyInfoForBar } from '@/types';
 import { recoilPersist } from 'recoil-persist';
 
 // localStorage에 저장할 필요가 있겠...쬬?
@@ -14,3 +14,5 @@ export const babyInfoState = atom<Baby>({
   default: {} as Baby,
   effects_UNSTABLE: [persistAtom], // 무슨 뜻이지 ?
 });
+
+// export const
