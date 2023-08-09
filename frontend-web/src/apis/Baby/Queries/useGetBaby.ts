@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { getBaby } from '@/apis/Baby/babyAPI';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { babiesOfUserState } from '@/states/BabyState';
 import { BabiesOfUser } from '@/types';
 
 const useGetBaby = (userId: number) => {
-  const setBabyInfo = useSetRecoilState(babiesOfUserState);
+  const [babyInfo, setBabyInfo] = useRecoilState(babiesOfUserState);
   return useQuery(['baby', userId], () => getBaby(userId), {
     onSuccess: (data: BabiesOfUser[]) => {
+      console.log(data);
       setBabyInfo(data);
       return data;
     },
