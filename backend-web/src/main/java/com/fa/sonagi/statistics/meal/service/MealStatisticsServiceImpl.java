@@ -1,7 +1,9 @@
 package com.fa.sonagi.statistics.meal.service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import com.fa.sonagi.record.meal.repository.MilkRepository;
 import com.fa.sonagi.record.meal.repository.SnackRepository;
 import com.fa.sonagi.statistics.meal.dto.MealStatisticsQueryDto;
 import com.fa.sonagi.statistics.meal.dto.MealStatisticsResDto;
+import com.fa.sonagi.statistics.meal.dto.MealStatisticsWeekResDto;
 import com.fa.sonagi.statistics.meal.dto.SnackFeedingStatisticsQueryDto;
 
 import lombok.RequiredArgsConstructor;
@@ -39,17 +42,17 @@ public class MealStatisticsServiceImpl implements MealStatisticsService{
 		MealStatisticsResDto mealStatisticsResDto = new MealStatisticsResDto();
 
 		// 데이터 조회
-		List<MealStatisticsQueryDto> babyFoods = findBabyFoods(babyId, createdDate);
+		List<MealStatisticsQueryDto> babyFoods = babyFoodRepository.findBabyFoodByDay(babyId, createdDate);
 		mealStatisticsResDto.setBabyFoods(babyFoods);
-		List<MealStatisticsQueryDto> breastFeedings = findBreastFeedings(babyId, createdDate);
+		List<MealStatisticsQueryDto> breastFeedings = breastFeedingRepository.findBreastFeedingByDay(babyId, createdDate);
 		mealStatisticsResDto.setBreastFeedings(breastFeedings);
-		List<SnackFeedingStatisticsQueryDto> feedings = findFeedings(babyId, createdDate);
+		List<SnackFeedingStatisticsQueryDto> feedings = feedingRepository.findFeedingByDay(babyId, createdDate);
 		mealStatisticsResDto.setFeedings(feedings);
-		List<MealStatisticsQueryDto> infantFormulas = findInfantFormulas(babyId, createdDate);
+		List<MealStatisticsQueryDto> infantFormulas = infantFormulaRepository.findInfantFormulaByDay(babyId, createdDate);
 		mealStatisticsResDto.setInfantFormulas(infantFormulas);
-		List<MealStatisticsQueryDto> milks = findMilks(babyId, createdDate);
+		List<MealStatisticsQueryDto> milks = milkRepository.findMilkByDay(babyId, createdDate);
 		mealStatisticsResDto.setMilks(milks);
-		List<SnackFeedingStatisticsQueryDto> snacks = findSnacks(babyId, createdDate);
+		List<SnackFeedingStatisticsQueryDto> snacks = snackRepository.findSnackByDay(babyId, createdDate);
 		mealStatisticsResDto.setSnacks(snacks);
 
 		// 횟수 통계
@@ -58,192 +61,70 @@ public class MealStatisticsServiceImpl implements MealStatisticsService{
 
 		// 용량 통계
 		Long amount = 0L;
-		for (int i = 0; i < babyFoods.size(); i++) {
-			amount += babyFoods.get(i).getAmount();
-		}
-		for (int i = 0; i < breastFeedings.size(); i++) {
-			amount += breastFeedings.get(i).getAmount();
-		}
-		for (int i = 0; i < infantFormulas.size(); i++) {
-			amount += infantFormulas.get(i).getAmount();
-		}
-		for (int i = 0; i < milks.size(); i++) {
-			amount += milks.get(i).getAmount();
-		}
+		amount += sumAmount(babyFoods);
+		amount += sumAmount(breastFeedings);
+		amount += sumAmount(infantFormulas);
+		amount += sumAmount(milks);
 		mealStatisticsResDto.setAmount(amount);
 
 		createdDate = createdDate.minus(1, ChronoUnit.DAYS);
 
-		Long yesterdayCnt = findBabyFoodCnt(babyId, createdDate)
-			+ findBreastFeedingCnt(babyId, createdDate)
-			+ findFeedingCnt(babyId, createdDate)
-			+ findInfantFormulaCnt(babyId, createdDate)
-			+ findMilkCnt(babyId, createdDate)
-			+ findSnackCnt(babyId, createdDate);
+		Long yesterdayCnt = babyFoodRepository.findBabyFoodCnt(babyId, createdDate)
+			+ breastFeedingRepository.findBreastFeedingCnt(babyId, createdDate)
+			+ feedingRepository.findFeedingCnt(babyId, createdDate)
+			+ infantFormulaRepository.findInfantFormulaCnt(babyId, createdDate)
+			+ milkRepository.findMilkCnt(babyId, createdDate)
+			+ snackRepository.findSnackCnt(babyId, createdDate);
 
-		Long cntPercent, amountPercent, yesterdayCntPercent, yesterdayAmountPercent;
-
-		if (cnt >= yesterdayCnt) {
-			if (cnt == 0) cntPercent = 0L;
-			else cntPercent = 100L;
-			if (yesterdayCnt == 0) yesterdayCntPercent = 0L;
-			else yesterdayCntPercent = yesterdayCnt * 100 / cnt;
-		}
-		else {
-			yesterdayCntPercent = 100L;
-			if (cnt == 0) cntPercent = 0L;
-			else cntPercent = cnt * 100 / yesterdayCnt;
-		}
+		Long cntPercent = getPercent(cnt, yesterdayCnt);
+		Long yesterdayCntPercent = getPercent(yesterdayCnt, cnt);
 		mealStatisticsResDto.setCntPercent(cntPercent);
 		mealStatisticsResDto.setYesterdayCntPercent(yesterdayCntPercent);
 
-		Long yesterdayAmount = findBabyFoodAmount(babyId, createdDate)
-			+ findBreastFeedingAmount(babyId, createdDate)
-			+ findInfantFormulaAmount(babyId, createdDate)
-			+ findMilkAmount(babyId, createdDate);
+		Long yesterdayAmount = babyFoodRepository.findBabyFoodAmount(babyId, createdDate)
+			+ breastFeedingRepository.findBreastFeedingAmount(babyId, createdDate)
+			+ infantFormulaRepository.findInfantFormulaAmount(babyId, createdDate)
+			+ milkRepository.findMilkAmount(babyId, createdDate);
 
-		if (amount >= yesterdayAmount) {
-			if (amount == 0) amountPercent = 0L;
-			else amountPercent = 100L;
-			if (yesterdayAmount == 0) yesterdayAmountPercent = 0L;
-			else yesterdayAmountPercent = yesterdayAmount * 100 / amount;
-		}
-		else {
-			yesterdayAmountPercent = 100L;
-			if (cnt == 0) amountPercent = 0L;
-			else amountPercent = amount * 100 / yesterdayAmount;
-		}
+		Long amountPercent = getPercent(amount, yesterdayAmount);
+		Long yesterdayAmountPercent = getPercent(yesterdayAmount, amount);
 		mealStatisticsResDto.setAmountPercent(amountPercent);
 		mealStatisticsResDto.setYesterdayAmountPercent(yesterdayAmountPercent);
 
 		return mealStatisticsResDto;
 	}
 
-	/**
-	 * 이유식 일별 데이터 조회
-	 */
 	@Override
-	public List<MealStatisticsQueryDto> findBabyFoods(Long babyId, LocalDate createdDate) {
-		return babyFoodRepository.findBabyFoodByDay(babyId, createdDate);
+	public MealStatisticsWeekResDto getMealStatisticsWeek(Long babyId, LocalDate createdDate) {
+		LocalDate monday = createdDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+		LocalDate sunday = createdDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+		MealStatisticsWeekResDto mealWeek = new MealStatisticsWeekResDto();
+
+		return null;
 	}
 
 	/**
-	 * 유축 수유 일별 데이터 조회
+	 * 퍼센트 계산하기 Long
 	 */
-	@Override
-	public List<MealStatisticsQueryDto> findBreastFeedings(Long babyId, LocalDate createdDate) {
-		return breastFeedingRepository.findBreastFeedingByDay(babyId, createdDate);
+	public Long getPercent(Long target, Long opponent) {
+		if (target == 0) return 0L;
+		else if (target >= opponent) {
+			return 100L;
+		}
+		else {
+			return target * 100 / opponent;
+		}
 	}
 
 	/**
-	 * 수유 일별 데이터 조회
+	 * 총 용량 계산하기
 	 */
-	@Override
-	public List<SnackFeedingStatisticsQueryDto> findFeedings(Long babyId, LocalDate createdDate) {
-		return feedingRepository.findFeedingByDay(babyId, createdDate);
-	}
+	public Long sumAmount(List<MealStatisticsQueryDto> amounts) {
+		Long amount = 0L;
+		for (int i = 0; i < amounts.size(); i++) {
+			amount += amounts.get(i).getAmount();
+		}
 
-	/**
-	 * 분유 일별 데이터 조회
-	 */
-	@Override
-	public List<MealStatisticsQueryDto> findInfantFormulas(Long babyId, LocalDate createdDate) {
-		return infantFormulaRepository.findInfantFormulaByDay(babyId, createdDate);
-	}
-
-	/**
-	 * 우유 일별 데이터 조회
-	 */
-	@Override
-	public List<MealStatisticsQueryDto> findMilks(Long babyId, LocalDate createdDate) {
-		return milkRepository.findMilkByDay(babyId, createdDate);
-	}
-
-	/**
-	 * 간식 일별 데이터 조회
-	 */
-	@Override
-	public List<SnackFeedingStatisticsQueryDto> findSnacks(Long babyId, LocalDate createdDate) {
-		return snackRepository.findSnackByDay(babyId, createdDate);
-	}
-
-	/**
-	 * 이유식 일별 횟수 조회
-	 */
-	@Override
-	public Long findBabyFoodCnt(Long babyId, LocalDate createdDate) {
-		return babyFoodRepository.findBabyFoodCnt(babyId, createdDate);
-	}
-
-	/**
-	 * 유축 수유 일별 횟수 조회
-	 */
-	@Override
-	public Long findBreastFeedingCnt(Long babyId, LocalDate createdDate) {
-		return breastFeedingRepository.findBreastFeedingCnt(babyId, createdDate);
-	}
-
-	/**
-	 * 수유 일별 횟수 조회
-	 */
-	@Override
-	public Long findFeedingCnt(Long babyId, LocalDate createdDate) {
-		return feedingRepository.findFeedingCnt(babyId, createdDate);
-	}
-
-	/**
-	 * 분유 일별 횟수 조회
-	 */
-	@Override
-	public Long findInfantFormulaCnt(Long babyId, LocalDate createdDate) {
-		return infantFormulaRepository.findInfantFormulaCnt(babyId, createdDate);
-	}
-
-	/**
-	 * 우유 일별 횟수 조회
-	 */
-	@Override
-	public Long findMilkCnt(Long babyId, LocalDate createdDate) {
-		return milkRepository.findMilkCnt(babyId, createdDate);
-	}
-
-	/**
-	 * 간식 일별 횟수 조회
-	 */
-	@Override
-	public Long findSnackCnt(Long babyId, LocalDate createdDate) {
-		return snackRepository.findSnackCnt(babyId, createdDate);
-	}
-
-	/**
-	 * 이유식 일별 용량 조회
-	 */
-	@Override
-	public Long findBabyFoodAmount(Long babyId, LocalDate createdDate) {
-		return babyFoodRepository.findBabyFoodAmount(babyId, createdDate);
-	}
-
-	/**
-	 * 유축 수유 일별 용량 조회
-	 */
-	@Override
-	public Long findBreastFeedingAmount(Long babyId, LocalDate createdDate) {
-		return breastFeedingRepository.findBreastFeedingAmount(babyId, createdDate);
-	}
-
-	/**
-	 * 분유 일별 용량 조회
-	 */
-	@Override
-	public Long findInfantFormulaAmount(Long babyId, LocalDate createdDate) {
-		return infantFormulaRepository.findInfantFormulaAmount(babyId, createdDate);
-	}
-
-	/**
-	 * 우유 일별 용량 조회
-	 */
-	@Override
-	public Long findMilkAmount(Long babyId, LocalDate createdDate) {
-		return milkRepository.findMilkAmount(babyId, createdDate);
+		return amount;
 	}
 }

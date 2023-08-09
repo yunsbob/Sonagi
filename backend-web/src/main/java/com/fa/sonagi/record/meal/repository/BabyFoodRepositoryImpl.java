@@ -11,6 +11,8 @@ import static com.fa.sonagi.record.meal.entity.QBabyFood.babyFood;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class BabyFoodRepositoryImpl implements BabyFoodRepositoryCustom{
@@ -62,6 +64,68 @@ public class BabyFoodRepositoryImpl implements BabyFoodRepositoryCustom{
 			.select(babyFood.amount.sum().coalesce(0L))
 			.from(babyFood)
 			.where(babyFood.babyId.eq(babyId), babyFood.createdDate.eq(createdDate))
+			.fetchFirst();
+
+		return amount;
+	}
+
+	@Override
+	public Map<LocalDate, Long> findBabyFoodCnt(Long babyId, LocalDate monday, LocalDate sunday) {
+		Map<LocalDate, Long> cnts = queryFactory
+			.select(babyFood.createdDate,
+				babyFood.count())
+			.from(babyFood)
+			.where(babyFood.babyId.eq(babyId),
+				babyFood.createdDate.goe(monday), babyFood.createdDate.loe(sunday))
+			.groupBy(babyFood.createdDate)
+			.fetch()
+			.stream()
+			.collect(Collectors.toMap(
+				tuple -> tuple.get(babyFood.createdDate),
+				tuple -> tuple.get(babyFood.count())
+			));
+
+		return cnts;
+	}
+
+	@Override
+	public Map<LocalDate, Long> findBabyFoodAmount(Long babyId, LocalDate monday, LocalDate sunday) {
+		Map<LocalDate, Long> amounts = queryFactory
+			.select(babyFood.createdDate,
+				babyFood.amount.sum().coalesce(0L))
+			.from(babyFood)
+			.where(babyFood.babyId.eq(babyId),
+				babyFood.createdDate.goe(monday), babyFood.createdDate.loe(sunday))
+			.groupBy(babyFood.createdDate)
+			.fetch()
+			.stream()
+			.collect(Collectors.toMap(
+				tuple -> tuple.get(babyFood.createdDate),
+				tuple -> tuple.get(babyFood.amount.sum().coalesce(0L))
+			));
+
+		return amounts;
+	}
+
+	@Override
+	public Long findBabyFoodCntByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
+		Long cnt = queryFactory
+			.select(babyFood.count())
+			.from(babyFood)
+			.where(babyFood.babyId.eq(babyId),
+				babyFood.createdDate.goe(monday), babyFood.createdDate.loe(sunday))
+			.fetchFirst();
+
+		return cnt;
+	}
+
+	@Override
+	public Long findBabyFoodAmountByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
+		Long amount = queryFactory
+			.select(babyFood.amount.sum().coalesce(0L))
+			.from(babyFood)
+			.where(babyFood.babyId.eq(babyId),
+				babyFood.createdDate.goe(monday), babyFood.createdDate.loe(sunday))
 			.fetchFirst();
 
 		return amount;

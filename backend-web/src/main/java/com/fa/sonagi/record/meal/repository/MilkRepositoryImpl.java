@@ -2,6 +2,8 @@ package com.fa.sonagi.record.meal.repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fa.sonagi.record.meal.dto.MealResDto;
 import com.fa.sonagi.statistics.meal.dto.MealStatisticsQueryDto;
@@ -62,6 +64,68 @@ public class MilkRepositoryImpl implements MilkRepositoryCustom{
 			.select(milk.amount.sum().coalesce(0L))
 			.from(milk)
 			.where(milk.babyId.eq(babyId), milk.createdDate.eq(createdDate))
+			.fetchFirst();
+
+		return amount;
+	}
+
+	@Override
+	public Map<LocalDate, Long> findMilkCnt(Long babyId, LocalDate monday, LocalDate sunday) {
+		Map<LocalDate, Long> cnts = queryFactory
+			.select(milk.createdDate,
+				milk.count())
+			.from(milk)
+			.where(milk.babyId.eq(babyId),
+				milk.createdDate.goe(monday), milk.createdDate.loe(sunday))
+			.groupBy(milk.createdDate)
+			.fetch()
+			.stream()
+			.collect(Collectors.toMap(
+				tuple -> tuple.get(milk.createdDate),
+				tuple -> tuple.get(milk.count())
+			));
+
+		return cnts;
+	}
+
+	@Override
+	public Map<LocalDate, Long> findMilkAmount(Long babyId, LocalDate monday, LocalDate sunday) {
+		Map<LocalDate, Long> amounts = queryFactory
+			.select(milk.createdDate,
+				milk.amount.sum().coalesce(0L))
+			.from(milk)
+			.where(milk.babyId.eq(babyId),
+				milk.createdDate.goe(monday), milk.createdDate.loe(sunday))
+			.groupBy(milk.createdDate)
+			.fetch()
+			.stream()
+			.collect(Collectors.toMap(
+				tuple -> tuple.get(milk.createdDate),
+				tuple -> tuple.get(milk.amount.sum().coalesce(0L))
+			));
+
+		return amounts;
+	}
+
+	@Override
+	public Long findMilkCntByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
+		Long cnt = queryFactory
+			.select(milk.count())
+			.from(milk)
+			.where(milk.babyId.eq(babyId),
+				milk.createdDate.goe(monday), milk.createdDate.loe(sunday))
+			.fetchFirst();
+
+		return cnt;
+	}
+
+	@Override
+	public Long findMilkAmountByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
+		Long amount = queryFactory
+			.select(milk.amount.sum())
+			.from(milk)
+			.where(milk.babyId.eq(babyId),
+				milk.createdDate.goe(monday), milk.createdDate.loe(sunday))
 			.fetchFirst();
 
 		return amount;

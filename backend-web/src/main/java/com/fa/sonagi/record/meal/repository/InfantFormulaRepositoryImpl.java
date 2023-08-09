@@ -2,6 +2,8 @@ package com.fa.sonagi.record.meal.repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fa.sonagi.record.meal.dto.MealResDto;
 import com.fa.sonagi.statistics.meal.dto.MealStatisticsQueryDto;
@@ -62,6 +64,68 @@ public class InfantFormulaRepositoryImpl implements InfantFormulaRepositoryCusto
 			.select(infantFormula.amount.sum().coalesce(0L))
 			.from(infantFormula)
 			.where(infantFormula.babyId.eq(babyId), infantFormula.createdDate.eq(createdDate))
+			.fetchFirst();
+
+		return amount;
+	}
+
+	@Override
+	public Map<LocalDate, Long> findInfantFormulaCnt(Long babyId, LocalDate monday, LocalDate sunday) {
+		Map<LocalDate, Long> cnts = queryFactory
+			.select(infantFormula.createdDate,
+				infantFormula.count())
+			.from(infantFormula)
+			.where(infantFormula.babyId.eq(babyId),
+				infantFormula.createdDate.goe(monday), infantFormula.createdDate.loe(sunday))
+			.groupBy(infantFormula.createdDate)
+			.fetch()
+			.stream()
+			.collect(Collectors.toMap(
+				tuple -> tuple.get(infantFormula.createdDate),
+				tuple -> tuple.get(infantFormula.count())
+			));
+
+		return cnts;
+	}
+
+	@Override
+	public Map<LocalDate, Long> findInfantFormulaAmount(Long babyId, LocalDate monday, LocalDate sunday) {
+		Map<LocalDate, Long> amounts = queryFactory
+			.select(infantFormula.createdDate,
+				infantFormula.amount.sum().coalesce(0L))
+			.from(infantFormula)
+			.where(infantFormula.babyId.eq(babyId),
+				infantFormula.createdDate.goe(monday), infantFormula.createdDate.loe(sunday))
+			.groupBy(infantFormula.createdDate)
+			.fetch()
+			.stream()
+			.collect(Collectors.toMap(
+				tuple -> tuple.get(infantFormula.createdDate),
+				tuple -> tuple.get(infantFormula.amount.sum().coalesce(0L))
+			));
+
+		return amounts;
+	}
+
+	@Override
+	public Long findInfantFormulaCntByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
+		Long cnt = queryFactory
+			.select(infantFormula.count())
+			.from(infantFormula)
+			.where(infantFormula.babyId.eq(babyId),
+				infantFormula.createdDate.goe(monday), infantFormula.createdDate.loe(sunday))
+			.fetchFirst();
+
+		return cnt;
+	}
+
+	@Override
+	public Long findInfantFormulaAmountByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
+		Long amount = queryFactory
+			.select(infantFormula.amount.sum().coalesce(0L))
+			.from(infantFormula)
+			.where(infantFormula.babyId.eq(babyId),
+				infantFormula.createdDate.goe(monday), infantFormula.createdDate.loe(sunday))
 			.fetchFirst();
 
 		return amount;

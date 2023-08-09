@@ -2,9 +2,12 @@ package com.fa.sonagi.record.meal.repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fa.sonagi.record.meal.dto.MealResDto;
 import com.fa.sonagi.statistics.meal.dto.MealStatisticsQueryDto;
+import com.querydsl.core.group.GroupBy;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -62,6 +65,68 @@ public class BreastFeedingRepositoryImpl implements BreastFeedingRepositoryCusto
 			.select(breastFeeding.amount.sum().coalesce(0L))
 			.from(breastFeeding)
 			.where(breastFeeding.babyId.eq(babyId), breastFeeding.createdDate.eq(createdDate))
+			.fetchFirst();
+
+		return amount;
+	}
+
+	@Override
+	public Map<LocalDate, Long> findBreastFeedingCnt(Long babyId, LocalDate monday, LocalDate sunday) {
+		Map<LocalDate, Long> cnts = queryFactory
+			.select(breastFeeding.createdDate,
+				breastFeeding.count())
+			.from(breastFeeding)
+			.where(breastFeeding.babyId.eq(babyId),
+				breastFeeding.createdDate.goe(monday), breastFeeding.createdDate.loe(sunday))
+			.groupBy(breastFeeding.createdDate)
+			.fetch()
+			.stream()
+			.collect(Collectors.toMap(
+				tuple -> tuple.get(breastFeeding.createdDate),
+				tuple -> tuple.get(breastFeeding.count())
+			));
+
+		return cnts;
+	}
+
+	@Override
+	public Map<LocalDate, Long> findBreastFeedingAmount(Long babyId, LocalDate monday, LocalDate sunday) {
+		Map<LocalDate, Long> amounts = queryFactory
+			.select(breastFeeding.createdDate,
+				breastFeeding.amount.sum().coalesce(0L))
+			.from(breastFeeding)
+			.where(breastFeeding.babyId.eq(babyId),
+				breastFeeding.createdDate.goe(monday), breastFeeding.createdDate.loe(sunday))
+			.groupBy(breastFeeding.createdDate)
+			.fetch()
+			.stream()
+			.collect(Collectors.toMap(
+				tuple -> tuple.get(breastFeeding.createdDate),
+				tuple -> tuple.get(breastFeeding.amount.sum().coalesce(0L))
+			));
+
+		return amounts;
+	}
+
+	@Override
+	public Long findBreastFeedingCntByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
+		Long cnt = queryFactory
+			.select(breastFeeding.count())
+			.from(breastFeeding)
+			.where(breastFeeding.babyId.eq(babyId),
+				breastFeeding.createdDate.goe(monday), breastFeeding.createdDate.loe(sunday))
+			.fetchFirst();
+
+		return cnt;
+	}
+
+	@Override
+	public Long findBreastFeedingAmountByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
+		Long amount = queryFactory
+			.select(breastFeeding.amount.sum().coalesce(0L))
+			.from(breastFeeding)
+			.where(breastFeeding.babyId.eq(babyId),
+				breastFeeding.createdDate.goe(monday), breastFeeding.createdDate.loe(sunday))
 			.fetchFirst();
 
 		return amount;

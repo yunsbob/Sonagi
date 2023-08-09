@@ -56,4 +56,16 @@ public class FeedingRepositoryImpl implements FeedingRepostioryCustom{
 
 		return cnt;
 	}
+
+	@Override
+	public Long findFeedingCntByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
+		Long cnt = queryFactory
+			.select(feeding.count())
+			.from(feeding)
+			.where(feeding.babyId.eq(babyId),
+				feeding.createdDate.goe(monday), feeding.createdDate.loe(sunday))
+			.fetchFirst();
+
+		return cnt;
+	}
 }
