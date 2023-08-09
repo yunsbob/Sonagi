@@ -9,10 +9,10 @@ import { CalendarModal } from '@/components/organisms/CalendarModal/CalendarModa
 import RBPWrapper from '@/components/organisms/RegisterBabyProfile/RegisterBabyProfile.style';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
-import { Baby } from '@/types';
 import { userInfoState } from '@/states/UserState';
 import { useRecoilState } from 'recoil';
 import { useAddBaby } from '@/apis/Baby/Mutations/useAddBaby';
+// import { useGetBaby } from '@/apis/Baby/Queries/useGetBaby';
 
 const RegisterBabyProfile = () => {
   const navigate = useNavigate();
@@ -66,8 +66,9 @@ const RegisterBabyProfile = () => {
       });
 
       // RecoilState에 아이 데이터 저장하는 것은 get으로
+
       navigate(PATH.MAIN);
-      // TODO: get 요청 보내기
+      // TODO: get 요청 보내기 근데 이건 메인에서?
       // TODO: recoilState에 아이 데이터 연결해주기
     }
   };
