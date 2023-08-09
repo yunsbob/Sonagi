@@ -28,19 +28,7 @@ public class InfantFormulaServiceImpl implements InfantFormulaService {
 	 */
 	@Override
 	public MealResDto findInfantFormulaById(Long id) {
-		InfantFormula infantFormula = infantFormulaRepository
-			.findById(id)
-			.orElseThrow();
-
-		MealResDto mealResDto = MealResDto
-			.builder()
-			.id(infantFormula.getId())
-			.amount(infantFormula.getAmount())
-			.memo(infantFormula.getMemo())
-			.createdTime(infantFormula.getCreatedTime())
-			.build();
-
-		return mealResDto;
+		return infantFormulaRepository.findInfantFormulaRecord(id);
 	}
 
 	/**

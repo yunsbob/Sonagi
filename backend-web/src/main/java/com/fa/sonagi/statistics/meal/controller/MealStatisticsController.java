@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fa.sonagi.statistics.meal.dto.MealStatisticsResDto;
+import com.fa.sonagi.statistics.meal.dto.MealStatisticsWeekResDto;
 import com.fa.sonagi.statistics.meal.service.MealStatisticsService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,12 +29,14 @@ public class MealStatisticsController {
 	public ResponseEntity<?> getMealStatistics(@RequestParam Long babyId,
 		@RequestParam String period, @RequestParam LocalDate createdDate) {
 		if (period.equals("day")) {
-			MealStatisticsResDto mealStatisticsResDto = mealStatisticsService.getMealStatisticsDay(babyId, createdDate);
-			return ResponseEntity.ok().body(mealStatisticsResDto);
-		}
-		else {
-			MealStatisticsResDto mealStatisticsResDto = mealStatisticsService.getMealStatisticsDay(babyId, createdDate);
-			return ResponseEntity.ok().body(mealStatisticsResDto);
+			MealStatisticsResDto mealStatisticsDay = mealStatisticsService.getMealStatisticsDay(babyId, createdDate);
+			return ResponseEntity.ok().body(mealStatisticsDay);
+		} else if (period.equals("week")) {
+			MealStatisticsWeekResDto mealStatisticsWeek = mealStatisticsService.getMealStatisticsWeek(babyId,
+				createdDate);
+			return ResponseEntity.ok().body(mealStatisticsWeek);
+		} else {
+			return ResponseEntity.badRequest().build();
 		}
 	}
 }
