@@ -23,16 +23,7 @@ public class PumpingBreastServiceImpl implements PumpingBreastService {
    */
   @Override
   public PumpingBreastResDto findPumpingBreastById(Long id) {
-    PumpingBreast pumpingBreast = pumpingBreastRepository.findById(id).orElseThrow();
-
-    PumpingBreastResDto pumpingBreastResDto = PumpingBreastResDto.builder()
-        .id(pumpingBreast.getId())
-        .amount(pumpingBreast.getAmount())
-        .memo(pumpingBreast.getMemo())
-        .createdTime(pumpingBreast.getCreatedTime())
-        .build();
-
-    return pumpingBreastResDto;
+    return pumpingBreastRepository.findPumpingBreastRecord(id);
   }
 
   /**
