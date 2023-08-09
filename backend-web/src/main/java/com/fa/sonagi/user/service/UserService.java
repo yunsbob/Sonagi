@@ -6,5 +6,5 @@ public interface UserService {
 
 	void updateName(NameDto nameDto);
 
-	NameDto findName(Long id);
+	NameDto findName(Long userId);
 }
