@@ -61,6 +61,11 @@ public class Baby {
 		this.birthDate = birthDate;
 	}
 
+	public void deleteBabyInfo(LocalDate deletedAt, String isDeleted) {
+		this.deletedAt = deletedAt;
+		this.isDeleted = isDeleted;
+	}
+
 	public void updateLastMealTime(LocalDateTime lastMealTime) {
 		this.lastMealTime = lastMealTime;
 	}
@@ -68,4 +73,5 @@ public class Baby {
 	public void updateLastDiaryTime(LocalDateTime lastDiaryTime) {
 		this.lastDiaryTime = lastDiaryTime;
 	}
+
 }
