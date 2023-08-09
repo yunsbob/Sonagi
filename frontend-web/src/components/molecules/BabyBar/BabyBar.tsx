@@ -13,7 +13,7 @@ const BabyBar = () => {
 
   return (
     <BabyBarContainer>
-      {data?.map((item, index) => (
+      {data!.map((item, index) => (
         // 예외적으로 BabyBar의 padding값을 inline style으로 적용
         <Button
           option="default"
