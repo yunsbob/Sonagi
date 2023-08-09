@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import com.fa.sonagi.record.health.dto.HealthResDto;
 import com.fa.sonagi.statistics.health.dto.HealthStatisticsQueryDto;
-import com.querydsl.core.group.GroupBy;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
