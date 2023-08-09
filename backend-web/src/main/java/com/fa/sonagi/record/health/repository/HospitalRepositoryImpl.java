@@ -46,7 +46,7 @@ public class HospitalRepositoryImpl implements HospitalRepositoryCustom {
 	@Override
 	public Long findHospitalCnt(Long babyId, LocalDate createdDate) {
 		Long cnt = queryFactory
-			.select(hospital.count().coalesce(0L))
+			.select(hospital.count())
 			.from(hospital)
 			.where(hospital.babyId.eq(babyId), hospital.createdDate.eq(createdDate))
 			.fetchFirst();
@@ -59,9 +59,9 @@ public class HospitalRepositoryImpl implements HospitalRepositoryCustom {
 		Map<LocalDate, Long> cnts = queryFactory
 			.select(hospital.createdDate, hospital.count())
 			.from(hospital)
-			.where(hospital.babyId.eq(babyId))
+			.where(hospital.babyId.eq(babyId),
+				hospital.createdDate.goe(monday), hospital.createdDate.loe(sunday))
 			.groupBy(hospital.createdDate)
-			.having(hospital.createdDate.goe(monday), hospital.createdDate.loe(sunday))
 			.transform(GroupBy.groupBy(hospital.createdDate).as(hospital.count()));
 
 		return cnts;
@@ -70,7 +70,7 @@ public class HospitalRepositoryImpl implements HospitalRepositoryCustom {
 	@Override
 	public Long findHospitalCntByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
 		Long cnt = queryFactory
-			.select(hospital.count().coalesce(0L))
+			.select(hospital.count())
 			.from(hospital)
 			.where(hospital.babyId.eq(babyId),
 				hospital.createdDate.goe(monday), hospital.createdDate.loe(sunday))
