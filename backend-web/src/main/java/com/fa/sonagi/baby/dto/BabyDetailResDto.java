@@ -20,4 +20,5 @@ public class BabyDetailResDto {
 	private String gender;
 	private String authority;
 	private String isDeleted;
+	private LocalDate deletedAt;
 }
