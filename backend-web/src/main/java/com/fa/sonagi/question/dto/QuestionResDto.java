@@ -1,4 +1,4 @@
-package com.fa.sonagi.request.dto;
+package com.fa.sonagi.question.dto;
 
 import java.time.LocalDate;
 
@@ -13,7 +13,7 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestResDto {
+public class QuestionResDto {
 	private Long id;
 	private LocalDate createdAt;
 	private String title;
