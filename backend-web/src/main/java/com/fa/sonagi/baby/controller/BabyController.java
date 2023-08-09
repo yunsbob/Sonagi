@@ -111,4 +111,12 @@ public class BabyController {
 		babyService.deleteBabyInfo(babyId);
 		return ResponseEntity.ok().build();
 	}
+
+	/**
+	 * 삭제된 아이 데이터 리스트 조회
+	 */
+	@GetMapping("/isDeleted")
+	public List<BabyDetailResDto> findDeletedBabyInfoList() {
+		return babyService.findDeletedBabyInfoList();
+	}
 }

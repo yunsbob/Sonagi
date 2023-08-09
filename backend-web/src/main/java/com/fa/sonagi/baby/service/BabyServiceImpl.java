@@ -252,4 +252,23 @@ public class BabyServiceImpl implements BabyService {
 		Baby babyInfo = babyRepository.findById(babyId).orElseThrow();
 		babyInfo.deleteBabyInfo(LocalDate.now(), "Y");
 	}
+
+	/**
+	 * 삭제된 아이 데이터 리스트 조회
+	 */
+	@Override
+	public List<BabyDetailResDto> findDeletedBabyInfoList() {
+		List<Baby> babies = babyRepository.findAll();
+		return babies.stream()
+			.filter(b -> b.getIsDeleted().equals("Y"))
+			.map(b -> BabyDetailResDto.builder()
+				.id(b.getId())
+				.name(b.getName())
+				.birthDate(b.getBirthDate())
+				.gender(b.getGender())
+				.isDeleted(b.getIsDeleted())
+				.deletedAt(b.getDeletedAt())
+				.build())
+			.collect(Collectors.toList());
+	}
 }
