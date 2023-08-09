@@ -10,4 +10,10 @@ interface Baby {
   userId: number;
 }
 
-export type { User, Baby };
+// TODO: 백엔드에게 BabyDatas에 성별 요청하기
+interface BabiesOfUser {
+  babyId: number;
+  name: string;
+}
+
+export type { User, Baby, BabiesOfUser };

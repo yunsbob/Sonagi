@@ -29,6 +29,7 @@ public class HealthStatisticsServiceImpl implements HealthStatisticsService{
 	private final HospitalRepository hospitalRepository;
 	private final MedicationRepository medicationRepository;
 	private final FeverRepository feverRepository;
+	private final int WEEK = 7;
 
 	/**
 	 * 일별 통계 계산
@@ -85,7 +86,7 @@ public class HealthStatisticsServiceImpl implements HealthStatisticsService{
 	public HealthStatisticsWeekResDto getHealthStatisticsWeek(Long babyId, LocalDate createdDate) {
 		LocalDate monday = createdDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
 		LocalDate sunday = createdDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
-		HealthStatisticsWeekResDto healthStatisticsWeekResDto = new HealthStatisticsWeekResDto();
+		HealthStatisticsWeekResDto healthWeek = new HealthStatisticsWeekResDto();
 
 		// 카테고리별 일주일 데이터 조회
 		Map<LocalDate, Long> hospitals = hospitalRepository.findHospitalCnt(babyId, monday, sunday);
@@ -94,35 +95,35 @@ public class HealthStatisticsServiceImpl implements HealthStatisticsService{
 
 		// 날짜별 데이터 세팅
 		LocalDate writeDay = monday;
-		for (int i = 0; i < 7; i++) {
-			HealthStatisticsDayForWeekDto healthStatisticsDayForWeekDto = new HealthStatisticsDayForWeekDto();
+		for (int i = 0; i < WEEK; i++) {
+			HealthStatisticsDayForWeekDto healthDay = new HealthStatisticsDayForWeekDto();
 
 			if (hospitals.containsKey(writeDay))
-				healthStatisticsDayForWeekDto.setHospitalCnt(hospitals.get(writeDay));
+				healthDay.setHospitalCnt(hospitals.get(writeDay));
 			else
-				healthStatisticsDayForWeekDto.setHospitalCnt(0L);
+				healthDay.setHospitalCnt(0L);
 
 			if (medications.containsKey(writeDay))
-				healthStatisticsDayForWeekDto.setMedicationCnt(medications.get(writeDay));
+				healthDay.setMedicationCnt(medications.get(writeDay));
 			else
-				healthStatisticsDayForWeekDto.setMedicationCnt(0L);
+				healthDay.setMedicationCnt(0L);
 
 			if (fevers.containsKey(writeDay))
-				healthStatisticsDayForWeekDto.setFeverAvg(fevers.get(writeDay));
+				healthDay.setFeverAvg(fevers.get(writeDay));
 			else
-				healthStatisticsDayForWeekDto.setFeverAvg((double)0);
+				healthDay.setFeverAvg((double)0);
 
-			healthStatisticsWeekResDto.getHealthStatistics().put(writeDay.format(DateTimeFormatter.ofPattern("M/dd")), healthStatisticsDayForWeekDto);
+			healthWeek.getHealthStatistics().put(writeDay.format(DateTimeFormatter.ofPattern("M/dd")), healthDay);
 			writeDay = writeDay.plusDays(1);
 		}
 
 		// 카테고리별 일주일 통계 조회
-		Long hospitalCnt = hospitalRepository.findHospitalCntByWeek(babyId, monday, sunday);
-		healthStatisticsWeekResDto.setHospitalCnt(hospitalCnt);
-		Long medicationCnt = medicationRepository.findMedicationCntByWeek(babyId, monday, sunday);
-		healthStatisticsWeekResDto.setMedicationCnt(medicationCnt);
+		Long hospitalCnt = getStatisticsWeek(monday, hospitals);
+		healthWeek.setHospitalCnt(hospitalCnt);
+		Long medicationCnt = getStatisticsWeek(monday, medications);
+		healthWeek.setMedicationCnt(medicationCnt);
 		Double feverAvg = feverRepository.findFeverAvgByWeek(babyId, monday, sunday);
-		healthStatisticsWeekResDto.setFeverAvg(feverAvg);
+		healthWeek.setFeverAvg(feverAvg);
 
 		monday = monday.minusWeeks(1);
 		sunday = sunday.minusWeeks(1);
@@ -131,24 +132,24 @@ public class HealthStatisticsServiceImpl implements HealthStatisticsService{
 		Long lastWeekHospitalCnt = hospitalRepository.findHospitalCntByWeek(babyId, monday, sunday);
 		Long hospitalCntPercent = getPercent(hospitalCnt, lastWeekHospitalCnt);
 		Long lastWeekHospitalCntPercent = getPercent(lastWeekHospitalCnt, hospitalCnt);
-		healthStatisticsWeekResDto.setHospitalCntPercent(hospitalCntPercent);
-		healthStatisticsWeekResDto.setLastWeekHospitalCntPercent(lastWeekHospitalCntPercent);
+		healthWeek.setHospitalCntPercent(hospitalCntPercent);
+		healthWeek.setLastWeekHospitalCntPercent(lastWeekHospitalCntPercent);
 
 		// 투약 횟수 통계 퍼센트 계산
 		Long lastWeekMedicationCnt = medicationRepository.findMedicationCntByWeek(babyId, monday, sunday);
 		Long medicationCntPercent = getPercent(medicationCnt, lastWeekMedicationCnt);
 		Long lastWeekMedicationCntPercent = getPercent(lastWeekMedicationCnt, medicationCnt);
-		healthStatisticsWeekResDto.setMedicationCntPercent(medicationCntPercent);
-		healthStatisticsWeekResDto.setLastWeekMedicationCntPercent(lastWeekMedicationCntPercent);
+		healthWeek.setMedicationCntPercent(medicationCntPercent);
+		healthWeek.setLastWeekMedicationCntPercent(lastWeekMedicationCntPercent);
 
 		// 체온 평균 통계 퍼센트 계산
 		Double lastWeekFeverAvg = feverRepository.findFeverAvgByWeek(babyId, monday, sunday);
 		Long feverPercent = getPercent(feverAvg, lastWeekFeverAvg);
 		Long lastWeekFeverPercent = getPercent(lastWeekFeverAvg, feverAvg);
-		healthStatisticsWeekResDto.setFeverAvgPercent(feverPercent);
-		healthStatisticsWeekResDto.setLastWeekFeverAvgPercent(lastWeekFeverPercent);
+		healthWeek.setFeverAvgPercent(feverPercent);
+		healthWeek.setLastWeekFeverAvgPercent(lastWeekFeverPercent);
 
-		return healthStatisticsWeekResDto;
+		return healthWeek;
 	}
 
 	/**
@@ -175,5 +176,18 @@ public class HealthStatisticsServiceImpl implements HealthStatisticsService{
 		else {
 			return (long)(target * 100 / opponent);
 		}
+	}
+
+	/**
+	 * Long 타입의 일주일 통계 계산하기
+	 */
+	public Long getStatisticsWeek(LocalDate day, Map<LocalDate, Long> data) {
+		Long cnt = 0L;
+		for (int i = 0; i < WEEK; i++) {
+			cnt += data.getOrDefault(day, 0L);
+			day = day.plusDays(1);
+		}
+
+		return cnt;
 	}
 }

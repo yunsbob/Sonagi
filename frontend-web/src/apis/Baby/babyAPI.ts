@@ -11,13 +11,10 @@ const addBaby = async (baby: Baby) => {
 
 const getBaby = async (userId: number) => {
   try {
-    // 요청 후 결과 받아보고 싶을 때
-    // const response = await instance.get(`/babyInfos/${userId}`);
-    // console.log(response.data);
-    //return response.data;
-    await instance.get(`/babyInfos/${userId}`);
-  } catch (error) {
-    new Error('baby info get error');
+    const response = await instance.get(`/babyInfos/${userId}`);
+    return response.data;
+  } catch {
+    new Error('No data returned from the API');
   }
 };
 

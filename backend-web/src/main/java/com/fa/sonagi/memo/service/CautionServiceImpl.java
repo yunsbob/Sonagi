@@ -1,7 +1,6 @@
 package com.fa.sonagi.memo.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -51,7 +50,7 @@ public class CautionServiceImpl implements CautionService {
 		return MemoResDto.builder()
 			.id(caution.getId())
 			.userId(caution.getUser().getUserId())
-			.name(caution.getUser().getUsername())
+			.name(caution.getUser().getName())
 			.memo(caution.getMemo())
 			.build();
 	}

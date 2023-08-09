@@ -9,21 +9,13 @@ import com.fa.sonagi.baby.dto.BabyDetailResDto;
 import com.fa.sonagi.baby.dto.BabyInfoPostDto;
 import com.fa.sonagi.baby.dto.BabyInfoResDto;
 import com.fa.sonagi.baby.dto.CoparentResDto;
-import com.fa.sonagi.baby.entity.Baby;
-import com.fa.sonagi.user.entity.Users;
 
 public interface BabyService {
 	void registBabyInfo(BabyInfoPostDto babyInfoPostDto);
 
 	BabyCodeResDto getBabyCode(Long babyId);
 
-	void registUserBaby(Users user, Baby baby, String authority);
-
 	void registUserBabyByCode(BabyCodePosDto babyCodePosDto);
-
-	void registCheckup(Baby baby);
-
-	void registVaccination(Baby baby);
 
 	List<BabyInfoResDto> findBabyListByUserId(Long userId);
 
@@ -32,4 +24,12 @@ public interface BabyService {
 	BabyDetailResDto findBabyDetail(Long babyId, Long userId);
 
 	List<CoparentResDto> findCoparentListByBabyId(Long babyId, Long userId);
+
+	void deleteCoparent(Long babyId, Long coparentId);
+
+	void deleteBabyInfo(Long babyId);
+
+	List<BabyDetailResDto> findDeletedBabyInfoList();
+
+	void restoreBabyInfo(Long babyId);
 }

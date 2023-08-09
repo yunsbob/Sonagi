@@ -1,5 +1,6 @@
 package com.fa.sonagi.baby.service;
 
+import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -95,7 +96,6 @@ public class BabyServiceImpl implements BabyService {
 	/**
 	 * 아기의 아이디랑 유저 아이디 매칭
 	 */
-	@Override
 	public void registUserBaby(Users user, Baby baby, String authority) {
 
 		UserBaby userBaby = UserBaby.builder()
@@ -122,7 +122,6 @@ public class BabyServiceImpl implements BabyService {
 	/**
 	 * CheckupStatus 생성
 	 */
-	@Override
 	@Transactional
 	public void registCheckup(Baby baby) {
 		List<Checkup> checkups = checkupRepository.findAll();
@@ -140,7 +139,6 @@ public class BabyServiceImpl implements BabyService {
 	/**
 	 * VaccinationStatus 생성
 	 */
-	@Override
 	@Transactional
 	public void registVaccination(Baby baby) {
 		List<Vaccination> vaccinations = vaccinationRepository.findAll();
@@ -162,10 +160,13 @@ public class BabyServiceImpl implements BabyService {
 	public List<BabyInfoResDto> findBabyListByUserId(Long userId) {
 		Optional<Users> byId = userRepository.findById(userId);
 		List<UserBaby> userBabies = userBabyRepository.findByUser(byId);
+
 		return userBabies.stream()
+			.filter(u -> "N".equals(u.getBaby().getIsDeleted()))
 			.map(u -> BabyInfoResDto.builder()
 				.babyId(u.getBaby().getId())
 				.name(u.getBaby().getName())
+				.gender(u.getBaby().getGender())
 				.build())
 			.collect(Collectors.toList());
 	}
@@ -226,5 +227,56 @@ public class BabyServiceImpl implements BabyService {
 			return null;
 		}
 
+	}
+
+	/**
+	 * 주양육자가 공동양육자 삭제 & 공동양육자가 아이 정보 제거
+	 */
+	@Override
+	@Transactional
+	public void deleteCoparent(Long babyId, Long coparentId) {
+		Baby baby = babyRepository.findById(babyId).orElseThrow();
+		Users user = userRepository.findById(coparentId).orElseThrow();
+		UserBaby userBaby = userBabyRepository.findByBabyAndUser(baby, user);
+		userBabyRepository.delete(userBaby);
+	}
+
+	/**
+	 * 주양육자가 아이 정보 삭제
+	 */
+	@Override
+	@Transactional
+	public void deleteBabyInfo(Long babyId) {
+		Baby babyInfo = babyRepository.findById(babyId).orElseThrow();
+		babyInfo.deleteBabyInfo(LocalDate.now(), "Y");
+	}
+
+	/**
+	 * 삭제된 아이 데이터 리스트 조회
+	 */
+	@Override
+	public List<BabyDetailResDto> findDeletedBabyInfoList() {
+		List<Baby> babies = babyRepository.findAll();
+		return babies.stream()
+			.filter(b -> b.getIsDeleted().equals("Y"))
+			.map(b -> BabyDetailResDto.builder()
+				.id(b.getId())
+				.name(b.getName())
+				.birthDate(b.getBirthDate())
+				.gender(b.getGender())
+				.isDeleted(b.getIsDeleted())
+				.deletedAt(b.getDeletedAt())
+				.build())
+			.collect(Collectors.toList());
+	}
+
+	/**
+	 * 아이 정보 복원
+	 */
+	@Override
+	@Transactional
+	public void restoreBabyInfo(Long babyId) {
+		Baby babyInfo = babyRepository.findById(babyId).orElseThrow();
+		babyInfo.deleteBabyInfo(null, "N");
 	}
 }
