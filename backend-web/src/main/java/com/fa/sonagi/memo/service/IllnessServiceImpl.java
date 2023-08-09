@@ -33,7 +33,7 @@ public class IllnessServiceImpl implements IllnessService {
 			.map(i -> MemoResDto.builder()
 				.id(i.getId())
 				.userId(i.getUser().getUserId())
-				.name(i.getUser().getUsername())
+				.name(i.getUser().getName())
 				.memo(i.getMemo())
 				.build())
 			.collect(Collectors.toList());
@@ -49,7 +49,7 @@ public class IllnessServiceImpl implements IllnessService {
 		return MemoResDto.builder()
 			.id(illness.getId())
 			.userId(illness.getUser().getUserId())
-			.name(illness.getUser().getUsername())
+			.name(illness.getUser().getName())
 			.memo(illness.getMemo())
 			.build();
 	}

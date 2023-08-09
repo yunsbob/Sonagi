@@ -1,18 +1,23 @@
-import { useQuery } from '@tanstack/react-query'; //useQueries?
+import { useQuery } from '@tanstack/react-query';
 import { getBaby } from '@/apis/Baby/babyAPI';
-
-// get할 때 이 안에서 Recoil에 저장해줘야 하나?
-// 아뉘 별도로 해주자
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { Baby } from '@/types';
-import { babyInfoState } from '@/states/BabyState';
+import { useSetRecoilState } from 'recoil';
+import { babiesOfUserState } from '@/states/BabyState';
+import { BabiesOfUser } from '@/types';
 
 const useGetBaby = (userId: number) => {
+  const setBabyInfo = useSetRecoilState(babiesOfUserState);
   return useQuery(['baby', userId], () => getBaby(userId), {
-    onSuccess: () => {},
-    onError: (err: Error) => {
-      console.log(err);
+    onSuccess: (data: BabiesOfUser[]) => {
+      //   data.forEach(baby => {});
+      // TODO: 2 리코일 저장
+      //   console.log('here', data);
+      setBabyInfo(data);
+      return data;
     },
+    onError: (err: Error) => {
+      console.log('Error fetching baby data:', err.message);
+    },
+    suspense: true,
   });
 };
 

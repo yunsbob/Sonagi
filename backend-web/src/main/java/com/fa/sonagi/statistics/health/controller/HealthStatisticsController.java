@@ -29,13 +29,17 @@ public class HealthStatisticsController {
 	public ResponseEntity<?> getHealthStatistics(@RequestParam Long babyId,
 		@RequestParam String period, @RequestParam LocalDate createdDate) {
 		if (period.equals("day")) {
-			HealthStatisticsResDto healthStatisticsDay = healthStatisticsService.getHealthStatisticsDay(babyId, createdDate);
+			HealthStatisticsResDto healthStatisticsDay = healthStatisticsService.getHealthStatisticsDay(babyId,
+				createdDate);
 			return ResponseEntity.ok().body(healthStatisticsDay);
 		}
-		else {
+		else if (period.equals("week")) {
 			HealthStatisticsWeekResDto healthStatisticsWeek = healthStatisticsService.getHealthStatisticsWeek(babyId,
 				createdDate);
 			return ResponseEntity.ok().body(healthStatisticsWeek);
+		}
+		else {
+			return ResponseEntity.badRequest().build();
 		}
 	}
 }

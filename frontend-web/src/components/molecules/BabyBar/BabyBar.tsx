@@ -3,12 +3,20 @@ import { Image } from '@/components/atoms/Image/Image';
 import { BabyBarContainer } from '@/components/molecules/BabyBar/BabyBar.styles';
 import babyCircleBlue from '@/assets/images/img-baby-blue-circle.png';
 
+import { useGetBaby } from '@/apis/Baby/Queries/useGetBaby';
+import { useRecoilState } from 'recoil';
+import { userInfoState } from '@/states/UserState';
+
 const BabyBar = () => {
-  const BabyArray = ['이지은', '이지금'];
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const { data } = useGetBaby(userInfo.id);
+
+  // TODO: 3 리코일 떼오기
+  // const BabyArray = ['이지은', '이지금']; // TODO: 받아오기
 
   return (
     <BabyBarContainer>
-      {BabyArray.map((item, index) => (
+      {data?.map((item, index) => (
         // 예외적으로 BabyBar의 padding값을 inline style으로 적용
         <Button
           option="default"
@@ -24,7 +32,7 @@ const BabyBar = () => {
               margin: '2px',
             }}
           />
-          {item}
+          {item.name}
         </Button>
       ))}
     </BabyBarContainer>

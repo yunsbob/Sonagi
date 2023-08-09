@@ -46,7 +46,7 @@ public class MedicationRepositoryImpl implements MedicationRepositoryCustom {
 	@Override
 	public Long findMedicationCnt(Long babyId, LocalDate createdDate) {
 		Long cnt = queryFactory
-			.select(medication.count().coalesce(0L))
+			.select(medication.count())
 			.from(medication)
 			.where(medication.babyId.eq(babyId), medication.createdDate.eq(createdDate))
 			.fetchFirst();
@@ -59,9 +59,9 @@ public class MedicationRepositoryImpl implements MedicationRepositoryCustom {
 		Map<LocalDate, Long> cnts = queryFactory
 			.select(medication.createdDate, medication.count())
 			.from(medication)
-			.where(medication.babyId.eq(babyId))
+			.where(medication.babyId.eq(babyId),
+				medication.createdDate.goe(monday), medication.createdDate.loe(sunday))
 			.groupBy(medication.createdDate)
-			.having(medication.createdDate.goe(monday), medication.createdDate.loe(sunday))
 			.transform(GroupBy.groupBy(medication.createdDate).as(medication.count()));
 
 		return cnts;
@@ -70,7 +70,7 @@ public class MedicationRepositoryImpl implements MedicationRepositoryCustom {
 	@Override
 	public Long findMedicationCntByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
 		Long cnt = queryFactory
-			.select(medication.count().coalesce(0L))
+			.select(medication.count())
 			.from(medication)
 			.where(medication.babyId.eq(babyId),
 				medication.createdDate.goe(monday), medication.createdDate.loe(sunday))
