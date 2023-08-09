@@ -9,10 +9,7 @@ import { userInfoState } from '@/states/UserState';
 
 const BabyBar = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const { data } = useGetBaby(userInfo.id);
-
-  // TODO: 3 리코일 떼오기
-  // const BabyArray = ['이지은', '이지금']; // TODO: 받아오기
+  const { data } = useGetBaby(userInfo.userId);
 
   return (
     <BabyBarContainer>

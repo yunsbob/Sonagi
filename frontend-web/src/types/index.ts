@@ -1,5 +1,5 @@
 interface User {
-  id: number;
+  userId: number;
   name: string;
 }
 
@@ -10,7 +10,6 @@ interface Baby {
   userId: number;
 }
 
-// TODO: 백엔드에게 BabyDatas에 성별 요청하기
 interface BabiesOfUser {
   babyId: number;
   name: string;
