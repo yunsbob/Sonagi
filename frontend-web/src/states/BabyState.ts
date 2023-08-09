@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { Baby } from '@/types';
+import { BabiesOfUser, Baby } from '@/types';
 import { recoilPersist } from 'recoil-persist';
 
 // localStorage에 저장할 필요가 있겠...쬬?
@@ -12,5 +12,12 @@ const { persistAtom } = recoilPersist({
 export const babyInfoState = atom<Baby>({
   key: 'babyInfoState',
   default: {} as Baby,
+  effects_UNSTABLE: [persistAtom],
+});
+
+// 유저의 아이들 정보
+export const babiesOfUserState = atom<BabiesOfUser[]>({
+  key: 'babiesOfUserState',
+  default: [] as BabiesOfUser[],
   effects_UNSTABLE: [persistAtom],
 });
