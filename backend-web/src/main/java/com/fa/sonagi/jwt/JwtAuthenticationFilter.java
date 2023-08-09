@@ -5,6 +5,7 @@ import static com.fa.sonagi.oauth.repository.OAuth2AuthorizationRequestBasedOnCo
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
 import com.fa.sonagi.oauth.utils.CookieUtil;
+import com.fa.sonagi.user.entity.Users;
+import com.fa.sonagi.user.repository.UserRepository;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -20,6 +23,7 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,10 +34,11 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 	private static final String BEARER_TYPE = "Bearer";
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisTemplate<String, String> redisTemplate;
+	private final UserRepository userRepository;
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// 1. Request Header 에서 JWT 토큰 추출
+		// 1. Request Header 에서 JWT 토큰 추출 - token null => 로그아웃
 		String token = resolveToken((HttpServletRequest)request);
 		if (token == null) {
 			chain.doFilter(request, response);
@@ -88,17 +93,28 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 					.opsForValue()
 					.getOperations()
 					.delete(refreshTokenFromRedis);
-				chain.doFilter(request, response);
-			} else {// 2. 같다. 재발급 - 재발급 로직 추가.
-				// 기존 토큰 burn 그리고 새로 생성후 cookie 에 추가
+			} else {// 정상 유저 - 토큰 재발급 해줘야함
+				// 토큰 생성.
+				Users user = userRepository
+					.findById(Long.valueOf(userId))
+					.orElseThrow();
+				Token tokenInfo = jwtTokenProvider.createToken(userId, user.getSocialId(), user
+					.getRoles()
+					.get(0));
+				// from Redis 기존 토큰 burn 그리고 새로 생성후 cookie 에 추가
 				redisTemplate
 					.opsForValue()
 					.getOperations()
 					.delete(refreshTokenFromRedis);
-
-				// Token tokenInfo = jwtTokenProvider.createToken(userId, roleType.name());
-
+				redisTemplate
+					.opsForValue()
+					.set("RT" + userId, tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(), TimeUnit.MILLISECONDS);
+				// refresh Token -> Http only 쿠키.
+				CookieUtil.deleteCookie((HttpServletRequest)request, (HttpServletResponse)response, REFRESH_TOKEN);
+				CookieUtil.addCookie((HttpServletResponse)response, REFRESH_TOKEN, tokenInfo.getRefreshToken(), JwtTokenProvider.getRefreshTokenExpireTimeCookie());
+				((HttpServletResponse)response).setHeader("AccessToken", tokenInfo.getAccessToken());
 			}
+			chain.doFilter(request, response);
 		}
 	}
 
