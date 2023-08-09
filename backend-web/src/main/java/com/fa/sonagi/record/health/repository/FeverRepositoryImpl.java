@@ -3,7 +3,6 @@ package com.fa.sonagi.record.health.repository;
 import static com.fa.sonagi.record.health.entity.QFever.*;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 
 import com.fa.sonagi.record.health.dto.FeverResDto;
@@ -48,9 +47,9 @@ public class FeverRepositoryImpl implements FeverRepositoryCustom {
 		Map<LocalDate, Double> bodyTemperatures = queryFactory
 			.select(fever.createdDate, MathExpressions.round(fever.bodyTemperature.avg(), 1).coalesce((double)0))
 			.from(fever)
-			.where(fever.babyId.eq(babyId))
+			.where(fever.babyId.eq(babyId),
+				fever.createdDate.goe(monday), fever.createdDate.loe(sunday))
 			.groupBy(fever.createdDate)
-			.having(fever.createdDate.goe(monday), fever.createdDate.loe(sunday))
 			.transform(GroupBy.groupBy(fever.createdDate).as(MathExpressions.round(fever.bodyTemperature.avg(), 1).coalesce((double)0)));
 
 		return bodyTemperatures;

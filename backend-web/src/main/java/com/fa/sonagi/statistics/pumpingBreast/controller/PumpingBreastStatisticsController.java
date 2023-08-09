@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fa.sonagi.statistics.pumpingBreast.dto.PumpingBreastStatisticsResDto;
+import com.fa.sonagi.statistics.pumpingBreast.dto.PumpingBreastStatisticsWeekResDto;
 import com.fa.sonagi.statistics.pumpingBreast.service.PumpingBreastStatisticsService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,13 +29,17 @@ public class PumpingBreastStatisticsController {
 	public ResponseEntity<?> getPumpingBreastStatistics(@RequestParam Long babyId,
 		@RequestParam String period, @RequestParam LocalDate createdDate) {
 		if (period.equals("day")) {
-			PumpingBreastStatisticsResDto pumpingBreastStatisticsResDto = pumpingBreastStatisticsService.getPumpingBreastStatisticsDay(
+			PumpingBreastStatisticsResDto pumpingBreastStatisticsDay = pumpingBreastStatisticsService.getPumpingBreastStatisticsDay(
 				babyId, createdDate);
-			return ResponseEntity.ok().body(pumpingBreastStatisticsResDto);
-		} else {
-			PumpingBreastStatisticsResDto pumpingBreastStatisticsResDto = pumpingBreastStatisticsService.getPumpingBreastStatisticsDay(
+			return ResponseEntity.ok().body(pumpingBreastStatisticsDay);
+		}
+		else if (period.equals("week")) {
+			PumpingBreastStatisticsWeekResDto pumpingBreastStatisticsWeek = pumpingBreastStatisticsService.getPumpingBreastStatisticsWeek(
 				babyId, createdDate);
-			return ResponseEntity.ok().body(pumpingBreastStatisticsResDto);
+			return ResponseEntity.ok().body(pumpingBreastStatisticsWeek);
+		}
+		else {
+			return ResponseEntity.badRequest().build();
 		}
 	}
 }
