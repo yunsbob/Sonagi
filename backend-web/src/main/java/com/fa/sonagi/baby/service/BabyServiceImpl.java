@@ -96,7 +96,6 @@ public class BabyServiceImpl implements BabyService {
 	/**
 	 * 아기의 아이디랑 유저 아이디 매칭
 	 */
-	@Override
 	public void registUserBaby(Users user, Baby baby, String authority) {
 
 		UserBaby userBaby = UserBaby.builder()
@@ -123,7 +122,6 @@ public class BabyServiceImpl implements BabyService {
 	/**
 	 * CheckupStatus 생성
 	 */
-	@Override
 	@Transactional
 	public void registCheckup(Baby baby) {
 		List<Checkup> checkups = checkupRepository.findAll();
@@ -141,7 +139,6 @@ public class BabyServiceImpl implements BabyService {
 	/**
 	 * VaccinationStatus 생성
 	 */
-	@Override
 	@Transactional
 	public void registVaccination(Baby baby) {
 		List<Vaccination> vaccinations = vaccinationRepository.findAll();
@@ -169,6 +166,7 @@ public class BabyServiceImpl implements BabyService {
 			.map(u -> BabyInfoResDto.builder()
 				.babyId(u.getBaby().getId())
 				.name(u.getBaby().getName())
+				.gender(u.getBaby().getGender())
 				.build())
 			.collect(Collectors.toList());
 	}

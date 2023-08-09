@@ -5,11 +5,11 @@ import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.dto.MealResDto;
 
 public interface BreastFeedingService {
-  MealResDto findBreastFeedingById(Long id);
+	MealResDto findBreastFeedingById(Long id);
 
-  void registBreastFeeding(MealPostDto mealPostDto);
+	void registBreastFeeding(MealPostDto mealPostDto);
 
-  void updateBreastFeeding(MealPutDto mealPutDto);
+	void updateBreastFeeding(MealPutDto mealPutDto);
 
-  void deleteBreastFeedingById(Long id);
+	void deleteBreastFeedingById(Long id);
 }

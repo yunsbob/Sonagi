@@ -66,6 +66,9 @@ public class Users extends BaseTimeEntity implements UserDetails {
 	@NotNull
 	private ProviderType providerType;
 
+	@Column(name = "FCMToken", length = 70)
+	private String FirebaseToken;
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.roles

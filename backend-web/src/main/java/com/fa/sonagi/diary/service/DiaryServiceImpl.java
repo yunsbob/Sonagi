@@ -1,6 +1,8 @@
 package com.fa.sonagi.diary.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fa.sonagi.baby.entity.Baby;
+import com.fa.sonagi.baby.repository.BabyRepository;
 import com.fa.sonagi.diary.dto.DiaryPostDto;
 import com.fa.sonagi.diary.dto.DiaryPutDto;
 import com.fa.sonagi.diary.dto.DiaryResDto;
@@ -26,9 +30,11 @@ import lombok.extern.slf4j.Slf4j;
 public class DiaryServiceImpl implements DiaryService {
 	private final DiaryRepository diaryRepository;
 	private final UserRepository userRepository;
+	private final BabyRepository babyRepository;
 	private final S3File s3File;
 
 	@Override
+	@Transactional
 	public void createDiary(DiaryPostDto diaryPostDto, List<MultipartFile> imgFiles) throws Exception {
 		String userName = userRepository
 			.findById(diaryPostDto.getUserId())
@@ -67,9 +73,17 @@ public class DiaryServiceImpl implements DiaryService {
 
 		// Diary repository에 entity build 후 save
 		diaryRepository.save(diary);
+
+		Baby baby = babyRepository
+			.findById(diaryPostDto.getBabyId())
+			.orElseThrow();
+
+		baby.updateLastDiaryTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
+		babyRepository.save(baby);
 	}
 
 	@Override
+	@Transactional
 	public void updateDiaryContent(DiaryPutDto diaryPutDto, List<MultipartFile> imgFiles) throws Exception {
 		// diary content 수정
 		Diary diary = diaryRepository
@@ -109,6 +123,7 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteDiary(Long diaryId) {
 		diaryRepository.deleteById(diaryId);
 	}

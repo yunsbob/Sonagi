@@ -1,5 +1,5 @@
 interface User {
-  id: number;
+  userId: number;
   name: string;
 }
 
@@ -10,10 +10,9 @@ interface Baby {
   userId: number;
 }
 
-// TODO: 백엔드에게 BabyInfos에 성별 요청하기 머라..머라고 이름짓지...
-interface BabyInfoForBar {
+interface BabiesOfUser {
   babyId: number;
   name: string;
 }
 
-export type { User, Baby, BabyInfoForBar };
+export type { User, Baby, BabiesOfUser };

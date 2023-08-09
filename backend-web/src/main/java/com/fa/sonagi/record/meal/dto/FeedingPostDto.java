@@ -1,35 +1,39 @@
 package com.fa.sonagi.record.meal.dto;
 
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class FeedingPostDto {
 
-  @NotNull
-  private Long userId;
+	@NotNull
+	private Long userId;
 
-  @NotNull
-  private Long babyId;
+	@NotNull
+	private Long babyId;
 
-  @NotNull
-  private Time leftStartTime;
+	@NotNull
+	private LocalTime leftStartTime;
 
-  @NotNull
-  private Time rightStartTime;
+	@NotNull
+	private LocalTime rightStartTime;
 
-  @NotNull
-  private Time leftEndTime;
+	@NotNull
+	private LocalTime leftEndTime;
 
-  @NotNull
-  private Time rightEndTime;
+	@NotNull
+	private LocalTime rightEndTime;
 
-  private String memo;
+	private String memo;
 
-  @NotNull
-  private LocalDate createdDate;
+	@NotNull
+	private LocalDate createdDate;
+
+	@NotNull
+	private LocalTime createdTime;
 }

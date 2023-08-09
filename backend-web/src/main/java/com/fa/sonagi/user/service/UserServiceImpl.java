@@ -1,7 +1,6 @@
 package com.fa.sonagi.user.service;
 
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +30,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void updateName(NameDto nameDto) {
 		Users user = userRepository
-			.findById(nameDto.getId())
+			.findById(nameDto.getUserId())
 			.orElseThrow();
 		user.updateName(nameDto.getName());
 	}
@@ -40,8 +39,8 @@ public class UserServiceImpl implements UserService {
 	 * 사용자 이름 조회
 	 */
 	@Override
-	public NameDto findName(Long id) {
-		return userRepository.findName(id);
+	public NameDto findName(Long userId) {
+		return userRepository.findName(userId);
 	}
 
 }

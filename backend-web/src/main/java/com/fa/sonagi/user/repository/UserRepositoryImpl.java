@@ -16,7 +16,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 	public NameDto findName(Long userId) {
 		NameDto name = queryFactory
 			.select(Projections.bean(NameDto.class,
-				users.userId.as("id"),
+				users.userId.as("userId"),
 				users.name))
 			.from(users)
 			.where(users.userId.eq(userId))

@@ -1,11 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { getBaby } from '@/apis/Baby/babyAPI';
-import { BabyInfoForBar } from '@/types';
+import { useRecoilState } from 'recoil';
+import { babiesOfUserState } from '@/states/BabyState';
+import { BabiesOfUser } from '@/types';
 
 const useGetBaby = (userId: number) => {
+  const [babyInfo, setBabyInfo] = useRecoilState(babiesOfUserState);
+
   return useQuery(['baby', userId], () => getBaby(userId), {
-    onSuccess: (data: BabyInfoForBar[]) => {
-      // TODO: 2 리코일 저장
+    onSuccess: (data: BabiesOfUser[]) => {
+      setBabyInfo(data);
       return data;
     },
     onError: (err: Error) => {
