@@ -6,9 +6,9 @@ import { BabiesOfUser } from '@/types';
 
 const useGetBaby = (userId: number) => {
   const [babyInfo, setBabyInfo] = useRecoilState(babiesOfUserState);
+
   return useQuery(['baby', userId], () => getBaby(userId), {
     onSuccess: (data: BabiesOfUser[]) => {
-      console.log(data);
       setBabyInfo(data);
       return data;
     },
