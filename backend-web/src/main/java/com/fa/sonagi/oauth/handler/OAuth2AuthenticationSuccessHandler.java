@@ -26,6 +26,7 @@ import com.fa.sonagi.oauth.info.OAuth2UserInfo;
 import com.fa.sonagi.oauth.info.OAuth2UserInfoFactory;
 import com.fa.sonagi.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.fa.sonagi.oauth.utils.CookieUtil;
+import com.fa.sonagi.user.entity.Users;
 import com.fa.sonagi.user.repository.UserRepository;
 
 import jakarta.servlet.http.Cookie;
@@ -82,13 +83,12 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
 		RoleType roleType = hasAuthority(authorities, RoleType.ROLE_ADMIN.name()) ? RoleType.ROLE_ADMIN : RoleType.ROLE_USER;
 
-		Token tokenInfo = jwtTokenProvider.createToken(String.valueOf(userRepository
-			.findBySocialId(userInfo.getId())
-			.getUserId()), roleType.name());
+		Users bySocialId = userRepository.findBySocialId(userInfo.getId());
+		Token tokenInfo = jwtTokenProvider.createToken(String.valueOf(bySocialId.getUserId()), roleType.name());
 
 		redisTemplate
 			.opsForValue()
-			.set("RT:" + authentication.getName(), tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(), TimeUnit.MILLISECONDS);
+			.set(String.valueOf(bySocialId.getUserId()), tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(), TimeUnit.MILLISECONDS);
 
 		CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
 		CookieUtil.addCookie(response, REFRESH_TOKEN, tokenInfo.getRefreshToken(), JwtTokenProvider.getRefreshTokenExpireTimeCookie());
