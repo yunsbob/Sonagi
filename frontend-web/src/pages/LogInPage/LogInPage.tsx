@@ -6,10 +6,7 @@ import kakao from '@/assets/images/img-logo-kakao.png';
 import naver from '@/assets/images/img-logo-naver.png';
 import { Image } from '@/components/atoms/Image/Image';
 import { Text } from '@/components/atoms/Text/Text.styles';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { userFcmTokenState } from '@/states/UserState';
-
+import { Cookies } from 'react-cookie';
 import {
   ButtonContainer,
   LogInPageContainer,
@@ -17,39 +14,40 @@ import {
   LogoContainer,
 } from '@/pages/LogInPage/LogInPage.styles';
 import SocialButton from '@/components/molecules/SocialButton/SocialButton';
-import { useEffect } from 'react';
+
+const cookies = new Cookies();
+
+export const setCookie = (name: string, value: string, option?: any) => {
+  return cookies.set(name, value, { ...option });
+};
 
 const LogInPage = () => {
   const OAUTH2_REDIERECT_URI = `${process.env.REACT_APP_BASE_URL}/oauth/redirect`;
-
-  const [userFcmToken, setUserFcmToken] = useRecoilState(userFcmTokenState);
-
   const onSocialButtonClick = (socialName: string) => {
     const AUTH_URL = `${process.env.REACT_APP_SERVER_URL}/api/oauth2/authorization/${socialName}?redirect_uri=${OAUTH2_REDIERECT_URI}`;
     window.location.href = AUTH_URL;
   };
 
-  useEffect(() => {
-    const handleMessage = (event: any) => {
-      try {
-        const data = JSON.parse(event.data);
-        if (data.type === 'fcmToken') {
-          // Handle the received fcmToken in your React app
-          console.log('Received fcmToken from React Native:', data.token);
-          // You can now use data.token in your React app
-          setUserFcmToken(data.token);
-        }
-      } catch (error) {
-        console.error('Error parsing received data:', error);
+  const saveDeviceTokenToCookie = () => {
+    // React Native 알림을 위한 기기 Token값 저장
+    document.addEventListener('message', (e: any) => {
+      const token = e.data;
+
+      if (token) {
+        console.log('saveToken');
+        const expires = new Date();
+        expires.setMinutes(expires.getMinutes() + 60);
+
+        setCookie('token', token, {
+          path: '/',
+          expires,
+          secure: true,
+          httpOnly: true,
+        });
       }
-    };
-
-    window.addEventListener('message', handleMessage);
-
-    return () => {
-      window.removeEventListener('message', handleMessage);
-    };
-  }, [setUserFcmToken]);
+    });
+  };
+  saveDeviceTokenToCookie();
 
   return (
     <Background $background={babyBackground}>

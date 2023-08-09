@@ -46,7 +46,6 @@ const SignInPage = () => {
             <br />
             양육자의 이름을 입력해주세요
           </Text>
-          <p>{userFcmToken}</p>
           <RegisterField
             onClickButtonAction={onClickButtonAction}
             option="default"
