@@ -119,4 +119,13 @@ public class BabyController {
 	public List<BabyDetailResDto> findDeletedBabyInfoList() {
 		return babyService.findDeletedBabyInfoList();
 	}
+
+	/**
+	 * 아이 정보 복원
+	 */
+	@PutMapping("/isDeleted/{babyId}")
+	public ResponseEntity<?> restoreBabyInfo(@PathVariable Long babyId) {
+		babyService.restoreBabyInfo(babyId);
+		return ResponseEntity.ok().build();
+	}
 }

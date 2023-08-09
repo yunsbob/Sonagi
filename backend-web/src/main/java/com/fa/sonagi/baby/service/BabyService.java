@@ -38,4 +38,6 @@ public interface BabyService {
 	void deleteBabyInfo(Long babyId);
 
 	List<BabyDetailResDto> findDeletedBabyInfoList();
+
+	void restoreBabyInfo(Long babyId);
 }
