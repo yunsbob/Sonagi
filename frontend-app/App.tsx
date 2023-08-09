@@ -64,7 +64,7 @@ const App = () => {
   return (
     <WebView
       ref={webViewRef}
-      source={{uri: '10.0.2.2:3000/signIn'}}
+      source={{uri: 'https://sonagi.site'}}
       userAgent={DeviceInfo.getUserAgent() + '-kwdApp-'}
       onLoad={() => {
         getToken();
