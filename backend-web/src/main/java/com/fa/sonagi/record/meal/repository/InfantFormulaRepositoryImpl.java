@@ -70,25 +70,6 @@ public class InfantFormulaRepositoryImpl implements InfantFormulaRepositoryCusto
 	}
 
 	@Override
-	public Map<LocalDate, Long> findInfantFormulaCnt(Long babyId, LocalDate monday, LocalDate sunday) {
-		Map<LocalDate, Long> cnts = queryFactory
-			.select(infantFormula.createdDate,
-				infantFormula.count())
-			.from(infantFormula)
-			.where(infantFormula.babyId.eq(babyId),
-				infantFormula.createdDate.goe(monday), infantFormula.createdDate.loe(sunday))
-			.groupBy(infantFormula.createdDate)
-			.fetch()
-			.stream()
-			.collect(Collectors.toMap(
-				tuple -> tuple.get(infantFormula.createdDate),
-				tuple -> tuple.get(infantFormula.count())
-			));
-
-		return cnts;
-	}
-
-	@Override
 	public Map<LocalDate, Long> findInfantFormulaAmount(Long babyId, LocalDate monday, LocalDate sunday) {
 		Map<LocalDate, Long> amounts = queryFactory
 			.select(infantFormula.createdDate,

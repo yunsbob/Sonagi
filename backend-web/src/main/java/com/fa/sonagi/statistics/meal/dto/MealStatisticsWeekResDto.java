@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MealStatisticsWeekResDto {
-	private Map<String, MealStatisticsWeekResDto> mealStatistics;
+	private Map<String, MealStatisticsDayForWeekDto> mealStatistics;
 	private Long cnt;
 	private Long amount;
 	private Long cntPercent;

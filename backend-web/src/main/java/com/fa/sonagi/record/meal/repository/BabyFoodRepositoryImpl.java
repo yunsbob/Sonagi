@@ -70,25 +70,6 @@ public class BabyFoodRepositoryImpl implements BabyFoodRepositoryCustom{
 	}
 
 	@Override
-	public Map<LocalDate, Long> findBabyFoodCnt(Long babyId, LocalDate monday, LocalDate sunday) {
-		Map<LocalDate, Long> cnts = queryFactory
-			.select(babyFood.createdDate,
-				babyFood.count())
-			.from(babyFood)
-			.where(babyFood.babyId.eq(babyId),
-				babyFood.createdDate.goe(monday), babyFood.createdDate.loe(sunday))
-			.groupBy(babyFood.createdDate)
-			.fetch()
-			.stream()
-			.collect(Collectors.toMap(
-				tuple -> tuple.get(babyFood.createdDate),
-				tuple -> tuple.get(babyFood.count())
-			));
-
-		return cnts;
-	}
-
-	@Override
 	public Map<LocalDate, Long> findBabyFoodAmount(Long babyId, LocalDate monday, LocalDate sunday) {
 		Map<LocalDate, Long> amounts = queryFactory
 			.select(babyFood.createdDate,

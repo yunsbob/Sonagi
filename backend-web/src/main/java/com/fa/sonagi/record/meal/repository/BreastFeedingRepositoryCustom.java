@@ -16,8 +16,6 @@ public interface BreastFeedingRepositoryCustom {
 
 	Long findBreastFeedingAmount(Long babyId, LocalDate createdDate);
 
-	Map<LocalDate, Long> findBreastFeedingCnt(Long babyId, LocalDate monday, LocalDate sunday);
-
 	Map<LocalDate, Long> findBreastFeedingAmount(Long babyId, LocalDate monday, LocalDate sunday);
 
 	Long findBreastFeedingCntByWeek(Long babyId, LocalDate monday, LocalDate sunday);

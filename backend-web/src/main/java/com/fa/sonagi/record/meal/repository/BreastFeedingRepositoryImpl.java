@@ -71,25 +71,6 @@ public class BreastFeedingRepositoryImpl implements BreastFeedingRepositoryCusto
 	}
 
 	@Override
-	public Map<LocalDate, Long> findBreastFeedingCnt(Long babyId, LocalDate monday, LocalDate sunday) {
-		Map<LocalDate, Long> cnts = queryFactory
-			.select(breastFeeding.createdDate,
-				breastFeeding.count())
-			.from(breastFeeding)
-			.where(breastFeeding.babyId.eq(babyId),
-				breastFeeding.createdDate.goe(monday), breastFeeding.createdDate.loe(sunday))
-			.groupBy(breastFeeding.createdDate)
-			.fetch()
-			.stream()
-			.collect(Collectors.toMap(
-				tuple -> tuple.get(breastFeeding.createdDate),
-				tuple -> tuple.get(breastFeeding.count())
-			));
-
-		return cnts;
-	}
-
-	@Override
 	public Map<LocalDate, Long> findBreastFeedingAmount(Long babyId, LocalDate monday, LocalDate sunday) {
 		Map<LocalDate, Long> amounts = queryFactory
 			.select(breastFeeding.createdDate,

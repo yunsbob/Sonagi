@@ -16,8 +16,6 @@ public interface InfantFormulaRepositoryCustom {
 
 	Long findInfantFormulaAmount(Long babyId, LocalDate createdDate);
 
-	Map<LocalDate, Long> findInfantFormulaCnt(Long babyId, LocalDate monday, LocalDate sunday);
-
 	Map<LocalDate, Long> findInfantFormulaAmount(Long babyId, LocalDate monday, LocalDate sunday);
 
 	Long findInfantFormulaCntByWeek(Long babyId, LocalDate monday, LocalDate sunday);

@@ -16,8 +16,6 @@ public interface MilkRepositoryCustom {
 
 	Long findMilkAmount(Long babyId, LocalDate createdDate);
 
-	Map<LocalDate, Long> findMilkCnt(Long babyId, LocalDate monday, LocalDate sunday);
-
 	Map<LocalDate, Long> findMilkAmount(Long babyId, LocalDate monday, LocalDate sunday);
 
 	Long findMilkCntByWeek(Long babyId, LocalDate monday, LocalDate sunday);

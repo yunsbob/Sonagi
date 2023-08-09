@@ -70,25 +70,6 @@ public class MilkRepositoryImpl implements MilkRepositoryCustom{
 	}
 
 	@Override
-	public Map<LocalDate, Long> findMilkCnt(Long babyId, LocalDate monday, LocalDate sunday) {
-		Map<LocalDate, Long> cnts = queryFactory
-			.select(milk.createdDate,
-				milk.count())
-			.from(milk)
-			.where(milk.babyId.eq(babyId),
-				milk.createdDate.goe(monday), milk.createdDate.loe(sunday))
-			.groupBy(milk.createdDate)
-			.fetch()
-			.stream()
-			.collect(Collectors.toMap(
-				tuple -> tuple.get(milk.createdDate),
-				tuple -> tuple.get(milk.count())
-			));
-
-		return cnts;
-	}
-
-	@Override
 	public Map<LocalDate, Long> findMilkAmount(Long babyId, LocalDate monday, LocalDate sunday) {
 		Map<LocalDate, Long> amounts = queryFactory
 			.select(milk.createdDate,
@@ -103,7 +84,7 @@ public class MilkRepositoryImpl implements MilkRepositoryCustom{
 				tuple -> tuple.get(milk.createdDate),
 				tuple -> tuple.get(milk.amount.sum().coalesce(0L))
 			));
-
+		
 		return amounts;
 	}
 
@@ -122,7 +103,7 @@ public class MilkRepositoryImpl implements MilkRepositoryCustom{
 	@Override
 	public Long findMilkAmountByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
 		Long amount = queryFactory
-			.select(milk.amount.sum())
+			.select(milk.amount.sum().coalesce(0L))
 			.from(milk)
 			.where(milk.babyId.eq(babyId),
 				milk.createdDate.goe(monday), milk.createdDate.loe(sunday))

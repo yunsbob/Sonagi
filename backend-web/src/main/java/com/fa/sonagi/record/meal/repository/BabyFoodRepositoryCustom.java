@@ -16,8 +16,6 @@ public interface BabyFoodRepositoryCustom{
 
 	Long findBabyFoodAmount(Long babyId, LocalDate createdDate);
 
-	Map<LocalDate, Long> findBabyFoodCnt(Long babyId, LocalDate monday, LocalDate sunday);
-
 	Map<LocalDate, Long> findBabyFoodAmount(Long babyId, LocalDate monday, LocalDate sunday);
 
 	Long findBabyFoodCntByWeek(Long babyId, LocalDate monday, LocalDate sunday);
