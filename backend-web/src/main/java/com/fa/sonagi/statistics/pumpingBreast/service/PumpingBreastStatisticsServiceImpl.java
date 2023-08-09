@@ -83,6 +83,7 @@ public class PumpingBreastStatisticsServiceImpl implements PumpingBreastStatisti
 
 		// 날짜별 데이터 세팅
 		LocalDate writeDay = monday;
+		Long mostAmount = getMostAmount(pumpingBreastAmounts, writeDay);
 		for (int i = 0; i < WEEK; i++) {
 			PumpingBreastStatisticsDayForWeekDto pumpingBreastDay = new PumpingBreastStatisticsDayForWeekDto();
 
@@ -91,8 +92,10 @@ public class PumpingBreastStatisticsServiceImpl implements PumpingBreastStatisti
 			else
 				pumpingBreastDay.setCnt(0L);
 
-			if (pumpingBreastAmounts.containsKey(writeDay))
-				pumpingBreastDay.setAmount(pumpingBreastAmounts.get(writeDay));
+			if (pumpingBreastAmounts.containsKey(writeDay)){
+				Long amountPercent = getPercent(pumpingBreastAmounts.get(writeDay), mostAmount);
+				pumpingBreastDay.setAmount(amountPercent);
+			}
 			else
 				pumpingBreastDay.setAmount(0L);
 
@@ -150,5 +153,20 @@ public class PumpingBreastStatisticsServiceImpl implements PumpingBreastStatisti
 		}
 
 		return cnt;
+	}
+
+	/**
+	 * 최대 용량 계산하기
+	 */
+	public Long getMostAmount(Map<LocalDate, Long> amounts, LocalDate writeDay) {
+		Long mostAmount = 0L;
+		for (int i = 0; i < WEEK; i++) {
+			if (amounts.containsKey(writeDay)) {
+				mostAmount = Math.max(mostAmount, amounts.get(writeDay));
+			}
+			writeDay = writeDay.plusDays(1);
+		}
+
+		return mostAmount;
 	}
 }
