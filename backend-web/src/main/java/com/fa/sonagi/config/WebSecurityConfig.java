@@ -82,7 +82,7 @@ public class WebSecurityConfig {
 			.successHandler(oAuth2AuthenticationSuccessHandler())
 			.failureHandler(oAuth2AuthenticationFailureHandler());
 
-		httpSecurity.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisTemplate), UsernamePasswordAuthenticationFilter.class);
+		httpSecurity.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisTemplate, userRepository), UsernamePasswordAuthenticationFilter.class);
 
 		return httpSecurity.build();
 	}

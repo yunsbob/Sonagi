@@ -65,6 +65,7 @@ public class JwtTokenProvider {
 
 		String refreshToken = Jwts
 			.builder()
+			.setSubject(authentication.getName())
 			.setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
 			.signWith(key, SignatureAlgorithm.HS256)
 			.compact();
@@ -79,12 +80,13 @@ public class JwtTokenProvider {
 			.build();
 	}
 
-	public Token createToken(String id, String role) {
+	public Token createToken(String id, String socialId, String role) {
 		long now = new Date().getTime();
 
 		String accessToken = Jwts
 			.builder()
 			.setSubject(id)
+			.setIssuedAt(new Date())
 			.claim(AUTHORITIES_KEY, role)
 			.signWith(key, SignatureAlgorithm.HS256)
 			.setExpiration(new Date(now + ACCESS_TOKEN_EXPIRE_TIME))
@@ -93,9 +95,11 @@ public class JwtTokenProvider {
 		// Refresh Token 생성
 		String refreshToken = Jwts
 			.builder()
-			.setSubject(id)
-			.setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
+			.setSubject(socialId)
+			.setIssuedAt(new Date())
+			.claim(AUTHORITIES_KEY, role)
 			.signWith(key, SignatureAlgorithm.HS256)
+			.setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
 			.compact();
 
 		return Token
@@ -131,7 +135,7 @@ public class JwtTokenProvider {
 	}
 
 	// 토큰을 클레임 형태로 추출함
-	private Claims parseClaims(String accessToken) {
+	public Claims parseClaims(String accessToken) {
 		try {
 			return Jwts
 				.parserBuilder()
@@ -167,8 +171,7 @@ public class JwtTokenProvider {
 		return "isIllegal";
 	}
 
-	public Long getExpiration(String accessToken) {
-		// accessToken 남은 유효시간
+	public boolean getIsExipired(String accessToken) {
 		Date expiration = Jwts
 			.parserBuilder()
 			.setSigningKey(key)
@@ -178,6 +181,6 @@ public class JwtTokenProvider {
 			.getExpiration();
 		// 현재 시간
 		long now = new Date().getTime();
-		return (expiration.getTime() - now);
+		return (expiration.getTime() - now) > 0;
 	}
 }
