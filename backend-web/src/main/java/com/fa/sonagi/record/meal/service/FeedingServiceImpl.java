@@ -28,21 +28,7 @@ public class FeedingServiceImpl implements FeedingService {
 	 */
 	@Override
 	public FeedingResDto findFeedingById(Long id) {
-		Feeding feeding = feedingRepository
-			.findById(id)
-			.orElseThrow();
-
-		FeedingResDto feedingResDto = FeedingResDto
-			.builder()
-			.id(feeding.getId())
-			.leftStartTime(feeding.getLeftStartTime())
-			.rightStartTime(feeding.getRightStartTime())
-			.leftEndTime(feeding.getLeftEndTime())
-			.rightEndTime(feeding.getRightEndTime())
-			.memo(feeding.getMemo())
-			.build();
-
-		return feedingResDto;
+		return feedingRepository.findFeedingRecord(id);
 	}
 
 	/**
