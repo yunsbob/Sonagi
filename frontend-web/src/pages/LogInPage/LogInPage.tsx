@@ -21,35 +21,13 @@ import { useEffect } from 'react';
 
 const LogInPage = () => {
   const OAUTH2_REDIERECT_URI = `${process.env.REACT_APP_BASE_URL}/oauth/redirect`;
-
-  const [userFcmToken, setUserFcmToken] = useRecoilState(userFcmTokenState);
-
   const onSocialButtonClick = (socialName: string) => {
     const AUTH_URL = `${process.env.REACT_APP_SERVER_URL}/api/oauth2/authorization/${socialName}?redirect_uri=${OAUTH2_REDIERECT_URI}`;
     window.location.href = AUTH_URL;
   };
 
-  useEffect(() => {
-    const handleMessage = (event: any) => {
-      try {
-        const data = JSON.parse(event.data);
-        if (data.type === 'fcmToken') {
-          // Handle the received fcmToken in your React app
-          console.log('Received fcmToken from React Native:', data.token);
-          // You can now use data.token in your React app
-          setUserFcmToken(data.token);
-        }
-      } catch (error) {
-        console.error('Error parsing received data:', error);
-      }
-    };
-
-    window.addEventListener('message', handleMessage);
-
-    return () => {
-      window.removeEventListener('message', handleMessage);
-    };
-  }, [setUserFcmToken]);
+  document.addEventListener('message', (e: any) => console.log(e.data));
+  // document.addEventListener('message', (e: any) => console.log(e.data)); -> 쿠키에 저장하는 걸로 바꾸기
 
   return (
     <Background $background={babyBackground}>
