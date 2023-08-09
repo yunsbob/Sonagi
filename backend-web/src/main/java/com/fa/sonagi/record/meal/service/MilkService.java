@@ -5,11 +5,11 @@ import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.dto.MealResDto;
 
 public interface MilkService {
-  MealResDto findMilkById(Long id);
+	MealResDto findMilkById(Long id);
 
-  void registMilk(MealPostDto mealPostDto);
+	void registMilk(MealPostDto mealPostDto);
 
-  void updateMilk(MealPutDto mealPutDto);
+	void updateMilk(MealPutDto mealPutDto);
 
-  void deleteMilkById(Long id);
+	void deleteMilkById(Long id);
 }

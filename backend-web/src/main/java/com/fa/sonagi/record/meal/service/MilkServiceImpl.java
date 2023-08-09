@@ -1,8 +1,12 @@
 package com.fa.sonagi.record.meal.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fa.sonagi.baby.entity.Baby;
+import com.fa.sonagi.baby.repository.BabyRepository;
 import com.fa.sonagi.record.meal.dto.MealPostDto;
 import com.fa.sonagi.record.meal.dto.MealPutDto;
 import com.fa.sonagi.record.meal.dto.MealResDto;
@@ -16,62 +20,77 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MilkServiceImpl implements MilkService {
 
-  private final MilkRepository milkRepository;
+	private final MilkRepository milkRepository;
+	private final BabyRepository babyRepository;
 
-  /**
-   * 우유 기록 아이디로 조회
-   */
-  @Override
-  public MealResDto findMilkById(Long id) {
-    Milk milk = milkRepository.findById(id).orElseThrow();
+	/**
+	 * 우유 기록 아이디로 조회
+	 */
+	@Override
+	public MealResDto findMilkById(Long id) {
+		Milk milk = milkRepository
+			.findById(id)
+			.orElseThrow();
 
-    MealResDto mealResDto = MealResDto.builder()
-        .id(milk.getId())
-        .amount(milk.getAmount())
-        .memo(milk.getMemo())
-        .createdTime(milk.getCreatedTime())
-        .build();
+		MealResDto mealResDto = MealResDto
+			.builder()
+			.id(milk.getId())
+			.amount(milk.getAmount())
+			.memo(milk.getMemo())
+			.createdTime(milk.getCreatedTime())
+			.build();
 
-    return mealResDto;
-  }
+		return mealResDto;
+	}
 
-  /**
-   * 우유 기록 등록
-   */
-  @Override
-  @Transactional
-  public void registMilk(MealPostDto mealPostDto) {
-    Milk milk = Milk.builder()
-        .userId(mealPostDto.getUserId())
-        .babyId(mealPostDto.getBabyId())
-        .createdTime(mealPostDto.getCreatedTime())
-        .createdDate(mealPostDto.getCreatedDate())
-        .amount(mealPostDto.getAmount())
-        .memo(mealPostDto.getMemo())
-        .build();
+	/**
+	 * 우유 기록 등록
+	 */
+	@Override
+	@Transactional
+	public void registMilk(MealPostDto mealPostDto) {
+		Milk milk = Milk
+			.builder()
+			.userId(mealPostDto.getUserId())
+			.babyId(mealPostDto.getBabyId())
+			.createdTime(mealPostDto.getCreatedTime())
+			.createdDate(mealPostDto.getCreatedDate())
+			.amount(mealPostDto.getAmount())
+			.memo(mealPostDto.getMemo())
+			.build();
 
-    milkRepository.save(milk);
-  }
+		Baby baby = babyRepository
+			.findById(mealPostDto.getBabyId())
+			.orElseThrow();
+		baby.updateLastMealTime(LocalDateTime.of(mealPostDto.getCreatedDate(), mealPostDto.getCreatedTime()));
+		babyRepository.save(baby);
 
-  /**
-   * 우유 기록 수정
-   */
-  @Override
-  @Transactional
-  public void updateMilk(MealPutDto mealPutDto) {
-    Milk milk = milkRepository.findById(mealPutDto.getId()).orElseThrow();
+		milkRepository.save(milk);
+	}
 
-    milk.updateMilk(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
-  }
+	/**
+	 * 우유 기록 수정
+	 */
+	@Override
+	@Transactional
+	public void updateMilk(MealPutDto mealPutDto) {
+		Milk milk = milkRepository
+			.findById(mealPutDto.getId())
+			.orElseThrow();
 
-  /**
-   * 우유 기록 삭제
-   */
-  @Override
-  @Transactional
-  public void deleteMilkById(Long id) {
-    Milk milk = milkRepository.findById(id).orElseThrow();
+		milk.updateMilk(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());
+	}
 
-    milkRepository.delete(milk);
-  }
+	/**
+	 * 우유 기록 삭제
+	 */
+	@Override
+	@Transactional
+	public void deleteMilkById(Long id) {
+		Milk milk = milkRepository
+			.findById(id)
+			.orElseThrow();
+
+		milkRepository.delete(milk);
+	}
 }

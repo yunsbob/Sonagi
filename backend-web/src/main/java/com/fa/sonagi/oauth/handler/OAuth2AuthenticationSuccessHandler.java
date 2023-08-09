@@ -86,9 +86,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		Users bySocialId = userRepository.findBySocialId(userInfo.getId());
 		Token tokenInfo = jwtTokenProvider.createToken(String.valueOf(bySocialId.getUserId()), roleType.name());
 
+		// RT{userId} : refreshToken 형식으로 redis 저장.
 		redisTemplate
 			.opsForValue()
-			.set(String.valueOf(bySocialId.getUserId()), tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(), TimeUnit.MILLISECONDS);
+			.set("RT" + String.valueOf(bySocialId.getUserId()), tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(), TimeUnit.MILLISECONDS);
 
 		CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
 		CookieUtil.addCookie(response, REFRESH_TOKEN, tokenInfo.getRefreshToken(), JwtTokenProvider.getRefreshTokenExpireTimeCookie());

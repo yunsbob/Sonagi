@@ -1,8 +1,12 @@
 package com.fa.sonagi.record.meal.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fa.sonagi.baby.entity.Baby;
+import com.fa.sonagi.baby.repository.BabyRepository;
 import com.fa.sonagi.record.meal.dto.SnackPostDto;
 import com.fa.sonagi.record.meal.dto.SnackPutDto;
 import com.fa.sonagi.record.meal.dto.SnackResDto;
@@ -16,60 +20,75 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SnackServiceImpl implements SnackService {
 
-  private final SnackRepository snackRepository;
+	private final SnackRepository snackRepository;
+	private final BabyRepository babyRepository;
 
-  /**
-   * 간식 기록 아이디로 조회
-   */
-  @Override
-  public SnackResDto findSnackById(Long id) {
-    Snack snack = snackRepository.findById(id).orElseThrow();
+	/**
+	 * 간식 기록 아이디로 조회
+	 */
+	@Override
+	public SnackResDto findSnackById(Long id) {
+		Snack snack = snackRepository
+			.findById(id)
+			.orElseThrow();
 
-    SnackResDto snackResDto = SnackResDto.builder()
-        .id(snack.getId())
-        .memo(snack.getMemo())
-        .createdTime(snack.getCreatedTime())
-        .build();
+		SnackResDto snackResDto = SnackResDto
+			.builder()
+			.id(snack.getId())
+			.memo(snack.getMemo())
+			.createdTime(snack.getCreatedTime())
+			.build();
 
-    return snackResDto;
-  }
+		return snackResDto;
+	}
 
-  /**
-   * 간식 기록 등록
-   */
-  @Override
-  @Transactional
-  public void registSnack(SnackPostDto snackPostDto) {
-    Snack snack = Snack.builder()
-        .userId(snackPostDto.getUserId())
-        .babyId(snackPostDto.getBabyId())
-        .createdTime(snackPostDto.getCreatedTime())
-        .createdDate(snackPostDto.getCreatedDate())
-        .memo(snackPostDto.getMemo())
-        .build();
+	/**
+	 * 간식 기록 등록
+	 */
+	@Override
+	@Transactional
+	public void registSnack(SnackPostDto snackPostDto) {
+		Snack snack = Snack
+			.builder()
+			.userId(snackPostDto.getUserId())
+			.babyId(snackPostDto.getBabyId())
+			.createdTime(snackPostDto.getCreatedTime())
+			.createdDate(snackPostDto.getCreatedDate())
+			.memo(snackPostDto.getMemo())
+			.build();
 
-    snackRepository.save(snack);
-  }
+		Baby baby = babyRepository
+			.findById(snackPostDto.getBabyId())
+			.orElseThrow();
+		baby.updateLastMealTime(LocalDateTime.of(snackPostDto.getCreatedDate(), snackPostDto.getCreatedTime()));
+		babyRepository.save(baby);
 
-  /**
-   * 간식 기록 수정
-   */
-  @Override
-  @Transactional
-  public void updateSnack(SnackPutDto snackPutDto) {
-    Snack snack = snackRepository.findById(snackPutDto.getId()).orElseThrow();
+		snackRepository.save(snack);
+	}
 
-    snack.updateSnack(snackPutDto.getMemo(), snackPutDto.getCreatedTime());
-  }
+	/**
+	 * 간식 기록 수정
+	 */
+	@Override
+	@Transactional
+	public void updateSnack(SnackPutDto snackPutDto) {
+		Snack snack = snackRepository
+			.findById(snackPutDto.getId())
+			.orElseThrow();
 
-  /**
-   * 간식 기록 삭제
-   */
-  @Override
-  @Transactional
-  public void deleteSnackById(Long id) {
-    Snack snack = snackRepository.findById(id).orElseThrow();
+		snack.updateSnack(snackPutDto.getMemo(), snackPutDto.getCreatedTime());
+	}
 
-    snackRepository.delete(snack);
-  }
+	/**
+	 * 간식 기록 삭제
+	 */
+	@Override
+	@Transactional
+	public void deleteSnackById(Long id) {
+		Snack snack = snackRepository
+			.findById(id)
+			.orElseThrow();
+
+		snackRepository.delete(snack);
+	}
 }

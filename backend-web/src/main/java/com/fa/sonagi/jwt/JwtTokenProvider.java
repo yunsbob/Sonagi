@@ -144,24 +144,27 @@ public class JwtTokenProvider {
 		}
 	}
 
-	public boolean validateToken(String token) {
+	public String validateToken(String token) {
 		try {
 			Jwts
 				.parserBuilder()
 				.setSigningKey(key)
 				.build()
 				.parseClaimsJws(token);
-			return true;
-		} catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
+			return "vaild";
+		} catch (MalformedJwtException e) {
 			log.info("MalformedJwtException");
+			return "invalid";
 		} catch (ExpiredJwtException e) {
 			log.info("ExpiredJwtException");
+			return "isExpired";
 		} catch (UnsupportedJwtException e) {
 			log.info("UnsupportedJwtException");
+			return "isUnsupporeted";
 		} catch (IllegalArgumentException e) {
 			log.info("IllegalArgumentException");
 		}
-		return false;
+		return "isIllegal";
 	}
 
 	public Long getExpiration(String accessToken) {
