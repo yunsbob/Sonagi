@@ -10,7 +10,7 @@ public interface UserRepository extends JpaRepository<Users, Long>, UserReposito
 	Users findBySocialId(String social);
 
 	@Override
-	Optional<Users> findById(Long id);
+	Optional<Users> findById(Long userId);
 
 	Optional<Users> findByEmail(String email);
 
