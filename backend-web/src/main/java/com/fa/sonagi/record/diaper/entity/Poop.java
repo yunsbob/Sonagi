@@ -1,7 +1,7 @@
 package com.fa.sonagi.record.diaper.entity;
 
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 
 @Entity
 @Getter
@@ -30,22 +29,22 @@ public class Poop {
   @Column(name = "poop_id", nullable = false)
   private Long id;
 
-  @Column(name = "user_id", nullable = false)
-  private Long userId;
-
   @Column(name = "baby_id", nullable = false)
   private Long babyId;
+
+  @Column(name = "user_id", nullable = false)
+  private Long userId;
 
   @Column(name = "created_date", nullable = false)
   private LocalDate createdDate;
 
   @Column(name = "created_time", nullable = false)
-  private Time createdTime;
+  private LocalTime createdTime;
 
   @Column(name = "memo", length = 100)
   private String memo;
 
-  public void updatePoop(Time createdTime, String memo) {
+  public void updatePoop(LocalTime createdTime, String memo) {
     this.createdTime = createdTime;
     this.memo = memo;
   }

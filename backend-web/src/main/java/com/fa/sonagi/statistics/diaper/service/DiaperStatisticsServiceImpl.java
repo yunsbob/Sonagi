@@ -1,16 +1,23 @@
 package com.fa.sonagi.statistics.diaper.service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.diaper.repository.PeeRepository;
 import com.fa.sonagi.record.diaper.repository.PoopRepository;
+import com.fa.sonagi.statistics.diaper.dto.DiaperStatisticsDayForWeekDto;
 import com.fa.sonagi.statistics.diaper.dto.DiaperStatisticsQueryDto;
 import com.fa.sonagi.statistics.diaper.dto.DiaperStatisticsResDto;
+import com.fa.sonagi.statistics.diaper.dto.DiaperStatisticsWeekResDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +28,7 @@ public class DiaperStatisticsServiceImpl implements DiaperStatisticsService{
 
 	private final PeeRepository peeRepository;
 	private final PoopRepository poopRepository;
+	private final int WEEK = 7;
 
 	/**
 	 * 일별 통계 계산
@@ -30,9 +38,9 @@ public class DiaperStatisticsServiceImpl implements DiaperStatisticsService{
 		DiaperStatisticsResDto diaperStatisticsResDto = new DiaperStatisticsResDto();
 
 		// 데이터 조회
-		List<DiaperStatisticsQueryDto> pees = findPees(babyId, createdDate);
+		List<DiaperStatisticsQueryDto> pees = peeRepository.findPeeByDay(babyId, createdDate);
 		diaperStatisticsResDto.setPees(pees);
-		List<DiaperStatisticsQueryDto> poops = findPoops(babyId, createdDate);
+		List<DiaperStatisticsQueryDto> poops = poopRepository.findPoopByDay(babyId, createdDate);
 		diaperStatisticsResDto.setPoops(poops);
 
 		// 횟수 통계
@@ -43,71 +51,97 @@ public class DiaperStatisticsServiceImpl implements DiaperStatisticsService{
 
 		createdDate = createdDate.minus(1, ChronoUnit.DAYS);
 
-		Long yesterdayPeeCnt = findPeeCnt(babyId, createdDate);
-		Long yesterdayPoopCnt = findPoopCnt(babyId, createdDate);
+		// 소변 횟수 통계 계산
+		Long yesterdayPeeCnt = peeRepository.findPeeCnt(babyId, createdDate);
+		Long peeCntPercent = getPercent(peeCnt, yesterdayPeeCnt);
+		Long yesterdayPeeCntPercent = getPercent(yesterdayPeeCnt, peeCnt);
+		diaperStatisticsResDto.setPeeCntPercent(peeCntPercent);
+		diaperStatisticsResDto.setYesterdayPeeCntPercent(yesterdayPeeCntPercent);
 
-		Long peePercent, poopPercent, yesterdayPeePercent, yesterdayPoopPercent;
-
-		if (peeCnt >= yesterdayPeeCnt) {
-			if (peeCnt == 0) peePercent = 0L;
-			else peePercent = 100L;
-			if (yesterdayPeeCnt == 0) yesterdayPeePercent = 0L;
-			else yesterdayPeePercent = yesterdayPeeCnt * 100 / peeCnt;
-		}
-		else {
-			yesterdayPeePercent = 100L;
-			if (peeCnt == 0) peePercent = 0L;
-			else peePercent = peeCnt * 100 / yesterdayPeeCnt;
-		}
-		diaperStatisticsResDto.setPeePercent(peePercent);
-		diaperStatisticsResDto.setYesterdayPeePercent(yesterdayPeePercent);
-
-		if (poopCnt >= yesterdayPoopCnt) {
-			if (poopCnt == 0) poopPercent = 0L;
-			else poopPercent = 100L;
-			if (yesterdayPoopCnt == 0) yesterdayPoopPercent = 0L;
-			else yesterdayPoopPercent = yesterdayPoopCnt * 100 / poopCnt;
-		}
-		else {
-			yesterdayPoopPercent = 100L;
-			if (poopCnt == 0) poopPercent = 0L;
-			else poopPercent = poopCnt * 100 / yesterdayPoopCnt;
-		}
-		diaperStatisticsResDto.setPoopPercent(poopPercent);
-		diaperStatisticsResDto.setYesterdayPoopPercent(yesterdayPoopPercent);
+		// 대변 횟수 통계 계산
+		Long yesterdayPoopCnt = poopRepository.findPoopCnt(babyId, createdDate);
+		Long poopCntPercent = getPercent(poopCnt, yesterdayPoopCnt);
+		Long yesterdayPoopCntPercent = getPercent(yesterdayPoopCnt, poopCnt);
+		diaperStatisticsResDto.setPoopCntPercent(poopCntPercent);
+		diaperStatisticsResDto.setYesterdayPoopCntPercent(yesterdayPoopCntPercent);
 
 		return diaperStatisticsResDto;
 	}
 
 	/**
-	 * 소변 일별 데이터 조회
+	 * 주별 통계 계산
 	 */
 	@Override
-	public List<DiaperStatisticsQueryDto> findPees(Long babyId, LocalDate createdDate) {
-		return peeRepository.findPeeByDay(babyId, createdDate);
+	public DiaperStatisticsWeekResDto getDiaperStatisticsWeek(Long babyId, LocalDate createdDate) {
+		LocalDate monday = createdDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+		LocalDate sunday = createdDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+		DiaperStatisticsWeekResDto diaperWeek = new DiaperStatisticsWeekResDto();
+
+		// 일주일 데이터 조회
+		Map<LocalDate, List<LocalTime>> peeForWeek = peeRepository.findPeeForWeek(babyId, monday, sunday);
+		Map<LocalDate, List<LocalTime>> poopForWeek = poopRepository.findPoopForWeek(babyId, monday, sunday);
+
+		// 날짜별 데이터 세팅
+		LocalDate writeDay = monday;
+		Long peeCnt = 0L;
+		Long poopCnt = 0L;
+		for (int i = 0; i < WEEK; i++) {
+			DiaperStatisticsDayForWeekDto diaperDay = new DiaperStatisticsDayForWeekDto();
+			if (peeForWeek.containsKey(writeDay)) {
+				for (int j = 0; j < peeForWeek.get(writeDay).size(); j++) {
+					Long startTime = (long)(peeForWeek.get(writeDay).get(j).getHour() * 60
+											+ peeForWeek.get(writeDay).get(j).getMinute());
+					diaperDay.getPees().add(startTime);
+					peeCnt++;
+				}
+			}
+			if (poopForWeek.containsKey(writeDay)) {
+				for (int j = 0; j < poopForWeek.get(writeDay).size(); j++) {
+					Long startTime = (long)(poopForWeek.get(writeDay).get(j).getHour() * 60
+											+ poopForWeek.get(writeDay).get(j).getMinute());
+					diaperDay.getPoops().add(startTime);
+					poopCnt++;
+				}
+			}
+
+			diaperWeek.getDiaperStatistics().put(writeDay.format(DateTimeFormatter.ofPattern("M/dd")), diaperDay);
+			writeDay = writeDay.plusDays(1);
+		}
+
+		// 카테고리별 일주일 통계 조회
+		diaperWeek.setPeeCnt(peeCnt);
+		diaperWeek.setPoopCnt(poopCnt);
+
+		monday = monday.minusWeeks(1);
+		sunday = sunday.minusWeeks(1);
+
+		// 소변 횟수 통계 퍼센트 계산
+		Long lastWeekPeeCnt = peeRepository.findPeeCntByWeek(babyId, monday, sunday);
+		Long peeCntPercent = getPercent(peeCnt, lastWeekPeeCnt);
+		Long lastWeekPeeCntPercent = getPercent(lastWeekPeeCnt, peeCnt);
+		diaperWeek.setPeeCntPercent(peeCntPercent);
+		diaperWeek.setLastWeekPeeCntPercent(lastWeekPeeCntPercent);
+
+		// 대변 횟수 통계 퍼센트 계산
+		Long lastWeekPoopCnt = poopRepository.findPoopCntByWeek(babyId, monday, sunday);
+		Long poopCntPercent = getPercent(poopCnt, lastWeekPoopCnt);
+		Long lastWeekPoopCntPercent = getPercent(lastWeekPoopCnt, poopCnt);
+		diaperWeek.setPoopCntPercent(poopCntPercent);
+		diaperWeek.setLastWeekPoopCntPercent(lastWeekPoopCntPercent);
+
+		return diaperWeek;
 	}
 
 	/**
-	 * 대변 일별 데이터 조회
+	 * 퍼센트 계산하기 Long
 	 */
-	@Override
-	public List<DiaperStatisticsQueryDto> findPoops(Long babyId, LocalDate createdDate) {
-		return poopRepository.findPoopByDay(babyId, createdDate);
-	}
-
-	/**
-	 * 소변 일별 횟수 조회
-	 */
-	@Override
-	public Long findPeeCnt(Long babyId, LocalDate createdDate) {
-		return peeRepository.findPeeCnt(babyId, createdDate);
-	}
-
-	/**
-	 * 대변 일별 횟수 조회
-	 */
-	@Override
-	public Long findPoopCnt(Long babyId, LocalDate createdDate) {
-		return poopRepository.findPoopCnt(babyId, createdDate);
+	public Long getPercent(Long target, Long opponent) {
+		if (target == 0) return 0L;
+		else if (target >= opponent) {
+			return 100L;
+		}
+		else {
+			return target * 100 / opponent;
+		}
 	}
 }
