@@ -54,7 +54,7 @@ public class MilkServiceImpl implements MilkService {
 		babyRepository.save(baby);
 
 		milkRepository.save(milk);
-		baby.updateMealOn("Y");
+		baby.updateMealOn("N");
 
 	}
 

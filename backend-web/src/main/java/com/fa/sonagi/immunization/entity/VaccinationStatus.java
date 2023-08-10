@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,7 +41,21 @@ public class VaccinationStatus {
 	@Column(name = "vaccination_date")
 	private LocalDate vaccinationDate;
 
+	@Column(name = "vaccination_notification", nullable = false, columnDefinition = "VARCHAR(1) default 'N'")
+	private String vaccinationNotification;
+
+	@PrePersist
+	public void setDefaultValues() {
+		if (vaccinationNotification == null) {
+			vaccinationNotification = "N";
+		}
+	}
+
 	public void updateVaccination(LocalDate vaccinationDate) {
 		this.vaccinationDate = vaccinationDate;
+	}
+
+	public void vaccinationOn(String vaccinationNotification) {
+		this.vaccinationNotification = vaccinationNotification;
 	}
 }

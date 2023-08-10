@@ -54,7 +54,7 @@ public class BreastFeedingServiceImpl implements BreastFeedingService {
 		babyRepository.save(baby);
 
 		breastFeedingRepository.save(breastFeeding);
-		baby.updateMealOn("Y");
+		baby.updateMealOn("N");
 
 	}
 
