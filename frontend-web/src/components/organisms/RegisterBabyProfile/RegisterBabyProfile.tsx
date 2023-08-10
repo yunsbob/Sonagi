@@ -70,13 +70,12 @@ const RegisterBabyProfile = () => {
 
   return (
     <RBPWrapper>
-      {modalOpen && (
-        <CalendarModal
-          pickDate={pickDate}
-          onModalClose={onModalClose}
-          onCalendarChange={onCalendarChange}
-        />
-      )}
+      <CalendarModal
+        pickDate={pickDate}
+        onModalClose={onModalClose}
+        modalOpen={modalOpen}
+        onCalendarChange={onCalendarChange}
+      />
       <GenderButtons gender={gender} setGender={setGender} />
       <Button
         option="default"

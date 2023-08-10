@@ -5,6 +5,7 @@ import ModalPortal from '@/components/organisms/ModalPortal/ModalPortal';
 interface ModalProps extends S.ModalStyleProps {
   children: ReactNode;
   onClose?: () => void;
+  isOpen: boolean;
 }
 
 const Modal = ({
@@ -13,24 +14,29 @@ const Modal = ({
   $borderRadius = 16,
   unit = 'rem',
   onClose,
+  isOpen,
   children,
 }: ModalProps) => {
   return (
-    <ModalPortal>
-      <S.ModalBackground onClick={onClose}>
-        <S.ModalContainer
-          width={width}
-          height={height}
-          $borderRadius={$borderRadius}
-          unit={unit}
-          onClick={(e: any) => {
-            e.stopPropagation();
-          }}
-        >
-          {children}
-        </S.ModalContainer>
-      </S.ModalBackground>
-    </ModalPortal>
+    <>
+      {isOpen && (
+        <ModalPortal>
+          <S.ModalBackground onClick={onClose}>
+            <S.ModalContainer
+              width={width}
+              height={height}
+              $borderRadius={$borderRadius}
+              unit={unit}
+              onClick={(e: any) => {
+                e.stopPropagation();
+              }}
+            >
+              {children}
+            </S.ModalContainer>
+          </S.ModalBackground>
+        </ModalPortal>
+      )}
+    </>
   );
 };
 

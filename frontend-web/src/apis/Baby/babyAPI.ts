@@ -18,4 +18,22 @@ const getBaby = async (userId: number) => {
   }
 };
 
-export { addBaby, getBaby };
+const getCoParent = async (userId: number, babyId: number) => {
+  try {
+    const response = await instance.get(`/coparents/${userId}/${babyId}`);
+    return response.data;
+  } catch {
+    new Error('get coparent list error');
+  }
+};
+
+const getBabyCode = async (babyId: number) => {
+  try {
+    const response = await instance.get(`/babyCode?babyId=${babyId}`);
+    return response.data;
+  } catch {
+    new Error('get baby code error');
+  }
+};
+
+export { addBaby, getBaby, getCoParent, getBabyCode };

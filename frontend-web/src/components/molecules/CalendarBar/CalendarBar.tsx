@@ -44,13 +44,13 @@ const CalendarBar: React.FC<CalendarBarProps> = ({ onDateChange }) => {
 
   return (
     <>
-      {modalOpen && (
-        <CalendarModal
-          pickDate={pickDate}
-          onModalClose={onModalClose}
-          onCalendarChange={onCalendarChange}
-        />
-      )}
+      <CalendarModal
+        pickDate={pickDate}
+        onModalClose={onModalClose}
+        modalOpen={modalOpen}
+        onCalendarChange={onCalendarChange}
+      />
+
       <CalendarBarContainer>
         <Image
           src={iconArrowMiniLeftGrey}
