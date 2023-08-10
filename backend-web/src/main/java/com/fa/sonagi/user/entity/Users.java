@@ -69,11 +69,11 @@ public class Users extends BaseTimeEntity implements UserDetails {
 	@Column(name = "FCMToken", length = 70)
 	private String FirebaseToken;
 
-	@Column(name = "v_alarm", columnDefinition = "true")
-	private boolean vAlarm;
+	@Column(name = "v_alarm", columnDefinition = "bit default 1")
+	private boolean vAlarm = true;
 
-	@Column(name = "c_alarm", columnDefinition = "tinyint(1) default 1")
-	private boolean cAlarm;
+	@Column(name = "c_alarm", columnDefinition = "boolean default true")
+	private boolean cAlarm = true;
 
 	@Column(name = "d_alarm", columnDefinition = "true")
 	private boolean dAlarm = true;
