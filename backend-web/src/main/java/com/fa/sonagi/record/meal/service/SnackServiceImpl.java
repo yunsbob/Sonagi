@@ -53,6 +53,8 @@ public class SnackServiceImpl implements SnackService {
 		babyRepository.save(baby);
 
 		snackRepository.save(snack);
+		baby.updateMealOn("N");
+
 	}
 
 	/**

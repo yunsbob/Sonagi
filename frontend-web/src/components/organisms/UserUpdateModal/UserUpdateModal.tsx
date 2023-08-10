@@ -7,7 +7,7 @@ import {
   UdpateButtonWrapper,
   UserModalContainer,
 } from '@/components/organisms/UserUpdateModal/UserUpdateModal.styles';
-import { userInfoState } from '@/states/UserState';
+import { userInfoState } from '@/states/userState';
 import theme from '@/styles/theme';
 import { CustomModal } from '@/types';
 import { ChangeEvent, useState } from 'react';

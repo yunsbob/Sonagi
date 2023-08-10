@@ -4,8 +4,8 @@ import {
   CoParentListContainer,
   CoParentWrapper,
 } from '@/components/organisms/CoparentList/CoparentList.styles';
-import { userInfoState } from '@/states/UserState';
-import { User } from '@/types';
+import { userInfoState } from '@/states/userState';
+import { BabiesOfUser, User } from '@/types';
 import { useRecoilValue } from 'recoil';
 import deleteIcon from '@/assets/images/icon-delete-red-circle.png';
 import { Text } from '@/components/atoms/Text/Text.styles';
@@ -13,11 +13,13 @@ import theme from '@/styles/theme';
 import { useState } from 'react';
 import { BabyCodeModal } from '@/components/organisms/BabyCodeModal/BabyCodeModal';
 import { Toast } from '@/components/organisms/Toast/Toast';
+import { currentBabyState } from '@/states/babyState';
 
 const CoparentList = () => {
   const userInfo: User = useRecoilValue(userInfoState);
-  // TODO: 현재선택된 babyId로 변경하기
-  const coparents = useGetCoParent(userInfo.userId, 5);
+  const babyInfo: BabiesOfUser = useRecoilValue(currentBabyState);
+  console.log(babyInfo.babyId);
+  const coparents = useGetCoParent(userInfo.userId, babyInfo.babyId);
 
   const profileColor: string[] = ['red', 'green', 'blue'];
 

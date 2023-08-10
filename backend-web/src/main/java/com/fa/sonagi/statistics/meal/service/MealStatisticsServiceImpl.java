@@ -153,8 +153,6 @@ public class MealStatisticsServiceImpl implements MealStatisticsService{
 			+ snackRepository.findSnackCntByWeek(babyId, monday, sunday);
 		mealWeek.setCnt(cnt);
 
-		System.out.println(milkRepository.findMilkCntByWeek(babyId, monday, sunday));
-
 		Long amount = 0L;
 		for (int i = 0; i < WEEK; i++) {
 			amount += amountWEEK[i][0];

@@ -27,4 +27,13 @@ const getCoParent = async (userId: number, babyId: number) => {
   }
 };
 
-export { addBaby, getBaby, getCoParent };
+const getBabyCode = async (babyId: number) => {
+  try {
+    const response = await instance.get(`/babyCode?babyId=${babyId}`);
+    return response.data;
+  } catch {
+    new Error('get baby code error');
+  }
+};
+
+export { addBaby, getBaby, getCoParent, getBabyCode };

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getBaby } from '@/apis/Baby/babyAPI';
 import { useRecoilState } from 'recoil';
-import { babiesOfUserState } from '@/states/BabyState';
+import { babiesOfUserState } from '@/states/babyState';
 import { BabiesOfUser } from '@/types';
 
 const useGetBaby = (userId: number) => {

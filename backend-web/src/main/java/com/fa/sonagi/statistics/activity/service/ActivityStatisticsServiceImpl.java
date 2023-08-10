@@ -2,7 +2,6 @@ package com.fa.sonagi.statistics.activity.service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -12,7 +11,7 @@ import com.fa.sonagi.record.activity.repository.PlayRepository;
 import com.fa.sonagi.record.activity.repository.TummytimeRepository;
 import com.fa.sonagi.statistics.activity.dto.ActivityStatisticsQueryDto;
 import com.fa.sonagi.statistics.activity.dto.ActivityStatisticsResDto;
-import com.fa.sonagi.statistics.common.StatisticsTime;
+
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,7 +33,6 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 		List<ActivityStatisticsQueryDto> plays = findPlays(babyId, createdDate);
 
 		Long activityTime = 0L;
-		List<StatisticsTime> statisticsTimes = new ArrayList<>();
 		for (int i = 0; i < plays.size(); i++) {
 			long startTime = plays.get(i).getCreatedTime().getTime() / 1000 / 60;
 			long endTime = plays.get(i).getEndTime().getTime() / 1000 / 60;
@@ -45,7 +43,6 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 		activityStatisticsResDto.setPlays(plays);
 
 		List<ActivityStatisticsQueryDto> tummytimes = findTummytimes(babyId, createdDate);
-		statisticsTimes = new ArrayList<>();
 		for (int i = 0; i < tummytimes.size(); i++) {
 			long startTime = tummytimes.get(i).getCreatedTime().getTime() / 1000 / 60;
 			long endTime = tummytimes.get(i).getEndTime().getTime() / 1000 / 60;

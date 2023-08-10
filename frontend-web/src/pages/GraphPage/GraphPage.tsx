@@ -1,5 +1,4 @@
 import Button from '@/components/atoms/Button/Button';
-import { Text } from '@/components/atoms/Text/Text.styles';
 import CalendarBar from '@/components/molecules/CalendarBar/CalendarBar';
 import CategoryBar from '@/components/molecules/CategoryBar/CategoryBar';
 import { PATH } from '@/constants/path';
@@ -12,7 +11,14 @@ import theme from '@/styles/theme';
 import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
+// TODO: 여기서 GraphPage용 State를 별도관리, Calendar에 Props로 주기
+
 const GraphPage = () => {
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const handleDateChange = (date: Date) => {
+    setCurrentDate(date);
+  };
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,7 +45,7 @@ const GraphPage = () => {
   return (
     <>
       <section>
-        <CalendarBar></CalendarBar>
+        <CalendarBar onDateChange={handleDateChange}></CalendarBar>
         <CategoryBarContainer>
           <CategoryBar path={PATH.GRAPH}></CategoryBar>
         </CategoryBarContainer>

@@ -9,7 +9,7 @@ import {
 } from '@/pages/MyPagePage/MyPagePage.styles';
 import family from '@/assets/images/img-family.png';
 import { useRecoilValue } from 'recoil';
-import { userInfoState } from '@/states/UserState';
+import { userInfoState } from '@/states/userState';
 import Button from '@/components/atoms/Button/Button';
 import setting from '@/assets/images/icon-setting-grey.png';
 import theme from '@/styles/theme';

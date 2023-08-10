@@ -3,7 +3,7 @@ import { MealBarGraph } from '@/components/molecules/BarChart/Meal/MealBarGraph'
 import { PumpingBreastBarGraph } from '@/components/molecules/BarChart/PumpingBreast/PumpingBreastBarGraph';
 import { Card } from '@/components/organisms/Card/Card';
 import { GraphByWeekContainer } from '@/components/organisms/GraphByWeek/GraphByWeek.style';
-import { selectedCategoryState } from '@/states/CategoryState';
+import { selectedCategoryState } from '@/states/categoryState';
 import { useRecoilValue } from 'recoil';
 import { PATH } from '@/constants/path';
 import { HealthBarGraph } from '@/components/molecules/BarChart/Health/HealthBarGraph';
