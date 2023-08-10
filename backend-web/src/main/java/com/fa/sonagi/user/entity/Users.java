@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -71,16 +72,20 @@ public class Users extends BaseTimeEntity implements UserDetails {
 	@Column(name = "FCMToken", length = 70)
 	private String FirebaseToken;
 
-	@Column(name = "v_alarm", columnDefinition = "Y")
+	@Column(name = "v_alarm")
+	@ColumnDefault("Y")
 	private String vAlarm;
 
-	@Column(name = "c_alarm", columnDefinition = "Y")
+	@Column(name = "c_alarm")
+	@ColumnDefault("Y")
 	private String cAlarm;
 
-	@Column(name = "d_alarm", columnDefinition = "Y")
+	@Column(name = "d_alarm")
+	@ColumnDefault("Y")
 	private String dAlarm;
 
-	@Column(name = "m_alarm", columnDefinition = "Y")
+	@Column(name = "m_alarm")
+	@ColumnDefault("Y")
 	private String mAlarm;
 
 	@Override
