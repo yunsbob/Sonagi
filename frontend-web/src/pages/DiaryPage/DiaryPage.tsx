@@ -3,10 +3,10 @@ import CalendarBar from '@/components/molecules/CalendarBar/CalendarBar';
 import { useState } from 'react';
 
 const DiaryPage = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleDateChange = (date: Date) => {
-    setCurrentDate(date);
+    setSelectedDate(date);
   };
 
   return (
