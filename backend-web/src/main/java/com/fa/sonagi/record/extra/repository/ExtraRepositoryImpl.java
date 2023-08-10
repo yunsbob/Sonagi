@@ -4,6 +4,8 @@ import static com.fa.sonagi.record.extra.entity.QExtra.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fa.sonagi.record.extra.dto.ExtraResDto;
 import com.fa.sonagi.statistics.extra.dto.ExtraStatisticsQueryDto;
@@ -47,6 +49,37 @@ public class ExtraRepositoryImpl implements ExtraRepositoryCustom {
 			.select(extra.count())
 			.from(extra)
 			.where(extra.babyId.eq(babyId), extra.createdDate.eq(createdDate))
+			.fetchFirst();
+
+		return cnt;
+	}
+
+	@Override
+	public Map<LocalDate, Long> findExtraCnt(Long babyId, LocalDate monday, LocalDate sunday) {
+		Map<LocalDate, Long> cnts = queryFactory
+			.select(extra.createdDate,
+				extra.count())
+			.from(extra)
+			.where(extra.babyId.eq(babyId),
+				extra.createdDate.goe(monday), extra.createdDate.loe(sunday))
+			.groupBy(extra.createdDate)
+			.fetch()
+			.stream()
+			.collect(Collectors.toMap(
+				tuple -> tuple.get(extra.createdDate),
+				tuple -> tuple.get(extra.count())
+			));
+
+		return cnts;
+	}
+
+	@Override
+	public Long findExtraCntByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
+		Long cnt = queryFactory
+			.select(extra.count())
+			.from(extra)
+			.where(extra.babyId.eq(babyId),
+				extra.createdDate.goe(monday), extra.createdDate.loe(sunday))
 			.fetchFirst();
 
 		return cnt;
