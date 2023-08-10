@@ -1,5 +1,4 @@
 import Button from '@/components/atoms/Button/Button';
-import { Text } from '@/components/atoms/Text/Text.styles';
 import CalendarBar from '@/components/molecules/CalendarBar/CalendarBar';
 import CategoryBar from '@/components/molecules/CategoryBar/CategoryBar';
 import { PATH } from '@/constants/path';

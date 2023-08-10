@@ -6,8 +6,11 @@ import { recordedValues } from '@/states/RecordState';
 import { selectedCategoryState } from '@/states/CategoryState';
 import { RecordContainerStyle } from '@/components/organisms/RecordContainer/RecordContainer.styles';
 import { PATH } from '@/constants/path';
+// import { currentBabyState } from './../../../states/BabyState';
 
 const RecordContainer: React.FC = () => {
+  // const currentBaby = useRecoilValue(currentBabyState);
+
   const recordedList = useRecoilValue(recordedValues);
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const containerRef = useRef<HTMLDivElement>(null);
