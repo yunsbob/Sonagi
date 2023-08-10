@@ -4,12 +4,39 @@ import DeviceInfo from 'react-native-device-info';
 import messaging from '@react-native-firebase/messaging';
 
 import {useEffect} from 'react';
+import {requestMultiple, checkMultiple} from 'react-native-permissions';
+import {PERMISSIONS} from 'react-native-permissions';
+import pushNoti from './android/app/src/utils/pushNoti';
 
 const App = () => {
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      console.log(remoteMessage);
+      pushNoti.displayNoti(remoteMessage);
+    });
+
+    return unsubscribe;
+  }, []);
+  const requestMultiplePermissions = () => {
+    requestMultiple([PERMISSIONS.ANDROID.POST_NOTIFICATIONS]).then(response => {
+      console.log('MULTIPLE REQUEST RESPONSE : ', response);
+    });
+  };
+
+  const checkMultiplePermissions = () => {
+    checkMultiple([PERMISSIONS.ANDROID.POST_NOTIFICATIONS]).then(response => {
+      console.log('MULTIPLE CHECK RESPONSE : ', response);
+      if (response['android.permission.POST_NOTIFICATIONS'] === 'denied') {
+        requestMultiplePermissions();
+      }
+    });
+  };
+
   const webViewRef = useRef<any>(null);
 
   useEffect(() => {
     requestUserPermission();
+    checkMultiplePermissions();
   });
 
   const requestUserPermission = async () => {
