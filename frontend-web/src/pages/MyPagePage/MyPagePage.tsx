@@ -18,11 +18,14 @@ import { inherits } from 'util';
 import theme from '@/styles/theme';
 import { User } from '@/types';
 import deleteIcon from '@/assets/images/icon-delete-red-circle.png';
+import { useGetCoParent } from '@/apis/Baby/Queries/useGetCoParent';
 
 const MyPagePage = () => {
   const userInfo: User = useRecoilValue(userInfoState);
+  // TODO: 현재선택된 babyId로 변경하기
+  const coparents = useGetCoParent(userInfo.userId, 5);
 
-  const ProfileColor: string[] = ['red', 'blue', 'green'];
+  const profileColor: string[] = ['red', 'green', 'blue'];
   return (
     <Container>
       <UserContainer>
@@ -43,62 +46,28 @@ const MyPagePage = () => {
       <CoParentContainer>
         <Text size="medium1">공동 양육자 관리</Text>
         <CoParentListContainer>
+          {coparents.map((coparent, idx) => {
+            return (
+              <CoParentWrapper key={coparent.userId}>
+                <Image
+                  className="delete"
+                  src={deleteIcon}
+                  height={30}
+                  $unit="%"
+                />
+                <Image
+                  src={require(`@/assets/images/icon-user-${
+                    profileColor[idx % 3]
+                  }.png`)}
+                  height={80}
+                  $unit="%"
+                />
+                <Text size="medium3">{coparent.name}</Text>
+              </CoParentWrapper>
+            );
+          })}
+
           <CoParentWrapper>
-            <Image className="delete" src={deleteIcon} height={30} $unit="%" />
-            <Image
-              src={require('@/assets/images/icon-user-red.png')}
-              height={80}
-              $unit="%"
-            />
-            <Text size="medium3">박홍준</Text>
-          </CoParentWrapper>
-          <CoParentWrapper>
-            <Image className="delete" src={deleteIcon} height={30} $unit="%" />
-            <Image
-              src={require('@/assets/images/icon-user-green.png')}
-              height={80}
-              $unit="%"
-            />
-            <Text size="medium3">박홍준</Text>
-          </CoParentWrapper>
-          <CoParentWrapper>
-            <Image className="delete" src={deleteIcon} height={30} $unit="%" />
-            <Image
-              src={require('@/assets/images/icon-user-blue.png')}
-              height={80}
-              $unit="%"
-            />
-            <Text size="medium3">박홍준</Text>
-          </CoParentWrapper>
-          <CoParentWrapper>
-            <Image className="delete" src={deleteIcon} height={30} $unit="%" />
-            <Image
-              src={require('@/assets/images/icon-user-red.png')}
-              height={80}
-              $unit="%"
-            />
-            <Text size="medium3">박홍준</Text>
-          </CoParentWrapper>
-          <CoParentWrapper>
-            <Image className="delete" src={deleteIcon} height={30} $unit="%" />
-            <Image
-              src={require('@/assets/images/icon-user-green.png')}
-              height={80}
-              $unit="%"
-            />
-            <Text size="medium3">박홍준</Text>
-          </CoParentWrapper>
-          <CoParentWrapper>
-            <Image className="delete" src={deleteIcon} height={30} $unit="%" />
-            <Image
-              src={require('@/assets/images/icon-user-blue.png')}
-              height={80}
-              $unit="%"
-            />
-            <Text size="medium3">박홍준</Text>
-          </CoParentWrapper>
-          <CoParentWrapper>
-            {/* <Image src={deleteIcon} height={30} $unit="%" /> */}
             <Image
               src={require('@/assets/images/icon-plus-blue-circle-dash.png')}
               height={80}
