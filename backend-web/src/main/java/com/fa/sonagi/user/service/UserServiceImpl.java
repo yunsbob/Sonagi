@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.jwt.JwtTokenProvider;
+import com.fa.sonagi.user.dto.FCMTokenDto;
 import com.fa.sonagi.user.dto.NameDto;
 import com.fa.sonagi.user.entity.Users;
 import com.fa.sonagi.user.repository.UserRepository;
@@ -41,6 +42,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public NameDto findName(Long userId) {
 		return userRepository.findName(userId);
+	}
+
+	/**
+	 * FCM 토큰 업데이트
+	 */
+	@Override
+	public void updateFCMToken(FCMTokenDto fcmTokenDto) {
+		Users user = userRepository
+			.findById(fcmTokenDto.getUserId())
+			.orElseThrow();
+		user.updateFCMToken(fcmTokenDto.getFirebaseToken());
 	}
 
 }
