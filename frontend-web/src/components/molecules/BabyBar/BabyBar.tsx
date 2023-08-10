@@ -8,13 +8,16 @@ import { useGetBaby } from '@/apis/Baby/Queries/useGetBaby';
 import { useRecoilState } from 'recoil';
 import { userInfoState } from '@/states/UserState';
 import { BabiesOfUser } from '@/types';
+import { currentBabyState } from '../../../states/BabyState';
 
 const BabyBar = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [currentBaby, setCurrentBaby] = useRecoilState(currentBabyState);
   const { data } = useGetBaby(userInfo.userId);
 
   const babyClicked = (babyInfo: BabiesOfUser) => {
     console.log(babyInfo);
+    console.log('currentBaby', currentBaby);
   };
 
   return (
