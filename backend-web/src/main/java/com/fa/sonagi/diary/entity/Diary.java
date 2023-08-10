@@ -1,6 +1,7 @@
 package com.fa.sonagi.diary.entity;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class Diary {
 
 	@CreatedDate
 	@Column(name = "created_time")
-	private LocalDate createdTime;
+	private LocalTime createdTime;
 
 	public void addDiaryFile(DiaryFile diaryFile) {
 		diaryFiles.add(diaryFile);
