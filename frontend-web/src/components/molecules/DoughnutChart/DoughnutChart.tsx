@@ -50,7 +50,7 @@ const DoughnutChart: React.FC = () => {
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.GRAPH));
   const currentColor = categoryToColorMap[currentCategory];
 
-  const timeSections: string[] = ['07:32', '09:08'];
+  const timeSections: string[] = ['00:00', '23:59'];
   const [start, finished] = timeStringToDegrees(timeSections);
 
   const recordedTimes: string[] = ['12:00', '03:48', '18:23', '16:08'];
