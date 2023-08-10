@@ -3,9 +3,16 @@ import CategoryBar from '@/components/molecules/CategoryBar/CategoryBar';
 import RecordContainer from '@/components/organisms/RecordContainer/RecordContainer';
 import { PATH } from '@/constants/path';
 import { useState } from 'react';
+import { selectedBabyState } from '@/states/babyState';
+import { useRecoilValue } from 'recoil';
 
 const RecordPage = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const selectedBaby = useRecoilValue(selectedBabyState);
+
+  // TODO: 여기서 BabyId랑 Today 날짜 받아서 get
+  // TODO: calandar에서 왼/오른쪽 날짜 넘기면 해당 날짜로 계속 get
+  // 받은걸 recordedList이라는 변수로 리코일 저장, Container로 넘겨주기
 
   const handleDateChange = (date: Date) => {
     setSelectedDate(date);

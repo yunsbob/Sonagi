@@ -6,13 +6,8 @@ import { recordedValues } from '@/states/recordState';
 import { selectedCategoryState } from '@/states/categoryState';
 import { RecordContainerStyle } from '@/components/organisms/RecordContainer/RecordContainer.styles';
 import { PATH } from '@/constants/path';
-import { selectedBabyState } from '@/states/babyState';
-
-// TODO: 여기서 BabyId랑 Today 날짜 받아서 get
 
 const RecordContainer: React.FC = () => {
-  const selectedBaby = useRecoilValue(selectedBabyState);
-  // const selectedDate =
   const recordedList = useRecoilValue(recordedValues);
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const containerRef = useRef<HTMLDivElement>(null);
