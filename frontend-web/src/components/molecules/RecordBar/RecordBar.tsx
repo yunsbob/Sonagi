@@ -2,7 +2,7 @@ import Button from '@/components/atoms/Button/Button';
 import { RecordBarContainer } from '@/components/molecules/RecordBar/RecordBar.styles';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCategoryState } from '@/states/categoryState';
-import { Category } from '@/types';
+import { Category, RecordData } from '@/types';
 import { recordedValues, recordsByCategory } from '@/states/recordState';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { PATH } from '@/constants/path';
@@ -10,13 +10,6 @@ import { PATH } from '@/constants/path';
 // const LowBorderButton = styled(Button)<{ $borderColor: string }>`
 //   border-color: ${({ $borderColor }) => $borderColor + '96'};
 // `;
-
-export type RecordData = {
-  recordType: string;
-  time: string;
-  color: string;
-  category: Category;
-};
 
 interface RecordBarProps {
   onRecordUpdated: () => void;
