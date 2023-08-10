@@ -41,7 +41,7 @@ const getOptionStyling = (
       color: ${({ theme }) => theme.color.blue};
     `,
     danger: css`
-      background: ${({ theme }) => theme.gradient.danger};
+      background: ${({ theme }) => theme.color.danger};
       color: ${({ theme }) => theme.color.white1};
       border: none;
     `,
@@ -89,8 +89,8 @@ const getSizeStyling = (size: Required<ButtonProps>['size']) => {
 const Button = styled.button<ButtonProps>`
   width: 100%;
   text-align: ${props => props.$textAlign || 'center'};
-  border-radius: ${props => props.$borderRadius || '22px'};
   color: ${props => props.$color || props.theme.color.black3};
+  border-radius: ${props => props.$borderRadius || '22px'};
   border: ${props =>
     props.$border ||
     `1px solid ${props.$borderColor || props.theme.color.gray2}`};
