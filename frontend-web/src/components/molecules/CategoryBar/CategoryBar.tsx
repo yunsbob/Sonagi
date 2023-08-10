@@ -1,10 +1,8 @@
 import { Image } from '@/components/atoms/Image/Image';
 import { CategoryBarContainer } from '@/components/molecules/CategoryBar/CategoryBar.style';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { selectedCategoryState } from '@/states/CategoryState';
 import { Category } from '@/types';
-
-import { PATH } from '@/constants/path';
 
 import All from '@/assets/images/icon-category-all.png';
 import Meal from '@/assets/images/icon-category-meal.png';
