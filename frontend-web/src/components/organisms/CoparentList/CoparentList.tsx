@@ -11,6 +11,8 @@ import deleteIcon from '@/assets/images/icon-delete-red-circle.png';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import theme from '@/styles/theme';
 import { useState } from 'react';
+import { BabyCodeModal } from '@/components/organisms/BabyCodeModal/BabyCodeModal';
+import { Toast } from '@/components/organisms/Toast/Toast';
 
 const CoparentList = () => {
   const userInfo: User = useRecoilValue(userInfoState);
@@ -19,8 +21,22 @@ const CoparentList = () => {
 
   const profileColor: string[] = ['red', 'green', 'blue'];
 
+  // 공동 양육자 초대
+  const [coparentModalOpen, setCoparentModalOpen] = useState(false);
+
+  const modalClose = (
+    setState: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    setState(false);
+  };
+
   return (
     <CoParentListContainer>
+      <BabyCodeModal
+        onModalClose={() => modalClose(setCoparentModalOpen)}
+        modalOpen={coparentModalOpen}
+      />
+
       {coparents.map((coparent, idx) => {
         return (
           <CoParentWrapper key={coparent.userId}>
@@ -42,6 +58,7 @@ const CoparentList = () => {
           src={require('@/assets/images/icon-plus-blue-circle-dash.png')}
           height={80}
           $unit="%"
+          onClick={() => setCoparentModalOpen(true)}
         />
         <Text size="medium3" color={theme.color.blue}>
           추가하기

@@ -17,25 +17,27 @@ import { User } from '@/types';
 import { CoparentList } from '@/components/organisms/CoparentList/CoparentList';
 import { useState } from 'react';
 import { UserUpdateModal } from '@/components/organisms/UserUpdateModal/UserUpdateModal';
-import { useUpdateUser } from '@/apis/User/Mutations/useUpdateUser';
 
 const MyPagePage = () => {
   const userInfo: User = useRecoilValue(userInfoState);
 
+  // 사용자 정보 수정
   const [userModalOpen, setuserModalOpen] = useState(false);
 
-  const userModalClose = () => {
-    setuserModalOpen(false);
+  const modalClose = (
+    setState: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    setState(false);
   };
 
   return (
     <Container>
-      {userModalOpen && (
-        <UserUpdateModal
-          onModalClose={userModalClose}
-          setModalOpen={setuserModalOpen}
-        />
-      )}
+      <UserUpdateModal
+        onModalClose={() => modalClose(setuserModalOpen)}
+        modalOpen={userModalOpen}
+        setModalOpen={setuserModalOpen}
+      />
+
       <UserContainer>
         <Image src={family} width={5} height={5} />
         <UserNameWrapper>

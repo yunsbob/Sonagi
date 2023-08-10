@@ -9,17 +9,18 @@ import {
 } from '@/components/organisms/UserUpdateModal/UserUpdateModal.styles';
 import { userInfoState } from '@/states/UserState';
 import theme from '@/styles/theme';
+import { CustomModal } from '@/types';
 import { ChangeEvent, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-interface UserUpdateModalProps {
-  onModalClose: () => void;
+interface UserUpdateModalProps extends CustomModal {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserUpdateModal = ({
   onModalClose,
   setModalOpen,
+  modalOpen,
 }: UserUpdateModalProps) => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [newUserName, setNewUserName] = useState(userInfo.name);
@@ -38,7 +39,7 @@ const UserUpdateModal = ({
   };
 
   return (
-    <Modal onClose={onModalClose}>
+    <Modal onClose={onModalClose} isOpen={modalOpen}>
       <UserModalContainer>
         <Text size="medium2" color={theme.color.gray1}>
           수정할 닉네임을 작성해주세요.
