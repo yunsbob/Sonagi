@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,11 +46,35 @@ public class Baby {
 	@Column(name = "last_diary_time")
 	private LocalDateTime lastDiaryTime;
 
+	@Column(name = "diary_notification", nullable = false, columnDefinition = "VARCHAR(1) default 'N'")
+	private String diaryNotification;
+
+	@Column(name = "meal_notification", nullable = false, columnDefinition = "VARCHAR(1) default 'N'")
+	private String mealNotification;
+
 	@Column(name = "deleted_at")
 	private LocalDate deletedAt;
 
 	@Column(name = "is_deleted", nullable = false, length = 2)
 	private String isDeleted;
+
+	@PrePersist
+	public void setDefaultValues() {
+		if (diaryNotification == null) {
+			diaryNotification = "N";
+		}
+		if (mealNotification == null) {
+			mealNotification = "N";
+		}
+	}
+
+	public void updateMealOn(String mealNotification) {
+		this.mealNotification = mealNotification;
+	}
+
+	public void updateDiaryOn(String diaryNotification) {
+		this.diaryNotification = diaryNotification;
+	}
 
 	public void updateCode(String code) {
 		this.code = code;
