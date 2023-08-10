@@ -5,6 +5,7 @@ import { babiesOfUserState } from '@/states/babyState';
 import { BabiesOfUser } from '@/types';
 
 // TODO: onSuccess랑 onError 삭제해주기
+// 채림이꺼 merge하고 !
 const useGetBaby = (userId: number) => {
   const [babyInfo, setBabyInfo] = useRecoilState(babiesOfUserState);
 

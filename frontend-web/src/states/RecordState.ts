@@ -2,6 +2,29 @@ import { atom } from 'recoil';
 import { Record, RecordData, RecordsByCategory } from '@/types';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import theme from '@/styles/theme';
+import { RecordedValues } from '@/types/recordTypes';
+
+export const recordedValuesState = atom<RecordedValues>({
+  key: 'recordedValues',
+  default: {
+    plays: [],
+    tummytimes: [],
+    pees: [],
+    poops: [],
+    fevers: [],
+    medications: [],
+    hospitals: [],
+    babyFoods: [],
+    breastFeedings: [],
+    feedings: [],
+    infantFormulas: [],
+    milks: [],
+    snacks: [],
+    pumpingBreasts: [],
+    sleeps: [],
+    extras: [],
+  },
+});
 
 export const recordedValues = atom<RecordData[]>({
   key: 'recordBlocksState',

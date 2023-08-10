@@ -12,6 +12,7 @@ const RecordContainer: React.FC = () => {
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const containerRef = useRef<HTMLDivElement>(null);
 
+  console.log('container', recordedList);
   // 선택된 카테고리에 따라 쌓인 기록 블록들 필터링
   const filteredRecordList = recordedList.filter(record => {
     if (currentCategory === 'All') {

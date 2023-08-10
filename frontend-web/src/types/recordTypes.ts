@@ -1,3 +1,5 @@
+// category랑 color 일일이 다 지정해줘야할수도?
+
 // 수유
 interface Feeding {
   id: number;
@@ -59,6 +61,26 @@ interface Sleep extends RecordTypeC {}
 interface Play extends RecordTypeC {}
 interface TummyTime extends RecordTypeC {}
 
+// AllCategory에서 받은 데이터 저장용 - 모든 기록들을 포함하는 타입
+interface RecordedValues {
+  plays: Play[];
+  tummytimes: TummyTime[];
+  pees: Pee[];
+  poops: Poop[];
+  fevers: Fever[];
+  medications: Medication[];
+  hospitals: Hospital[];
+  babyFoods: BabyFood[];
+  breastFeedings: BreastFeeding[];
+  feedings: Feeding[];
+  infantFormulas: InfantFormula[];
+  milks: Milk[];
+  snacks: Snack[];
+  pumpingBreasts: PumpingBreast[];
+  sleeps: Sleep[];
+  extras: Extra[];
+}
+
 export type {
   Feeding,
   Fever,
@@ -76,4 +98,5 @@ export type {
   Sleep,
   Play,
   TummyTime,
+  RecordedValues,
 };
