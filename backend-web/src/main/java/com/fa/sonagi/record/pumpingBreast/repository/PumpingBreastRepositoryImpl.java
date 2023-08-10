@@ -3,10 +3,10 @@ package com.fa.sonagi.record.pumpingBreast.repository;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fa.sonagi.record.pumpingBreast.dto.PumpingBreastResDto;
 import com.fa.sonagi.statistics.pumpingBreast.dto.PumpingBreastStatisticsQueryDto;
-import com.querydsl.core.group.GroupBy;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -78,7 +78,11 @@ public class PumpingBreastRepositoryImpl implements PumpingBreastRepositoryCusto
 				.where(pumpingBreast.babyId.eq(babyId),
 					pumpingBreast.createdDate.goe(monday), pumpingBreast.createdDate.loe(sunday))
 				.groupBy(pumpingBreast.createdDate)
-				.transform(GroupBy.groupBy(pumpingBreast.createdDate).as(pumpingBreast.count()));
+				.stream()
+				.collect(Collectors.toMap(
+					tuple -> tuple.get(pumpingBreast.createdDate),
+					tuple -> tuple.get(pumpingBreast.count())
+				));
 
 			return cnts;
 	}
@@ -92,7 +96,12 @@ public class PumpingBreastRepositoryImpl implements PumpingBreastRepositoryCusto
 			.where(pumpingBreast.babyId.eq(babyId),
 				pumpingBreast.createdDate.goe(monday), pumpingBreast.createdDate.loe(sunday))
 			.groupBy(pumpingBreast.createdDate)
-			.transform(GroupBy.groupBy(pumpingBreast.createdDate).as(pumpingBreast.amount.sum().coalesce(0L)));
+			.fetch()
+			.stream()
+			.collect(Collectors.toMap(
+				tuple -> tuple.get(pumpingBreast.createdDate),
+				tuple -> tuple.get(pumpingBreast.amount.sum().coalesce(0L))
+			));
 
 		return amounts;
 	}

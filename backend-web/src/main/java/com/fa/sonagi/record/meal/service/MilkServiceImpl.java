@@ -28,19 +28,7 @@ public class MilkServiceImpl implements MilkService {
 	 */
 	@Override
 	public MealResDto findMilkById(Long id) {
-		Milk milk = milkRepository
-			.findById(id)
-			.orElseThrow();
-
-		MealResDto mealResDto = MealResDto
-			.builder()
-			.id(milk.getId())
-			.amount(milk.getAmount())
-			.memo(milk.getMemo())
-			.createdTime(milk.getCreatedTime())
-			.build();
-
-		return mealResDto;
+		return milkRepository.findMilkRecord(id);
 	}
 
 	/**

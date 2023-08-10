@@ -28,19 +28,7 @@ public class BreastFeedingServiceImpl implements BreastFeedingService {
 	 */
 	@Override
 	public MealResDto findBreastFeedingById(Long id) {
-		BreastFeeding breastFeeding = breastFeedingRepository
-			.findById(id)
-			.orElseThrow();
-
-		MealResDto mealResDto = MealResDto
-			.builder()
-			.id(breastFeeding.getId())
-			.amount(breastFeeding.getAmount())
-			.memo(breastFeeding.getMemo())
-			.createdTime(breastFeeding.getCreatedTime())
-			.build();
-
-		return mealResDto;
+		return breastFeedingRepository.findBreastFeedingRecord(id);
 	}
 
 	/**

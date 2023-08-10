@@ -1,6 +1,8 @@
 package com.fa.sonagi.diary.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fa.sonagi.baby.entity.Baby;
 import com.fa.sonagi.baby.repository.BabyRepository;
 import com.fa.sonagi.diary.dto.DiaryPostDto;
 import com.fa.sonagi.diary.dto.DiaryPutDto;
@@ -70,6 +73,13 @@ public class DiaryServiceImpl implements DiaryService {
 
 		// Diary repository에 entity build 후 save
 		diaryRepository.save(diary);
+
+		Baby baby = babyRepository
+			.findById(diaryPostDto.getBabyId())
+			.orElseThrow();
+
+		baby.updateLastDiaryTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
+		babyRepository.save(baby);
 	}
 
 	@Override

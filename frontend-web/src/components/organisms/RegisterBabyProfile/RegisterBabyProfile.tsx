@@ -62,7 +62,7 @@ const RegisterBabyProfile = () => {
         birthDate: moment(pickDate).format('YYYY-MM-DD'),
         gender,
         name: value,
-        userId: userInfo.id, // userInfo는 recoil에!
+        userId: userInfo.userId, // userInfo는 recoil에!
       });
 
       // RecoilState에 아이 데이터 저장하는 것은 get으로

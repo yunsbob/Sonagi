@@ -22,7 +22,7 @@ const SignInPage = () => {
 
   const onClickButtonAction = (value: string) => {
     updateUserMutation.mutate({
-      id: userInfo.id,
+      userId: userInfo.userId,
       name: value,
     });
 

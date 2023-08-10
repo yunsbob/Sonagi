@@ -21,3 +21,9 @@ export const logInState = atom<boolean>({
   default: false,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const userFcmTokenState = atom<string>({
+  key: 'userFcmTokenState',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
