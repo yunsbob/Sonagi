@@ -13,6 +13,7 @@ interface Baby {
 interface BabiesOfUser {
   babyId: number;
   name: string;
+  gender: string;
 }
 
 export type { User, Baby, BabiesOfUser };
