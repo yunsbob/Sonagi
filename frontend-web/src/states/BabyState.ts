@@ -21,3 +21,10 @@ export const babiesOfUserState = atom<BabiesOfUser[]>({
   default: [] as BabiesOfUser[],
   effects_UNSTABLE: [persistAtom],
 });
+
+// 현재 선택된 아기 정보
+export const currentBabyState = atom<BabiesOfUser>({
+  key: 'currentBabyState',
+  default: {} as BabiesOfUser,
+  effects_UNSTABLE: [persistAtom],
+});
