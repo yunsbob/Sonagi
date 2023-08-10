@@ -22,7 +22,7 @@ export const babiesOfUserState = atom<BabiesOfUser[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-// 현재 선택된 아기 정보
+// 현재 선택된 아기 정 보
 export const currentBabyState = atom<BabiesOfUser>({
   key: 'currentBabyState',
   default: {} as BabiesOfUser,

@@ -6,7 +6,7 @@ import { Image } from '@/components/atoms/Image/Image';
 import * as S from '@/pages/RegisterPage/RegisterPages.styles';
 import Back from '@/components/atoms/Back/Back';
 import { useRecoilValue } from 'recoil';
-import { userInfoState } from '@/states/UserState';
+import { userInfoState } from '@/states/userState';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import RegisterButton from '@/components/molecules/RegisterButton/RegisterButton';
