@@ -142,4 +142,8 @@ public class Users extends BaseTimeEntity implements UserDetails {
 		this.name = name;
 	}
 
+	public void updateFCMToken(String firebaseToken) {
+		this.FirebaseToken = firebaseToken;
+	}
+
 }

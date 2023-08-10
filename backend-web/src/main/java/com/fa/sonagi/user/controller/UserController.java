@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fa.sonagi.user.dto.FCMTokenDto;
 import com.fa.sonagi.user.dto.NameDto;
 import com.fa.sonagi.user.service.UserService;
 
@@ -36,6 +37,15 @@ public class UserController {
 	@PutMapping("/name")
 	public ResponseEntity<?> updateName(@RequestBody NameDto nameDto) {
 		userService.updateName(nameDto);
+		return ResponseEntity.ok().build();
+	}
+
+	/**
+	 * FCM 토큰 업데이트
+	 */
+	@PutMapping("/fcm")
+	public ResponseEntity<?> updateFCMToken(@RequestBody FCMTokenDto fcmTokenDto) {
+		userService.updateFCMToken(fcmTokenDto);
 		return ResponseEntity.ok().build();
 	}
 }
