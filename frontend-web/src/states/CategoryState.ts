@@ -2,7 +2,7 @@ import { atom, selectorFamily } from 'recoil';
 import { PATH } from '@/constants/path';
 import { Category } from '@/types';
 
-// const CategoryStateDefault = {
+// const categoryStateDefault = {
 //   All: true,
 //   Meal: false,
 //   Diaper: false,
@@ -16,13 +16,13 @@ import { Category } from '@/types';
 // Recoil atom을 사용하여 CategoryState를 선언
 // <CategoryStateType> 이라고 쓰는 것은 atom이라는 함수에 CategoryStateType 타입의 인자를 주겠다는 것을 의미
 // = 타입 정보를 동적으로 설정할 수 있게 해주는 제너릭 문법
-export const RecordCategoryState = atom<Category>({
-  key: 'RecordCategoryState',
+export const recordCategoryState = atom<Category>({
+  key: 'recordCategoryState',
   default: 'All',
 });
 
-export const GraphCategoryState = atom<Category>({
-  key: 'GraphCategoryState',
+export const graphCategoryState = atom<Category>({
+  key: 'graphCategoryState',
   default: 'Meal',
 });
 
@@ -35,10 +35,10 @@ export const selectedCategoryState = selectorFamily<Category, string>({
       let state;
       switch (path) {
         case PATH.MAIN:
-          state = RecordCategoryState;
+          state = recordCategoryState;
           break;
         case PATH.GRAPH:
-          state = GraphCategoryState;
+          state = graphCategoryState;
           break;
       }
       if (state) {
@@ -53,10 +53,10 @@ export const selectedCategoryState = selectorFamily<Category, string>({
       let state;
       switch (path) {
         case PATH.MAIN:
-          state = RecordCategoryState;
+          state = recordCategoryState;
           break;
         case PATH.GRAPH:
-          state = GraphCategoryState;
+          state = graphCategoryState;
           break;
       }
       if (state) {

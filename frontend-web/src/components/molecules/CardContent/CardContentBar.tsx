@@ -3,7 +3,7 @@ import {
   CardBarWrapper,
 } from '@/components/molecules/CardContent/CardContentBar.styles';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
-import { selectedCategoryState } from '@/states/CategoryState';
+import { selectedCategoryState } from '@/states/categoryState';
 import theme from '@/styles/theme';
 import { useRecoilValue } from 'recoil';
 

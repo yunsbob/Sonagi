@@ -46,9 +46,6 @@ public class Baby {
 	@Column(name = "last_diary_time")
 	private LocalDateTime lastDiaryTime;
 
-	@Column(name = "diary_notification", nullable = false, columnDefinition = "VARCHAR(1) default 'N'")
-	private String diaryNotification;
-
 	@Column(name = "meal_notification", nullable = false, columnDefinition = "VARCHAR(1) default 'N'")
 	private String mealNotification;
 
@@ -60,9 +57,6 @@ public class Baby {
 
 	@PrePersist
 	public void setDefaultValues() {
-		if (diaryNotification == null) {
-			diaryNotification = "N";
-		}
 		if (mealNotification == null) {
 			mealNotification = "N";
 		}
@@ -70,10 +64,6 @@ public class Baby {
 
 	public void updateMealOn(String mealNotification) {
 		this.mealNotification = mealNotification;
-	}
-
-	public void updateDiaryOn(String diaryNotification) {
-		this.diaryNotification = diaryNotification;
 	}
 
 	public void updateCode(String code) {

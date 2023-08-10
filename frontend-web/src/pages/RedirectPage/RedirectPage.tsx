@@ -1,5 +1,5 @@
 import { PATH } from '@/constants/path';
-import { userInfoState } from '@/states/UserState';
+import { userInfoState } from '@/states/userState';
 import { produce } from 'immer';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

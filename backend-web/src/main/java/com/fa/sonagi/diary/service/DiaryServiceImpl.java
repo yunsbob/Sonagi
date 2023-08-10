@@ -79,8 +79,6 @@ public class DiaryServiceImpl implements DiaryService {
 			.orElseThrow();
 
 		baby.updateLastDiaryTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
-		babyRepository.save(baby);
-		baby.updateDiaryOn("N");
 	}
 
 	@Override
