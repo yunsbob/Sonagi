@@ -72,7 +72,7 @@ public class Users extends BaseTimeEntity implements UserDetails {
 	@Column(name = "FCMToken", length = 70)
 	private String FirebaseToken;
 
-	@Column(name = "v_alarm", nullable = false)
+	@Column(name = "v_alarm", columnDefinition = "VARCHAR(2) default 'Y'")
 	@ColumnDefault("Y")
 	private String vAlarm;
 
@@ -80,7 +80,7 @@ public class Users extends BaseTimeEntity implements UserDetails {
 	@ColumnDefault("Y")
 	private String cAlarm;
 
-	@Column(name = "d_alarm", nullable = false)
+	@Column(name = "d_alarm", nullable = false, columnDefinition = "Y")
 	@ColumnDefault("Y")
 	private String dAlarm;
 
