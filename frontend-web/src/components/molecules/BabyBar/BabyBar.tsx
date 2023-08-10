@@ -7,9 +7,9 @@ import babyCircleYellow from '@/assets/images/img-baby-yellow-circle.png';
 import { useGetBaby } from '@/apis/Baby/Queries/useGetBaby';
 import { useRecoilState } from 'recoil';
 import { useEffect } from 'react';
-import { userInfoState } from '@/states/UserState';
+import { userInfoState } from '@/states/userState';
 import { BabiesOfUser } from '@/types';
-import { currentBabyState } from '../../../states/BabyState';
+import { currentBabyState } from '../../../states/babyState';
 import theme from '@/styles/theme';
 
 const BabyBar = () => {

@@ -1,9 +1,9 @@
 import Button from '@/components/atoms/Button/Button';
 import { RecordBarContainer } from '@/components/molecules/RecordBar/RecordBar.styles';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { selectedCategoryState } from '@/states/CategoryState';
+import { selectedCategoryState } from '@/states/categoryState';
 import { Category } from '@/types';
-import { recordedValues, recordsByCategory } from '@/states/RecordState';
+import { recordedValues, recordsByCategory } from '@/states/recordState';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { PATH } from '@/constants/path';
 
