@@ -53,4 +53,16 @@ public class SnackRepositoryImpl implements SnackRepositoryCustom{
 
 		return cnt;
 	}
+
+	@Override
+	public Long findSnackCntByWeek(Long babyId, LocalDate monday, LocalDate sunday) {
+		Long cnt = queryFactory
+			.select(snack.count())
+			.from(snack)
+			.where(snack.babyId.eq(babyId),
+				snack.createdDate.goe(monday), snack.createdDate.loe(sunday))
+			.fetchFirst();
+
+		return cnt;
+	}
 }

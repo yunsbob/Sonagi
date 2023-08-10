@@ -41,7 +41,7 @@ const getOptionStyling = (
       color: ${({ theme }) => theme.color.blue};
     `,
     danger: css`
-      background: ${({ theme }) => theme.gradient.danger};
+      background: ${({ theme }) => theme.color.danger};
       color: ${({ theme }) => theme.color.white1};
       border: none;
     `,

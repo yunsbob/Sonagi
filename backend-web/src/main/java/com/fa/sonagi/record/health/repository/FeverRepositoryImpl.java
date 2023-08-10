@@ -4,9 +4,9 @@ import static com.fa.sonagi.record.health.entity.QFever.*;
 
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fa.sonagi.record.health.dto.FeverResDto;
-import com.querydsl.core.group.GroupBy;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.MathExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -45,12 +45,18 @@ public class FeverRepositoryImpl implements FeverRepositoryCustom {
 	@Override
 	public Map<LocalDate, Double> findFeverAvg(Long babyId, LocalDate monday, LocalDate sunday) {
 		Map<LocalDate, Double> bodyTemperatures = queryFactory
-			.select(fever.createdDate, MathExpressions.round(fever.bodyTemperature.avg(), 1).coalesce((double)0))
+			.select(fever.createdDate,
+				MathExpressions.round(fever.bodyTemperature.avg(), 1).coalesce((double)0))
 			.from(fever)
 			.where(fever.babyId.eq(babyId),
 				fever.createdDate.goe(monday), fever.createdDate.loe(sunday))
 			.groupBy(fever.createdDate)
-			.transform(GroupBy.groupBy(fever.createdDate).as(MathExpressions.round(fever.bodyTemperature.avg(), 1).coalesce((double)0)));
+			.fetch()
+			.stream()
+			.collect(Collectors.toMap(
+				tuple -> tuple.get(fever.createdDate),
+				tuple -> tuple.get(MathExpressions.round(fever.bodyTemperature.avg(), 1).coalesce((double)0))
+			));
 
 		return bodyTemperatures;
 	}

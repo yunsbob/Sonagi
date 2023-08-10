@@ -62,14 +62,9 @@ const RegisterBabyProfile = () => {
         birthDate: moment(pickDate).format('YYYY-MM-DD'),
         gender,
         name: value,
-        userId: userInfo.id, // userInfo는 recoil에!
+        userId: userInfo.userId, // userInfo는 recoil에!
       });
-
-      // RecoilState에 아이 데이터 저장하는 것은 get으로
-
       navigate(PATH.MAIN);
-      // TODO: get 요청 보내기 근데 이건 메인에서?
-      // TODO: recoilState에 아이 데이터 연결해주기
     }
   };
 

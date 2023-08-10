@@ -12,4 +12,6 @@ public interface FeedingRepostioryCustom {
 	List<SnackFeedingStatisticsQueryDto> findFeedingByDay(Long babyId, LocalDate createdDate);
 
 	Long findFeedingCnt(Long babyId, LocalDate createdDate);
+
+	Long findFeedingCntByWeek(Long babyId, LocalDate monday, LocalDate sunday);
 }

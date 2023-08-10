@@ -1,7 +1,7 @@
 package com.fa.sonagi.record.diaper.dto;
 
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -21,6 +21,6 @@ public class DiaperPostDto {
   private LocalDate createdDate;
 
   @NotNull
-  private Time createdTime;
+  private LocalTime createdTime;
   private String memo;
 }

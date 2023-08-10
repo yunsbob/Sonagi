@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fa.sonagi.statistics.extra.dto.ExtraStatisticsResDto;
+import com.fa.sonagi.statistics.extra.dto.ExtraStatisticsWeekResDto;
 import com.fa.sonagi.statistics.extra.service.ExtraStatisticsService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,13 +29,16 @@ public class ExtraStatisticsController {
 	public ResponseEntity<?> getExtraStatistics(@RequestParam Long babyId,
 		@RequestParam String period, @RequestParam LocalDate createdDate) {
 		if (period.equals("day")) {
-			ExtraStatisticsResDto extraStatisticsResDto = extraStatisticsService.getExtraStatisticsDay(babyId,
+			ExtraStatisticsResDto extraStatisticsDay = extraStatisticsService.getExtraStatisticsDay(babyId,
 				createdDate);
-			return ResponseEntity.ok().body(extraStatisticsResDto);
-		} else {
-			ExtraStatisticsResDto extraStatisticsResDto = extraStatisticsService.getExtraStatisticsDay(babyId,
-				createdDate);
-			return ResponseEntity.ok().body(extraStatisticsResDto);
+			return ResponseEntity.ok().body(extraStatisticsDay);
+		}
+		else if (period.equals("week")) {
+			ExtraStatisticsWeekResDto extraStatisticsWeek = extraStatisticsService.getExtraStatisticsWeek(babyId, createdDate);
+			return ResponseEntity.ok().body(extraStatisticsWeek);
+		}
+		else {
+			return ResponseEntity.badRequest().build();
 		}
 	}
 }

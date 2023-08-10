@@ -1,4 +1,4 @@
-package com.fa.sonagi.request.entity;
+package com.fa.sonagi.question.entity;
 
 import java.time.LocalDate;
 
@@ -18,14 +18,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "request")
-public class Request {
+@Table(name = "question")
+public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "request_id", nullable = false)
+	@Column(name = "question_id", nullable = false)
 	private Long id;
 
-	@Column(name = "uses_id", nullable = false)
+	@Column(name = "user_id", nullable = false)
 	private Long userId;
 
 	@Column(name = "title", length = 50)

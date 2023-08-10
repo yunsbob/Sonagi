@@ -5,11 +5,11 @@ import com.fa.sonagi.record.meal.dto.SnackPutDto;
 import com.fa.sonagi.record.meal.dto.SnackResDto;
 
 public interface SnackService {
-  SnackResDto findSnackById(Long id);
+	SnackResDto findSnackById(Long id);
 
-  void registSnack(SnackPostDto snackPostDto);
+	void registSnack(SnackPostDto snackPostDto);
 
-  void updateSnack(SnackPutDto snackPutDto);
+	void updateSnack(SnackPutDto snackPutDto);
 
-  void deleteSnackById(Long id);
+	void deleteSnackById(Long id);
 }
