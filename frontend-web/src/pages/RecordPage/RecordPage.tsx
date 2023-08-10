@@ -5,10 +5,10 @@ import { PATH } from '@/constants/path';
 import { useState } from 'react';
 
 const RecordPage = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleDateChange = (date: Date) => {
-    setCurrentDate(date);
+    setSelectedDate(date);
   };
 
   return (
