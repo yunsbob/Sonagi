@@ -1,19 +1,18 @@
 import { useEffect, useRef } from 'react';
 import RecordBar from '@/components/molecules/RecordBar/RecordBar';
 import RecordBlock from '@/components/molecules/RecordBlock/RecordBlock';
-import { useRecoilValue, GetRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { recordedValues } from '@/states/recordState';
 import { selectedCategoryState } from '@/states/categoryState';
 import { RecordContainerStyle } from '@/components/organisms/RecordContainer/RecordContainer.styles';
 import { PATH } from '@/constants/path';
-
-// TODO: 여기서 BabyId랑 Today 날짜 받아서 get
 
 const RecordContainer: React.FC = () => {
   const recordedList = useRecoilValue(recordedValues);
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const containerRef = useRef<HTMLDivElement>(null);
 
+  console.log('container', recordedList);
   // 선택된 카테고리에 따라 쌓인 기록 블록들 필터링
   const filteredRecordList = recordedList.filter(record => {
     if (currentCategory === 'All') {

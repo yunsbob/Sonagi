@@ -9,22 +9,22 @@ import { useRecoilState } from 'recoil';
 import { useEffect } from 'react';
 import { userInfoState } from '@/states/userState';
 import { BabiesOfUser } from '@/types';
-import { currentBabyState } from '../../../states/babyState';
+import { selectedBabyState } from '../../../states/babyState';
 import theme from '@/styles/theme';
 
 const BabyBar = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const [currentBaby, setCurrentBaby] = useRecoilState(currentBabyState);
+  const [selectedBaby, setSelectedBaby] = useRecoilState(selectedBabyState);
   const { data } = useGetBaby(userInfo.userId);
 
   useEffect(() => {
     if (data && data.length > 0) {
-      setCurrentBaby(data[0]);
+      setSelectedBaby(data[0]);
     }
-  }, [data, setCurrentBaby]); // ESLint의 react-hooks/exhaustive-deps 규칙때문에 함수도 포함시킴
+  }, [data, setSelectedBaby]); // ESLint의 react-hooks/exhaustive-deps 규칙때문에 함수도 포함시킴
 
   const babyClicked = (babyInfo: BabiesOfUser) => {
-    setCurrentBaby(babyInfo);
+    setSelectedBaby(babyInfo);
   };
 
   return (
@@ -38,7 +38,7 @@ const BabyBar = () => {
           style={{ padding: '3px 9px 3px 4px' }}
           onClick={() => babyClicked(item)}
           $border={
-            currentBaby === item
+            selectedBaby === item
               ? `1.5px solid ${theme.color.cardMeal3}`
               : undefined
           }
