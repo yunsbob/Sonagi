@@ -54,6 +54,8 @@ public class InfantFormulaServiceImpl implements InfantFormulaService {
 		babyRepository.save(baby);
 
 		infantFormulaRepository.save(infantFormula);
+		baby.updateMealOn("Y");
+
 	}
 
 	/**

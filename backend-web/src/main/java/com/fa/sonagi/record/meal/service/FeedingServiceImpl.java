@@ -57,6 +57,8 @@ public class FeedingServiceImpl implements FeedingService {
 		babyRepository.save(baby);
 
 		feedingRepository.save(feeding);
+		baby.updateMealOn("Y");
+
 	}
 
 	/**
