@@ -1,7 +1,7 @@
 package com.fa.sonagi.record.diaper.entity;
 
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "pee",
     indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
-
 public class Pee {
 
   @Id
@@ -36,16 +35,16 @@ public class Pee {
   @Column(name = "user_id", nullable = false)
   private Long userId;
 
-  @Column(name = "created_time", nullable = false)
-  private Time createdTime;
-
   @Column(name = "created_date", nullable = false)
   private LocalDate createdDate;
+
+  @Column(name = "created_time", nullable = false)
+  private LocalTime createdTime;
 
   @Column(name = "memo", length = 100)
   private String memo;
 
-  public void updatePee(Time createdTime, String memo) {
+  public void updatePee(LocalTime createdTime, String memo) {
     this.createdTime = createdTime;
     this.memo = memo;
   }

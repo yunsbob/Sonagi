@@ -2,14 +2,12 @@ package com.fa.sonagi.statistics.sleep.service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.sleep.repository.SleepRepository;
-import com.fa.sonagi.statistics.common.StatisticsTime;
 import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsQueryDto;
 import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsResDto;
 

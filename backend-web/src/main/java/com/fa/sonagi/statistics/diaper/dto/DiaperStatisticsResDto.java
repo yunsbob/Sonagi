@@ -13,10 +13,10 @@ public class DiaperStatisticsResDto {
 	private List<DiaperStatisticsQueryDto> poops;
 	private Long peeCnt;
 	private Long poopCnt;
-	private Long peePercent;
-	private Long yesterdayPeePercent;
-	private Long poopPercent;
-	private Long yesterdayPoopPercent;
+	private Long peeCntPercent;
+	private Long yesterdayPeeCntPercent;
+	private Long poopCntPercent;
+	private Long yesterdayPoopCntPercent;
 
 	public DiaperStatisticsResDto() {
 		this.pees = new ArrayList<>();

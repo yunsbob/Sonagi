@@ -3,8 +3,6 @@ package com.fa.sonagi.statistics.sleep.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fa.sonagi.statistics.common.StatisticsTime;
-
 import lombok.Getter;
 import lombok.Setter;
 
