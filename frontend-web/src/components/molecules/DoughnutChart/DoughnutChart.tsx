@@ -1,7 +1,7 @@
 import theme from '@/styles/theme';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import { useRecoilValue } from 'recoil';
-import { selectedCategoryState } from '@/states/CategoryState';
+import { selectedCategoryState } from '@/states/categoryState';
 
 import {
   xCenter,

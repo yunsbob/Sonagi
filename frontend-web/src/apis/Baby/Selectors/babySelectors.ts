@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { userInfoState } from '@/states/UserState';
+import { userInfoState } from '@/states/userState';
 import { getBaby } from '@/apis/Baby/babyAPI';
 
 export const babyDataQuery = selector({

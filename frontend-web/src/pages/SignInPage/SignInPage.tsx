@@ -6,7 +6,7 @@ import { Image } from '@/components/atoms/Image/Image';
 import * as S from '@/pages/SignInPage/SignInPage.style';
 import RegisterField from '@/components/molecules/RegisterField/RegisterField';
 import { useRecoilState } from 'recoil';
-import { userInfoState } from '@/states/UserState';
+import { userInfoState } from '@/states/userState';
 import { produce } from 'immer';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';

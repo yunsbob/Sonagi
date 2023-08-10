@@ -9,7 +9,7 @@ import { CalendarModal } from '@/components/organisms/CalendarModal/CalendarModa
 import RBPWrapper from '@/components/organisms/RegisterBabyProfile/RegisterBabyProfile.style';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
-import { userInfoState } from '@/states/UserState';
+import { userInfoState } from '@/states/userState';
 import { useRecoilState } from 'recoil';
 import { useAddBaby } from '@/apis/Baby/Mutations/useAddBaby';
 // import { useGetBaby } from '@/apis/Baby/Queries/useGetBaby';
