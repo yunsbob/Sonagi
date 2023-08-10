@@ -1,13 +1,17 @@
 import { useEffect, useRef } from 'react';
 import RecordBar from '@/components/molecules/RecordBar/RecordBar';
 import RecordBlock from '@/components/molecules/RecordBlock/RecordBlock';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, GetRecoilValue } from 'recoil';
 import { recordedValues } from '@/states/RecordState';
 import { selectedCategoryState } from '@/states/CategoryState';
 import { RecordContainerStyle } from '@/components/organisms/RecordContainer/RecordContainer.styles';
 import { PATH } from '@/constants/path';
 
+// TODO: 상위에서 날짜를 받고, BabyId도 받기 ~
+// 그다음에 get으로 CategoryAll 받기
+
 const RecordContainer: React.FC = () => {
+  // const currentBaby
   const recordedList = useRecoilValue(recordedValues);
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const containerRef = useRef<HTMLDivElement>(null);
