@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -72,21 +71,17 @@ public class Users extends BaseTimeEntity implements UserDetails {
 	@Column(name = "FCMToken", length = 70)
 	private String FirebaseToken;
 
-	@Column(name = "v_alarm", columnDefinition = "VARCHAR(2) default 'Y'")
-	@ColumnDefault("Y")
-	private String vAlarm;
+	@Column(name = "v_alarm", columnDefinition = "VARCHAR(1) default 'Y'")
+	private String vAlarm = "Y";
 
-	@Column(name = "c_alarm", nullable = false)
-	@ColumnDefault("Y")
-	private String cAlarm;
+	@Column(name = "c_alarm", nullable = false, columnDefinition = "VARCHAR(1) default 'Y'")
+	private String cAlarm = "Y";
 
-	@Column(name = "d_alarm", nullable = false, columnDefinition = "Y")
-	@ColumnDefault("Y")
-	private String dAlarm;
+	@Column(name = "d_alarm", nullable = false, columnDefinition = "VARCHAR(1) default 'Y'")
+	private String dAlarm = "Y";
 
-	@Column(name = "m_alarm", nullable = false)
-	@ColumnDefault("'Y'")
-	private String mAlarm;
+	@Column(name = "m_alarm", nullable = false, columnDefinition = "VARCHAR(1) default 'Y'")
+	private String mAlarm = "Y";
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
