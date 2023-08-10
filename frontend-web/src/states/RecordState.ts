@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { Category } from '@/states/CategoryState';
+import { Category } from '@/types';
 import { RecordData } from '@/components/molecules/RecordBar/RecordBar';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import theme from '@/styles/theme';
