@@ -54,7 +54,7 @@ public class BabyFoodServiceImpl implements BabyFoodService {
 		babyRepository.save(baby);
 
 		babyFoodRepository.save(babyFood);
-		baby.updateMealOn("Y");
+		baby.updateMealOn("N");
 	}
 
 	/**
