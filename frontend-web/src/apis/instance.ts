@@ -25,16 +25,9 @@ instance.interceptors.response.use(
   (error: AxiosError) => {
     console.log(error);
     // 로그아웃 시키고 로그인 PAGE로 리다이렉트
-
-    localStorage.removeItem('accessToken');
-    test();
-    // return Promise.reject(error);
+    localStorage.clear();
+    window.location.href = PATH.LOGIN;
   }
 );
-
-const test = () => {
-  const navigate = useNavigate();
-  navigate(PATH.LOGIN);
-};
 
 export { instance };

@@ -7,21 +7,19 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.fa.sonagi.jwt.JwtAuthenticationFilter;
 import com.fa.sonagi.jwt.JwtTokenProvider;
+import com.fa.sonagi.jwt.TokenAccessDeniedHandler;
 import com.fa.sonagi.oauth.exception.RestAuthenticationEntryPoint;
 import com.fa.sonagi.oauth.handler.OAuth2AuthenticationFailureHandler;
 import com.fa.sonagi.oauth.handler.OAuth2AuthenticationSuccessHandler;
-import com.fa.sonagi.jwt.TokenAccessDeniedHandler;
 import com.fa.sonagi.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.fa.sonagi.oauth.service.CustomOAuth2UserService;
 import com.fa.sonagi.user.repository.UserRepository;
@@ -34,15 +32,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class WebSecurityConfig {
+	private static final String[] GET_LIST = {
+		"/api/oauth2/authorization", "/api/login/oauth2/code/**"
+	};
+	private static final String[] POST_LIST = {};
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisTemplate<String, String> redisTemplate;
 	private final CustomOAuth2UserService customOAuth2UserService;
 	private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
 	private final UserRepository userRepository;
-	private static final String[] GET_LIST = {
-		"/api/oauth2/authorization", "/api/login/oauth2/code/**"
-	};
-	private static final String[] POST_LIST = {};
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -81,8 +79,9 @@ public class WebSecurityConfig {
 			.and()
 			.successHandler(oAuth2AuthenticationSuccessHandler())
 			.failureHandler(oAuth2AuthenticationFailureHandler())
-			.and()
+			.permitAll()
 
+			.and()
 			.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisTemplate, userRepository), UsernamePasswordAuthenticationFilter.class);
 
 		return httpSecurity.build();
