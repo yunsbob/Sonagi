@@ -22,6 +22,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
@@ -71,7 +72,7 @@ public class Users extends BaseTimeEntity implements UserDetails {
 	@Column(name = "FCMToken", length = 70)
 	private String FirebaseToken;
 
-	@Column(name = "v_alarm", columnDefinition = "VARCHAR(1) default 'Y'")
+	@Column(name = "v_alarm", nullable = false, columnDefinition = "VARCHAR(1) default 'Y'")
 	private String vAlarm;
 
 	@Column(name = "c_alarm", nullable = false, columnDefinition = "VARCHAR(1) default 'Y'")
@@ -83,21 +84,21 @@ public class Users extends BaseTimeEntity implements UserDetails {
 	@Column(name = "m_alarm", nullable = false, columnDefinition = "VARCHAR(1) default 'Y'")
 	private String mAlarm;
 
-	// @PrePersist
-	// public void setDefaultValues() {
-	// 	if (vAlarm == null) {
-	// 		vAlarm = "Y";
-	// 	}
-	// 	if (cAlarm == null) {
-	// 		cAlarm = "Y";
-	// 	}
-	// 	if (dAlarm == null) {
-	// 		dAlarm = "Y";
-	// 	}
-	// 	if (mAlarm == null) {
-	// 		mAlarm = "Y";
-	// 	}
-	// }
+	@PrePersist
+	public void setDefaultValues() {
+		if (vAlarm == null) {
+			vAlarm = "Y";
+		}
+		if (cAlarm == null) {
+			cAlarm = "Y";
+		}
+		if (dAlarm == null) {
+			dAlarm = "Y";
+		}
+		if (mAlarm == null) {
+			mAlarm = "Y";
+		}
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
