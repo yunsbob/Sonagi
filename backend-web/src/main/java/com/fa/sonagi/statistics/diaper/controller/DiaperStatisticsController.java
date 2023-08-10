@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fa.sonagi.statistics.diaper.dto.DiaperStatisticsResDto;
+import com.fa.sonagi.statistics.diaper.dto.DiaperStatisticsWeekResDto;
 import com.fa.sonagi.statistics.diaper.service.DiaperStatisticsService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,12 +29,15 @@ public class DiaperStatisticsController {
 	public ResponseEntity<?> getDiaperStatistics(@RequestParam Long babyId,
 		@RequestParam String period, @RequestParam LocalDate createdDate) {
 		if (period.equals("day")) {
-			DiaperStatisticsResDto diaperStatisticsResDto = diaperStatisticsService.getDiaperStatisticsDay(babyId, createdDate);
-			return ResponseEntity.ok().body(diaperStatisticsResDto);
+			DiaperStatisticsResDto diaperStatisticsDay = diaperStatisticsService.getDiaperStatisticsDay(babyId, createdDate);
+			return ResponseEntity.ok().body(diaperStatisticsDay);
+		}
+		else if (period.equals("week")) {
+			DiaperStatisticsWeekResDto diaperStatisticsWeek = diaperStatisticsService.getDiaperStatisticsWeek(babyId, createdDate);
+			return ResponseEntity.ok().body(diaperStatisticsWeek);
 		}
 		else {
-			DiaperStatisticsResDto diaperStatisticsResDto = diaperStatisticsService.getDiaperStatisticsDay(babyId, createdDate);
-			return ResponseEntity.ok().body(diaperStatisticsResDto);
+			return ResponseEntity.badRequest().build();
 		}
 	}
 }
