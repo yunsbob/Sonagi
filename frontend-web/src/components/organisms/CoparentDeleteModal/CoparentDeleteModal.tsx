@@ -13,6 +13,7 @@ import { selectedBabyState } from '@/states/babyState';
 import { userInfoState } from '@/states/userState';
 import theme from '@/styles/theme';
 import { CustomModal, User } from '@/types';
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -26,12 +27,21 @@ const CoparentDeleteModal = ({ onModalClose, modalOpen, coparent }: Props) => {
 
   const userInfo = useRecoilValue(userInfoState);
   const babyInfo = useRecoilValue(selectedBabyState);
+  const queryClient = useQueryClient();
 
   const deleteCoparent = () => {
-    useDeleteCoparentMutation.mutate({
-      userId: userInfo.userId,
-      babyId: babyInfo.babyId,
-    });
+    useDeleteCoparentMutation.mutate(
+      {
+        userId: userInfo.userId,
+        babyId: babyInfo.babyId,
+      },
+      {
+        onSuccess: () => {
+          // queryClient.invalidateQueries(['coParent', babyInfo.babyId]);
+          onModalClose();
+        },
+      }
+    );
   };
 
   return (

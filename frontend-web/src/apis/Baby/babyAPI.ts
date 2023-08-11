@@ -21,7 +21,8 @@ const getBaby = async (userId: number) => {
 const getCoParent = async (userId: number, babyId: number) => {
   try {
     const response = await instance.get(`/coparents/${userId}/${babyId}`);
-    return response.data;
+
+    return response.data ? response.data : response;
   } catch {
     new Error('get coparent list error');
   }
@@ -47,12 +48,7 @@ const getBabyCode = async (babyId: number) => {
 
 // 아기 코드로 아기 등록
 const registerBabyCode = async (userId: number, code: string) => {
-  // try {
   await instance.post('babyCode', { userId: userId, code: code });
-  // } catch {
-  // console.log('ddddd');
-  // new Error('register baby code error');
-  // }
 };
 
 export {

@@ -14,6 +14,7 @@ interface BabiesOfUser {
   babyId: number;
   name: string;
   gender: string;
+  authority: string;
 }
 
 // 가능한 모든 카테고리 목록
