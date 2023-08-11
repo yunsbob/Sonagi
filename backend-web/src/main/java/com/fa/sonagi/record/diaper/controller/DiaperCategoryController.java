@@ -13,10 +13,11 @@ import com.fa.sonagi.record.diaper.dto.AllDiaperResDto;
 import com.fa.sonagi.record.diaper.dto.DiaperResDto;
 import com.fa.sonagi.record.diaper.service.DiaperCategoryService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-@Tag(name = "ActivityCategory", description = "놀이 카테고리 API")
+@Tag(name = "DiaperCategory", description = "기저귀 카테고리 API")
 @RequestMapping("/api/diaperRecords")
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +28,7 @@ public class DiaperCategoryController {
 	 * 기저귀 카테고리 조회
 	 */
 	@GetMapping
+	@Operation(summary = "아이 아이디에 해당하는 아이의 해당 날짜에 관한 기저귀 카테고리 기록들을 조회함")
 	public ResponseEntity<?> getDiaperRecord(@RequestParam Long babyId, @RequestParam LocalDate createdDate) {
 		List<DiaperResDto> peeList = diaperCategoryService.findAllPee(babyId, createdDate);
 		List<DiaperResDto> poopList = diaperCategoryService.findAllPoop(babyId, createdDate);

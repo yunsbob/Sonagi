@@ -7,7 +7,7 @@ import com.fa.sonagi.faq.dto.FAQPutDto;
 import com.fa.sonagi.faq.dto.FAQResDto;
 
 public interface FAQService {
-	List<FAQResDto> findAllFAQs();
+	List<FAQResDto> findAllFAQ();
 
 	FAQResDto findFAQById(Long FAQId);
 

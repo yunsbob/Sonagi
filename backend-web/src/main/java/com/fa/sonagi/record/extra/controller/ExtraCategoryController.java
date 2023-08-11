@@ -13,6 +13,7 @@ import com.fa.sonagi.record.extra.dto.AllExtraResDto;
 import com.fa.sonagi.record.extra.dto.ExtraResDto;
 import com.fa.sonagi.record.extra.service.ExtraCategoryService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +28,7 @@ public class ExtraCategoryController {
 	 * 기타 카테고리 조회
 	 */
 	@GetMapping
+	@Operation(summary = "아이 아이디에 해당하는 아이의 해당 날짜에 관한 기타 카테고리 기록들을 조회함")
 	public ResponseEntity<?> getExtraRecord(@RequestParam Long babyId, @RequestParam LocalDate createdDate) {
 		List<ExtraResDto> extraList = extraCategoryService.findAllExtra(babyId, createdDate);
 
