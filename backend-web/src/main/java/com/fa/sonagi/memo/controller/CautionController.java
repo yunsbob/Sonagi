@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RequestMapping("/api/caution")
-@Tag(name = "Illness", description = "주의사항 API")
+@Tag(name = "Caution", description = "주의사항 API")
 @RestController
 @RequiredArgsConstructor
 public class CautionController {
