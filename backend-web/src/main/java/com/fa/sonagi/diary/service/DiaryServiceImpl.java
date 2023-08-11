@@ -156,12 +156,10 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
-	public List<LocalDate> findAllDiaryByMonth(LocalDate curDate, Long babyId) {
+	public List<LocalDate> findAllDiaryByBabyId(Long babyId) {
 		List<LocalDate> dateList = new ArrayList<>();
 
-		LocalDate startDate = curDate.withDayOfMonth(1);
-		LocalDate endDate = curDate.withDayOfMonth(curDate.lengthOfMonth());
-		List<Diary> diaryList = diaryRepository.findByBabyIdAndCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(babyId, startDate, endDate);
+		List<Diary> diaryList = diaryRepository.findByBabyId(babyId);
 
 		for (Diary diary : diaryList) {
 			dateList.add(diary.getCreatedDate());
