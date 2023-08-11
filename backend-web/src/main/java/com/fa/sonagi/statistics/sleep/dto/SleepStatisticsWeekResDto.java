@@ -1,7 +1,6 @@
 package com.fa.sonagi.statistics.sleep.dto;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import lombok.Getter;
@@ -10,14 +9,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SleepStatisticsWeekResDto {
-	private Map<String, List<SleepStatisticsDayForWeekDto>> sleepStatistics;
-	private Long sleepCnt;
-	private Long allSleepHour;
-	private Long allSleepMinute;
-	private Long sleepCntPercent;
-	private Long yesterdaySleepCntPercent;
-	private Long allSleepPercent;
-	private Long yesterdayAllSleepPercent;
+	private Map<String, SleepStatisticsDayForWeekDto> sleepStatistics;
+	private Long cnt;
+	private Long sleepHour;
+	private Long sleepMinute;
+	private Long cntPercent;
+	private Long lastWeekCntPercent;
+	private Long sleepPercent;
+	private Long lastWeekSleepPercent;
 
 	public SleepStatisticsWeekResDto() {
 		this.sleepStatistics =  new HashMap<>();
