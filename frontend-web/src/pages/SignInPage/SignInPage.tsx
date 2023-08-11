@@ -46,6 +46,7 @@ const SignInPage = () => {
             양육자의 이름을 입력해주세요
           </Text>
           <RegisterField
+            $maxLength={10}
             onClickButtonAction={onClickButtonAction}
             option="default"
             size="medium"

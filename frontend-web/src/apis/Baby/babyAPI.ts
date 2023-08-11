@@ -47,12 +47,12 @@ const getBabyCode = async (babyId: number) => {
 
 // 아기 코드로 아기 등록
 const registerBabyCode = async (userId: number, code: string) => {
-  try {
-    await instance.post('babyCode', { userId: userId, code: code });
-  } catch {
-    console.log('ddddd');
-    new Error('register baby code error');
-  }
+  // try {
+  await instance.post('babyCode', { userId: userId, code: code });
+  // } catch {
+  // console.log('ddddd');
+  // new Error('register baby code error');
+  // }
 };
 
 export {

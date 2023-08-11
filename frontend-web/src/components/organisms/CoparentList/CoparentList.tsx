@@ -12,7 +12,6 @@ import { Text } from '@/components/atoms/Text/Text.styles';
 import theme from '@/styles/theme';
 import { useState } from 'react';
 import { BabyCodeModal } from '@/components/organisms/BabyCodeModal/BabyCodeModal';
-import { Toast } from '@/components/organisms/Toast/Toast';
 import { selectedBabyState } from '@/states/babyState';
 import { CoparentDeleteModal } from '@/components/organisms/CoparentDeleteModal/CoparentDeleteModal';
 
