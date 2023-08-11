@@ -8,7 +8,7 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class FAQResDto {
-	private Long id;
+	private Long FAQId;
 	private String title;
 	private String content;
 }

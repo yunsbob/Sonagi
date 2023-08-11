@@ -13,15 +13,7 @@ import { CustomModal } from '@/types';
 import { ChangeEvent, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-interface UserUpdateModalProps extends CustomModal {
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const UserUpdateModal = ({
-  onModalClose,
-  setModalOpen,
-  modalOpen,
-}: UserUpdateModalProps) => {
+const UserUpdateModal = ({ onModalClose, modalOpen }: CustomModal) => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [newUserName, setNewUserName] = useState(userInfo.name);
   const updateUserMutation = useUpdateUser();
@@ -35,7 +27,7 @@ const UserUpdateModal = ({
   const onUpdateClick = () => {
     updateUserMutation.mutate({ userId: userInfo.userId, name: newUserName });
     setUserInfo({ ...userInfo, name: newUserName });
-    setModalOpen(false);
+    onModalClose();
   };
 
   return (
@@ -53,7 +45,7 @@ const UserUpdateModal = ({
           autoFocus
         />
         <UdpateButtonWrapper>
-          <Button option="danger" onClick={() => setModalOpen(false)}>
+          <Button option="danger" onClick={onModalClose}>
             수정 취소
           </Button>
           <Button option="activated" size="large" onClick={onUpdateClick}>

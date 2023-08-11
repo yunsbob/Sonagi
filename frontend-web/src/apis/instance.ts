@@ -27,6 +27,7 @@ instance.interceptors.response.use(
       localStorage.clear();
       window.location.href = PATH.LOGIN;
     }
+    return Promise.reject(error);
   }
 );
 

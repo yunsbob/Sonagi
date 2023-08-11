@@ -27,7 +27,7 @@ public class QuestionServiceImpl implements QuestionService {
 		Question question = questionRepository.findById(id).orElseThrow();
 
 		QuestionResDto questionResDto = QuestionResDto.builder()
-			.id(question.getId())
+			.questionId(question.getId())
 			.userId(question.getUserId())
 			.title(question.getTitle())
 			.content(question.getContent())
@@ -60,7 +60,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 		return questions.stream()
 			.map(q -> QuestionResDto.builder()
-				.id(q.getId())
+				.questionId(q.getId())
 				.title(q.getTitle())
 				.userId(q.getUserId())
 				.createdAt(q.getCreatedAt())

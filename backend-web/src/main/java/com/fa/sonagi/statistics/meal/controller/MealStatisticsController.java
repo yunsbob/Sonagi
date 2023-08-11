@@ -12,6 +12,7 @@ import com.fa.sonagi.statistics.meal.dto.MealStatisticsResDto;
 import com.fa.sonagi.statistics.meal.dto.MealStatisticsWeekResDto;
 import com.fa.sonagi.statistics.meal.service.MealStatisticsService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +27,7 @@ public class MealStatisticsController {
 	 * 식사 통계 조회
 	 */
 	@GetMapping
+	@Operation(summary = "아이 아이디에 해당하는 아이의 해당 날짜에 관한 주별 또는 일별 식사 통계를 조회함")
 	public ResponseEntity<?> getMealStatistics(@RequestParam Long babyId,
 		@RequestParam String period, @RequestParam LocalDate createdDate) {
 		if (period.equals("day")) {

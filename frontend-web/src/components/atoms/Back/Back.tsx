@@ -16,14 +16,11 @@ const Back = ({ children = '뒤로가기' }: BackProps) => {
   const RouteHandler = useCallback(() => navigate(-1), [navigate]);
 
   const location = useLocation();
-  //TODO: 경로로 상세기록 안보이게 하기
-  console.log(location.pathname);
-
   return (
     <S.Back onClick={RouteHandler}>
       <Image src={backArrow} width={1} />
       <Text color={'black3'} size={'medium1'} style={{ marginLeft: '0.5rem' }}>
-        {children} 상세 기록
+        {children} {location.pathname.includes('/main') && '상세 기록'}
       </Text>
     </S.Back>
   );

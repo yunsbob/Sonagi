@@ -13,10 +13,11 @@ import com.fa.sonagi.record.pumpingBreast.dto.AllPumpingBreastResDto;
 import com.fa.sonagi.record.pumpingBreast.dto.PumpingBreastResDto;
 import com.fa.sonagi.record.pumpingBreast.service.PumpingBreastCategoryService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-@Tag(name = "PumpingBreast", description = "유축 카테고리 api")
+@Tag(name = "PumpingBreastCategory", description = "유축 카테고리 api")
 @RequestMapping("/api/pumpingBreastRecords")
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +29,7 @@ public class PumpingBreastCategoryController {
 	 * 유축 카테고리 조회
 	 */
 	@GetMapping
+	@Operation(summary = "아이 아이디에 해당하는 아이의 해당 날짜에 관한 유축 카테고리 기록들을 조회함")
 	public ResponseEntity<?> getPumpingBreastRecord(@RequestParam Long babyId, @RequestParam LocalDate createdDate) {
 		List<PumpingBreastResDto> pumpingBreastList = pumpingBreastCategoryService.findAllPumpingBreast(babyId, createdDate);
 
