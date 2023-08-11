@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class MemoPutDto {
 	@NotNull
-	private Long id;
+	private Long memoId;
 
 	@NotNull
 	private String memo;

@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.fa.sonagi.diary.entity.Diary;
 
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
-	List<Diary> findByBabyIdAndCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(Long babyId, LocalDate fromDate, LocalDate toDate);
+	List<Diary> findByBabyId(Long babyId);
 	List<Diary> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
 }

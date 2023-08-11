@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BabyDetailResDto {
-	private Long id;
+	private Long babyId;
 	private String name;
 	private LocalDate birthDate;
 	private String gender;
