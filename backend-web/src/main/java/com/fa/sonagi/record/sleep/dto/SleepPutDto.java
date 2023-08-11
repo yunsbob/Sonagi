@@ -1,6 +1,6 @@
 package com.fa.sonagi.record.sleep.dto;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -14,9 +14,9 @@ public class SleepPutDto {
 	private Long id;
 
 	@NotNull
-	private Time createdTime;
+	private LocalTime createdTime;
 
 	@NotNull
-	private Time endTime;
+	private LocalTime endTime;
 	private String memo;
 }

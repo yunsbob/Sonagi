@@ -21,32 +21,32 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "poop",
-    indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
+	indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
 public class Poop {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "poop_id", nullable = false)
-  private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "poop_id", nullable = false)
+	private Long id;
 
-  @Column(name = "baby_id", nullable = false)
-  private Long babyId;
+	@Column(name = "user_id", nullable = false)
+	private Long userId;
 
-  @Column(name = "user_id", nullable = false)
-  private Long userId;
+	@Column(name = "baby_id", nullable = false)
+	private Long babyId;
 
-  @Column(name = "created_date", nullable = false)
-  private LocalDate createdDate;
+	@Column(name = "created_date", nullable = false)
+	private LocalDate createdDate;
 
-  @Column(name = "created_time", nullable = false)
-  private LocalTime createdTime;
+	@Column(name = "created_time", nullable = false)
+	private LocalTime createdTime;
 
-  @Column(name = "memo", length = 100)
-  private String memo;
+	@Column(name = "memo", length = 100)
+	private String memo;
 
-  public void updatePoop(LocalTime createdTime, String memo) {
-    this.createdTime = createdTime;
-    this.memo = memo;
-  }
+	public void updatePoop(LocalTime createdTime, String memo) {
+		this.createdTime = createdTime;
+		this.memo = memo;
+	}
 
 }

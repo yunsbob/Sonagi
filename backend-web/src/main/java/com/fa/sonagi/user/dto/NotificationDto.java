@@ -1,6 +1,4 @@
-package com.fa.sonagi.record.health.dto;
-
-import java.time.LocalTime;
+package com.fa.sonagi.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,8 +11,10 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class HealthResDto {
-	private Long id;
-	private LocalTime createdTime;
-	private String memo;
+public class NotificationDto {
+	private Long userId;
+	private String vAlarm;
+	private String cAlarm;
+	private String dAlarm;
+	private String mAlarm;
 }

@@ -32,7 +32,6 @@ public class FeverController {
   @GetMapping("/{feverId}")
   public ResponseEntity<?> getFever(@PathVariable Long feverId) {
     FeverResDto feverResDto = feverService.findFeverById(feverId);
-
     return ResponseEntity.ok().body(feverResDto);
   }
 
@@ -41,8 +40,8 @@ public class FeverController {
    */
   @PostMapping
   public ResponseEntity<?> registFever(@RequestBody FeverPostDto feverPostDto) {
-    feverService.registFever(feverPostDto);
-    return ResponseEntity.ok().build();
+    FeverResDto feverResDto = feverService.registFever(feverPostDto);
+    return ResponseEntity.ok().body(feverResDto);
   }
 
   /**

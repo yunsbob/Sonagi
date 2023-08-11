@@ -39,8 +39,8 @@ public class SleepController {
 	 */
 	@PostMapping
 	public ResponseEntity<?> registSleep(@RequestBody SleepPostDto sleepPostDto) {
-		sleepService.registSleep(sleepPostDto);
-		return ResponseEntity.ok().build();
+		SleepResDto sleepResDto = sleepService.registSleep(sleepPostDto);
+		return ResponseEntity.ok().body(sleepResDto);
 	}
 
 	/**

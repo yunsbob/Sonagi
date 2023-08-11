@@ -32,7 +32,6 @@ public class PeeController {
   @GetMapping("/{peeId}")
   public ResponseEntity<?> getPee(@PathVariable Long peeId) {
     DiaperResDto diaperResDto = peeService.findPeeById(peeId);
-
     return ResponseEntity.ok().body(diaperResDto);
   }
 
@@ -41,8 +40,8 @@ public class PeeController {
    */
   @PostMapping
   public ResponseEntity<?> registPee(@RequestBody DiaperPostDto diaperPostDto) {
-    peeService.registPee(diaperPostDto);
-    return ResponseEntity.ok().build();
+    DiaperResDto diaperResDto = peeService.registPee(diaperPostDto);
+    return ResponseEntity.ok().body(diaperResDto);
   }
 
   /**
