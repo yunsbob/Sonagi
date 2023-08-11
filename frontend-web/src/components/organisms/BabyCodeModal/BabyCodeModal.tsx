@@ -10,16 +10,16 @@ import { Image } from '@/components/atoms/Image/Image';
 import { useRef, useState } from 'react';
 import { Toast } from '@/components/organisms/Toast/Toast';
 import { useRecoilValue } from 'recoil';
-import { currentBabyState } from '@/states/babyState';
+import { selectedBabyState } from '@/states/babyState';
 import { useGetBabyCode } from '@/apis/Baby/Queries/useGetBabyCode';
 import kakao from '@/assets/images/img-logo-kakao.png';
 import Button from '@/components/atoms/Button/Button';
 
 const BabyCodeModal = ({ onModalClose, modalOpen }: CustomModal) => {
-  const babyInfo: BabiesOfUser = useRecoilValue(currentBabyState);
+  const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
 
   const code = useGetBabyCode(babyInfo.babyId);
-  console.log(code);
+
   const [showToast, setShowToast] = useState<boolean>(false);
 
   const handleCopyClick = async () => {
@@ -32,6 +32,15 @@ const BabyCodeModal = ({ onModalClose, modalOpen }: CustomModal) => {
     } catch {
       console.log('복사 실패');
     }
+  };
+
+  const shareKakao = () => {
+    window.Kakao.Link.sendCustom({
+      templateId: 97145,
+      templateArgs: {
+        code: code,
+      },
+    });
   };
 
   return (
@@ -51,7 +60,7 @@ const BabyCodeModal = ({ onModalClose, modalOpen }: CustomModal) => {
               onClick={handleCopyClick}
             />
           </BabyCodeWrapper>
-          <Button>
+          <Button onClick={shareKakao}>
             <Image src={kakao} width={2} />
             <Text size="medium1">
               <b>카카오톡</b>으로 공유하기

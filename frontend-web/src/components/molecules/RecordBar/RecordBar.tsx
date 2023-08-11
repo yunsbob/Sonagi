@@ -34,8 +34,6 @@ const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
     category: Category,
     queryName: string
   ) => {
-    console.log('here', recordType, color, category, queryName);
-
     const date = new Date();
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
