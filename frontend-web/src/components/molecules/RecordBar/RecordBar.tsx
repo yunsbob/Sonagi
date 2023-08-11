@@ -1,4 +1,5 @@
 import Button from '@/components/atoms/Button/Button';
+import moment from 'moment';
 import { RecordBarContainer } from '@/components/molecules/RecordBar/RecordBar.styles';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCategoryState } from '@/states/categoryState';
@@ -7,11 +8,9 @@ import { recordedValues, recordsByCategory } from '@/states/recordState';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { PATH } from '@/constants/path';
 import { useState } from 'react';
-import { RecordTypeA } from '@/types/recordTypes';
-
-// const LowBorderButton = styled(Button)<{ $borderColor: string }>`
-//   border-color: ${({ $borderColor }) => $borderColor + '96'};
-// `;
+import { useAddRecordTypeA } from '@/apis/Record/Mutations/useAddRecordTypeA';
+import { userInfoState } from '@/states/userState';
+import { selectedBabyState } from '@/states/babyState';
 
 interface RecordBarProps {
   onRecordUpdated: () => void;
@@ -26,7 +25,15 @@ const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const records = recordsByCategory[currentCategory || 'All'] || [];
 
-  // const [recordTypeAState, setRecordTypeAState] = useState<RecordTypeA>({});
+  const today = new Date();
+  const [pickDate, setPickTime] = useState<Date>(today);
+  const nowTime = moment(pickDate).format('HH:mm:ss');
+  const nowDate = moment(pickDate).format('YYYY-MM-DD');
+
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState); // userInfo.name을 가져다쓸것
+  const [selectedBaby, setSelectedBaby] = useRecoilState(selectedBabyState);
+
+  const addRecordTypeAMutation = useAddRecordTypeA();
 
   const handleClick = (
     recordType: string,
@@ -34,8 +41,16 @@ const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
     category: Category,
     queryName: string
   ) => {
-    console.log('here', recordType, color, category, queryName);
-    // post 요청
+    addRecordTypeAMutation.mutate({
+      type: queryName,
+      userId: userInfo.userId,
+      babyId: selectedBaby.babyId,
+      amount: 0,
+      memo: '',
+      createdTime: nowTime,
+      createdDate: nowDate,
+    });
+
     const date = new Date();
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');

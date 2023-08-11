@@ -14,9 +14,10 @@ const getAllCategoryRecords = async (babyId: number, date: string) => {
 
 const addRecordTypeA = async (type: string, recordTypeA: RecordTypeA) => {
   try {
+    console.log(type, recordTypeA, 'herehere');
     await instance.post(`/${type}`, recordTypeA);
   } catch {
-    new Error('recordTypeA add error');
+    throw new Error('recordTypeA add error');
   }
 };
 

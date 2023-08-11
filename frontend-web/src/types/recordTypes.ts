@@ -22,6 +22,9 @@ interface Fever {
 // => 분유(InfantFormula), 유축(BreastFeeding), 이유식(BabyFood), 우유(Milk), 유축(PumpingBreast)
 interface RecordTypeA {
   id?: number;
+  userId?: number;
+  babyId?: number;
+  createdDate?: string;
   amount: number;
   memo: string;
   createdTime: string;
@@ -36,7 +39,10 @@ interface PumpingBreast extends RecordTypeA {}
 // recordTypeB : id + 기록시간 + 메모
 // => 소변(Pee), 대변(Poop), 병원(Hospital), 투약(Medication), 간식(Snack), 기타(Extra)
 interface RecordTypeB {
-  id: number;
+  id?: number;
+  userId?: number;
+  babyId?: number;
+  createdDate?: string;
   createdTime: string;
   memo: string;
 }
