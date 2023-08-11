@@ -10,13 +10,13 @@ import lombok.Setter;
 @Setter
 public class SleepStatisticsWeekResDto {
 	private Map<String, SleepStatisticsDayForWeekDto> sleepStatistics;
-	private Long sleepCnt;
-	private Long allSleepHour;
-	private Long allSleepMinute;
-	private Long sleepCntPercent;
-	private Long lastWeekSleepCntPercent;
-	private Long allSleepPercent;
-	private Long lastWeekAllSleepPercent;
+	private Long cnt;
+	private Long sleepHour;
+	private Long sleepMinute;
+	private Long cntPercent;
+	private Long lastWeekCntPercent;
+	private Long sleepPercent;
+	private Long lastWeekSleepPercent;
 
 	public SleepStatisticsWeekResDto() {
 		this.sleepStatistics =  new HashMap<>();
