@@ -8,6 +8,7 @@ const color = {
   black2: '#464646',
   black3: '#525252',
   black4: 'rgba(0,0,0,0.2)',
+  black5: 'rgba(0,0,0,0.1)',
   gray1: '#999999',
   gray2: '#c3c3c3',
   gray3: '#d7d7d7',

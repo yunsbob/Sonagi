@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TokenDto {
-	private String accessToken;
+public class FCMTokenDto {
+	private Long userId;
+	private String FirebaseToken;
 }

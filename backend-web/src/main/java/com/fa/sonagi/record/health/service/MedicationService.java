@@ -8,7 +8,7 @@ public interface MedicationService {
 
   HealthResDto findMedicationById(Long id);
 
-  void registMedication(HealthPostDto healthPostDto);
+  HealthResDto registMedication(HealthPostDto healthPostDto);
 
   void updateMedication(HealthPutDto healthPutDto);
 

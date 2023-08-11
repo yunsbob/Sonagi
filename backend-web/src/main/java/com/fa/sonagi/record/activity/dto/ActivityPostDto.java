@@ -1,7 +1,7 @@
 package com.fa.sonagi.record.activity.dto;
 
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -11,20 +11,20 @@ import lombok.Setter;
 @Setter
 public class ActivityPostDto {
 
-  @NotNull
-  private Long userId;
+	@NotNull
+	private Long userId;
 
-  @NotNull
-  private Long babyId;
+	@NotNull
+	private Long babyId;
 
-  @NotNull
-  private LocalDate createdDate;
+	@NotNull
+	private LocalDate createdDate;
 
-  @NotNull
-  private Time createdTime;
+	@NotNull
+	private LocalTime createdTime;
 
-  @NotNull
-  private Time endTime;
+	@NotNull
+	private LocalTime endTime;
 
-  private String memo;
+	private String memo;
 }

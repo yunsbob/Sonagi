@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fa.sonagi.user.dto.FCMTokenDto;
 import com.fa.sonagi.user.dto.NameDto;
+import com.fa.sonagi.user.dto.NotificationDto;
 import com.fa.sonagi.user.service.UserService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,6 +38,64 @@ public class UserController {
 	@PutMapping("/name")
 	public ResponseEntity<?> updateName(@RequestBody NameDto nameDto) {
 		userService.updateName(nameDto);
+		return ResponseEntity.ok().build();
+	}
+
+	/**
+	 * FCM 토큰 업데이트
+	 */
+	@PutMapping("/fcm")
+	public ResponseEntity<?> updateFCMToken(@RequestBody FCMTokenDto fcmTokenDto) {
+		userService.updateFCMToken(fcmTokenDto);
+		return ResponseEntity.ok().build();
+	}
+
+	/**
+	 * 알림 조회
+	 */
+	@GetMapping("/notification/{userId}")
+	public ResponseEntity<?> getNotification(@PathVariable Long userId) {
+		NotificationDto notificationDto = userService.findNotification(userId);
+		return ResponseEntity.ok().body(notificationDto);
+	}
+
+	/**
+	 * 접종 알림 수정
+	 */
+	@PutMapping("/valarm/{userId}/{alarm}")
+	public ResponseEntity<?> updateVAlarm(@PathVariable Long userId, @PathVariable Long alarm) {
+		String check = (alarm == 0) ? "N" : "Y";
+		userService.updateVAlarm(userId, check);
+		return ResponseEntity.ok().build();
+	}
+
+	/**
+	 * 식사 알림 수정
+	 */
+	@PutMapping("/malarm/{userId}/{alarm}")
+	public ResponseEntity<?> updateMAlarm(@PathVariable Long userId, @PathVariable Long alarm) {
+		String check = (alarm == 0) ? "N" : "Y";
+		userService.updateMAlarm(userId, check);
+		return ResponseEntity.ok().build();
+	}
+
+	/**
+	 * 일기 알림 수정
+	 */
+	@PutMapping("/dalarm/{userId}/{alarm}")
+	public ResponseEntity<?> updateDAlarm(@PathVariable Long userId, @PathVariable Long alarm) {
+		String check = (alarm == 0) ? "N" : "Y";
+		userService.updateDAlarm(userId, check);
+		return ResponseEntity.ok().build();
+	}
+
+	/**
+	 * 검진 알림 수정
+	 */
+	@PutMapping("/calarm/{userId}/{alarm}")
+	public ResponseEntity<?> updateCAlarm(@PathVariable Long userId, @PathVariable Long alarm) {
+		String check = (alarm == 0) ? "N" : "Y";
+		userService.updateCAlarm(userId, check);
 		return ResponseEntity.ok().build();
 	}
 }

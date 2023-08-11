@@ -6,6 +6,7 @@ import '@/components/organisms/CalendarModal/Calendar.css';
 
 interface CalendarModalProps {
   onModalClose: () => void;
+  modalOpen: boolean;
   pickDate: Date;
   onCalendarChange: (value: Value) => void;
 }
@@ -14,10 +15,11 @@ const CalendarModal = ({
   onModalClose,
   pickDate,
   onCalendarChange,
+  modalOpen,
 }: CalendarModalProps) => {
   const today = new Date();
   return (
-    <Modal height={22} onClose={onModalClose}>
+    <Modal height={22} onClose={onModalClose} isOpen={modalOpen}>
       <Calendar
         onClickDay={onModalClose}
         formatDay={(_, date) => moment(date).format('D')}

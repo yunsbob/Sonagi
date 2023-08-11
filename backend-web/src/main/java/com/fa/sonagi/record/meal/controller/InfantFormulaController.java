@@ -40,8 +40,8 @@ public class InfantFormulaController {
    */
   @PostMapping
   public ResponseEntity<?> registPumpingBreast(@RequestBody MealPostDto mealPostDto) {
-    infantFormulaService.registInfantFormula(mealPostDto);
-    return ResponseEntity.ok().build();
+    MealResDto mealResDto = infantFormulaService.registInfantFormula(mealPostDto);
+    return ResponseEntity.ok().body(mealResDto);
   }
 
   /**

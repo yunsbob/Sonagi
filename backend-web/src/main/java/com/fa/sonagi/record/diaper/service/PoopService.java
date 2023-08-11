@@ -8,7 +8,7 @@ public interface PoopService {
 
   DiaperResDto findPoopById(Long id);
 
-  void registPoop(DiaperPostDto diaperPostDto);
+  DiaperResDto registPoop(DiaperPostDto diaperPostDto);
 
   void updatePoop(DiaperPutDto diaperPutDto);
 

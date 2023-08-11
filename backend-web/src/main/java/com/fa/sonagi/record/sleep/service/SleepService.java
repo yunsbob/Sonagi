@@ -7,7 +7,7 @@ import com.fa.sonagi.record.sleep.dto.SleepResDto;
 public interface SleepService {
 	SleepResDto findSleepById(Long id);
 
-	void registSleep(SleepPostDto sleepPostDto);
+	SleepResDto registSleep(SleepPostDto sleepPostDto);
 
 	void updateSleep(SleepPutDto sleepPutDto);
 

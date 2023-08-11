@@ -1,7 +1,7 @@
 package com.fa.sonagi.record.health.entity;
 
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -25,36 +25,36 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "fever",
-    indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
+	indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
 public class Fever {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "fever_id", nullable = false)
-  private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "fever_id", nullable = false)
+	private Long id;
 
-  @Column(name = "baby_id", nullable = false)
-  private Long babyId;
+	@Column(name = "baby_id", nullable = false)
+	private Long babyId;
 
-  @Column(name = "user_id", nullable = false)
-  private Long userId;
+	@Column(name = "user_id", nullable = false)
+	private Long userId;
 
-  @Column(name = "created_date", nullable = false)
-  private LocalDate createdDate;
+	@Column(name = "created_date", nullable = false)
+	private LocalDate createdDate;
 
-  @Column(name = "created_time", nullable = false)
-  private Time createdTime;
+	@Column(name = "created_time", nullable = false)
+	private LocalTime createdTime;
 
-  @Column(name = "body_temperature")
-  @ColumnDefault("36.5")
-  private Double bodyTemperature;
+	@Column(name = "body_temperature")
+	@ColumnDefault("36.5")
+	private Double bodyTemperature;
 
-  @Column(name = "memo", length = 100)
-  private String memo;
+	@Column(name = "memo", length = 100)
+	private String memo;
 
-  public void updateFever(Time createdTime, Double bodyTemperature, String memo) {
-    this.createdTime = createdTime;
-    this.bodyTemperature = bodyTemperature;
-    this.memo = memo;
-  }
+	public void updateFever(LocalTime createdTime, Double bodyTemperature, String memo) {
+		this.createdTime = createdTime;
+		this.bodyTemperature = bodyTemperature;
+		this.memo = memo;
+	}
 }

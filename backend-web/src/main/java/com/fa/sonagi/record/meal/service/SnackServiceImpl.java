@@ -36,7 +36,7 @@ public class SnackServiceImpl implements SnackService {
 	 */
 	@Override
 	@Transactional
-	public void registSnack(SnackPostDto snackPostDto) {
+	public SnackResDto registSnack(SnackPostDto snackPostDto) {
 		Snack snack = Snack
 			.builder()
 			.userId(snackPostDto.getUserId())
@@ -55,6 +55,11 @@ public class SnackServiceImpl implements SnackService {
 		snackRepository.save(snack);
 		baby.updateMealOn("N");
 
+		return SnackResDto.builder()
+			.id(snack.getId())
+			.memo(snack.getMemo())
+			.createdTime(snack.getCreatedTime())
+			.build();
 	}
 
 	/**

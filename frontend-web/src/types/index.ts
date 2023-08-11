@@ -58,6 +58,11 @@ type RecordData = {
   category: Category;
 };
 
+interface CustomModal {
+  onModalClose: () => void;
+  modalOpen: boolean;
+}
+
 export type {
   User,
   Baby,
@@ -67,4 +72,5 @@ export type {
   Record,
   RecordsByCategory,
   RecordData,
+  CustomModal,
 };

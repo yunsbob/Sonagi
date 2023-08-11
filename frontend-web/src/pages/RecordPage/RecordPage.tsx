@@ -20,21 +20,20 @@ const RecordPage = () => {
     currentDate
   );
 
+  console.log('젭알', recordedList);
+  // const recordedList = [];
+
   // 받아온 AllCategory Records 리코일에 저장
   const setRecordedValues = useSetRecoilState(recordedValuesState);
 
   useEffect(() => {
-    if (recordedList) {
-      setRecordedValues(recordedList);
-    }
+    setRecordedValues(recordedList);
   }, [recordedList, setRecordedValues]);
 
   const handleDateChange = (date: Date) => {
     setSelectedDate(date);
     // setRecordedValues(recordedList);
   };
-
-  console.log(selectedBaby.name, recordedList, currentDate);
 
   return (
     <>
