@@ -14,6 +14,7 @@ import com.fa.sonagi.record.health.dto.FeverResDto;
 import com.fa.sonagi.record.health.dto.HealthResDto;
 import com.fa.sonagi.record.health.service.HealthCategoryService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +26,7 @@ public class HealthCategoryController {
 	private final HealthCategoryService healthCategoryService;
 
 	@GetMapping
+	@Operation(summary = "아이 아이디에 해당하는 아이의 해당 날짜에 관한 건강 카테고리 기록들을 조회함")
 	public ResponseEntity<?> getHealthRecord(@RequestParam Long babyId, @RequestParam LocalDate createdDate) {
 		List<FeverResDto> feverList = healthCategoryService.findAllFever(babyId, createdDate);
 		List<HealthResDto> medicationsList = healthCategoryService.findAllMedication(babyId, createdDate);
