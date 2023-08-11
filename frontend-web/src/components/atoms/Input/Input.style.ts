@@ -5,7 +5,7 @@ export interface InputStyleProps {
   inputType?: 'text' | 'memo';
   height?: number | string;
   $borderRadius?: number;
-  $unit?: 'rem' | 'px' | 'em';
+  $unit?: 'rem' | 'px' | 'em' | '%';
   fontSize?: typeof theme.fontSize;
 }
 

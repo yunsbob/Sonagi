@@ -3,8 +3,12 @@
 declare namespace NodeJS {
   interface ProcessEnv {
     NODE_ENV: 'development' | 'production' | 'test';
-    PUBLIC_URL: string;
     REACT_APP_SERVER_URL: string;
+    REsACT_APP_BASE_URL: string;
+    REACT_APP_KAKAO_KEY: number;
   }
 }
-s;
+
+interface Window {
+  Kakao: any;
+}

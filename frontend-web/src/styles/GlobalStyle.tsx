@@ -27,6 +27,58 @@ const GlobalStyle = createGlobalStyle`
             display: none;
         }
     }
+
+    @keyframes fadein {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @-moz-keyframes fadein { /* Firefox */
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes fadein { /* Safari and Chrome */
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }   
+
+    @keyframes fadeout {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+    @-moz-keyframes fadeout { /* Firefox */
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+    @-webkit-keyframes fadeout { /* Safari and Chrome */
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
 `;
 
 export default GlobalStyle;

@@ -10,6 +10,7 @@ import theme from '@/styles/theme';
 import { useState } from 'react';
 import CheckBabyModal from '@/components/organisms/CheckBabyModal/CheckBabyModal';
 
+//TODO: CheckBabyModal 연결!!
 const BabyCodePage = () => {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState<boolean>(false);

@@ -8,7 +8,11 @@ import { Value } from 'react-calendar/dist/cjs/shared/types';
 import moment from 'moment';
 import { CalendarModal } from '@/components/organisms/CalendarModal/CalendarModal';
 
-const CalendarBar = () => {
+interface CalendarBarProps {
+  onDateChange: (date: Date) => void; // 날짜를 인자로 받고 아무 것도 반환하지 않음
+}
+
+const CalendarBar: React.FC<CalendarBarProps> = ({ onDateChange }) => {
   const today = new Date();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -20,10 +24,10 @@ const CalendarBar = () => {
   };
 
   // calendar modal day click event
-  const onCalendarChange = (value: Value) => {
-    if (value instanceof Date) {
-      setPickDate(value);
-      console.log(value);
+  const onCalendarChange = (newDate: Value) => {
+    if (newDate instanceof Date) {
+      setPickDate(newDate);
+      onDateChange(newDate); // 상위로 건네주기
     }
   };
 
@@ -35,17 +39,18 @@ const CalendarBar = () => {
     const newDate = new Date(pickDate);
     newDate.setDate(newDate.getDate() + days);
     setPickDate(newDate);
+    onDateChange(newDate); // 상위로 건네주기
   };
 
   return (
     <>
-      {modalOpen && (
-        <CalendarModal
-          pickDate={pickDate}
-          onModalClose={onModalClose}
-          onCalendarChange={onCalendarChange}
-        />
-      )}
+      <CalendarModal
+        pickDate={pickDate}
+        onModalClose={onModalClose}
+        modalOpen={modalOpen}
+        onCalendarChange={onCalendarChange}
+      />
+
       <CalendarBarContainer>
         <Image
           src={iconArrowMiniLeftGrey}

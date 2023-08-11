@@ -29,11 +29,11 @@ public class CheckupStatus {
 	@Column(name = "checkup_status_id", nullable = false)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "baby_id")
 	private Baby baby;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "checkup_id")
 	private Checkup checkup;
 

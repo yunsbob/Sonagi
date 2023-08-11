@@ -1,7 +1,7 @@
 import theme from '@/styles/theme';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import { useRecoilValue } from 'recoil';
-import { selectedCategoryState } from '@/states/CategoryState';
+import { selectedCategoryState } from '@/states/categoryState';
 
 import {
   xCenter,
@@ -50,7 +50,7 @@ const DoughnutChart: React.FC = () => {
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.GRAPH));
   const currentColor = categoryToColorMap[currentCategory];
 
-  const timeSections: string[] = ['07:32', '09:08'];
+  const timeSections: string[] = ['00:00', '00:00'];
   const [start, finished] = timeStringToDegrees(timeSections);
 
   const recordedTimes: string[] = ['12:00', '03:48', '18:23', '16:08'];

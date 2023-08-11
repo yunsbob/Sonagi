@@ -3,7 +3,7 @@ import { CardContentText } from '@/components/molecules/CardContent/CardContentT
 import { CardHeader } from '@/components/molecules/CardHeader/CardHeader';
 import { CardContainer } from '@/components/organisms/Card/Card.styles';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
-import { selectedCategoryState } from '@/states/CategoryState';
+import { selectedCategoryState } from '@/states/categoryState';
 import theme from '@/styles/theme';
 import { useRecoilValue } from 'recoil';
 import meal from '@/assets/images/img-meal.png';

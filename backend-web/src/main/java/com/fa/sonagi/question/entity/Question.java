@@ -25,7 +25,7 @@ public class Question {
 	@Column(name = "question_id", nullable = false)
 	private Long id;
 
-	@Column(name = "uses_id", nullable = false)
+	@Column(name = "user_id", nullable = false)
 	private Long userId;
 
 	@Column(name = "title", length = 50)

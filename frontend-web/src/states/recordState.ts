@@ -1,14 +1,30 @@
 import { atom } from 'recoil';
-import { Category } from '@/states/CategoryState';
-import { RecordData } from '@/components/molecules/RecordBar/RecordBar';
+import { Record, RecordData, RecordsByCategory } from '@/types';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import theme from '@/styles/theme';
+import { RecordedValues } from '@/types/recordTypes';
 
-type Record = {
-  type: string;
-  category: Category;
-  color: string;
-};
+export const recordedValuesState = atom<RecordedValues>({
+  key: 'recordedValues',
+  default: {
+    plays: [],
+    tummytimes: [],
+    pees: [],
+    poops: [],
+    fevers: [],
+    medications: [],
+    hospitals: [],
+    babyFoods: [],
+    breastFeedings: [],
+    feedings: [],
+    infantFormulas: [],
+    milks: [],
+    snacks: [],
+    pumpingBreasts: [],
+    sleeps: [],
+    extras: [],
+  },
+});
 
 export const recordedValues = atom<RecordData[]>({
   key: 'recordBlocksState',
@@ -97,11 +113,6 @@ export const records: Record[] = [
     color: theme.color[categoryToColorMap['Extra']],
   },
 ];
-
-// 카테고리별 기록 종류 커스텀 타입
-type RecordsByCategory = {
-  [key in Category]?: Record[];
-};
 
 export const recordsByCategory: RecordsByCategory = {
   All: records,
