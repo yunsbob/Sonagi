@@ -12,7 +12,6 @@ const getAllCategoryRecords = async (babyId: number, date: string) => {
   }
 };
 
-// 너무 하드코딩인가?
 const addRecordTypeA = async (type: string, recordTypeA: RecordTypeA) => {
   try {
     await instance.post(`/${type}`, recordTypeA);

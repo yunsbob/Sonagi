@@ -14,4 +14,4 @@ const RecordBarContainer = styled.div`
   }
 `;
 
-export { RecordBarContainer };
+export { Container };
