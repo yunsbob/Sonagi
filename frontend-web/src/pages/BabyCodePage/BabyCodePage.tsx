@@ -38,7 +38,6 @@ const BabyCodePage = () => {
   };
 
   const onClickButtonAction = (code: string) => {
-    console.log(userInfo.userId, code);
     useRegisterBabyCodeMutation.mutate(
       { userId: userInfo.userId, code: code },
       {
