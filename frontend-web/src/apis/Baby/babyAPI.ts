@@ -27,10 +27,8 @@ const getCoParent = async (userId: number, babyId: number) => {
   }
 };
 
-const deleteCoparent = async (babyId: number, userId: number) => {
-  console.log('삭제하는 babyId ', babyId);
-
-  await instance.delete(`/coparents/${babyId}/${userId}`);
+const deleteCoparent = async (babyId: number, coparentId: number) => {
+  await instance.delete(`/coparents/${babyId}/${coparentId}`);
 };
 
 const getBabyCode = async (babyId: number) => {

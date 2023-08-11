@@ -40,8 +40,6 @@ const CoparentList = () => {
     setState(false);
   };
 
-  console.log(babyInfo);
-
   return (
     <>
       <BabyCodeModal

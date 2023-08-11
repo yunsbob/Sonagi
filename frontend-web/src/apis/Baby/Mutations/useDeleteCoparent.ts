@@ -5,15 +5,15 @@ import { selectedBabyState } from '@/states/babyState';
 
 interface CoparentProps {
   babyId: number;
-  userId: number;
+  coparentId: number;
 }
 
 const useDeleteCoparent = () => {
   const queryClient = useQueryClient();
   const selectedBaby = useRecoilValue(selectedBabyState);
 
-  return useMutation(({ babyId, userId }: CoparentProps) =>
-    deleteCoparent(babyId, userId)
+  return useMutation(({ babyId, coparentId }: CoparentProps) =>
+    deleteCoparent(babyId, coparentId)
   );
 };
 

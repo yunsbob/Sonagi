@@ -14,20 +14,16 @@ import theme from '@/styles/theme';
 import { babiesOfUserState, selectedBabyState } from '@/states/babyState';
 
 const BabyBar = () => {
-  console.log('BabyBar');
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [selectedBaby, setSelectedBaby] = useRecoilState(selectedBabyState);
   const [babyInfo, setBabyInfo] = useRecoilState(babiesOfUserState);
 
   const babies = useGetBaby(userInfo.userId);
-  console.log(userInfo, 'userInfo');
 
   useEffect(() => {
-    console.log('useEffect', babies);
     if (babies && babies.length > 0) {
       setBabyInfo(babies);
       setSelectedBaby(babies[0]);
-      console.log('헤더에서 가져온 애기들', babies);
     }
   }, [babies, setBabyInfo, setSelectedBaby]); // ESLint의 react-hooks/exhaustive-deps 규칙때문에 함수도 포함시킴
 

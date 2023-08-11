@@ -25,14 +25,13 @@ const CoparentDeleteModal = ({ onModalClose, modalOpen, coparent }: Props) => {
   const [showToast, setShowToast] = useState<boolean>(false);
   const useDeleteCoparentMutation = useDeleteCoparent();
 
-  const userInfo = useRecoilValue(userInfoState);
   const babyInfo = useRecoilValue(selectedBabyState);
   const queryClient = useQueryClient();
 
   const deleteCoparent = (coparentId: number) => {
     useDeleteCoparentMutation.mutate(
       {
-        userId: coparentId,
+        coparentId: coparentId,
         babyId: babyInfo.babyId,
       },
       {
