@@ -13,6 +13,7 @@ import com.fa.sonagi.record.activity.dto.ActivityResDto;
 import com.fa.sonagi.record.activity.dto.AllActivityResDto;
 import com.fa.sonagi.record.activity.service.ActivityCategoryService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +29,7 @@ public class ActivityCategoryController {
 	 * 놀이 카테고리 조회
 	 */
 	@GetMapping
+	@Operation(summary = "아이 아이디에 해당하는 아이의 해당 날짜에 관한 놀이 카테고리 기록들을 조회함")
 	public ResponseEntity<?> getActivityRecord(@RequestParam Long babyId, @RequestParam LocalDate createdDate) {
 		List<ActivityResDto> playList = activityCategoryService.findAllPlay(babyId, createdDate);
 		List<ActivityResDto> tummytimeList = activityCategoryService.findAllTummytime(babyId, createdDate);
