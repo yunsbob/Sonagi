@@ -32,7 +32,7 @@ public class FeverServiceImpl implements FeverService {
    */
   @Override
   @Transactional
-  public void registFever(FeverPostDto feverPostDto) {
+  public FeverResDto registFever(FeverPostDto feverPostDto) {
     Fever fever = Fever.builder()
         .userId(feverPostDto.getUserId())
         .babyId(feverPostDto.getBabyId())
@@ -43,6 +43,13 @@ public class FeverServiceImpl implements FeverService {
         .build();
 
     feverRepository.save(fever);
+
+    return FeverResDto.builder()
+        .id(fever.getId())
+        .createdTime(fever.getCreatedTime())
+        .bodyTemperature(fever.getBodyTemperature())
+        .memo(fever.getMemo())
+        .build();
   }
 
   /**
