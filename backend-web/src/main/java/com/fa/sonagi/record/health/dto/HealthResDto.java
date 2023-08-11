@@ -1,6 +1,6 @@
 package com.fa.sonagi.record.health.dto;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +15,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class HealthResDto {
 	private Long id;
-	private Time createdTime;
+	private LocalTime createdTime;
 	private String memo;
 }

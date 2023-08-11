@@ -2,8 +2,6 @@ import { Image } from '@/components/atoms/Image/Image';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import {
   CoParentContainer,
-  CoParentListContainer,
-  CoParentWrapper,
   Container,
   SettingContainer,
   UserContainer,
@@ -11,20 +9,35 @@ import {
 } from '@/pages/MyPagePage/MyPagePage.styles';
 import family from '@/assets/images/img-family.png';
 import { useRecoilValue } from 'recoil';
-import { userInfoState } from '@/states/UserState';
+import { userInfoState } from '@/states/userState';
 import Button from '@/components/atoms/Button/Button';
 import setting from '@/assets/images/icon-setting-grey.png';
-import { inherits } from 'util';
 import theme from '@/styles/theme';
 import { User } from '@/types';
-import deleteIcon from '@/assets/images/icon-delete-red-circle.png';
+import { CoparentList } from '@/components/organisms/CoparentList/CoparentList';
+import { useState } from 'react';
+import { UserUpdateModal } from '@/components/organisms/UserUpdateModal/UserUpdateModal';
 
 const MyPagePage = () => {
   const userInfo: User = useRecoilValue(userInfoState);
 
-  const ProfileColor: string[] = ['red', 'blue', 'green'];
+  // 사용자 정보 수정
+  const [userModalOpen, setuserModalOpen] = useState(false);
+
+  const modalClose = (
+    setState: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    setState(false);
+  };
+
   return (
     <Container>
+      <UserUpdateModal
+        onModalClose={() => modalClose(setuserModalOpen)}
+        modalOpen={userModalOpen}
+        setModalOpen={setuserModalOpen}
+      />
+
       <UserContainer>
         <Image src={family} width={5} height={5} />
         <UserNameWrapper>
@@ -35,80 +48,18 @@ const MyPagePage = () => {
             <b>{userInfo.name}</b>님.
           </Text>
         </UserNameWrapper>
-        <Button option="default" size="xSmall">
+        <Button
+          option="default"
+          size="xSmall"
+          onClick={() => setuserModalOpen(true)}
+        >
           <Image src={setting} width={1} />
           <Text size="small">정보 수정</Text>
         </Button>
       </UserContainer>
       <CoParentContainer>
         <Text size="medium1">공동 양육자 관리</Text>
-        <CoParentListContainer>
-          <CoParentWrapper>
-            <Image className="delete" src={deleteIcon} height={30} $unit="%" />
-            <Image
-              src={require('@/assets/images/icon-user-red.png')}
-              height={80}
-              $unit="%"
-            />
-            <Text size="medium3">박홍준</Text>
-          </CoParentWrapper>
-          <CoParentWrapper>
-            <Image className="delete" src={deleteIcon} height={30} $unit="%" />
-            <Image
-              src={require('@/assets/images/icon-user-green.png')}
-              height={80}
-              $unit="%"
-            />
-            <Text size="medium3">박홍준</Text>
-          </CoParentWrapper>
-          <CoParentWrapper>
-            <Image className="delete" src={deleteIcon} height={30} $unit="%" />
-            <Image
-              src={require('@/assets/images/icon-user-blue.png')}
-              height={80}
-              $unit="%"
-            />
-            <Text size="medium3">박홍준</Text>
-          </CoParentWrapper>
-          <CoParentWrapper>
-            <Image className="delete" src={deleteIcon} height={30} $unit="%" />
-            <Image
-              src={require('@/assets/images/icon-user-red.png')}
-              height={80}
-              $unit="%"
-            />
-            <Text size="medium3">박홍준</Text>
-          </CoParentWrapper>
-          <CoParentWrapper>
-            <Image className="delete" src={deleteIcon} height={30} $unit="%" />
-            <Image
-              src={require('@/assets/images/icon-user-green.png')}
-              height={80}
-              $unit="%"
-            />
-            <Text size="medium3">박홍준</Text>
-          </CoParentWrapper>
-          <CoParentWrapper>
-            <Image className="delete" src={deleteIcon} height={30} $unit="%" />
-            <Image
-              src={require('@/assets/images/icon-user-blue.png')}
-              height={80}
-              $unit="%"
-            />
-            <Text size="medium3">박홍준</Text>
-          </CoParentWrapper>
-          <CoParentWrapper>
-            {/* <Image src={deleteIcon} height={30} $unit="%" /> */}
-            <Image
-              src={require('@/assets/images/icon-plus-blue-circle-dash.png')}
-              height={80}
-              $unit="%"
-            />
-            <Text size="medium3" color={theme.color.blue}>
-              추가하기
-            </Text>
-          </CoParentWrapper>
-        </CoParentListContainer>
+        <CoparentList />
       </CoParentContainer>
       <SettingContainer>
         <Text size="medium1">우리 아이 추가하기</Text>

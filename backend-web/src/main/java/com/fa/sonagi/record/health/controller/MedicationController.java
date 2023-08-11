@@ -40,8 +40,8 @@ public class MedicationController {
    */
   @PostMapping
   public ResponseEntity<?> registMedication(@RequestBody HealthPostDto healthPostDto) {
-    medicationService.registMedication(healthPostDto);
-    return ResponseEntity.ok().build();
+    HealthResDto healthResDto = medicationService.registMedication(healthPostDto);
+    return ResponseEntity.ok().body(healthResDto);
   }
 
   /**

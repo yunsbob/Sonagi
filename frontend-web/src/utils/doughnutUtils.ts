@@ -30,8 +30,8 @@ export const getArc = (startDegree: number, finishDegree: number) => {
 export const timeStringToDegrees = (timeSections: string[]): number[] => {
   return timeSections.map(timeString => {
     const [hour, minute] = timeString.split(':').map(s => parseInt(s));
-    const totalMinutes = (hour * 60 + minute + 1080) % 1440;
-    return (totalMinutes / 4) % 360;
+    const totalMinutes = (hour * 60 + minute) % 1440;
+    return ((totalMinutes / 4) % 360) - 90;
   });
 };
 

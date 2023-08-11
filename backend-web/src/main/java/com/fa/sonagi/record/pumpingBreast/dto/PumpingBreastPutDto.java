@@ -1,22 +1,23 @@
 package com.fa.sonagi.record.pumpingBreast.dto;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class PumpingBreastPutDto {
 
-  @NotNull
-  private Long id;
+	@NotNull
+	private Long id;
 
-  @NotNull
-  private Long amount;
+	@NotNull
+	private Long amount;
 
-  private String memo;
+	private String memo;
 
-  @NotNull
-  private Time createdTime;
+	@NotNull
+	private LocalTime createdTime;
 }

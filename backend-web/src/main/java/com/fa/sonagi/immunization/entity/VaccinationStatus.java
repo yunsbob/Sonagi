@@ -29,11 +29,11 @@ public class VaccinationStatus {
 	@Column(name = "vaccination_status_id", nullable = false)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "baby_id")
 	private Baby baby;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "vaccination_id")
 	private Vaccination vaccination;
 
@@ -43,4 +43,5 @@ public class VaccinationStatus {
 	public void updateVaccination(LocalDate vaccinationDate) {
 		this.vaccinationDate = vaccinationDate;
 	}
+
 }

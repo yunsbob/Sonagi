@@ -6,29 +6,50 @@ import babyCircleYellow from '@/assets/images/img-baby-yellow-circle.png';
 
 import { useGetBaby } from '@/apis/Baby/Queries/useGetBaby';
 import { useRecoilState } from 'recoil';
-import { userInfoState } from '@/states/UserState';
+import { useEffect } from 'react';
+import { userInfoState } from '@/states/userState';
 import { BabiesOfUser } from '@/types';
+// import { babiesOfUserState, selectedBabyState } from '../../../states/babyState';
+import theme from '@/styles/theme';
+import { babiesOfUserState, selectedBabyState } from '@/states/babyState';
 
 const BabyBar = () => {
+  console.log('BabyBar');
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const { data } = useGetBaby(userInfo.userId);
+  const [selectedBaby, setSelectedBaby] = useRecoilState(selectedBabyState);
+  const [babyInfo, setBabyInfo] = useRecoilState(babiesOfUserState);
+
+  const babies = useGetBaby(userInfo.userId);
+  console.log(userInfo, 'userInfo');
+
+  useEffect(() => {
+    console.log('useEffect', babies);
+    if (babies && babies.length > 0) {
+      setBabyInfo(babies);
+      setSelectedBaby(babies[0]);
+      console.log(babies);
+    }
+  }, [babies, setBabyInfo, setSelectedBaby]); // ESLint의 react-hooks/exhaustive-deps 규칙때문에 함수도 포함시킴
 
   const babyClicked = (babyInfo: BabiesOfUser) => {
-    console.log(babyInfo);
+    setSelectedBaby(babyInfo);
   };
 
   return (
     <BabyBarContainer>
-      {data?.map((item, index) => (
+      {babies?.map((item, index) => (
         // 예외적으로 BabyBar의 padding값을 inline style으로 적용
         <Button
           option="default"
           size="xSmall"
           key={index}
           style={{ padding: '3px 9px 3px 4px' }}
-          onClick={() => {
-            babyClicked(item);
-          }}
+          onClick={() => babyClicked(item)}
+          $border={
+            selectedBaby === item
+              ? `1.5px solid ${theme.color.cardMeal3}`
+              : undefined
+          }
         >
           <Image
             src={item.gender === 'M' ? babyCircleBlue : babyCircleYellow}

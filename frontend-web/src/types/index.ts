@@ -39,4 +39,38 @@ interface CategoryStateType {
   Extra: boolean;
 }
 
-export type { User, Baby, BabiesOfUser, Category, CategoryStateType };
+type Record = {
+  type: string;
+  queryName: string;
+  category: Category;
+  color: string;
+};
+
+// 카테고리별 기록 종류 커스텀 타입
+type RecordsByCategory = {
+  [key in Category]?: Record[];
+};
+
+type RecordData = {
+  recordType: string;
+  time: string;
+  color: string;
+  category: Category;
+};
+
+interface CustomModal {
+  onModalClose: () => void;
+  modalOpen: boolean;
+}
+
+export type {
+  User,
+  Baby,
+  BabiesOfUser,
+  Category,
+  CategoryStateType,
+  Record,
+  RecordsByCategory,
+  RecordData,
+  CustomModal,
+};

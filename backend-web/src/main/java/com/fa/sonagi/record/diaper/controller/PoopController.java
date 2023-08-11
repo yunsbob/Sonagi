@@ -32,7 +32,6 @@ public class PoopController {
   @GetMapping("/{poopId}")
   public ResponseEntity<?> getPoop(@PathVariable Long poopId) {
     DiaperResDto diaperResDto = poopService.findPoopById(poopId);
-
     return ResponseEntity.ok().body(diaperResDto);
   }
 
@@ -41,8 +40,8 @@ public class PoopController {
    */
   @PostMapping
   public ResponseEntity<?> registPoop(@RequestBody DiaperPostDto diaperPostDto) {
-    poopService.registPoop(diaperPostDto);
-    return ResponseEntity.ok().build();
+    DiaperResDto diaperResDto = poopService.registPoop(diaperPostDto);
+    return ResponseEntity.ok().body(diaperResDto);
   }
 
   /**

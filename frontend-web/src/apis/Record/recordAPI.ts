@@ -1,13 +1,24 @@
-// API 호출들
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-// usertype?
-// import SERVER?
+import { instance } from '@/apis/instance';
+import { RecordTypeA } from '@/types/recordTypes';
 
-// export const getRecords = async () => {
-// try {
-//     const { data } = await axios.get(``);
-// }
-// };
+const getAllCategoryRecords = async (babyId: number, date: string) => {
+  try {
+    const response = await instance.get(
+      `/allRecords?babyId=${babyId}&createdDate=${date}`
+    );
+    return response.data;
+  } catch {
+    new Error('no data returned from the API - AllCategory');
+  }
+};
 
-export {};
+// 너무 하드코딩인가?
+const addRecordTypeA = async (type: string, recordTypeA: RecordTypeA) => {
+  try {
+    await instance.post(`/${type}`, recordTypeA);
+  } catch {
+    new Error('recordTypeA add error');
+  }
+};
+
+export { getAllCategoryRecords, addRecordTypeA };

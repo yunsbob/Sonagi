@@ -23,6 +23,9 @@ const queryClient = new QueryClient({
   },
 });
 
+window.Kakao.init(process.env.REACT_APP_KAKAO_KEY);
+window.Kakao.isInitialized(); // init 시 true, 아니면 false 반환
+
 root.render(
   <React.StrictMode>
     <RecoilRoot>

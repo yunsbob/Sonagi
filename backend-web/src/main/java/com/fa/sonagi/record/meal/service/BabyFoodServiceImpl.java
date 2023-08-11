@@ -36,7 +36,7 @@ public class BabyFoodServiceImpl implements BabyFoodService {
 	 */
 	@Override
 	@Transactional
-	public void registBabyFood(MealPostDto mealPostDto) {
+	public MealResDto registBabyFood(MealPostDto mealPostDto) {
 		BabyFood babyFood = BabyFood
 			.builder()
 			.userId(mealPostDto.getUserId())
@@ -54,6 +54,14 @@ public class BabyFoodServiceImpl implements BabyFoodService {
 		babyRepository.save(baby);
 
 		babyFoodRepository.save(babyFood);
+		baby.updateMealOn("N");
+
+		return MealResDto.builder()
+			.id(babyFood.getId())
+			.amount(babyFood.getAmount())
+			.memo(babyFood.getMemo())
+			.createdTime(babyFood.getCreatedTime())
+			.build();
 	}
 
 	/**

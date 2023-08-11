@@ -40,8 +40,8 @@ public class TummytimeController {
    */
   @PostMapping
   public ResponseEntity<?> registTummytime(@RequestBody ActivityPostDto activityPostDto) {
-    tummytimeService.registTummytime(activityPostDto);
-    return ResponseEntity.ok().build();
+    ActivityResDto activityResDto = tummytimeService.registTummytime(activityPostDto);
+    return ResponseEntity.ok().body(activityResDto);
   }
 
   /**

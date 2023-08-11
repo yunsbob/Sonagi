@@ -1,10 +1,7 @@
 import { Image } from '@/components/atoms/Image/Image';
 import { CategoryBarContainer } from '@/components/molecules/CategoryBar/CategoryBar.style';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { selectedCategoryState } from '@/states/CategoryState';
+import { useRecoilState } from 'recoil';
 import { Category } from '@/types';
-
-import { PATH } from '@/constants/path';
 
 import All from '@/assets/images/icon-category-all.png';
 import Meal from '@/assets/images/icon-category-meal.png';
@@ -14,6 +11,7 @@ import Pump from '@/assets/images/icon-category-pumping-breast.png';
 import Activity from '@/assets/images/icon-category-activity.png';
 import Health from '@/assets/images/icon-category-health.png';
 import Extra from '@/assets/images/icon-category-extra.png';
+import { selectedCategoryState } from '@/states/categoryState';
 
 interface CategoryBarProps {
   path: string;
