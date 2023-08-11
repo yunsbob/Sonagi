@@ -27,7 +27,7 @@ const BabyBar = () => {
     if (babies && babies.length > 0) {
       setBabyInfo(babies);
       setSelectedBaby(babies[0]);
-      console.log(babies);
+      console.log('헤더에서 가져온 애기들', babies);
     }
   }, [babies, setBabyInfo, setSelectedBaby]); // ESLint의 react-hooks/exhaustive-deps 규칙때문에 함수도 포함시킴
 

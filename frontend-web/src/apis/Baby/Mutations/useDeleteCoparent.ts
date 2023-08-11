@@ -12,16 +12,8 @@ const useDeleteCoparent = () => {
   const queryClient = useQueryClient();
   const selectedBaby = useRecoilValue(selectedBabyState);
 
-  return useMutation(
-    ({ babyId, userId }: CoparentProps) => deleteCoparent(babyId, userId),
-    {
-      onSuccess: () => {
-        console.log('삭제성공');
-      },
-      onError: (err: Error) => {
-        console.log(err);
-      },
-    }
+  return useMutation(({ babyId, userId }: CoparentProps) =>
+    deleteCoparent(babyId, userId)
   );
 };
 

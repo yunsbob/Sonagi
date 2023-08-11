@@ -40,6 +40,8 @@ const CoparentList = () => {
     setState(false);
   };
 
+  console.log(babyInfo);
+
   return (
     <>
       <BabyCodeModal
@@ -59,13 +61,15 @@ const CoparentList = () => {
           return (
             <>
               <CoParentWrapper key={coparent.userId}>
-                <Image
-                  onClick={() => onClickDeleteBtn(coparent)}
-                  className="delete"
-                  src={deleteIcon}
-                  height={30}
-                  $unit="%"
-                />
+                {babyInfo.authority === 'Y' && (
+                  <Image
+                    onClick={() => onClickDeleteBtn(coparent)}
+                    className="delete"
+                    src={deleteIcon}
+                    height={30}
+                    $unit="%"
+                  />
+                )}
                 <Image
                   src={require(`@/assets/images/icon-user-${
                     profileColor[idx % 3]
