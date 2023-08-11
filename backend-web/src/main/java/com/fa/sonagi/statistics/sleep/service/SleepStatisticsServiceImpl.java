@@ -14,6 +14,7 @@ import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsResDto;
 import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsWeekResDto;
 
 import lombok.RequiredArgsConstructor;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -31,15 +32,31 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 
 		// 데이터 조회
 		List<SleepStatisticsQueryDto> sleeps = sleepRepository.findSleepByDay(babyId, createdDate);
-		sleeps = cutNextTime(sleeps);
+		int checkIdx = checkTime(sleeps);
+		if (checkIdx != -1)
+			sleeps.get(checkIdx).setEndTime(LocalTime.of(23,59));
 
 		createdDate = createdDate.minus(1, ChronoUnit.DAYS);
 
 		// 전날 수면 데이터 조회
 		List<SleepStatisticsQueryDto> yesterdaySleeps = sleepRepository.findSleepByDay(babyId, createdDate);
-		yesterdaySleeps = cutNextTime(yesterdaySleeps);
+		checkIdx = checkTime(yesterdaySleeps);
+		if (checkIdx != -1) {
+			SleepStatisticsQueryDto sleepStatisticsQueryDto = new SleepStatisticsQueryDto();
+			sleepStatisticsQueryDto.setCreatedTime(yesterdaySleeps.get(checkIdx).getCreatedTime());
+			sleepStatisticsQueryDto.setEndTime(yesterdaySleeps.get(checkIdx).getEndTime());
+			sleepStatisticsQueryDto.setCreatedTime(LocalTime.of(0, 0));
+			sleeps.add(sleepStatisticsQueryDto);
+			yesterdaySleeps.get(checkIdx).setEndTime(LocalTime.of(23, 59));
+		}
 
 		List<SleepStatisticsQueryDto> pastSleeps = sleepRepository.findSleepByDay(babyId, createdDate.minusDays(1));
+		checkIdx = checkTime(pastSleeps);
+		if (checkIdx != -1) {
+			yesterdaySleeps.add(pastSleeps.get(checkIdx));
+			yesterdaySleeps.get(yesterdaySleeps.size() - 1).setCreatedTime(LocalTime.of(0, 0));
+		}
+
 
 		// 카드 통계
 		Long sleepTime = sumSleepTime(sleeps);
@@ -88,29 +105,15 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 	}
 
 	/**
-	 * 다음날 시간 자르기 ex) 23:00 ~ 01:20 -> 23:00 ~ 23:59
+	 * 오전 12시 기준으로 이전에 시작해서 이후에 끝나는 기록이 있는지 확인
 	 */
-	public List<SleepStatisticsQueryDto> cutNextTime(List<SleepStatisticsQueryDto> sleeps) {
+	public int checkTime(List<SleepStatisticsQueryDto> sleeps) {
 		for (int i = 0; i < sleeps.size(); i++) {
 			if (sleeps.get(i).getEndTime().isBefore(sleeps.get(i).getCreatedTime())) {
-				sleeps.get(i).setEndTime(LocalTime.of(23, 59));
+				return i;
 			}
 		}
-
-		return sleeps;
-	}
-
-	/**
-	 * 전날 시간 추가하기 ex) 23:00 ~ 01:20 -> 00:00 ~ 01:20
-	 */
-	public List<SleepStatisticsQueryDto> plusPrevTime(List<SleepStatisticsQueryDto> sleeps) {
-		for (int i = 0; i < sleeps.size(); i++) {
-			if (sleeps.get(i).getEndTime().isBefore(sleeps.get(i).getCreatedTime())) {
-				sleeps.get(i).setCreatedTime(LocalTime.of(0, 0));
-			}
-		}
-
-		return sleeps;
+		return -1;
 	}
 
 	/**
