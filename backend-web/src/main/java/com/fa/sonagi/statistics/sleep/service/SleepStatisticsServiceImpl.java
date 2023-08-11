@@ -57,33 +57,36 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 			yesterdaySleeps.get(checkIdx).setEndTime(LAST_TIME);
 		}
 
-		List<SleepStatisticsQueryDto> pastSleeps = sleepRepository.findSleepByDay(babyId, createdDate.minusDays(1));
+		createdDate = createdDate.minus(1, ChronoUnit.DAYS);
+
+		List<SleepStatisticsQueryDto> pastSleeps = sleepRepository.findSleepByDay(babyId, createdDate);
 		checkIdx = checkTimeDay(pastSleeps);
 		if (checkIdx != -1) {
 			yesterdaySleeps.add(createSleepStatisticsQueryDto(pastSleeps.get(checkIdx).getEndTime()));
 		}
 
+		sleepStatisticsResDto.setSleeps(sleeps);
+
 		// 카드 통계
 		Long sleepTime = sumSleepTimeDay(sleeps);
 		long cnt = sleeps.size();
-		sleepStatisticsResDto.setSleeps(sleeps);
-		sleepStatisticsResDto.setSleepCnt(cnt);
-		sleepStatisticsResDto.setAllSleepHour(sleepTime / 60);
-		sleepStatisticsResDto.setAllSleepMinute(sleepTime % 60);
+		sleepStatisticsResDto.setCnt(cnt);
+		sleepStatisticsResDto.setSleepHour(sleepTime / 60);
+		sleepStatisticsResDto.setSleepMinute(sleepTime % 60);
 
 		// 수면 횟수 통계 계산
 		Long yesterdayCnt = (long)yesterdaySleeps.size();
 		Long cntPercent = getPercent(cnt, yesterdayCnt);
 		Long yesterdayCntPercent = getPercent(yesterdayCnt, cnt);
-		sleepStatisticsResDto.setSleepCntPercent(cntPercent);
-		sleepStatisticsResDto.setYesterdaySleepCntPercent(yesterdayCntPercent);
+		sleepStatisticsResDto.setCntPercent(cntPercent);
+		sleepStatisticsResDto.setYesterdayCntPercent(yesterdayCntPercent);
 
 		// 수면 시간 통계 계산
 		Long yesterdaySleepTime = sumSleepTimeDay(yesterdaySleeps);
 		Long timePercent = getPercent(sleepTime, yesterdaySleepTime);
 		Long yesterdayTimePercent = getPercent(yesterdaySleepTime, sleepTime);
-		sleepStatisticsResDto.setAllSleepPercent(timePercent);
-		sleepStatisticsResDto.setYesterdayAllSleepPercent(yesterdayTimePercent);
+		sleepStatisticsResDto.setSleepPercent(timePercent);
+		sleepStatisticsResDto.setYesterdaySleepPercent(yesterdayTimePercent);
 
 		return sleepStatisticsResDto;
 	}
@@ -109,7 +112,6 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 			sleeps.get(changeIdxes.get(i)).setEndTime(LAST_TIME);
 		}
 
-		// 날짜별 데이터 세팅
 		startDay = startDay.plusDays(1);
 		lastDay = lastDay.plusDays(1);
 
@@ -141,9 +143,9 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 		// 카테고리별 일주일 통계 조회
 		Long cnt = sumSleepCnt(sleepDay, writeDay);
 		Long sleepTime = sumSleepTimeWeek(sleepDay, writeDay);
-		sleepWeek.setSleepCnt(cnt);
-		sleepWeek.setAllSleepHour(sleepTime / 60);
-		sleepWeek.setAllSleepMinute(sleepTime % 60);
+		sleepWeek.setCnt(cnt);
+		sleepWeek.setSleepHour(sleepTime / 60);
+		sleepWeek.setSleepMinute(sleepTime % 60);
 
 		writeDay = writeDay.minusWeeks(1);
 
@@ -151,15 +153,15 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 		Long lastWeekCnt = sumSleepCnt(sleepDay, writeDay);
 		Long cntPercent = getPercent(cnt, lastWeekCnt);
 		Long lastWeekCntPercent = getPercent(lastWeekCnt, cnt);
-		sleepWeek.setSleepCntPercent(cntPercent);
-		sleepWeek.setLastWeekSleepCntPercent(lastWeekCntPercent);
+		sleepWeek.setCntPercent(cntPercent);
+		sleepWeek.setLastWeekCntPercent(lastWeekCntPercent);
 
 		// 수면 시간 통계 퍼센트 계산
 		Long lastWeekSleepTime = sumSleepTimeWeek(sleepDay, writeDay);
 		Long sleepTimePercent = getPercent(sleepTime, lastWeekSleepTime);
 		Long lastWeekSleepTimePercent = getPercent(lastWeekSleepTime, sleepTime);
-		sleepWeek.setAllSleepPercent(sleepTimePercent);
-		sleepWeek.setLastWeekAllSleepPercent(lastWeekSleepTimePercent);
+		sleepWeek.setSleepPercent(sleepTimePercent);
+		sleepWeek.setLastWeekSleepPercent(lastWeekSleepTimePercent);
 
 		return sleepWeek;
 	}
@@ -219,8 +221,7 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 		Long cnt = 0L;
 
 		for (int i = 0; i < WEEK; i++) {
-			List<StatisticsTimeLong> sleepDay = sleeps.get(writeDay).getSleeps();
-			cnt += sleepDay.size();
+			cnt += sleeps.get(writeDay).getSleeps().size();
 
 			writeDay = writeDay.plusDays(1);
 		}
