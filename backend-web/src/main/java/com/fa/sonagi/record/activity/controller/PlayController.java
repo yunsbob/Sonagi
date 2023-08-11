@@ -40,8 +40,8 @@ public class PlayController {
    */
   @PostMapping
   public ResponseEntity<?> registPlay(@RequestBody ActivityPostDto activityPostDto) {
-    playServeice.registPlay(activityPostDto);
-    return ResponseEntity.ok().build();
+    ActivityResDto activityResDto = playServeice.registPlay(activityPostDto);
+    return ResponseEntity.ok().body(activityResDto);
   }
 
   /**

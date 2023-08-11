@@ -7,7 +7,7 @@ import com.fa.sonagi.record.meal.dto.MealResDto;
 public interface BabyFoodService {
 	MealResDto findBabyFoodById(Long id);
 
-	void registBabyFood(MealPostDto mealPostDto);
+	MealResDto registBabyFood(MealPostDto mealPostDto);
 
 	void updateBabyFood(MealPutDto mealPutDto);
 
