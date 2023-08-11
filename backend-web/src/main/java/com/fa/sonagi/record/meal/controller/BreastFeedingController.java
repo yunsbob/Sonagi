@@ -38,8 +38,8 @@ public class BreastFeedingController {
    */
   @PostMapping
   public ResponseEntity<?> registBreastFeeding(@RequestBody MealPostDto mealPostDto) {
-    breastFeedingService.registBreastFeeding(mealPostDto);
-    return ResponseEntity.ok().build();
+    MealResDto mealResDto = breastFeedingService.registBreastFeeding(mealPostDto);
+    return ResponseEntity.ok().body(mealResDto);
   }
 
   /**

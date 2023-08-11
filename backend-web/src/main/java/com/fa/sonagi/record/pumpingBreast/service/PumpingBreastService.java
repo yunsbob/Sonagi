@@ -7,7 +7,7 @@ import com.fa.sonagi.record.pumpingBreast.dto.PumpingBreastResDto;
 public interface PumpingBreastService {
   PumpingBreastResDto findPumpingBreastById(Long id);
 
-  void registPumpingBreast(PumpingBreastPostDto pumpingBreastPostDto);
+  PumpingBreastResDto registPumpingBreast(PumpingBreastPostDto pumpingBreastPostDto);
 
   void updatePumpingBreast(PumpingBreastPutDto pumpingBreastPutDto);
 

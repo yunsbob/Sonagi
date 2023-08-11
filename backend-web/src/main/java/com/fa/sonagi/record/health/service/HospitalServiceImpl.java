@@ -32,7 +32,7 @@ public class HospitalServiceImpl implements HospitalService {
    */
   @Override
   @Transactional
-  public void registHospital(HealthPostDto healthPostDto) {
+  public HealthResDto registHospital(HealthPostDto healthPostDto) {
     Hospital hospital = Hospital.builder()
         .userId(healthPostDto.getUserId())
         .babyId(healthPostDto.getBabyId())
@@ -42,6 +42,12 @@ public class HospitalServiceImpl implements HospitalService {
         .build();
 
     hospitalRepository.save(hospital);
+
+    return HealthResDto.builder()
+        .id(hospital.getId())
+        .createdTime(hospital.getCreatedTime())
+        .memo(hospital.getMemo())
+        .build();
   }
 
   /**

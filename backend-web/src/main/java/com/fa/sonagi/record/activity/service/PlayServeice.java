@@ -8,10 +8,9 @@ public interface PlayServeice {
 
   ActivityResDto findPlayById(Long id);
 
-  void registPlay(ActivityPostDto activityPostDto);
+  ActivityResDto registPlay(ActivityPostDto activityPostDto);
 
   void updatePlay(ActivityPutDto activityPutDto);
 
   void deletePlay(Long id);
-
 }

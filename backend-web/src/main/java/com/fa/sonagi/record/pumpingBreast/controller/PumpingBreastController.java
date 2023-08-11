@@ -40,8 +40,8 @@ public class PumpingBreastController {
    */
   @PostMapping
   public ResponseEntity<?> registPumpingBreast(@RequestBody PumpingBreastPostDto pumpingBreastPostDto) {
-    pumpingBreastService.registPumpingBreast(pumpingBreastPostDto);
-    return ResponseEntity.ok().build();
+    PumpingBreastResDto pumpingBreastResDto = pumpingBreastService.registPumpingBreast(pumpingBreastPostDto);
+    return ResponseEntity.ok().body(pumpingBreastResDto);
   }
 
   /**

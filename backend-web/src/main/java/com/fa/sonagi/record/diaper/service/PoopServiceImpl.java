@@ -33,7 +33,7 @@ public class PoopServiceImpl implements PoopService {
    */
   @Override
   @Transactional
-  public void registPoop(DiaperPostDto diaperPostDto) {
+  public DiaperResDto registPoop(DiaperPostDto diaperPostDto) {
     Poop poop = Poop.builder()
         .userId(diaperPostDto.getUserId())
         .babyId(diaperPostDto.getBabyId())
@@ -43,6 +43,12 @@ public class PoopServiceImpl implements PoopService {
         .build();
 
     poopRepository.save(poop);
+
+    return DiaperResDto.builder()
+        .id(poop.getId())
+        .createdTime(poop.getCreatedTime())
+        .memo(poop.getMemo())
+        .build();
   }
 
   /**

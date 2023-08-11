@@ -32,7 +32,6 @@ public class HospitalController {
   @GetMapping("/{hospitalId}")
   public ResponseEntity<?> getHospital(@PathVariable Long hospitalId) {
     HealthResDto healthResDto = hospitalService.findHospitalById(hospitalId);
-
     return ResponseEntity.ok().body(healthResDto);
   }
 
@@ -41,8 +40,8 @@ public class HospitalController {
    */
   @PostMapping
   public ResponseEntity<?> registHospital(@RequestBody HealthPostDto healthPostDto) {
-    hospitalService.registHospital(healthPostDto);
-    return ResponseEntity.ok().build();
+    HealthResDto healthResDto = hospitalService.registHospital(healthPostDto);
+    return ResponseEntity.ok().body(healthResDto);
   }
 
   /**

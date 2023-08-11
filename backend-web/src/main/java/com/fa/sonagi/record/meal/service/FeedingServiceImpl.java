@@ -36,7 +36,7 @@ public class FeedingServiceImpl implements FeedingService {
 	 */
 	@Override
 	@Transactional
-	public void registFeeding(FeedingPostDto feedingPostDto) {
+	public FeedingResDto registFeeding(FeedingPostDto feedingPostDto) {
 		Feeding feeding = Feeding
 			.builder()
 			.userId(feedingPostDto.getUserId())
@@ -59,6 +59,14 @@ public class FeedingServiceImpl implements FeedingService {
 		feedingRepository.save(feeding);
 		baby.updateMealOn("N");
 
+		return FeedingResDto.builder()
+			.id(feeding.getId())
+			.leftStartTime(feeding.getLeftStartTime())
+			.rightStartTime(feeding.getRightStartTime())
+			.leftEndTime(feeding.getLeftEndTime())
+			.rightEndTime(feeding.getRightEndTime())
+			.memo(feeding.getMemo())
+			.build();
 	}
 
 	/**

@@ -34,7 +34,7 @@ public class TummytimeServiceImpl implements TummytimeService {
 	 */
 	@Override
 	@Transactional
-	public void registTummytime(ActivityPostDto activityPostDto) {
+	public ActivityResDto registTummytime(ActivityPostDto activityPostDto) {
 		Tummytime tummytime = Tummytime
 			.builder()
 			.userId(activityPostDto.getUserId())
@@ -46,6 +46,13 @@ public class TummytimeServiceImpl implements TummytimeService {
 			.build();
 
 		tummytimeRepository.save(tummytime);
+
+		return ActivityResDto.builder()
+			.id(tummytime.getId())
+			.createdTime(tummytime.getCreatedTime())
+			.endTime(tummytime.getEndTime())
+			.memo(tummytime.getMemo())
+			.build();
 	}
 
 	/**
