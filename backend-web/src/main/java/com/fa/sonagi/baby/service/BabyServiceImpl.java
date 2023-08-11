@@ -167,6 +167,7 @@ public class BabyServiceImpl implements BabyService {
 				.babyId(u.getBaby().getId())
 				.name(u.getBaby().getName())
 				.gender(u.getBaby().getGender())
+				.authority(u.getAuthority())
 				.build())
 			.collect(Collectors.toList());
 	}
