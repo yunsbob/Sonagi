@@ -10,7 +10,7 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class VaccinationResDto {
-	private Long id;
+	private Long vaccinationStatusId;
 	private Long vaccinationId;
 	private String disease;
 	private String vaccineName;

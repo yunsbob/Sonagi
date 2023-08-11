@@ -23,6 +23,6 @@ public interface DiaryService {
 	DiaryResDto.DiaryInfos selectAllByBabyIdAndWriteDay(Long babyId, LocalDate writeDay) throws Exception;
 
 	// 월별 일기 기록 여부 날짜 리스트로 조회
-	List<LocalDate> findAllDiaryByMonth(LocalDate curDate, Long babyId) throws Exception;
+	List<LocalDate> findAllDiaryByBabyId(Long babyId) throws Exception;
 }
 

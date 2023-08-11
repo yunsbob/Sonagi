@@ -178,7 +178,7 @@ public class BabyServiceImpl implements BabyService {
 	@Override
 	@Transactional
 	public void updateBabyDetail(BabyDetailPutDto babyDetailPutDto) {
-		Baby baby = babyRepository.findById(babyDetailPutDto.getId()).orElseThrow();
+		Baby baby = babyRepository.findById(babyDetailPutDto.getBabyId()).orElseThrow();
 		baby.updateBaby(babyDetailPutDto.getName(), babyDetailPutDto.getGender(), babyDetailPutDto.getBirthDate());
 
 	}
@@ -194,7 +194,7 @@ public class BabyServiceImpl implements BabyService {
 
 		if ("N".equals(baby.getIsDeleted())) {
 			return BabyDetailResDto.builder()
-				.id(baby.getId())
+				.babyId(baby.getId())
 				.name(baby.getName())
 				.gender(baby.getGender())
 				.birthDate(baby.getBirthDate())
@@ -261,7 +261,7 @@ public class BabyServiceImpl implements BabyService {
 		return babies.stream()
 			.filter(b -> b.getIsDeleted().equals("Y"))
 			.map(b -> BabyDetailResDto.builder()
-				.id(b.getId())
+				.babyId(b.getId())
 				.name(b.getName())
 				.birthDate(b.getBirthDate())
 				.gender(b.getGender())

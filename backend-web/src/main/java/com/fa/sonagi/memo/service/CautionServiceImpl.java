@@ -32,7 +32,7 @@ public class CautionServiceImpl implements CautionService {
 
 		return caution.stream()
 			.map(c -> MemoResDto.builder()
-				.id(c.getId())
+				.memoId(c.getId())
 				.userId(c.getUser().getUserId())
 				.name(c.getUser().getName())
 				.memo(c.getMemo())
@@ -48,7 +48,7 @@ public class CautionServiceImpl implements CautionService {
 		Caution caution = cautionRepository.findById(id).orElseThrow();
 
 		return MemoResDto.builder()
-			.id(caution.getId())
+			.memoId(caution.getId())
 			.userId(caution.getUser().getUserId())
 			.name(caution.getUser().getName())
 			.memo(caution.getMemo())
@@ -77,7 +77,7 @@ public class CautionServiceImpl implements CautionService {
 	@Override
 	@Transactional
 	public void updateCaution(MemoPutDto memoPutDto) {
-		Caution caution = cautionRepository.findById(memoPutDto.getId()).orElseThrow();
+		Caution caution = cautionRepository.findById(memoPutDto.getMemoId()).orElseThrow();
 		caution.updateCaution(memoPutDto.getMemo());
 	}
 

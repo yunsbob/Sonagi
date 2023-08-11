@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -77,15 +76,13 @@ public class DiaryController {
 
 	@GetMapping("/dates")
 	@Operation(summary = "월별 일기 기록 여부 날짜 리스트 조회")
-	public ResponseEntity<?> getDateListByDateInMonth(
-		@Parameter(description = "연도와 월이 포함된 날짜 ex- 2018년 9월에 일기 작성된 날짜 리스트를 받고 싶다 -2018년 9월이 포함된 아무 날짜", required = true)
-		@RequestParam LocalDate localDate,
+	public ResponseEntity<?> getDateListByBabyId(
 		@Parameter(description = "아이 Id", required = true)
 		@RequestParam Long babyId
 	) throws Exception {
 		return ResponseEntity
 			.ok()
-			.body(new DiaryResDto.DateInfos(diaryService.findAllDiaryByMonth(localDate, babyId)));
+			.body(new DiaryResDto.DateInfos(diaryService.findAllDiaryByBabyId(babyId)));
 	}
 
 }
