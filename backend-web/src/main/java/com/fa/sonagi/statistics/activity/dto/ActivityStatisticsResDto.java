@@ -11,13 +11,13 @@ import lombok.Setter;
 public class ActivityStatisticsResDto {
 	private List<ActivityStatisticsQueryDto> plays;
 	private List<ActivityStatisticsQueryDto> tummytimes;
-	private Long activityCnt;
+	private Long cnt;
 	private Long activityHour;
 	private Long activityMinute;
-	private Long activityCntPercent;
-	private Long yesterdayActivityCntPercent;
-	private Long allActivityPercent;
-	private Long yesterdayAllActivityPercent;
+	private Long cntPercent;
+	private Long yesterdayCntPercent;
+	private Long activityPercent;
+	private Long yesterdayActivityPercent;
 
 	public ActivityStatisticsResDto() {
 		this.plays = new ArrayList<>();
