@@ -4,10 +4,10 @@ import { OurBabyPageContainer } from '@/pages/OurBabyPage/OurBabyPage.styles';
 
 const OurBabyPage = () => {
   return (
-    <LoadingPage />
-    // <OurBabyPageContainer>
-    //   <Text size="medium1">ourBaby</Text>
-    // </OurBabyPageContainer>
+    // <LoadingPage />
+    <OurBabyPageContainer>
+      <Text size="medium1">ourBaby</Text>
+    </OurBabyPageContainer>
   );
 };
 
