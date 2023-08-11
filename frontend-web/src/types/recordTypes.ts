@@ -17,7 +17,7 @@ export const TypeBValues = [
   'extras',
 ] as const;
 
-export const TypeCValues = ['sleeps', 'plays', 'tummyTimes'];
+export const TypeCValues = ['sleeps', 'plays', 'tummytimes'];
 
 export type TypeA = (typeof TypeAValues)[number];
 export type TypeB = (typeof TypeBValues)[number];
@@ -25,18 +25,25 @@ export type TypeC = (typeof TypeCValues)[number];
 
 // 수유
 interface Feeding {
-  id: number;
+  id?: number;
+  userId?: number;
+  babyId?: number;
   leftStartTime: string;
   rightStartTime: string;
   leftEndTime: string;
   rightEndTime: string;
+  createdDate?: string;
+  createdTime?: string;
   memo: string;
 }
 
 // 체온
 interface Fever {
-  id: number;
+  id?: number;
+  userId?: number;
+  babyId?: number;
   createdTime: string;
+  createdDate?: string;
   bodyTemperature: number;
   memo: string;
 }
@@ -91,12 +98,12 @@ interface RecordTypeC {
 
 interface Sleep extends RecordTypeC {}
 interface Play extends RecordTypeC {}
-interface TummyTime extends RecordTypeC {}
+interface Tummytime extends RecordTypeC {}
 
 // AllCategory에서 받은 데이터 저장용 - 모든 기록들을 포함하는 타입
 interface RecordedValues {
   plays: Play[];
-  tummytimes: TummyTime[];
+  tummytimes: Tummytime[];
   pees: Pee[];
   poops: Poop[];
   fevers: Fever[];
@@ -129,7 +136,7 @@ export type {
   Extra,
   Sleep,
   Play,
-  TummyTime,
+  Tummytime,
   RecordedValues,
   RecordTypeA,
   RecordTypeB,

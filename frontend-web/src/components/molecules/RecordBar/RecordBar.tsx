@@ -11,6 +11,8 @@ import { PATH } from '@/constants/path';
 import { useAddRecordTypeA } from '@/apis/Record/Mutations/useAddRecordTypeA';
 import { useAddRecordTypeB } from '@/apis/Record/Mutations/useAddRecordTypeB';
 import { useAddRecordTypeC } from '@/apis/Record/Mutations/useAddRecordTypeC';
+import { useAddRecordFeeding } from '@/apis/Record/Mutations/useAddRecordFeeding';
+import { useAddRecordFever } from '@/apis/Record/Mutations/useAddRecordFever';
 import { userInfoState } from '@/states/userState';
 import { selectedBabyState } from '@/states/babyState';
 import {
@@ -40,6 +42,7 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
 
   const [recordBlocks, setRecordBlocks] =
     useRecoilState<RecordData[]>(recordedValues);
+
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const records = recordsByCategory[currentCategory || 'All'] || [];
   const [userInfo] = useRecoilState(userInfoState);
@@ -48,6 +51,8 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
   const addRecordTypeAMutation = useAddRecordTypeA();
   const addRecordTypeBMutation = useAddRecordTypeB();
   const addRecordTypeCMutation = useAddRecordTypeC();
+  const addRecordFeeding = useAddRecordFeeding();
+  const addRecordFever = useAddRecordFever();
 
   const isTypeA = (query: string): query is TypeA =>
     TypeAValues.includes(query as TypeA);
@@ -64,6 +69,7 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
     category: Category,
     queryName: string
   ) => {
+    console.log(queryName, recordType);
     if (isTypeA(queryName)) {
       addRecordTypeAMutation.mutate({
         type: queryName,
@@ -91,6 +97,29 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
         createdTime: nowTime,
         createdDate: nowDate,
         endTime: nowTime,
+        memo: '',
+      });
+    } else if (queryName === 'feedings') {
+      addRecordFeeding.mutate({
+        type: queryName,
+        userId: userInfo.userId,
+        babyId: selectedBaby.babyId,
+        leftStartTime: nowTime,
+        rightStartTime: nowTime,
+        leftEndTime: nowTime,
+        rightEndTime: nowTime,
+        createdDate: nowDate,
+        createdTime: nowTime,
+        memo: '',
+      });
+    } else {
+      addRecordFever.mutate({
+        type: queryName,
+        userId: userInfo.userId,
+        babyId: selectedBaby.babyId,
+        createdTime: nowTime,
+        createdDate: nowDate,
+        bodyTemperature: 36.5,
         memo: '',
       });
     }
