@@ -14,6 +14,7 @@ import com.fa.sonagi.question.dto.QuestionPostDto;
 import com.fa.sonagi.question.dto.QuestionResDto;
 import com.fa.sonagi.question.service.QuestionService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +29,7 @@ public class QuestionController {
 	 * 문의사항 조회
 	 */
 	@GetMapping("/{questionId}")
+	@Operation(summary = "문의사항 아이디로 문의사항 상세정보를 조회함")
 	public QuestionResDto findRequest(@PathVariable Long questionId) {
 		return questionService.findQuestionById(questionId);
 	}
@@ -36,6 +38,7 @@ public class QuestionController {
 	 * 문의사항 등록
 	 */
 	@PostMapping
+	@Operation(summary = "문의사항을 등록함")
 	public ResponseEntity<?> registQuestion(@RequestBody QuestionPostDto questionPostDto) {
 		questionService.registQuestion(questionPostDto);
 		return ResponseEntity.ok().build();
@@ -45,6 +48,7 @@ public class QuestionController {
 	 * 문의사항 리스트 조회
 	 */
 	@GetMapping
+	@Operation(summary = "문의사항들을 조회함")
 	public List<QuestionResDto> findQuestionList() {
 		return questionService.findQuestionList();
 	}
