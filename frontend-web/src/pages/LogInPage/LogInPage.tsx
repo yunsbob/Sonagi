@@ -23,29 +23,29 @@ const LogInPage = () => {
     window.location.href = AUTH_URL;
   };
 
-  const saveAndroidTokenToCookie = () => {
-    // React Native 알림을 위한 기기 Token값 저장
-    console.log('hi1');
-    document.addEventListener('message', (e: any) => {
-      console.log('hi2');
-      const androidToken = e.data;
-      console.log(androidToken);
+  // const saveAndroidTokenToCookie = () => {
+  //   // React Native 알림을 위한 기기 Token값 저장
+  //   console.log('hi1');
+  //   document.addEventListener('message', (e: any) => {
+  //     console.log('hi2');
+  //     const androidToken = e.data;
+  //     console.log(androidToken);
 
-      if (androidToken) {
-        console.log('saveToken');
-        const expires = new Date();
-        expires.setMinutes(expires.getMinutes() + 60);
+  //     if (androidToken) {
+  //       console.log('saveToken');
+  //       const expires = new Date();
+  //       expires.setMinutes(expires.getMinutes() + 60);
 
-        Cookies.set('androidToken', androidToken, {
-          path: '/',
-          expires: expires,
-          secure: true,
-          // httpOnly: true,
-        });
-      }
-    });
-  };
-  saveAndroidTokenToCookie();
+  //       Cookies.set('androidToken', androidToken, {
+  //         path: '/',
+  //         expires: expires,
+  //         secure: true,
+  //         // httpOnly: true,
+  //       });
+  //     }
+  //   });
+  // };
+  // saveAndroidTokenToCookie();
 
   return (
     <Background $background={babyBackground}>
