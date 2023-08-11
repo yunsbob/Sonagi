@@ -6,6 +6,8 @@ import { Category, RecordData } from '@/types';
 import { recordedValues, recordsByCategory } from '@/states/recordState';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { PATH } from '@/constants/path';
+import { useState } from 'react';
+import { RecordTypeA } from '@/types/recordTypes';
 
 // const LowBorderButton = styled(Button)<{ $borderColor: string }>`
 //   border-color: ${({ $borderColor }) => $borderColor + '96'};
@@ -23,6 +25,8 @@ const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
   // 상태가 변경될 때마다 UI가 최신 상태를 반영
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const records = recordsByCategory[currentCategory || 'All'] || [];
+
+  // const [recordTypeAState, setRecordTypeAState] = useState<RecordTypeA>({});
 
   const handleClick = (
     recordType: string,
