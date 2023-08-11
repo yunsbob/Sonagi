@@ -1,6 +1,6 @@
 package com.fa.sonagi.statistics.sleep.dto;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SleepStatisticsQueryDto {
-	private Time createdTime;
-	private Time endTime;
+	private LocalTime createdTime;
+	private LocalTime endTime;
 }
