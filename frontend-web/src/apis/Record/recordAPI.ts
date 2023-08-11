@@ -1,4 +1,5 @@
 import { instance } from '@/apis/instance';
+import { RecordTypeA } from '@/types/recordTypes';
 
 const getAllCategoryRecords = async (babyId: number, date: string) => {
   try {
@@ -11,4 +12,13 @@ const getAllCategoryRecords = async (babyId: number, date: string) => {
   }
 };
 
-export { getAllCategoryRecords };
+// 너무 하드코딩인가?
+const addRecordTypeA = async (type: string, recordTypeA: RecordTypeA) => {
+  try {
+    await instance.post(`/${type}`, recordTypeA);
+  } catch {
+    new Error('recordTypeA add error');
+  }
+};
+
+export { getAllCategoryRecords, addRecordTypeA };

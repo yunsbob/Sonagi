@@ -21,7 +21,7 @@ interface Fever {
 // recordTypeA : id + 기록시간 + 용량 + 메모
 // => 분유(InfantFormula), 유축(BreastFeeding), 이유식(BabyFood), 우유(Milk), 유축(PumpingBreast)
 interface RecordTypeA {
-  id: number;
+  id?: number;
   amount: number;
   memo: string;
   createdTime: string;
@@ -99,4 +99,5 @@ export type {
   Play,
   TummyTime,
   RecordedValues,
+  RecordTypeA,
 };

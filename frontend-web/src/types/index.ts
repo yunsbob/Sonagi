@@ -41,6 +41,7 @@ interface CategoryStateType {
 
 type Record = {
   type: string;
+  queryName: string;
   category: Category;
   color: string;
 };
