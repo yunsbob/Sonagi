@@ -40,8 +40,8 @@ public class SnackController {
    */
   @PostMapping
   public ResponseEntity<?> registSnack(@RequestBody SnackPostDto snackPostDto) {
-    snackService.registSnack(snackPostDto);
-    return ResponseEntity.ok().build();
+    SnackResDto snackResDto = snackService.registSnack(snackPostDto);
+    return ResponseEntity.ok().body(snackResDto);
   }
 
   /**

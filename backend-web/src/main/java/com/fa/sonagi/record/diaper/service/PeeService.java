@@ -8,7 +8,7 @@ public interface PeeService {
 
   DiaperResDto findPeeById(Long id);
 
-  void registPee(DiaperPostDto diaperPostDto);
+  DiaperResDto registPee(DiaperPostDto diaperPostDto);
 
   void updatePee(DiaperPutDto diaperPutDto);
 

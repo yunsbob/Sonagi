@@ -32,7 +32,7 @@ public class PeeServiceImpl implements PeeService {
    */
   @Override
   @Transactional
-  public void registPee(DiaperPostDto diaperPostDto) {
+  public DiaperResDto registPee(DiaperPostDto diaperPostDto) {
     Pee pee = Pee.builder()
         .userId(diaperPostDto.getUserId())
         .babyId(diaperPostDto.getBabyId())
@@ -42,6 +42,12 @@ public class PeeServiceImpl implements PeeService {
         .build();
 
     peeRepository.save(pee);
+
+    return DiaperResDto.builder()
+        .id(pee.getId())
+        .createdTime(pee.getCreatedTime())
+        .memo(pee.getMemo())
+        .build();
   }
 
   /**

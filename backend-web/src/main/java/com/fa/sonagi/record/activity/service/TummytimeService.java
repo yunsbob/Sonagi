@@ -8,7 +8,7 @@ public interface TummytimeService {
 
   ActivityResDto findTummytimeById(Long id);
 
-  void registTummytime(ActivityPostDto activityPostDto);
+  ActivityResDto registTummytime(ActivityPostDto activityPostDto);
 
   void updateTummytime(ActivityPutDto activityPutDto);
 

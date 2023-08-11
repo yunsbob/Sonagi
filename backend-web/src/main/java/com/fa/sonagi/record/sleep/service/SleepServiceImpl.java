@@ -31,7 +31,7 @@ public class SleepServiceImpl implements SleepService {
 	 */
 	@Override
 	@Transactional
-	public void registSleep(SleepPostDto sleepPostDto) {
+	public SleepResDto registSleep(SleepPostDto sleepPostDto) {
 		Sleep sleep = Sleep.builder()
 			.userId(sleepPostDto.getUserId())
 			.babyId(sleepPostDto.getBabyId())
@@ -42,6 +42,13 @@ public class SleepServiceImpl implements SleepService {
 			.build();
 
 		sleepRepository.save(sleep);
+
+		return SleepResDto.builder()
+			.id(sleep.getId())
+			.createdTime(sleep.getCreatedTime())
+			.endTime(sleep.getEndTime())
+			.memo(sleep.getMemo())
+			.build();
 	}
 
 	/**

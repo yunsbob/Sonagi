@@ -27,26 +27,25 @@ public class ExtraController {
   private final ExtraService extraService;
 
   /**
-   * 병원 기록 조회
+   * 기타 기록 조회
    */
   @GetMapping("/{extraId}")
   public ResponseEntity<?> getExtra(@PathVariable Long extraId) {
     ExtraResDto extraResDto = extraService.findExtraById(extraId);
-
     return ResponseEntity.ok().body(extraResDto);
   }
 
   /**
-   * 병원 기록 등록
+   * 기타 기록 등록
    */
   @PostMapping
   public ResponseEntity<?> registExtra(@RequestBody ExtraPostDto extraPostDto) {
-    extraService.registExtra(extraPostDto);
-    return ResponseEntity.ok().build();
+    ExtraResDto extraResDto = extraService.registExtra(extraPostDto);
+    return ResponseEntity.ok().body(extraResDto);
   }
 
   /**
-   * 병원 기록 수정
+   * 기타 기록 수정
    */
   @PutMapping
   public ResponseEntity<?> updateExtra(@RequestBody ExtraPutDto extraPutDto) {
@@ -55,7 +54,7 @@ public class ExtraController {
   }
 
   /**
-   * 병원 기록 삭제
+   * 기타 기록 삭제
    */
   @DeleteMapping("/{extraId}")
   public ResponseEntity<?> deleteExtra(@PathVariable Long extraId) {

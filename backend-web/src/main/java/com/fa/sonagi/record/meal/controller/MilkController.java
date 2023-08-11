@@ -40,8 +40,8 @@ public class MilkController {
    */
   @PostMapping
   public ResponseEntity<?> registBabyFood(@RequestBody MealPostDto mealPostDto) {
-    milkService.registMilk(mealPostDto);
-    return ResponseEntity.ok().build();
+    MealResDto mealResDto = milkService.registMilk(mealPostDto);
+    return ResponseEntity.ok().body(mealResDto);
   }
 
   /**
