@@ -6,6 +6,8 @@ import { Category, RecordData } from '@/types';
 import { recordedValues, recordsByCategory } from '@/states/recordState';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { PATH } from '@/constants/path';
+import { useState } from 'react';
+import { RecordTypeA } from '@/types/recordTypes';
 
 // const LowBorderButton = styled(Button)<{ $borderColor: string }>`
 //   border-color: ${({ $borderColor }) => $borderColor + '96'};
@@ -24,11 +26,16 @@ const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const records = recordsByCategory[currentCategory || 'All'] || [];
 
+  // const [recordTypeAState, setRecordTypeAState] = useState<RecordTypeA>({});
+
   const handleClick = (
     recordType: string,
     color: string,
-    category: Category
+    category: Category,
+    queryName: string
   ) => {
+    console.log('here', recordType, color, category, queryName);
+
     const date = new Date();
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
@@ -39,6 +46,7 @@ const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
       { recordType, time, color, category },
     ]);
 
+    // TODO:
     onRecordUpdated();
   };
 
@@ -51,7 +59,12 @@ const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
           key={index}
           $borderColor={record.color}
           onClick={() =>
-            handleClick(record.type, record.color, record.category)
+            handleClick(
+              record.type,
+              record.color,
+              record.category,
+              record.queryName
+            )
           }
         >
           <Text size="medium3">{record.type}</Text>
