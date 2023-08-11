@@ -1,21 +1,27 @@
 // category랑 color 일일이 다 지정해줘야할수도?
 
-type TypeA =
-  | 'infantFormulas'
-  | 'breastFeedings'
-  | 'babyFoods'
-  | 'milks'
-  | 'pumpingBreasts';
+export const TypeAValues = [
+  'infantFormulas',
+  'breastFeedings',
+  'babyFoods',
+  'milks',
+  'pumpingBreasts',
+] as const;
 
-type TypeB =
-  | 'pees'
-  | 'poops'
-  | 'hospitals'
-  | 'medications'
-  | 'snacks'
-  | 'extras';
+export const TypeBValues = [
+  'pees',
+  'poops',
+  'hospitals',
+  'medications',
+  'snacks',
+  'extras',
+] as const;
 
-type TypeC = 'sleeps' | 'plays' | 'tummyTimes';
+export const TypeCValues = ['sleeps', 'plays', 'tummyTimes'];
+
+export type TypeA = (typeof TypeAValues)[number];
+export type TypeB = (typeof TypeBValues)[number];
+export type TypeC = (typeof TypeCValues)[number];
 
 // 수유
 interface Feeding {
@@ -74,8 +80,11 @@ interface Extra extends RecordTypeB {}
 // recordTypeC : id + 기록시간 + 종료시간 + 메모
 // => 수면(Sleep), 놀이(Play), 터미타임(TummyTime)
 interface RecordTypeC {
-  id: number;
+  id?: number;
+  userId?: number;
+  babyId?: number;
   createdTime: string;
+  createdDate?: string;
   endTime: string;
   memo: string;
 }
@@ -105,9 +114,6 @@ interface RecordedValues {
 }
 
 export type {
-  TypeA,
-  TypeB,
-  TypeC,
   Feeding,
   Fever,
   InfantFormula,
