@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsResDto;
+import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsWeekResDto;
 import com.fa.sonagi.statistics.sleep.service.SleepStatisticsService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,13 +29,17 @@ public class SleepStatisticsController {
 	public ResponseEntity<?> getSleepStatistics(@RequestParam Long babyId,
 		@RequestParam String period, @RequestParam LocalDate createdDate) {
 		if (period.equals("day")) {
-			SleepStatisticsResDto sleepStatisticsResDto = sleepStatisticsService.getSleepStatisticsDay(babyId,
+			SleepStatisticsResDto sleepStatisticsDay = sleepStatisticsService.getSleepStatisticsDay(babyId,
 				createdDate);
-			return ResponseEntity.ok().body(sleepStatisticsResDto);
-		} else {
-			SleepStatisticsResDto sleepStatisticsResDto = sleepStatisticsService.getSleepStatisticsDay(babyId,
+			return ResponseEntity.ok().body(sleepStatisticsDay);
+		}
+		else if (period.equals("week")){
+			SleepStatisticsWeekResDto sleepStatisticsWeek = sleepStatisticsService.getSleepStatisticsWeek(babyId,
 				createdDate);
-			return ResponseEntity.ok().body(sleepStatisticsResDto);
+			return ResponseEntity.ok().body(sleepStatisticsWeek);
+		}
+		else {
+			return ResponseEntity.badRequest().build();
 		}
 	}
 }
