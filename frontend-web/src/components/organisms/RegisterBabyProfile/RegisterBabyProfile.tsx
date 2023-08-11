@@ -38,10 +38,11 @@ const RegisterBabyProfile = () => {
     setValue(e.target.value);
   };
 
-  const today = new Date();
-
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  const today = new Date();
   const [pickDate, setPickDate] = useState<Date>(today);
+
   const onClickAction = () => {
     setModalOpen(true);
   };

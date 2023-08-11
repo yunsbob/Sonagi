@@ -20,9 +20,6 @@ const RecordPage = () => {
     currentDate
   );
 
-  console.log('젭알', recordedList);
-  // const recordedList = [];
-
   // 받아온 AllCategory Records 리코일에 저장
   const setRecordedValues = useSetRecoilState(recordedValuesState);
 
@@ -32,7 +29,6 @@ const RecordPage = () => {
 
   const handleDateChange = (date: Date) => {
     setSelectedDate(date);
-    // setRecordedValues(recordedList);
   };
 
   return (
@@ -42,7 +38,6 @@ const RecordPage = () => {
         <CategoryBar path={PATH.MAIN}></CategoryBar>
       </section>
       <div style={{ paddingTop: 'env(safe-area-inset-top)' }}>
-        {/* RecordContainer에서 뿌릴 예정 */}
         <RecordContainer></RecordContainer>
       </div>
     </>
