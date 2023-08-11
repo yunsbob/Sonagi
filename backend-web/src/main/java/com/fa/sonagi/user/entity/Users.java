@@ -146,4 +146,20 @@ public class Users extends BaseTimeEntity implements UserDetails {
 		this.FirebaseToken = firebaseToken;
 	}
 
+	public void updateVAlarm(String vAlarm) {
+		this.vAlarm = vAlarm;
+	}
+
+	public void updateMAlarm(String mAlarm) {
+		this.mAlarm = mAlarm;
+	}
+
+	public void updateDAlarm(String dAlarm) {
+		this.dAlarm = dAlarm;
+	}
+
+	public void updateCAlarm(String cAlarm) {
+		this.cAlarm = cAlarm;
+	}
+
 }
