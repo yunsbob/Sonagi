@@ -27,6 +27,10 @@ const RegisterPage = () => {
     navigate(PATH.REGISTERBABYPROFILE);
   };
 
+  const toMain = () => {
+    navigate(PATH.MAIN);
+  };
+
   return (
     <Background $background={orangeBackground}>
       <Back />
@@ -53,6 +57,9 @@ const RegisterPage = () => {
               onClick={toBabyCode}
             />
           </S.ButtonContainer>
+          <Text size="large" onClick={toMain}>
+            건너뛰기
+          </Text>
         </S.RegisterPageWrapper>
       </S.RegisterPageContainer>
     </Background>
