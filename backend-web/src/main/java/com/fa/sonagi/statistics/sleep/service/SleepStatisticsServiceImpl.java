@@ -112,7 +112,6 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 			sleeps.get(changeIdxes.get(i)).setEndTime(LAST_TIME);
 		}
 
-		// 날짜별 데이터 세팅
 		startDay = startDay.plusDays(1);
 		lastDay = lastDay.plusDays(1);
 
@@ -222,8 +221,7 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 		Long cnt = 0L;
 
 		for (int i = 0; i < WEEK; i++) {
-			List<StatisticsTimeLong> sleepDay = sleeps.get(writeDay).getSleeps();
-			cnt += sleepDay.size();
+			cnt += sleeps.get(writeDay).getSleeps().size();
 
 			writeDay = writeDay.plusDays(1);
 		}
