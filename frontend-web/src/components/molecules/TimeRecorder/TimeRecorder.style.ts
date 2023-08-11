@@ -14,7 +14,7 @@ export const ButtonWrapper = styled.div`
   gap: 5px;
 `;
 
-export const TimerTextWrapper = styled.p`
+export const TimerTextWrapper = styled.div`
   text-align: left;
   margin-bottom: 20px;
 `;

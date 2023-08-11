@@ -1,9 +1,7 @@
 import Modal from '@/components/organisms/Modal/Modal';
+import { CustomModal } from '@/types';
 
-interface CheckBabyModalProps {
-  onModalClose: () => void;
-  modalOpen: boolean;
-}
+interface CheckBabyModalProps extends CustomModal {}
 
 const CheckBabyModal = ({ onModalClose, modalOpen }: CheckBabyModalProps) => {
   return (
@@ -15,4 +13,4 @@ const CheckBabyModal = ({ onModalClose, modalOpen }: CheckBabyModalProps) => {
   );
 };
 
-export default CheckBabyModal;
+export { CheckBabyModal };

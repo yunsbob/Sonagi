@@ -7,6 +7,8 @@ const useGetCoParent = (userId: number, babyId: number): User[] => {
     getCoParent(userId, babyId)
   );
 
+  console.log(coparent);
+
   return coparent;
 };
 
