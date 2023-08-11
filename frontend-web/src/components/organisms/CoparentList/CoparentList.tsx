@@ -13,11 +13,11 @@ import theme from '@/styles/theme';
 import { useState } from 'react';
 import { BabyCodeModal } from '@/components/organisms/BabyCodeModal/BabyCodeModal';
 import { Toast } from '@/components/organisms/Toast/Toast';
-import { currentBabyState } from '@/states/babyState';
+import { selectedBabyState } from '@/states/babyState';
 
 const CoparentList = () => {
   const userInfo: User = useRecoilValue(userInfoState);
-  const babyInfo: BabiesOfUser = useRecoilValue(currentBabyState);
+  const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
   console.log(babyInfo.babyId);
   const coparents = useGetCoParent(userInfo.userId, babyInfo.babyId);
 
