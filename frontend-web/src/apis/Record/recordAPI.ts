@@ -1,5 +1,5 @@
 import { instance } from '@/apis/instance';
-import { RecordTypeA } from '@/types/recordTypes';
+import { RecordTypeA, RecordTypeB, RecordTypeC } from '@/types/recordTypes';
 
 const getAllCategoryRecords = async (babyId: number, date: string) => {
   try {
@@ -14,11 +14,34 @@ const getAllCategoryRecords = async (babyId: number, date: string) => {
 
 const addRecordTypeA = async (type: string, recordTypeA: RecordTypeA) => {
   try {
-    console.log(type, recordTypeA, 'herehere');
+    console.log(type, recordTypeA, 'AAAAAAAAAAAAA');
     await instance.post(`/${type}`, recordTypeA);
   } catch {
     throw new Error('recordTypeA add error');
   }
 };
 
-export { getAllCategoryRecords, addRecordTypeA };
+const addRecordTypeB = async (type: string, recordTypeB: RecordTypeB) => {
+  try {
+    console.log(type, recordTypeB, 'BBBBBBBBB');
+    await instance.post(`/${type}`, recordTypeB);
+  } catch {
+    throw new Error('recordTypeB add error');
+  }
+};
+
+const addRecordTypeC = async (type: string, recordTypeC: RecordTypeC) => {
+  try {
+    console.log(type, recordTypeC, 'CCCCCCCCCC');
+    await instance.post(`/${type}`, recordTypeC);
+  } catch {
+    throw new Error('recordTypeC add error');
+  }
+};
+
+export {
+  getAllCategoryRecords,
+  addRecordTypeA,
+  addRecordTypeB,
+  addRecordTypeC,
+};

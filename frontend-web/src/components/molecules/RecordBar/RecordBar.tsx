@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Button from '@/components/atoms/Button/Button';
 import moment from 'moment';
 import { RecordBarContainer } from '@/components/molecules/RecordBar/RecordBar.styles';
@@ -7,7 +8,6 @@ import { Category, RecordData } from '@/types';
 import { recordedValues, recordsByCategory } from '@/states/recordState';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { PATH } from '@/constants/path';
-import { useState } from 'react';
 import { useAddRecordTypeA } from '@/apis/Record/Mutations/useAddRecordTypeA';
 import { userInfoState } from '@/states/userState';
 import { selectedBabyState } from '@/states/babyState';
@@ -16,31 +16,40 @@ interface RecordBarProps {
   onRecordUpdated: () => void;
 }
 
-const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
-  const [recordBlocks, setRecordBlocks] =
-    useRecoilState<RecordData[]>(recordedValues);
+const getCurrentTime = () => {
+  const date = new Date();
+  return `${String(date.getHours()).padStart(2, '0')}:${String(
+    date.getMinutes()
+  ).padStart(2, '0')}`;
+};
 
-  // useRecoilValue는 Recoil상태(atom이나 selector)의 현재 값을 읽어오는 것
-  // 상태가 변경될 때마다 UI가 최신 상태를 반영
-  const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
-  const records = recordsByCategory[currentCategory || 'All'] || [];
-
-  const today = new Date();
-  const [pickDate, setPickTime] = useState<Date>(today);
+const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
+  const [pickDate, setPickTime] = useState<Date>(new Date());
   const nowTime = moment(pickDate).format('HH:mm:ss');
   const nowDate = moment(pickDate).format('YYYY-MM-DD');
 
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState); // userInfo.name을 가져다쓸것
-  const [selectedBaby, setSelectedBaby] = useRecoilState(selectedBabyState);
+  const [recordBlocks, setRecordBlocks] =
+    useRecoilState<RecordData[]>(recordedValues);
+  const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
+  const records = recordsByCategory[currentCategory || 'All'] || [];
+  const [userInfo] = useRecoilState(userInfoState);
+  const [selectedBaby] = useRecoilState(selectedBabyState);
 
   const addRecordTypeAMutation = useAddRecordTypeA();
 
-  const handleClick = (
+  const handleButtonClick = (
     recordType: string,
     color: string,
     category: Category,
     queryName: string
   ) => {
+    const validQueries = [
+      'infantFormulas',
+      'breastFeedings',
+      'babyFoods',
+      'milks',
+      'pumpingBreasts',
+    ];
     addRecordTypeAMutation.mutate({
       type: queryName,
       userId: userInfo.userId,
@@ -51,30 +60,21 @@ const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
       createdDate: nowDate,
     });
 
-    const date = new Date();
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const time = `${hours}:${minutes}`;
-
-    setRecordBlocks(oldRecordBlocks => [
-      ...oldRecordBlocks,
-      { recordType, time, color, category },
-    ]);
-
-    // TODO:
+    const time = getCurrentTime();
+    setRecordBlocks(prev => [...prev, { recordType, time, color, category }]);
     onRecordUpdated();
   };
 
   return (
     <RecordBarContainer>
-      {records.map((record, index) => (
+      {records.map((record, idx) => (
         <Button
           option="default"
           size="xSmall"
-          key={index}
+          key={idx}
           $borderColor={record.color}
           onClick={() =>
-            handleClick(
+            handleButtonClick(
               record.type,
               record.color,
               record.category,

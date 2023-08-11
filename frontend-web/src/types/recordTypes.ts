@@ -1,5 +1,22 @@
 // category랑 color 일일이 다 지정해줘야할수도?
 
+type TypeA =
+  | 'infantFormulas'
+  | 'breastFeedings'
+  | 'babyFoods'
+  | 'milks'
+  | 'pumpingBreasts';
+
+type TypeB =
+  | 'pees'
+  | 'poops'
+  | 'hospitals'
+  | 'medications'
+  | 'snacks'
+  | 'extras';
+
+type TypeC = 'sleeps' | 'plays' | 'tummyTimes';
+
 // 수유
 interface Feeding {
   id: number;
@@ -88,6 +105,9 @@ interface RecordedValues {
 }
 
 export type {
+  TypeA,
+  TypeB,
+  TypeC,
   Feeding,
   Fever,
   InfantFormula,
@@ -106,4 +126,6 @@ export type {
   TummyTime,
   RecordedValues,
   RecordTypeA,
+  RecordTypeB,
+  RecordTypeC,
 };
