@@ -16,7 +16,7 @@ const UserModalContainer = styled.div`
 
 const UdpateButtonWrapper = styled.div`
   display: flex;
-  gap: 2vh;
+  gap: 20px;
 
   button {
     border-radius: 18px;

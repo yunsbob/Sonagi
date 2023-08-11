@@ -12,7 +12,6 @@ const addBaby = async (baby: Baby) => {
 const getBaby = async (userId: number) => {
   try {
     const response = await instance.get(`/babyInfos/${userId}`);
-    console.log('getBaby의 data', response.data);
     return response.data;
   } catch {
     new Error('No data returned from the API');
@@ -28,6 +27,15 @@ const getCoParent = async (userId: number, babyId: number) => {
   }
 };
 
+const deleteCoparent = async (babyId: number, userId: number) => {
+  console.log('삭제하는 babyId ', babyId);
+  try {
+    await instance.delete(`/coparents/${babyId}/${userId}`);
+  } catch {
+    new Error('delete coparent error');
+  }
+};
+
 const getBabyCode = async (babyId: number) => {
   try {
     const response = await instance.get(`/babyCode?babyId=${babyId}`);
@@ -37,4 +45,21 @@ const getBabyCode = async (babyId: number) => {
   }
 };
 
-export { addBaby, getBaby, getCoParent, getBabyCode };
+// 아기 코드로 아기 등록
+const registerBabyCode = async (userId: number, code: string) => {
+  try {
+    await instance.post('babyCode', { userId: userId, code: code });
+  } catch {
+    console.log('ddddd');
+    new Error('register baby code error');
+  }
+};
+
+export {
+  addBaby,
+  getBaby,
+  getCoParent,
+  deleteCoparent,
+  getBabyCode,
+  registerBabyCode,
+};

@@ -35,7 +35,6 @@ const MyPagePage = () => {
       <UserUpdateModal
         onModalClose={() => modalClose(setuserModalOpen)}
         modalOpen={userModalOpen}
-        setModalOpen={setuserModalOpen}
       />
 
       <UserContainer>

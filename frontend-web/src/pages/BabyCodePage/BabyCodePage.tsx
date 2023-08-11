@@ -9,6 +9,10 @@ import { PATH } from '@/constants/path';
 import theme from '@/styles/theme';
 import { useState } from 'react';
 import CheckBabyModal from '@/components/organisms/CheckBabyModal/CheckBabyModal';
+import { useRegisterBabyCode } from '@/apis/Baby/Mutations/useRegistBabyCode';
+import { useRecoilValue } from 'recoil';
+import { userInfoState } from '@/states/userState';
+import { Toast } from '@/components/organisms/Toast/Toast';
 
 //TODO: CheckBabyModal 연결!!
 const BabyCodePage = () => {
@@ -18,8 +22,24 @@ const BabyCodePage = () => {
   const placeholder = '코드를 입력하세요';
   const alertMessage = '10자 이내로 입력해주세요';
 
-  const onClickButtonAction = () => {
+  const useRegisterBabyCodeMutation = useRegisterBabyCode();
+  const userInfo = useRecoilValue(userInfoState);
+
+  const [showToast, setShowToast] = useState(false);
+
+  const onClickButtonAction = (code: string) => {
     //TODO: 코드 입력으로 애기 등록 api 호출
+    console.log(userInfo.userId, code);
+    useRegisterBabyCodeMutation.mutate(
+      { userId: userInfo.userId, code: code },
+      {
+        onError: error => {
+          console.log(error);
+          setShowToast(true);
+        },
+      }
+    );
+
     // navigate(PATH.MAIN);
     setModalOpen(true);
   };
@@ -30,6 +50,7 @@ const BabyCodePage = () => {
   return (
     <Background $background={orangeBackground}>
       <Back />
+      {showToast && <Toast message="발급된 아이코드가 올바르지 않습니다" />}
       <S.BabyCodePageContainer>
         <S.BabyCodePageWrapper>
           <Text color={'black3'}>
