@@ -27,9 +27,13 @@ const AmountRecorder = ({
   const [value, setValue] = useState(defaultValue);
 
   const onAmountBtnClick = (changeAmount: number) => {
-    if (value + changeAmount >= minValue && value + changeAmount < maxValue) {
-      setValue(value + changeAmount);
-    } else if (value + changeAmount < minValue) {
+    const newValue = value + changeAmount;
+
+    if (newValue >= minValue && newValue < maxValue) {
+      // Use toFixed to round the value to the desired precision
+      const roundedValue = parseFloat(newValue.toFixed(1));
+      setValue(roundedValue);
+    } else if (newValue < minValue) {
       setValue(minValue);
     } else {
       setValue(maxValue);
