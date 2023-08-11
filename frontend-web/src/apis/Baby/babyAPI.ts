@@ -12,6 +12,7 @@ const addBaby = async (baby: Baby) => {
 const getBaby = async (userId: number) => {
   try {
     const response = await instance.get(`/babyInfos/${userId}`);
+    console.log('getBaby의 data', response.data);
     return response.data;
   } catch {
     new Error('No data returned from the API');

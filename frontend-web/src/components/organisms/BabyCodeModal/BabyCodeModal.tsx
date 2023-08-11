@@ -10,13 +10,13 @@ import { Image } from '@/components/atoms/Image/Image';
 import { useRef, useState } from 'react';
 import { Toast } from '@/components/organisms/Toast/Toast';
 import { useRecoilValue } from 'recoil';
-import { currentBabyState } from '@/states/babyState';
+import { selectedBabyState } from '@/states/babyState';
 import { useGetBabyCode } from '@/apis/Baby/Queries/useGetBabyCode';
 import kakao from '@/assets/images/img-logo-kakao.png';
 import Button from '@/components/atoms/Button/Button';
 
 const BabyCodeModal = ({ onModalClose, modalOpen }: CustomModal) => {
-  const babyInfo: BabiesOfUser = useRecoilValue(currentBabyState);
+  const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
 
   const code = useGetBabyCode(babyInfo.babyId);
 
