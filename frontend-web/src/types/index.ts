@@ -14,6 +14,7 @@ interface BabiesOfUser {
   babyId: number;
   name: string;
   gender: string;
+  authority: string;
 }
 
 // 가능한 모든 카테고리 목록
@@ -41,6 +42,7 @@ interface CategoryStateType {
 
 type Record = {
   type: string;
+  queryName: string;
   category: Category;
   color: string;
 };
@@ -57,6 +59,11 @@ type RecordData = {
   category: Category;
 };
 
+interface CustomModal {
+  onModalClose: () => void;
+  modalOpen: boolean;
+}
+
 export type {
   User,
   Baby,
@@ -66,4 +73,5 @@ export type {
   Record,
   RecordsByCategory,
   RecordData,
+  CustomModal,
 };

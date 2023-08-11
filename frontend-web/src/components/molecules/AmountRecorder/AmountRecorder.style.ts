@@ -5,6 +5,10 @@ export const AmountButtonWrapper = styled.div`
   justify-content: space-evenly;
   width: 100%;
   gap: 5px;
+
+  p {
+    color: ${({ theme }) => theme.color.blue};
+  }
 `;
 
 export const LeftWrapper = styled.div`

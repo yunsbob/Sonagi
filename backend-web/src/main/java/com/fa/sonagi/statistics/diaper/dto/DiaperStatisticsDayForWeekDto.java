@@ -9,8 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DiaperStatisticsDayForWeekDto {
-	List<Long> pees;
-	List<Long> poops;
+	private List<Long> pees;
+	private List<Long> poops;
 
 	public DiaperStatisticsDayForWeekDto() {
 		pees = new ArrayList<>();

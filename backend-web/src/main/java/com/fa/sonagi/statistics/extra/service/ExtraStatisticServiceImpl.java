@@ -66,9 +66,9 @@ public class ExtraStatisticServiceImpl implements ExtraStatisticsService {
 			ExtraStatisticsDayForWeekDto extraDay = new ExtraStatisticsDayForWeekDto();
 
 			if (extras.containsKey(writeDay))
-				extraDay.setExtraCnt(extras.get(writeDay));
+				extraDay.setCnt(extras.get(writeDay));
 			else
-				extraDay.setExtraCnt(0L);
+				extraDay.setCnt(0L);
 
 			extraWeek.getExtraStatistics().put(writeDay.format(DateTimeFormatter.ofPattern("M/dd")), extraDay);
 			writeDay = writeDay.plusDays(1);

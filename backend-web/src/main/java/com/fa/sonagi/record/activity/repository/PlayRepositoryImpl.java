@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fa.sonagi.record.activity.dto.ActivityResDto;
+import com.fa.sonagi.record.allCategory.dto.StatisticsTime;
 import com.fa.sonagi.statistics.activity.dto.ActivityStatisticsQueryDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -41,5 +42,20 @@ public class PlayRepositoryImpl implements PlayRepositoryCustom {
 			.fetch();
 
 		return activityStatisticsQueryDto;
+	}
+
+	@Override
+	public List<StatisticsTime> findPlayForWeek(Long babyId, LocalDate startDay, LocalDate endDay) {
+		List<StatisticsTime> plays = queryFactory
+			.select(Projections.bean(StatisticsTime.class,
+				play.createdDate,
+				play.createdTime,
+				play.endTime))
+			.from(play)
+			.where(play.babyId.eq(babyId),
+				play.createdDate.goe(startDay), play.createdDate.loe(endDay))
+			.fetch();
+
+		return plays;
 	}
 }

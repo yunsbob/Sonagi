@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ExtraStatisticsDayForWeekDto {
-	private Long extraCnt;
+	private Long cnt;
 }

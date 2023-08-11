@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class CheckupPutDto {
 	@NotNull
-	private Long id;
+	private Long checkupStatusId;
 
 	@NotNull
 	private LocalDate checkupDate;

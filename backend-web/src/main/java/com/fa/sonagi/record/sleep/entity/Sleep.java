@@ -1,7 +1,7 @@
 package com.fa.sonagi.record.sleep.entity;
 
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,7 +35,7 @@ public class Sleep {
 	private Long userId;
 
 	@Column(name = "created_time", nullable = false)
-	private Time createdTime;
+	private LocalTime createdTime;
 
 	@Column(name = "created_date", nullable = false)
 	private LocalDate createdDate;
@@ -44,9 +44,9 @@ public class Sleep {
 	private String memo;
 
 	@Column(name = "end_time", nullable = false)
-	private Time endTime;
+	private LocalTime endTime;
 
-	public void updateSleep(Time createdTime, Time endTime, String memo) {
+	public void updateSleep(LocalTime createdTime, LocalTime endTime, String memo) {
 		this.createdTime = createdTime;
 		this.endTime = endTime;
 		this.memo = memo;

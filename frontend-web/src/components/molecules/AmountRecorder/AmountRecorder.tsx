@@ -26,6 +26,16 @@ const AmountRecorder = ({
 }: AmountRecorderProps) => {
   const [value, setValue] = useState(defaultValue);
 
+  const onAmountBtnClick = (changeAmount: number) => {
+    if (value + changeAmount >= minValue && value + changeAmount < maxValue) {
+      setValue(value + changeAmount);
+    } else if (value + changeAmount < minValue) {
+      setValue(minValue);
+    } else {
+      setValue(maxValue);
+    }
+  };
+
   return (
     <AmountRecorderContainer>
       <LeftWrapper>
@@ -46,16 +56,13 @@ const AmountRecorder = ({
             option="primary"
             $borderRadius="9px"
             onClick={() => {
-              if (value + number >= minValue && value + number < maxValue) {
-                setValue(value + number);
-              } else if (value + number < minValue) {
-                setValue(minValue);
-              } else {
-                setValue(maxValue);
-              }
+              onAmountBtnClick(number);
             }}
           >
-            <Text size="medium3">{number}</Text>
+            <Text size="medium3">
+              {number > 0 && '+'}
+              {number}
+            </Text>
           </Button>
         ))}
       </AmountButtonWrapper>

@@ -18,4 +18,38 @@ const getBaby = async (userId: number) => {
   }
 };
 
-export { addBaby, getBaby };
+const getCoParent = async (userId: number, babyId: number) => {
+  try {
+    const response = await instance.get(`/coparents/${userId}/${babyId}`);
+    return response.data;
+  } catch {
+    new Error('get coparent list error');
+  }
+};
+
+const deleteCoparent = async (babyId: number, coparentId: number) => {
+  await instance.delete(`/coparents/${babyId}/${coparentId}`);
+};
+
+const getBabyCode = async (babyId: number) => {
+  try {
+    const response = await instance.get(`/babyCode?babyId=${babyId}`);
+    return response.data;
+  } catch {
+    new Error('get baby code error');
+  }
+};
+
+// 아기 코드로 아기 등록
+const registerBabyCode = async (userId: number, code: string) => {
+  await instance.post('babyCode', { userId: userId, code: code });
+};
+
+export {
+  addBaby,
+  getBaby,
+  getCoParent,
+  deleteCoparent,
+  getBabyCode,
+  registerBabyCode,
+};

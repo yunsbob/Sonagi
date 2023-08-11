@@ -8,7 +8,7 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class MemoResDto {
-	private Long id;
+	private Long memoId;
 	private Long userId;
 	private String name;
 	private String memo;

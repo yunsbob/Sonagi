@@ -1,13 +1,14 @@
 // mutation을 수행하는 custom Hook
-import { useMutation } from '@tanstack/react-query';
-import { instance } from '@/apis/instance';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { RecordTypeA } from '@/types/recordTypes';
+// import addRecord
 
-interface AddRecord {
-  title: string;
-  description: string;
-}
+// interface AddRecord {
+//   title: string;
+//   description: string;
+// }
 
-export {};
+// export {};
 
 // export function useAddRecord() {
 // return useMutation((newRecord: AddRecord) =>

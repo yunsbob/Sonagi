@@ -17,6 +17,7 @@ import com.fa.sonagi.faq.dto.FAQPutDto;
 import com.fa.sonagi.faq.dto.FAQResDto;
 import com.fa.sonagi.faq.service.FAQService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -31,14 +32,16 @@ public class FAQController {
 	 * FAQ 기록 전체 조회
 	 */
 	@GetMapping
-	public List<FAQResDto> getAllFAQs() {
-		return faqService.findAllFAQs();
+	@Operation(summary = "FAQ 기록들을 조회함")
+	public List<FAQResDto> getAllFAQ() {
+		return faqService.findAllFAQ();
 	}
 
 	/**
 	 * FAQ 기록 조회
 	 */
 	@GetMapping("/{FAQId}")
+	@Operation(summary = "FAQId로 상세 조회함")
 	public ResponseEntity<?> getFAQ(@PathVariable Long FAQId) {
 		FAQResDto faqResDto = faqService.findFAQById(FAQId);
 
@@ -49,10 +52,9 @@ public class FAQController {
 	 * FAQ 기록 등록
 	 */
 	@PostMapping
+	@Operation(summary = "FAQ 기록들을 등록함")
 	public ResponseEntity<?> registFAQ(@RequestBody FAQPostDto faqPostDto) {
-		System.out.println("ddddd");
 		faqService.registFAQ(faqPostDto);
-		System.out.println(faqPostDto.getTitle());
 		return ResponseEntity.ok().build();
 	}
 
@@ -60,6 +62,7 @@ public class FAQController {
 	 * FAQ 기록 수정
 	 */
 	@PutMapping
+	@Operation(summary = "FAQ를 수정함")
 	public ResponseEntity<?> updateFAQ(@RequestBody FAQPutDto faqPutDto) {
 		faqService.updateFAQ(faqPutDto);
 		return ResponseEntity.ok().build();
@@ -69,6 +72,7 @@ public class FAQController {
 	 * FAQ 기록 삭제
 	 */
 	@DeleteMapping("/{FAQId}")
+	@Operation(summary = "FAQId로 FAQ를 삭제함")
 	public ResponseEntity<?> deleteFAQ(@PathVariable Long FAQId) {
 		faqService.deleteFAQ(FAQId);
 		return ResponseEntity.ok().build();

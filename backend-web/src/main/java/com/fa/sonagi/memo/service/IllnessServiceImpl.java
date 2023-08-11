@@ -31,7 +31,7 @@ public class IllnessServiceImpl implements IllnessService {
 		List<Illness> allIllness = illnessRepository.findByBabyId(babyId);
 		return allIllness.stream()
 			.map(i -> MemoResDto.builder()
-				.id(i.getId())
+				.memoId(i.getId())
 				.userId(i.getUser().getUserId())
 				.name(i.getUser().getName())
 				.memo(i.getMemo())
@@ -47,7 +47,7 @@ public class IllnessServiceImpl implements IllnessService {
 		Illness illness = illnessRepository.findById(id).orElseThrow();
 
 		return MemoResDto.builder()
-			.id(illness.getId())
+			.memoId(illness.getId())
 			.userId(illness.getUser().getUserId())
 			.name(illness.getUser().getName())
 			.memo(illness.getMemo())
@@ -76,7 +76,7 @@ public class IllnessServiceImpl implements IllnessService {
 	@Override
 	@Transactional
 	public void updateIllness(MemoPutDto memoPutDto) {
-		Illness illness = illnessRepository.findById(memoPutDto.getId()).orElseThrow();
+		Illness illness = illnessRepository.findById(memoPutDto.getMemoId()).orElseThrow();
 		illness.updateIllness(memoPutDto.getMemo());
 	}
 

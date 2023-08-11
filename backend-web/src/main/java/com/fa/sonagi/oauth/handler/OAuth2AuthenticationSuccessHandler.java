@@ -81,15 +81,16 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
 		Collection<? extends GrantedAuthority> authorities = ((OidcUser)authentication.getPrincipal()).getAuthorities();
 
+		String socialId = userInfo.getId();
 		RoleType roleType = hasAuthority(authorities, RoleType.ROLE_ADMIN.name()) ? RoleType.ROLE_ADMIN : RoleType.ROLE_USER;
 
-		Users bySocialId = userRepository.findBySocialId(userInfo.getId());
-		Token tokenInfo = jwtTokenProvider.createToken(String.valueOf(bySocialId.getUserId()), userInfo.getId(), roleType.name());
+		Users bySocialId = userRepository.findBySocialId(socialId);
+		Token tokenInfo = jwtTokenProvider.createToken(String.valueOf(bySocialId.getUserId()), socialId, roleType.name());
 
 		// RT{userId} : refreshToken 형식으로 redis 저장.
 		redisTemplate
 			.opsForValue()
-			.set("RT" + userInfo.getId(), tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(), TimeUnit.MILLISECONDS);
+			.set("RT" + socialId, tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(), TimeUnit.MILLISECONDS);
 
 		CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
 		CookieUtil.addCookie(response, REFRESH_TOKEN, tokenInfo.getRefreshToken(), JwtTokenProvider.getRefreshTokenExpireTimeCookie());

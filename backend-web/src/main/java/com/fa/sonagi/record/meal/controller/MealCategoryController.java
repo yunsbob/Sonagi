@@ -15,6 +15,7 @@ import com.fa.sonagi.record.meal.dto.MealResDto;
 import com.fa.sonagi.record.meal.dto.SnackResDto;
 import com.fa.sonagi.record.meal.service.MealCategoryService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +31,7 @@ public class MealCategoryController {
 	 * 식사 카테고리 조회
 	 */
 	@GetMapping
+	@Operation(summary = "아이 아이디에 해당하는 아이의 해당 날짜에 관한 식사 카테고리 기록들을 조회함")
 	public ResponseEntity<?> getMealRecord(@RequestParam Long babyId, @RequestParam LocalDate createdDate) {
 		List<MealResDto> babyFoodList = mealCategoryService.findAllBabyFood(babyId, createdDate);
 		List<MealResDto> breastFeedingList = mealCategoryService.findAllBreastFeeding(babyId, createdDate);

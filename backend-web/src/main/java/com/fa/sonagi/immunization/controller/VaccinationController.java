@@ -14,6 +14,7 @@ import com.fa.sonagi.immunization.dto.VaccinationPutDto;
 import com.fa.sonagi.immunization.dto.VaccinationResDto;
 import com.fa.sonagi.immunization.service.VaccinationService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +29,7 @@ public class VaccinationController {
 	 * 예방접종 리스트 조회
 	 */
 	@GetMapping("/{babyId}")
+	@Operation(summary = "아이 아이디로 아이의 예방접종 리스트들을 조회함")
 	public List<VaccinationResDto> findVaccinationList(@PathVariable Long babyId) {
 		return vaccinationService.findVaccinationList(babyId);
 	}
@@ -36,6 +38,7 @@ public class VaccinationController {
 	 * 예방접종 상세 정보 조회
 	 */
 	@GetMapping("/{babyId}/{vaccinationId}")
+	@Operation(summary = "아이아이디와 예방접종 아이디로 예방접종 상세정보를 조회함")
 	public ResponseEntity<?> findVaccination(@PathVariable Long babyId, @PathVariable Long vaccinationId) {
 		VaccinationResDto vaccinationResDto = vaccinationService.findVaccination(babyId, vaccinationId);
 		return ResponseEntity.ok().body(vaccinationResDto);
@@ -45,6 +48,7 @@ public class VaccinationController {
 	 * 예방접종일 등록, 수정
 	 */
 	@PutMapping
+	@Operation(summary = "아이의 예방접종일을 수정함")
 	public ResponseEntity<?> updateVaccinationDate(@RequestBody VaccinationPutDto vaccinationPutDto) {
 		vaccinationService.updateVaccinationDate(vaccinationPutDto);
 		return ResponseEntity.ok().build();

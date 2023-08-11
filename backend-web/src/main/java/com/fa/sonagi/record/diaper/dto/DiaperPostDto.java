@@ -11,16 +11,16 @@ import lombok.Setter;
 @Setter
 public class DiaperPostDto {
 
-  @NotNull
-  private Long userId;
+	@NotNull
+	private Long userId;
 
-  @NotNull
-  private Long babyId;
+	@NotNull
+	private Long babyId;
 
-  @NotNull
-  private LocalDate createdDate;
+	@NotNull
+	private LocalDate createdDate;
 
-  @NotNull
-  private LocalTime createdTime;
-  private String memo;
+	@NotNull
+	private LocalTime createdTime;
+	private String memo;
 }

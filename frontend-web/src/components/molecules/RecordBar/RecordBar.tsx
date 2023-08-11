@@ -31,7 +31,8 @@ const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
   const handleClick = (
     recordType: string,
     color: string,
-    category: Category
+    category: Category,
+    queryName: string
   ) => {
     const date = new Date();
     const hours = String(date.getHours()).padStart(2, '0');
@@ -43,6 +44,7 @@ const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
       { recordType, time, color, category },
     ]);
 
+    // TODO:
     onRecordUpdated();
   };
 
@@ -55,7 +57,12 @@ const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
           key={index}
           $borderColor={record.color}
           onClick={() =>
-            handleClick(record.type, record.color, record.category)
+            handleClick(
+              record.type,
+              record.color,
+              record.category,
+              record.queryName
+            )
           }
         >
           <Text size="medium3">{record.type}</Text>
