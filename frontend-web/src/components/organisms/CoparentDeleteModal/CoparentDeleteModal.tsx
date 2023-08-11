@@ -25,20 +25,22 @@ const CoparentDeleteModal = ({ onModalClose, modalOpen, coparent }: Props) => {
   const [showToast, setShowToast] = useState<boolean>(false);
   const useDeleteCoparentMutation = useDeleteCoparent();
 
-  const userInfo = useRecoilValue(userInfoState);
   const babyInfo = useRecoilValue(selectedBabyState);
   const queryClient = useQueryClient();
 
-  const deleteCoparent = () => {
+  const deleteCoparent = (coparentId: number) => {
     useDeleteCoparentMutation.mutate(
       {
-        userId: userInfo.userId,
+        coparentId: coparentId,
         babyId: babyInfo.babyId,
       },
       {
         onSuccess: () => {
-          // queryClient.invalidateQueries(['coParent', babyInfo.babyId]);
+          queryClient.invalidateQueries(['coParent', babyInfo.babyId]);
           onModalClose();
+        },
+        onError: () => {
+          console.log('삭제 실패');
         },
       }
     );
@@ -63,7 +65,10 @@ const CoparentDeleteModal = ({ onModalClose, modalOpen, coparent }: Props) => {
           <Button option="primary" onClick={onModalClose}>
             취소
           </Button>
-          <Button option="danger" onClick={deleteCoparent}>
+          <Button
+            option="danger"
+            onClick={() => deleteCoparent(coparent.userId)}
+          >
             삭제
           </Button>
         </CoparentDeleteButtonContainer>

@@ -21,20 +21,14 @@ const getBaby = async (userId: number) => {
 const getCoParent = async (userId: number, babyId: number) => {
   try {
     const response = await instance.get(`/coparents/${userId}/${babyId}`);
-
-    return response.data ? response.data : response;
+    return response.data;
   } catch {
     new Error('get coparent list error');
   }
 };
 
-const deleteCoparent = async (babyId: number, userId: number) => {
-  console.log('삭제하는 babyId ', babyId);
-  try {
-    await instance.delete(`/coparents/${babyId}/${userId}`);
-  } catch {
-    new Error('delete coparent error');
-  }
+const deleteCoparent = async (babyId: number, coparentId: number) => {
+  await instance.delete(`/coparents/${babyId}/${coparentId}`);
 };
 
 const getBabyCode = async (babyId: number) => {
