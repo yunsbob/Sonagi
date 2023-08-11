@@ -141,9 +141,9 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 		// 카테고리별 일주일 통계 조회
 		Long cnt = sumSleepCnt(sleepDay, writeDay);
 		Long sleepTime = sumSleepTimeWeek(sleepDay, writeDay);
-		sleepWeek.setSleepCnt(cnt);
-		sleepWeek.setAllSleepHour(sleepTime / 60);
-		sleepWeek.setAllSleepMinute(sleepTime % 60);
+		sleepWeek.setCnt(cnt);
+		sleepWeek.setSleepHour(sleepTime / 60);
+		sleepWeek.setSleepMinute(sleepTime % 60);
 
 		writeDay = writeDay.minusWeeks(1);
 
@@ -151,15 +151,15 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 		Long lastWeekCnt = sumSleepCnt(sleepDay, writeDay);
 		Long cntPercent = getPercent(cnt, lastWeekCnt);
 		Long lastWeekCntPercent = getPercent(lastWeekCnt, cnt);
-		sleepWeek.setSleepCntPercent(cntPercent);
-		sleepWeek.setLastWeekSleepCntPercent(lastWeekCntPercent);
+		sleepWeek.setCntPercent(cntPercent);
+		sleepWeek.setLastWeekCntPercent(lastWeekCntPercent);
 
 		// 수면 시간 통계 퍼센트 계산
 		Long lastWeekSleepTime = sumSleepTimeWeek(sleepDay, writeDay);
 		Long sleepTimePercent = getPercent(sleepTime, lastWeekSleepTime);
 		Long lastWeekSleepTimePercent = getPercent(lastWeekSleepTime, sleepTime);
-		sleepWeek.setAllSleepPercent(sleepTimePercent);
-		sleepWeek.setLastWeekAllSleepPercent(lastWeekSleepTimePercent);
+		sleepWeek.setSleepPercent(sleepTimePercent);
+		sleepWeek.setLastWeekSleepPercent(lastWeekSleepTimePercent);
 
 		return sleepWeek;
 	}
