@@ -37,6 +37,8 @@ public class WebSecurityConfig {
 		"/api/logout", "/**"
 	};
 	private static final String[] POST_LIST = {"/swagger-ui/**", "/v3/api-docs/**", "/api/logout", "/**"};
+	private static final String[] PUT_LIST = {"/swagger-ui/**", "/v3/api-docs/**", "/api/logout", "/**"};
+	private static final String[] DELETE_LIST = {"/swagger-ui/**", "/v3/api-docs/**", "/api/logout", "/**"};
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisTemplate<String, String> redisTemplate;
 	private final CustomOAuth2UserService customOAuth2UserService;
@@ -61,6 +63,10 @@ public class WebSecurityConfig {
 						.requestMatchers(HttpMethod.GET, GET_LIST)
 						.permitAll()
 						.requestMatchers(HttpMethod.POST, POST_LIST)
+						.permitAll()
+						.requestMatchers(HttpMethod.PUT, PUT_LIST)
+						.permitAll()
+						.requestMatchers(HttpMethod.DELETE, DELETE_LIST)
 						.permitAll()
 						.requestMatchers("/**")
 						.hasAnyRole("USER", "ADMIN")
