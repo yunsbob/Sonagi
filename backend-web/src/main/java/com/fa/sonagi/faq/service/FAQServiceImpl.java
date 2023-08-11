@@ -21,9 +21,9 @@ public class FAQServiceImpl implements FAQService {
 	private final FAQRepository faqRepository;
 
 	@Override
-	public List<FAQResDto> findAllFAQs() {
-		List<FAQ> allFAQs = faqRepository.findAll();
-		return allFAQs.stream()
+	public List<FAQResDto> findAllFAQ() {
+		List<FAQ> allFAQ = faqRepository.findAll();
+		return allFAQ.stream()
 			.map(faq -> FAQResDto.builder()
 				.id(faq.getId())
 				.title(faq.getTitle())

@@ -12,6 +12,7 @@ import com.fa.sonagi.statistics.health.dto.HealthStatisticsResDto;
 import com.fa.sonagi.statistics.health.dto.HealthStatisticsWeekResDto;
 import com.fa.sonagi.statistics.health.service.HealthStatisticsService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +27,7 @@ public class HealthStatisticsController {
 	 * 건강 통계 조회
 	 */
 	@GetMapping
+	@Operation(summary = "아이 아이디에 해당하는 아이의 해당 날짜에 관한 주별 또는 일별 건강 통계를 조회함")
 	public ResponseEntity<?> getHealthStatistics(@RequestParam Long babyId,
 		@RequestParam String period, @RequestParam LocalDate createdDate) {
 		if (period.equals("day")) {

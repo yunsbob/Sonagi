@@ -37,7 +37,7 @@ public class DiaryController {
 	private final DiaryService diaryService;
 
 	@GetMapping
-	@Operation(summary = "일별 아기의 일기 데이터 조회")
+	@Operation(summary = "일별 아이의 일기 데이터 조회")
 	public ResponseEntity<?> getDiaries(@RequestParam Long babyId,
 		@RequestParam LocalDate writeDay) throws Exception {
 		DiaryResDto.DiaryInfos diaryInfos = diaryService.selectAllByBabyIdAndWriteDay(babyId, writeDay);
@@ -80,7 +80,7 @@ public class DiaryController {
 	public ResponseEntity<?> getDateListByDateInMonth(
 		@Parameter(description = "연도와 월이 포함된 날짜 ex- 2018년 9월에 일기 작성된 날짜 리스트를 받고 싶다 -2018년 9월이 포함된 아무 날짜", required = true)
 		@RequestParam LocalDate localDate,
-		@Parameter(description = "아기 Id", required = true)
+		@Parameter(description = "아이 Id", required = true)
 		@RequestParam Long babyId
 	) throws Exception {
 		return ResponseEntity
