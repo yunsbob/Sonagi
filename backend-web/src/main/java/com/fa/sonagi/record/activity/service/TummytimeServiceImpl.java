@@ -16,54 +16,60 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TummytimeServiceImpl implements TummytimeService {
 
-  private final TummytimeRepository tummytimeRepository;
+	private final TummytimeRepository tummytimeRepository;
 
-  /**
-   * 터미타임 기록 아이디로 조회
-   */
-  @Override
-  public ActivityResDto findTummytimeById(Long id) {
-    ActivityResDto tummytime = tummytimeRepository.findTummytimeRecord(id);
+	/**
+	 * 터미타임 기록 아이디로 조회
+	 */
 
-    return tummytime;
-  }
+	@Override
+	public ActivityResDto findTummytimeById(Long id) {
+		ActivityResDto tummytime = tummytimeRepository.findTummytimeRecord(id);
 
-  /**
-   * 터미타임 기록 등록
-   */
-  @Override
-  @Transactional
-  public void registTummytime(ActivityPostDto activityPostDto) {
-    Tummytime tummytime = Tummytime.builder()
-        .userId(activityPostDto.getUserId())
-        .babyId(activityPostDto.getBabyId())
-        .createdDate(activityPostDto.getCreatedDate())
-        .createdTime(activityPostDto.getCreatedTime())
-        .endTime(activityPostDto.getEndTime())
-        .memo(activityPostDto.getMemo())
-        .build();
+		return tummytime;
+	}
 
-    tummytimeRepository.save(tummytime);
-  }
+	/**
+	 * 터미타임 기록 등록
+	 */
+	@Override
+	@Transactional
+	public void registTummytime(ActivityPostDto activityPostDto) {
+		Tummytime tummytime = Tummytime
+			.builder()
+			.userId(activityPostDto.getUserId())
+			.babyId(activityPostDto.getBabyId())
+			.createdDate(activityPostDto.getCreatedDate())
+			.createdTime(activityPostDto.getCreatedTime())
+			.endTime(activityPostDto.getEndTime())
+			.memo(activityPostDto.getMemo())
+			.build();
 
-  /**
-   * 터미타임 기록 수정
-   */
-  @Override
-  @Transactional
-  public void updateTummytime(ActivityPutDto activityPutDto) {
-    Tummytime tummytime = tummytimeRepository.findById(activityPutDto.getId()).orElseThrow();
-    tummytime.updateTummytime(activityPutDto.getCreatedTime(), activityPutDto.getEndTime(),
-        activityPutDto.getMemo());
-  }
+		tummytimeRepository.save(tummytime);
+	}
 
-  /**
-   * 터미타임 기록 삭제
-   */
-  @Override
-  @Transactional
-  public void deleteTummytime(Long id) {
-    Tummytime tummytime = tummytimeRepository.findById(id).orElseThrow();
-    tummytimeRepository.delete(tummytime);
-  }
+	/**
+	 * 터미타임 기록 수정
+	 */
+	@Override
+	@Transactional
+	public void updateTummytime(ActivityPutDto activityPutDto) {
+		Tummytime tummytime = tummytimeRepository
+			.findById(activityPutDto.getId())
+			.orElseThrow();
+		tummytime.updateTummytime(activityPutDto.getCreatedTime(), activityPutDto.getEndTime(),
+			activityPutDto.getMemo());
+	}
+
+	/**
+	 * 터미타임 기록 삭제
+	 */
+	@Override
+	@Transactional
+	public void deleteTummytime(Long id) {
+		Tummytime tummytime = tummytimeRepository
+			.findById(id)
+			.orElseThrow();
+		tummytimeRepository.delete(tummytime);
+	}
 }

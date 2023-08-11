@@ -191,6 +191,8 @@ public class FCMNotificationService {
 				.build();
 			Message message = Message
 				.builder()
+				.putData("title", title)
+				.putData("content", content)
 				.setToken(user
 					.get()
 					.getFirebaseToken())
