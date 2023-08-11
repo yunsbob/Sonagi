@@ -1,6 +1,6 @@
 package com.fa.sonagi.record.sleep.dto;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SleepResDto {
 	private Long id;
-	private Time createdTime;
-	private Time endTime;
+	private LocalTime createdTime;
+	private LocalTime endTime;
 	private String memo;
 }

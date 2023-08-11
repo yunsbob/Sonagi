@@ -1,6 +1,6 @@
 package com.fa.sonagi.record.extra.dto;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +15,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ExtraResDto {
 	private Long id;
-	private Time createdTime;
+	private LocalTime createdTime;
 	private String memo;
 }

@@ -49,6 +49,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
 		OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
 		log.info(userInfo.getId());
+
 		Users savedUser = userRepository.findBySocialId(userInfo.getId());
 
 		if (savedUser != null) {
@@ -56,7 +57,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 				log.error("CustomOAuth2UserService process Error: 다른 소셜에서 가입된 이메일 입니다. 해당 소셜 로그인을 이용해 주세요.");
 				throw new OAuthProviderMissMatchException(ALREADY_SIGNED_UP_SOCIAL);
 			}
-			// 여기에 토큰 저장
+			// 여기에 기기 토큰 저장
 			updateUser(savedUser, userInfo);
 		} else {
 			savedUser = createUser(userInfo, providerType);
