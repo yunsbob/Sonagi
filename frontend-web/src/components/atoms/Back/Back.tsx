@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import backArrow from '@/assets/images/icon-arrow-left-grey.png';
 import { Image } from '@/components/atoms/Image/Image';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import * as S from '@/components/atoms/Back/Back.styles';
 import type { ComponentPropsWithRef } from 'react';
@@ -14,6 +14,10 @@ const Back = ({ children = '뒤로가기' }: BackProps) => {
   const navigate = useNavigate();
 
   const RouteHandler = useCallback(() => navigate(-1), [navigate]);
+
+  const location = useLocation();
+  //TODO: 경로로 상세기록 안보이게 하기
+  console.log(location.pathname);
 
   return (
     <S.Back onClick={RouteHandler}>
