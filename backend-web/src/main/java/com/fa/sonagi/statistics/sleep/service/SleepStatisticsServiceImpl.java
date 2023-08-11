@@ -57,33 +57,36 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 			yesterdaySleeps.get(checkIdx).setEndTime(LAST_TIME);
 		}
 
-		List<SleepStatisticsQueryDto> pastSleeps = sleepRepository.findSleepByDay(babyId, createdDate.minusDays(1));
+		createdDate = createdDate.minus(1, ChronoUnit.DAYS);
+
+		List<SleepStatisticsQueryDto> pastSleeps = sleepRepository.findSleepByDay(babyId, createdDate);
 		checkIdx = checkTimeDay(pastSleeps);
 		if (checkIdx != -1) {
 			yesterdaySleeps.add(createSleepStatisticsQueryDto(pastSleeps.get(checkIdx).getEndTime()));
 		}
 
+		sleepStatisticsResDto.setSleeps(sleeps);
+
 		// 카드 통계
 		Long sleepTime = sumSleepTimeDay(sleeps);
 		long cnt = sleeps.size();
-		sleepStatisticsResDto.setSleeps(sleeps);
-		sleepStatisticsResDto.setSleepCnt(cnt);
-		sleepStatisticsResDto.setAllSleepHour(sleepTime / 60);
-		sleepStatisticsResDto.setAllSleepMinute(sleepTime % 60);
+		sleepStatisticsResDto.setCnt(cnt);
+		sleepStatisticsResDto.setSleepHour(sleepTime / 60);
+		sleepStatisticsResDto.setSleepMinute(sleepTime % 60);
 
 		// 수면 횟수 통계 계산
 		Long yesterdayCnt = (long)yesterdaySleeps.size();
 		Long cntPercent = getPercent(cnt, yesterdayCnt);
 		Long yesterdayCntPercent = getPercent(yesterdayCnt, cnt);
-		sleepStatisticsResDto.setSleepCntPercent(cntPercent);
-		sleepStatisticsResDto.setYesterdaySleepCntPercent(yesterdayCntPercent);
+		sleepStatisticsResDto.setCntPercent(cntPercent);
+		sleepStatisticsResDto.setYesterdayCntPercent(yesterdayCntPercent);
 
 		// 수면 시간 통계 계산
 		Long yesterdaySleepTime = sumSleepTimeDay(yesterdaySleeps);
 		Long timePercent = getPercent(sleepTime, yesterdaySleepTime);
 		Long yesterdayTimePercent = getPercent(yesterdaySleepTime, sleepTime);
-		sleepStatisticsResDto.setAllSleepPercent(timePercent);
-		sleepStatisticsResDto.setYesterdayAllSleepPercent(yesterdayTimePercent);
+		sleepStatisticsResDto.setSleepPercent(timePercent);
+		sleepStatisticsResDto.setYesterdaySleepPercent(yesterdayTimePercent);
 
 		return sleepStatisticsResDto;
 	}
