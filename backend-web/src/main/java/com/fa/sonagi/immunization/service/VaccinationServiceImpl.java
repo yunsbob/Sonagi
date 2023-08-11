@@ -36,7 +36,7 @@ public class VaccinationServiceImpl implements VaccinationService {
 			vaccinationId);
 
 		return VaccinationResDto.builder()
-			.id(vaccinationStatus.getId())
+			.vaccinationStatusId(vaccinationStatus.getId())
 			.vaccinationId(vaccinationStatus.getVaccination().getId())
 			.disease(vaccinationStatus.getVaccination().getDisease())
 			.vaccineName(vaccinationStatus.getVaccination().getVaccineName())
@@ -59,7 +59,7 @@ public class VaccinationServiceImpl implements VaccinationService {
 		List<VaccinationStatus> vaccinationStatus = vaccinationStatusRepository.findByBabyId(babyId);
 		List<VaccinationResDto> vaccinationResDto = vaccinationStatus.stream()
 			.map(v -> VaccinationResDto.builder()
-				.id(v.getId())
+				.vaccinationStatusId(v.getId())
 				.vaccinationId(v.getVaccination().getId())
 				.disease(v.getVaccination().getDisease())
 				.vaccineName(v.getVaccination().getVaccineName())
@@ -79,7 +79,7 @@ public class VaccinationServiceImpl implements VaccinationService {
 	@Override
 	@Transactional
 	public void updateVaccinationDate(VaccinationPutDto vaccinationPutDto) {
-		VaccinationStatus vaccinationStatus = vaccinationStatusRepository.findById(vaccinationPutDto.getId())
+		VaccinationStatus vaccinationStatus = vaccinationStatusRepository.findById(vaccinationPutDto.getVaccinationStatusId())
 			.orElseThrow();
 		vaccinationStatus.updateVaccination(vaccinationPutDto.getVaccinationDate());
 	}
