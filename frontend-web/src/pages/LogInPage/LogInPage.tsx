@@ -35,8 +35,8 @@ const LogInPage = () => {
         Cookies.set('androidToken', androidToken, {
           path: '/',
           expires,
-          secure: true,
-          httpOnly: true,
+          // secure: true,
+          // httpOnly: true,
         });
       }
     });
