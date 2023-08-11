@@ -8,7 +8,7 @@ public interface FeverService {
 
   FeverResDto findFeverById(Long id);
 
-  void registFever(FeverPostDto feverPostDto);
+  FeverResDto registFever(FeverPostDto feverPostDto);
 
   void updateFever(FeverPutDto feverPutDto);
 
