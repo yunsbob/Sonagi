@@ -18,7 +18,6 @@ import { currentBabyState } from '@/states/babyState';
 const CoparentList = () => {
   const userInfo: User = useRecoilValue(userInfoState);
   const babyInfo: BabiesOfUser = useRecoilValue(currentBabyState);
-  console.log(babyInfo.babyId);
   const coparents = useGetCoParent(userInfo.userId, babyInfo.babyId);
 
   const profileColor: string[] = ['red', 'green', 'blue'];
