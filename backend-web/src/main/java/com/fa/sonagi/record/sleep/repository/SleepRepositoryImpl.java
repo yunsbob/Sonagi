@@ -21,7 +21,7 @@ public class SleepRepositoryImpl implements SleepRepositoryCustom {
 	public SleepResDto findSleepRecord(Long sleepId) {
 		SleepResDto sleeps = queryFactory
 			.select(Projections.bean(SleepResDto.class,
-				sleep.id,
+				sleep.id.as("sleepId"),
 				sleep.createdTime,
 				sleep.endTime,
 				sleep.memo))

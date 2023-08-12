@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class FeedingPutDto {
 	@NotNull
-	private Long id;
+	private Long mealId;
 
 	@NotNull
 	private LocalTime leftStartTime;

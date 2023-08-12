@@ -14,8 +14,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ActivityResDto {
-	private Long id;
+	private Long activityId;
 	private LocalTime createdTime;
 	private LocalTime endTime;
 	private String memo;
 }
+

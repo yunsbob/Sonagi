@@ -11,7 +11,7 @@ import lombok.Setter;
 public class DiaperPutDto {
 
 	@NotNull
-	private Long id;
+	private Long diaperId;
 
 	@NotNull
 	private LocalTime createdTime;

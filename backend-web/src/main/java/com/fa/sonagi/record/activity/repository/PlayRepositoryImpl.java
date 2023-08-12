@@ -21,7 +21,7 @@ public class PlayRepositoryImpl implements PlayRepositoryCustom {
 	public ActivityResDto findPlayRecord(Long playId) {
 		ActivityResDto plays = queryFactory
 			.select(Projections.bean(ActivityResDto.class,
-				play.id,
+				play.id.as("activityId"),
 				play.createdTime,
 				play.endTime,
 				play.memo))

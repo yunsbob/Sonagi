@@ -11,7 +11,7 @@ import lombok.Setter;
 public class SnackPutDto {
 
 	@NotNull
-	private Long id;
+	private Long mealId;
 
 	private String memo;
 

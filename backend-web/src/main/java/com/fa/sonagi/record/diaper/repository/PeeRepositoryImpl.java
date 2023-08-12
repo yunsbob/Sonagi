@@ -26,7 +26,7 @@ public class PeeRepositoryImpl implements PeeRepositoryCustom{
 	public DiaperResDto findPeeRecord(Long peeId) {
 		DiaperResDto pees = queryFactory
 			.select(Projections.bean(DiaperResDto.class,
-				pee.id,
+				pee.id.as("diaperId"),
 				pee.createdTime,
 				pee.memo))
 			.from(pee)

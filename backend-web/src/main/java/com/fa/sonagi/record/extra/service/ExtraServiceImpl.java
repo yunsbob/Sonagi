@@ -44,7 +44,7 @@ public class ExtraServiceImpl implements ExtraService {
     extraRepository.save(extra);
 
     return ExtraResDto.builder()
-        .id(extra.getId())
+        .extraId(extra.getId())
         .createdTime(extra.getCreatedTime())
         .memo(extra.getMemo())
         .build();
@@ -56,7 +56,7 @@ public class ExtraServiceImpl implements ExtraService {
   @Override
   @Transactional
   public void updateExtra(ExtraPutDto extraPutDto) {
-    Extra extra = extraRepository.findById(extraPutDto.getId()).orElseThrow();
+    Extra extra = extraRepository.findById(extraPutDto.getExtraId()).orElseThrow();
     extra.updateExtra(extraPutDto.getCreatedTime(), extraPutDto.getMemo());
   }
 

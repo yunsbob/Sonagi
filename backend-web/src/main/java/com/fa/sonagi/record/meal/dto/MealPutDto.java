@@ -11,7 +11,7 @@ import lombok.Setter;
 public class MealPutDto {
 
 	@NotNull
-	private Long id;
+	private Long mealId;
 
 	@NotNull
 	private Long amount;
