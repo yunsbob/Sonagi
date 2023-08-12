@@ -104,6 +104,7 @@ const color = {
   calendarTodayBg: '#E9FAFB',
   calendarTodayFont: '#4EB1F8',
   calendarBeforeFont: '#94A3B8',
+  calendarDot: '#92D1FF',
 } as const;
 
 const fontSize = {

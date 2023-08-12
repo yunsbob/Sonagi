@@ -5,7 +5,7 @@ const WeekendCalendarContainer = styled.div`
   display: flex;
   background-color: ${() => theme.color.white1};
   box-sizing: border-box;
-  padding: 10px;
+  padding: 1rem 0.5rem 0.5rem 0.5rem;
   justify-content: space-around;
 `;
 

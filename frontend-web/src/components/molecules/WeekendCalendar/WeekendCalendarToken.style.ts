@@ -4,6 +4,9 @@ import theme from '../../../styles/theme';
 interface TokenWrapperProps {
   statusOfDay: 'beforeToday' | 'isToday' | 'afterToday';
 }
+interface FloatingPointProps {
+  isRecorded: boolean;
+}
 
 export const TokenWrapper = styled.div<TokenWrapperProps>`
   display: flex;
@@ -18,11 +21,13 @@ export const TokenWrapper = styled.div<TokenWrapperProps>`
   min-width: 14%;
 `;
 
-export const floatingPoint = styled.div`
+export const FloatingPoint = styled.div<FloatingPointProps>`
   position: absolute;
   font-weight: 900;
-  font-size: 30px;
-  top: -10%;
-  left: 30%;
-  transform: translate(-5%, 10%);
+  font-size: 20px;
+  top: -25%;
+  left: 50%;
+  opacity: ${({ isRecorded }) => (isRecorded ? '100%' : '0%')};
+  color: ${() => theme.color.calendarDot};
+  transform: translate(-50%, 50%);
 `;
