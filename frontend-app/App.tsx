@@ -29,7 +29,9 @@ const App = () => {
   }, []);
   const requestMultiplePermissions = () => {
     requestMultiple([
-      PERMISSIONS.ANDROID.POST_NOTIFICATIONS,
+      // PERMISSIONS.ANDROID.POST_NOTIFICATIONS,
+      // PERMISSIONS.ANDROID.READ_MEDIA_IMAGES,
+      PERMISSIONS.ANDROID.READ_PHONE_STATE,
       // PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
     ]).then(response => {
       console.log('MULTIPLE REQUEST RESPONSE : ', response);
@@ -38,13 +40,17 @@ const App = () => {
 
   const checkMultiplePermissions = () => {
     checkMultiple([
-      PERMISSIONS.ANDROID.POST_NOTIFICATIONS,
+      // PERMISSIONS.ANDROID.POST_NOTIFICATIONS,
+      // PERMISSIONS.ANDROID.READ_MEDIA_IMAGES,
+      PERMISSIONS.ANDROID.READ_PHONE_STATE,
       // PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
     ]).then(response => {
       console.log('MULTIPLE CHECK RESPONSE : ', response);
       // console.log(response['android.permission.POST_NOTIFICATIONS']);
       if (
-        response['android.permission.POST_NOTIFICATIONS'] === 'denied'
+        // response['android.permission.POST_NOTIFICATIONS'] === 'denied' ||
+        // response['android.permission.READ_MEDIA_IMAGES'] === 'denied'
+        response['android.permission.READ_PHONE_STATE'] === 'denied'
         // response['android.permission.WRITE_EXTERNAL_STORAGE'] === 'denied'
       ) {
         requestMultiplePermissions();
@@ -139,6 +145,8 @@ const App = () => {
       userAgent={DeviceInfo.getUserAgent() + '-kwdApp-'}
       sharedCookiesEnabled={true}
       domStorageEnabled={true}
+      allowFileAccess={true}
+      javaScriptEnabledAndroid={true}
       injectedJavaScript={`
         (function() {
           function wrap(fn) {

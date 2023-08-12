@@ -24,7 +24,14 @@ const BabyCodeModal = ({ onModalClose, modalOpen }: CustomModal) => {
 
   const handleCopyClick = async () => {
     try {
-      await navigator.clipboard.writeText(code);
+      await navigator.clipboard
+        .writeText(code)
+        .then(() => {
+          alert('successfully copied');
+        })
+        .catch(err => {
+          alert(err);
+        });
       setShowToast(true);
       setTimeout(() => {
         setShowToast(false);
