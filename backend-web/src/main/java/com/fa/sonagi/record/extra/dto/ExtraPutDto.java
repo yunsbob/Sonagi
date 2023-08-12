@@ -11,7 +11,7 @@ import lombok.Setter;
 public class ExtraPutDto {
 
 	@NotNull
-	private Long id;
+	private Long extraId;
 
 	@NotNull
 	private LocalTime createdTime;

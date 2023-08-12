@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "extra",
 	indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id, created_date"))
-
 public class Extra {
 
 	@Id

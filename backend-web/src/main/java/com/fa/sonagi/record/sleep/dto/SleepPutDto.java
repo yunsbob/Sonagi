@@ -11,7 +11,7 @@ import lombok.Setter;
 public class SleepPutDto {
 
 	@NotNull
-	private Long id;
+	private Long sleepId;
 
 	@NotNull
 	private LocalTime createdTime;

@@ -23,7 +23,7 @@ public class BabyFoodRepositoryImpl implements BabyFoodRepositoryCustom{
 	public MealResDto findBabyFoodRecord(Long babyFoodId) {
 		MealResDto babyFoods = queryFactory
 			.select(Projections.bean(MealResDto.class,
-				babyFood.id,
+				babyFood.id.as("mealId"),
 				babyFood.amount,
 				babyFood.memo,
 				babyFood.createdTime))

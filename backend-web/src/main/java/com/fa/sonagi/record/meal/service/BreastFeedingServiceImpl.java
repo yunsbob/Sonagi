@@ -57,7 +57,7 @@ public class BreastFeedingServiceImpl implements BreastFeedingService {
 		baby.updateMealOn("N");
 
 		return MealResDto.builder()
-			.id(breastFeeding.getId())
+			.mealId(breastFeeding.getId())
 			.amount(breastFeeding.getAmount())
 			.memo(breastFeeding.getMemo())
 			.createdTime(breastFeeding.getCreatedTime())
@@ -71,7 +71,7 @@ public class BreastFeedingServiceImpl implements BreastFeedingService {
 	@Transactional
 	public void updateBreastFeeding(MealPutDto mealPutDto) {
 		BreastFeeding breastFeeding = breastFeedingRepository
-			.findById(mealPutDto.getId())
+			.findById(mealPutDto.getMealId())
 			.orElseThrow();
 
 		breastFeeding.updateBreastFeeding(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());

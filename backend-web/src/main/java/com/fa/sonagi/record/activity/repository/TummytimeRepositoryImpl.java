@@ -21,7 +21,7 @@ public class TummytimeRepositoryImpl implements TummytimeRepositoryCustom {
 	public ActivityResDto findTummytimeRecord(Long tummytimeId) {
 		ActivityResDto tummytimes = queryFactory
 			.select(Projections.bean(ActivityResDto.class,
-				tummytime.id,
+				tummytime.id.as("activityId"),
 				tummytime.createdTime,
 				tummytime.endTime,
 				tummytime.memo))

@@ -48,7 +48,7 @@ public class TummytimeServiceImpl implements TummytimeService {
 		tummytimeRepository.save(tummytime);
 
 		return ActivityResDto.builder()
-			.id(tummytime.getId())
+			.activityId(tummytime.getId())
 			.createdTime(tummytime.getCreatedTime())
 			.endTime(tummytime.getEndTime())
 			.memo(tummytime.getMemo())
@@ -62,7 +62,7 @@ public class TummytimeServiceImpl implements TummytimeService {
 	@Transactional
 	public void updateTummytime(ActivityPutDto activityPutDto) {
 		Tummytime tummytime = tummytimeRepository
-			.findById(activityPutDto.getId())
+			.findById(activityPutDto.getActivityId())
 			.orElseThrow();
 		tummytime.updateTummytime(activityPutDto.getCreatedTime(), activityPutDto.getEndTime(),
 			activityPutDto.getMemo());

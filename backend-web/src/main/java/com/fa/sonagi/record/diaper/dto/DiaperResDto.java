@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DiaperResDto {
-	private Long id;
+	private Long diaperId;
 	private LocalTime createdTime;
 	private String memo;
 }

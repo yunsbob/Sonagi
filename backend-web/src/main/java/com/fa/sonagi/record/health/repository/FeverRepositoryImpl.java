@@ -21,7 +21,7 @@ public class FeverRepositoryImpl implements FeverRepositoryCustom {
 	public FeverResDto findFeverRecord(Long feverId) {
 		FeverResDto fevers = queryFactory
 			.select(Projections.bean(FeverResDto.class,
-				fever.id,
+				fever.id.as("healthId"),
 				fever.createdTime,
 				fever.bodyTemperature,
 				fever.memo))
