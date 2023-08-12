@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import WeekendCalendarToken from '../../molecules/WeekendCalendar/WeekendCalendarToken';
 import getWeekendDate from '../../../utils/weekendUtils';
 import WeekendCalendarContainer from './WeekendCalendar.styles';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 //TODO: isRecoredDay 데이터 바인딩 이후 처리용 함수 제작.
 
@@ -22,20 +22,16 @@ const WeekendCalendar: React.FC<WeekendCalendarProps> = ({
   >([]);
 
   useEffect(() => {
-    const calculatedWeekendDateList: Array<{ date: Dayjs; day: string }> =
-      getWeekendDate(selectedDate);
-    setWeekendDateList(calculatedWeekendDateList);
+    setWeekendDateList(getWeekendDate(selectedDate));
   }, [selectedDate]);
 
-  const jStatusOfDay: StatusOfDay[] = [
-    'beforeToday',
-    'beforeToday',
-    'beforeToday',
-    'isToday',
-    'afterToday',
-    'afterToday',
-    'afterToday',
-  ];
+  const jStatusOfDay = (date: Dayjs): StatusOfDay => {
+    if (date.isAfter(dayjs())) {
+      return 'afterToday';
+    }
+    return 'beforeToday';
+  };
+
   return (
     <>
       <WeekendCalendarContainer>
@@ -44,7 +40,11 @@ const WeekendCalendar: React.FC<WeekendCalendarProps> = ({
             key={index}
             dayNumber={dateMap['date']}
             dayOfWeek={dateMap['day']}
-            statusOfDay={jStatusOfDay[index]}
+            statusOfDay={
+              dateMap['date'].isSame(dayjs(selectedDate))
+                ? 'isToday'
+                : jStatusOfDay(dateMap['date'])
+            }
             isRecoredDay={true}
             onClick={() => onDateChange(dateMap['date'].toDate())} // 클릭 핸들러 추가
           />
