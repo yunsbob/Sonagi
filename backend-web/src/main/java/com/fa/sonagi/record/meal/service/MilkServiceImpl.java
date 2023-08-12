@@ -57,7 +57,7 @@ public class MilkServiceImpl implements MilkService {
 		baby.updateMealOn("N");
 
 		return MealResDto.builder()
-			.id(milk.getId())
+			.mealId(milk.getId())
 			.amount(milk.getAmount())
 			.memo(milk.getMemo())
 			.createdTime(milk.getCreatedTime())
@@ -71,7 +71,7 @@ public class MilkServiceImpl implements MilkService {
 	@Transactional
 	public void updateMilk(MealPutDto mealPutDto) {
 		Milk milk = milkRepository
-			.findById(mealPutDto.getId())
+			.findById(mealPutDto.getMealId())
 			.orElseThrow();
 
 		milk.updateMilk(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());

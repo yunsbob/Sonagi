@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FeverResDto {
-	private Long id;
+	private Long healthId;
 	private LocalTime createdTime;
 	private Double bodyTemperature;
 	private String memo;

@@ -11,7 +11,7 @@ import lombok.Setter;
 public class PumpingBreastPutDto {
 
 	@NotNull
-	private Long id;
+	private Long pumpingBreastId;
 
 	@NotNull
 	private Long amount;

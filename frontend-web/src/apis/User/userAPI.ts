@@ -9,4 +9,13 @@ const updateUser = async (user: User) => {
   }
 };
 
-export { updateUser };
+const getNotification = async (userId: number) => {
+  try {
+    const response = await instance.get(`/notification/${userId}`);
+    return response.data;
+  } catch {
+    new Error('get user notification state');
+  }
+};
+
+export { updateUser, getNotification };

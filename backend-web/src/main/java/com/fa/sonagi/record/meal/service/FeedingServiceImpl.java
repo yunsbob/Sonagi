@@ -60,7 +60,7 @@ public class FeedingServiceImpl implements FeedingService {
 		baby.updateMealOn("N");
 
 		return FeedingResDto.builder()
-			.id(feeding.getId())
+			.mealId(feeding.getId())
 			.leftStartTime(feeding.getLeftStartTime())
 			.rightStartTime(feeding.getRightStartTime())
 			.leftEndTime(feeding.getLeftEndTime())
@@ -76,7 +76,7 @@ public class FeedingServiceImpl implements FeedingService {
 	@Transactional
 	public void updateFeeding(FeedingPutDto feedingPutDto) {
 		Feeding feeding = feedingRepository
-			.findById(feedingPutDto.getId())
+			.findById(feedingPutDto.getMealId())
 			.orElseThrow();
 
 		feeding.updateFeeding(feedingPutDto.getLeftStartTime(), feedingPutDto.getRightStartTime(), feedingPutDto.getLeftEndTime(), feedingPutDto.getRightEndTime(), feedingPutDto.getMemo());

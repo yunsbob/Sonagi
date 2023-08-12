@@ -19,9 +19,10 @@ public class FeedingRepositoryImpl implements FeedingRepostioryCustom{
 
 	@Override
 	public FeedingResDto findFeedingRecord(Long feedingId) {
+		System.out.println(feedingId);
 		FeedingResDto feedings = queryFactory
 			.select(Projections.bean(FeedingResDto.class,
-				feeding.id,
+				feeding.id.as("mealId"),
 				feeding.leftStartTime,
 				feeding.rightStartTime,
 				feeding.leftEndTime,
@@ -30,7 +31,6 @@ public class FeedingRepositoryImpl implements FeedingRepostioryCustom{
 			.from(feeding)
 			.where(feeding.id.eq(feedingId))
 			.fetchOne();
-
 		return feedings;
 	}
 

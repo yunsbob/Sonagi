@@ -45,7 +45,7 @@ public class FeverServiceImpl implements FeverService {
     feverRepository.save(fever);
 
     return FeverResDto.builder()
-        .id(fever.getId())
+        .healthId(fever.getId())
         .createdTime(fever.getCreatedTime())
         .bodyTemperature(fever.getBodyTemperature())
         .memo(fever.getMemo())
@@ -58,7 +58,7 @@ public class FeverServiceImpl implements FeverService {
   @Override
   @Transactional
   public void updateFever(FeverPutDto feverPutDto) {
-    Fever fever = feverRepository.findById(feverPutDto.getId()).orElseThrow();
+    Fever fever = feverRepository.findById(feverPutDto.getHealthId()).orElseThrow();
     fever.updateFever(feverPutDto.getCreatedTime(), feverPutDto.getBodyTemperature(),
         feverPutDto.getMemo());
   }

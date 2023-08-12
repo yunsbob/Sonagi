@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StatisticsTime {
-	LocalDate createdDate;
-	LocalTime createdTime;
-	LocalTime endTime;
+	private LocalDate createdDate;
+	private LocalTime createdTime;
+	private LocalTime endTime;
 }

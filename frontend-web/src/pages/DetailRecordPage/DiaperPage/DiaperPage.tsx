@@ -13,7 +13,7 @@ interface NameProps {
 const DiaperPage: React.FC<NameProps> = ({ name }) => {
   return (
     <>
-      <Back>{name}</Back>
+      <Back>{name + ' 상세페이지'}</Back>
       <S.DiaperPageContainer>
         <S.DiaperPageWrapper>
           <S.Divider>

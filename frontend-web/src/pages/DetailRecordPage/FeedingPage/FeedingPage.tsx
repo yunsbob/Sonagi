@@ -14,7 +14,7 @@ interface NameProps {
 const FeedingPage: React.FC<NameProps> = ({ name }) => {
   return (
     <>
-      <Back>{name}</Back>
+      <Back>{name + ' 상세페이지'}</Back>
       <S.FeedingPageContainer>
         <S.FeedingPageWrapper className="scrollable">
           <S.Divider>
