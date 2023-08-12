@@ -21,7 +21,7 @@ public class SnackRepositoryImpl implements SnackRepositoryCustom{
 	public SnackResDto findSnackRecord(Long snackId) {
 		SnackResDto snacks = queryFactory
 			.select(Projections.bean(SnackResDto.class,
-				snack.id,
+				snack.id.as("mealId"),
 				snack.memo,
 				snack.createdTime))
 			.from(snack)

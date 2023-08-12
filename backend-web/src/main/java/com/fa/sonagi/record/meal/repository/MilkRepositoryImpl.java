@@ -23,7 +23,7 @@ public class MilkRepositoryImpl implements MilkRepositoryCustom{
 	public MealResDto findMilkRecord(Long milkId) {
 		MealResDto milks = queryFactory
 			.select(Projections.bean(MealResDto.class,
-				milk.id,
+				milk.id.as("mealId"),
 				milk.amount,
 				milk.memo,
 				milk.createdTime))

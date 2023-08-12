@@ -22,7 +22,7 @@ public class ExtraRepositoryImpl implements ExtraRepositoryCustom {
 	public ExtraResDto findExtraByDay(Long extraId) {
 		ExtraResDto extras = queryFactory
 			.select(Projections.bean(ExtraResDto.class,
-				extra.id,
+				extra.id.as("extraId"),
 				extra.createdTime,
 				extra.memo))
 			.from(extra)

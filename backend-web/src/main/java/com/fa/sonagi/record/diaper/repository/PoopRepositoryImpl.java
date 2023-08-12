@@ -25,7 +25,7 @@ public class PoopRepositoryImpl implements PoopRepositoryCustom{
 	public DiaperResDto findPoopRecord(Long poopId) {
 		DiaperResDto poops = queryFactory
 			.select(Projections.bean(DiaperResDto.class,
-				poop.id,
+				poop.id.as("diaperId"),
 				poop.createdTime,
 				poop.memo))
 			.from(poop)

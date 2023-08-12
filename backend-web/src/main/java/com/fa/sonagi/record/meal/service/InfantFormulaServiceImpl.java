@@ -57,7 +57,7 @@ public class InfantFormulaServiceImpl implements InfantFormulaService {
 		baby.updateMealOn("N");
 
 		return MealResDto.builder()
-			.id(infantFormula.getId())
+			.mealId(infantFormula.getId())
 			.amount(infantFormula.getAmount())
 			.memo(infantFormula.getMemo())
 			.createdTime(infantFormula.getCreatedTime())
@@ -71,7 +71,7 @@ public class InfantFormulaServiceImpl implements InfantFormulaService {
 	@Transactional
 	public void updateInfantFormula(MealPutDto mealPutDto) {
 		InfantFormula infantFormula = infantFormulaRepository
-			.findById(mealPutDto.getId())
+			.findById(mealPutDto.getMealId())
 			.orElseThrow();
 
 		infantFormula.updateInfantFormula(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());

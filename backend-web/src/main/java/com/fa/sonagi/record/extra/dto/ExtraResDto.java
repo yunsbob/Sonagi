@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExtraResDto {
-	private Long id;
+	private Long extraId;
 	private LocalTime createdTime;
 	private String memo;
 }

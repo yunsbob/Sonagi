@@ -44,7 +44,7 @@ public class HospitalServiceImpl implements HospitalService {
     hospitalRepository.save(hospital);
 
     return HealthResDto.builder()
-        .id(hospital.getId())
+        .healthId(hospital.getId())
         .createdTime(hospital.getCreatedTime())
         .memo(hospital.getMemo())
         .build();
@@ -56,7 +56,7 @@ public class HospitalServiceImpl implements HospitalService {
   @Override
   @Transactional
   public void updateHospital(HealthPutDto healthPutDto) {
-    Hospital hospital = hospitalRepository.findById(healthPutDto.getId()).orElseThrow();
+    Hospital hospital = hospitalRepository.findById(healthPutDto.getHealthId()).orElseThrow();
     hospital.updateHospital(healthPutDto.getCreatedTime(), healthPutDto.getMemo());
   }
 

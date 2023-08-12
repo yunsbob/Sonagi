@@ -23,7 +23,7 @@ public class InfantFormulaRepositoryImpl implements InfantFormulaRepositoryCusto
 	public MealResDto findInfantFormulaRecord(Long infantFormulaId) {
 		MealResDto infantFormulas = queryFactory
 			.select(Projections.bean(MealResDto.class,
-				infantFormula.id,
+				infantFormula.id.as("mealId"),
 				infantFormula.amount,
 				infantFormula.memo,
 				infantFormula.createdTime))

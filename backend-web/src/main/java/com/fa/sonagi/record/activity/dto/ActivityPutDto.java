@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class ActivityPutDto {
 	@NotNull
-	private Long id;
+	private Long activityId;
 
 	@NotNull
 	private LocalTime createdTime;

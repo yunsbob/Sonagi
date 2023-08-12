@@ -44,7 +44,7 @@ public class MedicationServiceImpl implements MedicationService {
     medicationRepository.save(medication);
 
     return HealthResDto.builder()
-        .id(medication.getId())
+        .healthId(medication.getId())
         .createdTime(medication.getCreatedTime())
         .memo(medication.getMemo())
         .build();
@@ -56,7 +56,7 @@ public class MedicationServiceImpl implements MedicationService {
   @Override
   @Transactional
   public void updateMedication(HealthPutDto healthPutDto) {
-    Medication medication = medicationRepository.findById(healthPutDto.getId()).orElseThrow();
+    Medication medication = medicationRepository.findById(healthPutDto.getHealthId()).orElseThrow();
     medication.updateMedication(healthPutDto.getCreatedTime(), healthPutDto.getMemo());
   }
 

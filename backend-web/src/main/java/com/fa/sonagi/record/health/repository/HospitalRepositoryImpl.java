@@ -22,7 +22,7 @@ public class HospitalRepositoryImpl implements HospitalRepositoryCustom {
 	public HealthResDto findHospitalRecord(Long hospitalId) {
 		HealthResDto hospitals = queryFactory
 			.select(Projections.bean(HealthResDto.class,
-				hospital.id,
+				hospital.id.as("healthId"),
 				hospital.createdTime,
 				hospital.memo))
 			.from(hospital)
