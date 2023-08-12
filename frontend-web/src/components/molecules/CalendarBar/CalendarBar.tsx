@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
 import moment from 'moment';
 import { CalendarModal } from '@/components/organisms/CalendarModal/CalendarModal';
+import dayjs from 'dayjs';
 
 interface CalendarBarProps {
   onDateChange: (date: Date) => void; // 날짜를 인자로 받고 아무 것도 반환하지 않음
@@ -45,6 +46,9 @@ const CalendarBar: React.FC<CalendarBarProps> = ({
   const onChangeDay = (days: number) => {
     const newDate = new Date(pickDate);
     newDate.setDate(newDate.getDate() + days);
+    if (dayjs(newDate).isAfter(dayjs())) {
+      return;
+    }
     setPickDate(newDate);
     onDateChange(newDate); // 상위로 건네주기
   };
