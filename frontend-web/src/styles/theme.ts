@@ -100,6 +100,10 @@ const color = {
   cardPumpingBreast2: '#FFE6A6',
 
   cardExtra: '#BDBDBD',
+  // 일자 달력 색깔
+  calendarTodayBg: '#E9FAFB',
+  calendarTodayFont: '#4EB1F8',
+  calendarBeforeFont: '#94A3B8',
 } as const;
 
 const fontSize = {

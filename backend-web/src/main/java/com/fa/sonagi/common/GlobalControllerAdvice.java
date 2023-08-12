@@ -13,6 +13,14 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice(basePackages = "com.fa")
 public class GlobalControllerAdvice {
 
+	@ExceptionHandler(value = MethodArgumentNotValidException.class)
+	public ResponseEntity methodArgumentNotValidException(MethodArgumentNotValidException e) {
+		log.info("exception is found at /{} ", e.getMessage());
+		return ResponseEntity
+			.status(HttpStatus.BAD_REQUEST)
+			.body(e.getBindingResult());
+	}
+
 	// 모든 Exception 핸들러 정의
 	// 500 Error Code 반환 : 서버 에러
 	@ExceptionHandler(value = Exception.class)
@@ -23,11 +31,4 @@ public class GlobalControllerAdvice {
 			.body("exception is found at /{} " + e.getMessage());
 	}
 
-	@ExceptionHandler(value = MethodArgumentNotValidException.class)
-	public ResponseEntity methodArgumentNotValidException(MethodArgumentNotValidException e) {
-		log.info("exception is found at /{} ", e.getMessage());
-		return ResponseEntity
-			.status(HttpStatus.BAD_REQUEST)
-			.body(e.getBindingResult());
-	}
 }
