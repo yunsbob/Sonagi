@@ -31,7 +31,7 @@ const TemperaturePage: React.FC<NameProps> = ({ name }) => {
               unitArray={[-1, -0.5, -0.1, +0.1, +0.5, +1.0]}
               defaultValue={36.5}
               minValue={35}
-              maxValue={423232}
+              maxValue={40}
             ></AmountRecorder>
           </S.Divider>
           <S.Divider>

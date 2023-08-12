@@ -139,6 +139,8 @@ const App = () => {
       }
       sharedCookiesEnabled={true}
       domStorageEnabled={true}
+      allowFileAccess={true}
+      javaScriptEnabledAndroid={true}
       injectedJavaScript={`
         (function() {
           function wrap(fn) {
