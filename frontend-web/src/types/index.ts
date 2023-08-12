@@ -16,6 +16,12 @@ interface BabiesOfUser {
   gender: string;
 }
 
+interface FAQ {
+  id: number;
+  title: string;
+  content: string;
+}
+
 // 가능한 모든 카테고리 목록
 type Category =
   | 'All'
@@ -73,4 +79,5 @@ export type {
   RecordsByCategory,
   RecordData,
   CustomModal,
+  FAQ,
 };

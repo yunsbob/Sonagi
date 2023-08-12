@@ -15,6 +15,10 @@ const PATH = {
   MYPAGE: '/main/myPage',
   REGISTERBABYPROFILE: '/regBabyProfile',
   DETAILRECORD: '/main/detailRecord',
+  ADMIN: '/admin',
+  FAQ: '/admin/faq',
+  QUESTION: '/admin/question',
+  RESTORE: '/admin/restore',
 } as const;
 
 export { PATH };

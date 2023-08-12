@@ -20,6 +20,13 @@ import { GraphByDay } from '@/components/organisms/GraphByDay/GraphByDay';
 import { GraphByWeek } from '@/components/organisms/GraphByWeek/GraphByWeek';
 import RedirectPage from '@/pages/RedirectPage/RedirectPage';
 import { DetailRecordPage } from '@/pages/DetailRecordPage/DetailRecordPage';
+import AdminPage from '@/pages/AdminPage/AdminPage';
+import FAQPage from '@/pages/FAQPage/FAQPage';
+import FAQDetailPage from '@/pages/FAQPage/FAQDetailPage';
+import FAQModifyPage from '@/pages/FAQPage/FAQModifyPage';
+import QuestionPage from '@/components/QuestionPage/QuestionPage';
+import RestorePage from '@/pages/RestorePage/RestorePage';
+import FAQCreatePage from '@/pages/FAQPage/FAQCreatePage';
 
 const router = createBrowserRouter([
   {
@@ -68,6 +75,18 @@ const router = createBrowserRouter([
       { path: 'diary', element: <DiaryPage /> },
       { path: 'myPage', element: <MyPagePage /> },
       { path: 'detailRecord', element: <DetailRecordPage /> },
+    ],
+  },
+  {
+    path: PATH.ADMIN,
+    element: <AdminPage />,
+    children: [
+      { path: 'faq', element: <FAQPage /> },
+      { path: 'faq/:id', element: <FAQDetailPage /> },
+      { path: 'faq/modify/:id', element: <FAQModifyPage /> },
+      { path: 'faq/create', element: <FAQCreatePage /> },
+      { path: 'question', element: <QuestionPage /> },
+      { path: 'restore', element: <RestorePage /> },
     ],
   },
 ]);
