@@ -1,4 +1,6 @@
+import React, { useState } from 'react';
 import Button from '@/components/atoms/Button/Button';
+import moment from 'moment';
 import { RecordBarContainer } from '@/components/molecules/RecordBar/RecordBar.styles';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCategoryState } from '@/states/categoryState';
@@ -6,58 +8,137 @@ import { Category, RecordData } from '@/types';
 import { recordedValues, recordsByCategory } from '@/states/recordState';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { PATH } from '@/constants/path';
-import { useState } from 'react';
-import { RecordTypeA } from '@/types/recordTypes';
-
-// const LowBorderButton = styled(Button)<{ $borderColor: string }>`
-//   border-color: ${({ $borderColor }) => $borderColor + '96'};
-// `;
+import { useAddRecordTypeA } from '@/apis/Record/Mutations/useAddRecordTypeA';
+import { useAddRecordTypeB } from '@/apis/Record/Mutations/useAddRecordTypeB';
+import { useAddRecordTypeC } from '@/apis/Record/Mutations/useAddRecordTypeC';
+import { useAddRecordFeeding } from '@/apis/Record/Mutations/useAddRecordFeeding';
+import { useAddRecordFever } from '@/apis/Record/Mutations/useAddRecordFever';
+import { userInfoState } from '@/states/userState';
+import { selectedBabyState } from '@/states/babyState';
+import {
+  TypeAValues,
+  TypeA,
+  TypeBValues,
+  TypeB,
+  TypeCValues,
+  TypeC,
+} from '@/types/recordTypes';
 
 interface RecordBarProps {
   onRecordUpdated: () => void;
 }
 
-const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
+const getCurrentTime = () => {
+  const date = new Date();
+  return `${String(date.getHours()).padStart(2, '0')}:${String(
+    date.getMinutes()
+  ).padStart(2, '0')}`;
+};
+
+const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
+  const [pickDate, setPickTime] = useState<Date>(new Date());
+  const nowTime = moment(pickDate).format('HH:mm:ss');
+  const nowDate = moment(pickDate).format('YYYY-MM-DD');
+
   const [recordBlocks, setRecordBlocks] =
     useRecoilState<RecordData[]>(recordedValues);
 
-  // useRecoilValue는 Recoil상태(atom이나 selector)의 현재 값을 읽어오는 것
-  // 상태가 변경될 때마다 UI가 최신 상태를 반영
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const records = recordsByCategory[currentCategory || 'All'] || [];
+  const [userInfo] = useRecoilState(userInfoState);
+  const [selectedBaby] = useRecoilState(selectedBabyState);
 
-  // const [recordTypeAState, setRecordTypeAState] = useState<RecordTypeA>({});
+  const addRecordTypeAMutation = useAddRecordTypeA();
+  const addRecordTypeBMutation = useAddRecordTypeB();
+  const addRecordTypeCMutation = useAddRecordTypeC();
+  const addRecordFeeding = useAddRecordFeeding();
+  const addRecordFever = useAddRecordFever();
 
-  const handleClick = (
+  const isTypeA = (query: string): query is TypeA =>
+    TypeAValues.includes(query as TypeA);
+
+  const isTypeB = (query: string): query is TypeB =>
+    TypeBValues.includes(query as TypeB);
+
+  const isTypeC = (query: string): query is TypeC =>
+    TypeCValues.includes(query as TypeC);
+
+  const handleButtonClick = (
     recordType: string,
     color: string,
     category: Category,
     queryName: string
   ) => {
-    const date = new Date();
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const time = `${hours}:${minutes}`;
+    console.log(queryName, recordType);
+    if (isTypeA(queryName)) {
+      addRecordTypeAMutation.mutate({
+        type: queryName,
+        userId: userInfo.userId,
+        babyId: selectedBaby.babyId,
+        amount: 0,
+        createdTime: nowTime,
+        createdDate: nowDate,
+        memo: '',
+      });
+    } else if (isTypeB(queryName)) {
+      addRecordTypeBMutation.mutate({
+        type: queryName,
+        userId: userInfo.userId,
+        babyId: selectedBaby.babyId,
+        createdTime: nowTime,
+        createdDate: nowDate,
+        memo: '',
+      });
+    } else if (isTypeC(queryName)) {
+      addRecordTypeCMutation.mutate({
+        type: queryName,
+        userId: userInfo.userId,
+        babyId: selectedBaby.babyId,
+        createdTime: nowTime,
+        createdDate: nowDate,
+        endTime: nowTime,
+        memo: '',
+      });
+    } else if (queryName === 'feedings') {
+      addRecordFeeding.mutate({
+        type: queryName,
+        userId: userInfo.userId,
+        babyId: selectedBaby.babyId,
+        leftStartTime: nowTime,
+        rightStartTime: nowTime,
+        leftEndTime: nowTime,
+        rightEndTime: nowTime,
+        createdDate: nowDate,
+        createdTime: nowTime,
+        memo: '',
+      });
+    } else {
+      addRecordFever.mutate({
+        type: queryName,
+        userId: userInfo.userId,
+        babyId: selectedBaby.babyId,
+        createdTime: nowTime,
+        createdDate: nowDate,
+        bodyTemperature: 36.5,
+        memo: '',
+      });
+    }
 
-    setRecordBlocks(oldRecordBlocks => [
-      ...oldRecordBlocks,
-      { recordType, time, color, category },
-    ]);
-
-    // TODO:
+    const time = getCurrentTime();
+    setRecordBlocks(prev => [...prev, { recordType, time, color, category }]);
     onRecordUpdated();
   };
 
   return (
     <RecordBarContainer>
-      {records.map((record, index) => (
+      {records.map((record, idx) => (
         <Button
           option="default"
           size="xSmall"
-          key={index}
+          key={idx}
           $borderColor={record.color}
           onClick={() =>
-            handleClick(
+            handleButtonClick(
               record.type,
               record.color,
               record.category,

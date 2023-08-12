@@ -57,7 +57,7 @@ public class BabyFoodServiceImpl implements BabyFoodService {
 		baby.updateMealOn("N");
 
 		return MealResDto.builder()
-			.id(babyFood.getId())
+			.mealId(babyFood.getId())
 			.amount(babyFood.getAmount())
 			.memo(babyFood.getMemo())
 			.createdTime(babyFood.getCreatedTime())
@@ -71,7 +71,7 @@ public class BabyFoodServiceImpl implements BabyFoodService {
 	@Transactional
 	public void updateBabyFood(MealPutDto mealPutDto) {
 		BabyFood babyFood = babyFoodRepository
-			.findById(mealPutDto.getId())
+			.findById(mealPutDto.getMealId())
 			.orElseThrow();
 
 		babyFood.updateBabyFood(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());

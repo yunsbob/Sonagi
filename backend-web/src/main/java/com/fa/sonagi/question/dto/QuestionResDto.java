@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestionResDto {
-	private Long id;
+	private Long questionId;
 	private LocalDate createdAt;
 	private String title;
 	private String content;

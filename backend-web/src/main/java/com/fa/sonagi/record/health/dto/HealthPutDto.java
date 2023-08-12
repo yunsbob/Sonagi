@@ -11,7 +11,7 @@ import lombok.Setter;
 public class HealthPutDto {
 
 	@NotNull
-	private Long id;
+	private Long healthId;
 
 	@NotNull
 	private LocalTime createdTime;

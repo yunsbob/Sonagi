@@ -44,7 +44,7 @@ public class PumpingBreastServiceImpl implements PumpingBreastService {
     pumpingBreastRepository.save(pumpingBreast);
 
     return PumpingBreastResDto.builder()
-        .id(pumpingBreast.getId())
+        .pumpingBreastId(pumpingBreast.getId())
         .amount(pumpingBreast.getAmount())
         .memo(pumpingBreast.getMemo())
         .createdTime(pumpingBreast.getCreatedTime())
@@ -57,7 +57,7 @@ public class PumpingBreastServiceImpl implements PumpingBreastService {
   @Override
   @Transactional
   public void updatePumpingBreast(PumpingBreastPutDto pumpingBreastPutDto) {
-    PumpingBreast pumpingBreast = pumpingBreastRepository.findById(pumpingBreastPutDto.getId()).orElseThrow();
+    PumpingBreast pumpingBreast = pumpingBreastRepository.findById(pumpingBreastPutDto.getPumpingBreastId()).orElseThrow();
 
     pumpingBreast.updatePumpingBreast(pumpingBreastPutDto.getAmount(), pumpingBreastPutDto.getMemo(), pumpingBreastPutDto.getCreatedTime());
   }

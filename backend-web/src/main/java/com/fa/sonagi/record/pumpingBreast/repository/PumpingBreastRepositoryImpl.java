@@ -23,7 +23,7 @@ public class PumpingBreastRepositoryImpl implements PumpingBreastRepositoryCusto
 	public PumpingBreastResDto findPumpingBreastRecord(Long pumpingBreastId) {
 		PumpingBreastResDto pumpingBreasts = queryFactory
 			.select(Projections.bean(PumpingBreastResDto.class,
-				pumpingBreast.id,
+				pumpingBreast.id.as("pumpingBreastId"),
 				pumpingBreast.amount,
 				pumpingBreast.memo,
 				pumpingBreast.createdTime))

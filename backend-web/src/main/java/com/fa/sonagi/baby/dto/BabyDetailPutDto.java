@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class BabyDetailPutDto {
 	@NotNull
-	private Long id;
+	private Long babyId;
 
 	@NotNull
 	private String name;

@@ -56,7 +56,7 @@ public class SnackServiceImpl implements SnackService {
 		baby.updateMealOn("N");
 
 		return SnackResDto.builder()
-			.id(snack.getId())
+			.mealId(snack.getId())
 			.memo(snack.getMemo())
 			.createdTime(snack.getCreatedTime())
 			.build();
@@ -69,7 +69,7 @@ public class SnackServiceImpl implements SnackService {
 	@Transactional
 	public void updateSnack(SnackPutDto snackPutDto) {
 		Snack snack = snackRepository
-			.findById(snackPutDto.getId())
+			.findById(snackPutDto.getMealId())
 			.orElseThrow();
 
 		snack.updateSnack(snackPutDto.getMemo(), snackPutDto.getCreatedTime());

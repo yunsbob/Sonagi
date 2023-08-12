@@ -32,11 +32,13 @@ const RecordContainer: React.FC = () => {
   const onRecordUpdated = () => {
     const container = containerRef.current;
     if (container) {
-      const targetScrollTop = container.scrollHeight; // 목표 스크롤 위치
-      container.scrollTo({
-        top: targetScrollTop,
-        behavior: 'smooth', // html 태그에 기본으로 있는 ScrolOptions..
-      });
+      setTimeout(() => {
+        const targetScrollTop = container.scrollHeight;
+        container.scrollTo({
+          top: targetScrollTop,
+          behavior: 'smooth',
+        });
+      }, 100); // DOM이 완전히 업데이트 된 후 스크롤 위치를 조정
     }
   };
 

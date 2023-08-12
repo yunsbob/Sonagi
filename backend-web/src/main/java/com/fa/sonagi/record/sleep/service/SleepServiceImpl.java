@@ -44,7 +44,7 @@ public class SleepServiceImpl implements SleepService {
 		sleepRepository.save(sleep);
 
 		return SleepResDto.builder()
-			.id(sleep.getId())
+			.sleepId(sleep.getId())
 			.createdTime(sleep.getCreatedTime())
 			.endTime(sleep.getEndTime())
 			.memo(sleep.getMemo())
@@ -57,7 +57,7 @@ public class SleepServiceImpl implements SleepService {
 	@Override
 	@Transactional
 	public void updateSleep(SleepPutDto sleepPutDto) {
-		Sleep sleep = sleepRepository.findById(sleepPutDto.getId()).orElseThrow();
+		Sleep sleep = sleepRepository.findById(sleepPutDto.getSleepId()).orElseThrow();
 		sleep.updateSleep(sleepPutDto.getCreatedTime(), sleepPutDto.getEndTime(), sleepPutDto.getMemo());
 	}
 

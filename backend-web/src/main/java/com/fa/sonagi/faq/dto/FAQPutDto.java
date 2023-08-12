@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class FAQPutDto {
 	@NotNull
-	private Long id;
+	private Long FAQId;
 
 	@NotNull
 	private String title;

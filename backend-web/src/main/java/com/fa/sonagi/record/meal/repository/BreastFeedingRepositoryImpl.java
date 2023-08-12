@@ -24,7 +24,7 @@ public class BreastFeedingRepositoryImpl implements BreastFeedingRepositoryCusto
 	public MealResDto findBreastFeedingRecord(Long breastFeedingId) {
 		MealResDto breastFeedings = queryFactory
 			.select(Projections.bean(MealResDto.class,
-				breastFeeding.id,
+				breastFeeding.id.as("mealId"),
 				breastFeeding.amount,
 				breastFeeding.memo,
 				breastFeeding.createdTime))
