@@ -1,3 +1,3 @@
 declare interface Window {
-  ReactNativeWebview: any;
+  ReactNativeWebView: any;
 }
