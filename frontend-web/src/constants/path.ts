@@ -13,6 +13,7 @@ const PATH = {
   OURBABY: '/main/ourBaby',
   DIARY: '/main/diary',
   MYPAGE: '/main/myPage',
+  ALARM: '/main/alarm',
   REGISTERBABYPROFILE: '/regBabyProfile',
   DETAILRECORD: '/main/detailRecord',
 } as const;

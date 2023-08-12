@@ -30,6 +30,10 @@ const UserNameWrapper = styled.div`
   left: 7.3rem;
 `;
 
+const AuthorityTagWrapper = styled.div`
+  margin-top: 5px;
+`;
+
 const CoParentContainer = styled.div`
   height: 25%;
   border-bottom: 1px solid ${({ theme }) => theme.color.gray4};
@@ -51,6 +55,7 @@ export {
   Container,
   UserContainer,
   UserNameWrapper,
+  AuthorityTagWrapper,
   CoParentContainer,
   SettingContainer,
 };

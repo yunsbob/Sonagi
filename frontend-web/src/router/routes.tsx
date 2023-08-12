@@ -20,6 +20,7 @@ import { GraphByDay } from '@/components/organisms/GraphByDay/GraphByDay';
 import { GraphByWeek } from '@/components/organisms/GraphByWeek/GraphByWeek';
 import RedirectPage from '@/pages/RedirectPage/RedirectPage';
 import { DetailRecordPage } from '@/pages/DetailRecordPage/DetailRecordPage';
+import AlarmPage from '@/pages/AlarmPage/AlarmPage';
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,7 @@ const router = createBrowserRouter([
       { path: 'ourBaby', element: <OurBabyPage /> },
       { path: 'diary', element: <DiaryPage /> },
       { path: 'myPage', element: <MyPagePage /> },
+      { path: 'alarm', element: <AlarmPage /> },
       { path: 'detailRecord', element: <DetailRecordPage /> },
     ],
   },
