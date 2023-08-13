@@ -16,12 +16,10 @@ const CalendarBar: React.FC = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
 
-  // calendar bar date click event
   const onClickCalendarBar = () => {
     setModalOpen(true);
   };
 
-  // calendar modal day click event
   const onCalendarChange = (newDate: Value) => {
     if (newDate instanceof Date) {
       setSelectedDate(formatDate(newDate));
