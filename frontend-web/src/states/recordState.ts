@@ -4,6 +4,15 @@ import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import theme from '@/styles/theme';
 import { RecordedValues } from '@/types/recordTypes';
 
+type DateRecordedValues = {
+  [date: string]: RecordedValues;
+};
+
+export const dateRecordedValuesState = atom<DateRecordedValues>({
+  key: 'dateRecordedValues',
+  default: {},
+});
+
 export const recordedValuesState = atom<RecordedValues>({
   key: 'recordedValues',
   default: {

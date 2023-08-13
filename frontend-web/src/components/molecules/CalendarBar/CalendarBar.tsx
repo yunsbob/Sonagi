@@ -26,8 +26,10 @@ const CalendarBar: React.FC<CalendarBarProps> = ({ onDateChange }) => {
   // calendar modal day click event
   const onCalendarChange = (newDate: Value) => {
     if (newDate instanceof Date) {
+      console.log('onCalendarChange 실행');
       setPickDate(newDate);
       onDateChange(newDate); // 상위로 건네주기
+      console.log(newDate, 'newDate in CalendarBar'); // 여기에 추가
     }
   };
 
@@ -38,8 +40,10 @@ const CalendarBar: React.FC<CalendarBarProps> = ({ onDateChange }) => {
   const onChangeDay = (days: number) => {
     const newDate = new Date(pickDate);
     newDate.setDate(newDate.getDate() + days);
+    // console.log('onChangeDay 실행');
     setPickDate(newDate);
     onDateChange(newDate); // 상위로 건네주기
+    console.log(newDate, 'newDate in CalendarBar'); // 여기에 추가
   };
 
   return (
