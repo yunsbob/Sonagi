@@ -9,6 +9,7 @@ const updateUser = async (user: User) => {
   }
 };
 
+// 알림 전체 상태 get
 const getNotification = async (userId: number) => {
   try {
     const response = await instance.get(`/notification/${userId}`);
@@ -18,4 +19,12 @@ const getNotification = async (userId: number) => {
   }
 };
 
-export { updateUser, getNotification };
+const updateAlarm = async (
+  alarmType: string,
+  userId: number,
+  alarmState: boolean
+) => {
+  await instance.put(`/${alarmType}/${userId}/${Number(alarmState)}`);
+};
+
+export { updateUser, getNotification, updateAlarm };

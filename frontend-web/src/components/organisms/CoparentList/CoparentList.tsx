@@ -57,27 +57,25 @@ const CoparentList = () => {
       <CoParentListContainer>
         {coparents.map((coparent, idx) => {
           return (
-            <>
-              <CoParentWrapper key={coparent.userId}>
-                {babyInfo.authority === 'Y' && (
-                  <Image
-                    onClick={() => onClickDeleteBtn(coparent)}
-                    className="delete"
-                    src={deleteIcon}
-                    height={30}
-                    $unit="%"
-                  />
-                )}
+            <CoParentWrapper key={coparent.userId}>
+              {babyInfo.authority === 'Y' && (
                 <Image
-                  src={require(`@/assets/images/icon-user-${
-                    profileColor[idx % 3]
-                  }.png`)}
-                  height={80}
+                  onClick={() => onClickDeleteBtn(coparent)}
+                  className="delete"
+                  src={deleteIcon}
+                  height={30}
                   $unit="%"
                 />
-                <Text size="medium3">{coparent.name}</Text>
-              </CoParentWrapper>
-            </>
+              )}
+              <Image
+                src={require(`@/assets/images/icon-user-${
+                  profileColor[idx % 3]
+                }.png`)}
+                height={80}
+                $unit="%"
+              />
+              <Text size="medium3">{coparent.name}</Text>
+            </CoParentWrapper>
           );
         })}
 
