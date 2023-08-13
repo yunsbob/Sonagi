@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -40,10 +41,11 @@ public class HealthStatisticsServiceImpl implements HealthStatisticsService{
 	public HealthStatisticsResDto getHealthStatisticsDay(Long babyId, LocalDate createdDate) {
 		HealthStatisticsResDto healthStatisticsResDto = new HealthStatisticsResDto();
 
-		List<Times> healthDay;
+		List<Times> healthDay = new ArrayList<>();
 		// 카테고리별 데이터 조회
 		List<Times> hospitals = hospitalRepository.findHospitalByDay(babyId, createdDate);
-		healthDay = hospitals;
+		for (Times t : hospitals)
+			healthDay.add(t);
 		List<Times> medications = medicationRepository.findMedicationByDay(babyId, createdDate);
 		for (Times t : medications)
 			healthDay.add(t);
