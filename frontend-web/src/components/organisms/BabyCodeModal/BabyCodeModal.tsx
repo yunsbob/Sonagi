@@ -23,17 +23,28 @@ const BabyCodeModal = ({ onModalClose, modalOpen }: CustomModal) => {
   const [showToast, setShowToast] = useState<boolean>(false);
 
   const handleCopyClick = async () => {
-    try {
-      await navigator.clipboard.writeText(code);
-      setShowToast(true);
-      setTimeout(() => {
-        setShowToast(false);
-      }, 1500);
-    } catch {
-      console.log('복사 실패');
+    // React Native Webview라면 RN으로 String 전달
+    if (window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify({
+          type: 'BabyCode',
+          code: code,
+        })
+      );
+      console.log('isReactNative', code);
+    } else {
+      // Web이라면 writeText활용
+      try {
+        await navigator.clipboard.writeText(code);
+        setShowToast(true);
+        setTimeout(() => {
+          setShowToast(false);
+        }, 1500);
+      } catch (error) {
+        console.log('복사 실패', error);
+      }
     }
   };
-
   const shareKakao = () => {
     window.Kakao.Link.sendCustom({
       templateId: 97145,
