@@ -9,19 +9,21 @@ import { Dayjs } from 'dayjs';
 interface WeekendCalendarProps {
   dayNumber: Dayjs;
   dayOfWeek: string;
-  statusOfDay: 'beforeToday' | 'isToday' | 'afterToday';
-  isRecoredDay?: boolean;
+  $statusOfDay: string;
+  $isRecordedDate?: boolean;
   onClick: () => void;
 }
-
+interface ColorMap {
+  [beforeToday: string]: string;
+}
 const WeekendCalendarToken = ({
   dayNumber,
   dayOfWeek,
-  statusOfDay,
-  isRecoredDay = false,
+  $statusOfDay,
+  $isRecordedDate = false,
   onClick,
 }: WeekendCalendarProps) => {
-  const colorMap = {
+  const colorMap: ColorMap = {
     beforeToday: 'black',
     isToday: theme.color.calendarTodayFont,
     afterToday: theme.color.calendarBeforeFont,
@@ -29,15 +31,15 @@ const WeekendCalendarToken = ({
 
   return (
     <>
-      <S.TokenWrapper statusOfDay={statusOfDay} onClick={onClick}>
-        <S.FloatingPoint isRecorded={isRecoredDay}>ㆍ</S.FloatingPoint>
-        <Text size="large" color={colorMap[statusOfDay]} $fontWeight={900}>
+      <S.TokenWrapper $statusOfDay={$statusOfDay} onClick={onClick}>
+        <S.FloatingPoint $isRecordedDate={$isRecordedDate}>ㆍ</S.FloatingPoint>
+        <Text size="large" color={colorMap[$statusOfDay]} $fontWeight={900}>
           {dayNumber.date()}
         </Text>
         <Text
           size="medium3"
           color={
-            statusOfDay === 'beforeToday' ? 'black' : colorMap[statusOfDay]
+            $statusOfDay === 'beforeToday' ? 'black' : colorMap[$statusOfDay]
           }
           $fontWeight={500}
         >

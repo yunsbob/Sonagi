@@ -1,6 +1,7 @@
 import { Text } from '@/components/atoms/Text/Text.styles';
 import styled from 'styled-components';
 import { sectorHeight } from '@/constants/doughnutConstants';
+import { StyledEngineProvider } from '@mui/styled-engine';
 
 const DiaryRegisterContainer = styled.div`
   width: 100%;
@@ -23,14 +24,6 @@ const DiaryRegisterHeadContainer = styled.div`
   padding-right: 1rem;
 `;
 
-const BackArrow = styled.div`
-  display: flex;
-  top: calc(sectorHeight);
-  left: 5vw;
-  /* transform: translate(50%, 0%); */
-  position: absolute;
-`;
-
 const DiaryRegisterBodyContainer = styled.div`
   width: 100%;
   box-sizing: border-box;
@@ -40,7 +33,7 @@ const DiaryRegisterBodyContainer = styled.div`
 
 const DiaryRegisterFileListContainer = styled.div`
   width: 100%;
-  max-height: 20vw;
+  height: 20vw;
   display: flex;
   justify-content: start;
   box-sizing: border-box;
@@ -56,8 +49,23 @@ const DiaryRegisterWrapper = styled.div`
   overflow: hidden;
 `;
 
+const RegisterBtnContainer = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 1rem;
+  padding-right: 1rem;
+`;
+
 const TitleText = styled(Text)`
   color: #616161;
+`;
+
+const BackArrow = styled.div`
+  display: flex;
+  top: calc(sectorHeight);
+  left: 5vw;
+  /* transform: translate(50%, 0%); */
+  position: absolute;
 `;
 
 export {
@@ -66,6 +74,7 @@ export {
   DiaryRegisterBodyContainer,
   DiaryRegisterFileListContainer,
   DiaryRegisterWrapper,
+  RegisterBtnContainer,
   TitleText,
   BackArrow,
 };

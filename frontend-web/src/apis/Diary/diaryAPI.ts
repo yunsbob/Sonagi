@@ -14,20 +14,15 @@ const getDiariesAtWriteDay = async (babyId: number, writeDay: string) => {
 };
 
 // 일기 등록
-const addDiary = async (diaryPostDto: DiaryPostDto, fileList: File[]) => {
-  const formData = new FormData();
-  formData.append('diaryPostDto', JSON.stringify(diaryPostDto)); // DiaryPostDto를 JSON 문자열로 추가
-  fileList.forEach((file, index) => {
-    formData.append(`files[${index}]`, file); // 파일 리스트 추가
-  });
+const addDiary = async (formData: FormData) => {
   try {
-    await instance.post('/upload', formData, {
+    await instance.post('/diaries', formData, {
       headers: {
         'Content-Type': 'multipart/form-data', // 특정 요청에서만 변경
       },
     });
   } catch {
-    new Error('baby info add error');
+    new Error('Diary Register Error');
   }
 };
 // 일기 수정
@@ -43,4 +38,4 @@ const deleteDiary = async (diaryId: number) => {
 
 // 일기 기록 날짜 리스트 조회
 
-export { getDiariesAtWriteDay };
+export { getDiariesAtWriteDay, addDiary };

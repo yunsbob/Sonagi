@@ -3,13 +3,47 @@ import * as S from '@/pages/DiaryRegisterPage/DiaryRegisterPage.styles';
 import DiaryRecorder from '@/components/molecules/DiaryRecorder/DiaryRecorder';
 import { Image } from '@/components/atoms/Image/Image';
 import IconPlusBlueRectDash from '@/assets/images/icon-plus-blue-rect-dash.png';
-import IconDeleteRedCircle from '@/assets/images/icon-delete-red-circle.png';
 import { useNavigate } from 'react-router-dom';
 import backArrow from '@/assets/images/icon-arrow-left-grey.png';
 import Button from '@/components/atoms/Button/Button';
+import { DiaryPostDto } from '@/types/diaryTypes';
+import { useRecoilValue } from 'recoil';
+import { BabiesOfUser, User } from '@/types';
+import { userInfoState } from '@/states/userState';
+import { selectedBabyState } from '@/states/babyState';
+import { addDiary } from '@/apis/Diary/diaryAPI';
+import { PATH } from '@/constants/path';
+
 const DiaryRegisterPage = () => {
+  const navigate = useNavigate();
+  const userInfo: User = useRecoilValue(userInfoState);
+  const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
+
   const [files, setFiles] = useState<File[]>([]);
+  const [diaryContent, setDiaryContent] = useState<string>('');
   const fileInputRefs = useRef<HTMLInputElement[]>([]);
+
+  const handleSubmit = async () => {
+    const formData = new FormData();
+
+    const diaryPostDto: DiaryPostDto = {
+      userId: userInfo?.userId,
+      babyId: babyInfo?.babyId,
+      content: diaryContent,
+    };
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append('imgFiles', files[i]);
+    }
+
+    formData.append(
+      'diaryPostDto',
+      new Blob([JSON.stringify(diaryPostDto)], { type: 'application/json' })
+    );
+
+    await addDiary(formData);
+    navigate(PATH.DIARY);
+  };
 
   const handleFileChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -27,9 +61,6 @@ const DiaryRegisterPage = () => {
       event.target.value = '';
     }
   };
-  useEffect(() => {
-    console.log(files);
-  }, [files]);
 
   const handleImageClick = (index: number) => {
     if (fileInputRefs.current[index]) {
@@ -47,7 +78,9 @@ const DiaryRegisterPage = () => {
       fileInputRefs.current[index] = ref;
     }
   };
-  const navigate = useNavigate();
+  const handleDiaryContent = (data: string) => {
+    setDiaryContent(data);
+  };
 
   const RouteHandler = useCallback(() => navigate(-1), [navigate]);
   return (
@@ -60,7 +93,7 @@ const DiaryRegisterPage = () => {
           <S.TitleText size="headSmall">육아일기 작성하기</S.TitleText>
         </S.DiaryRegisterHeadContainer>
         <S.DiaryRegisterBodyContainer>
-          <DiaryRecorder></DiaryRecorder>
+          <DiaryRecorder onDataUpdate={handleDiaryContent}></DiaryRecorder>
         </S.DiaryRegisterBodyContainer>
         <S.DiaryRegisterFileListContainer>
           {files.map((file, index) => (
@@ -105,8 +138,12 @@ const DiaryRegisterPage = () => {
               />
             </S.DiaryRegisterWrapper>
           )}
-          <Button></Button>
         </S.DiaryRegisterFileListContainer>
+        <S.RegisterBtnContainer>
+          <Button option="activated" onClick={handleSubmit}>
+            등록하기
+          </Button>
+        </S.RegisterBtnContainer>
       </S.DiaryRegisterContainer>
     </>
   );

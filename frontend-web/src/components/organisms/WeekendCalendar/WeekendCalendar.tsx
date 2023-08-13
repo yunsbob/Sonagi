@@ -11,8 +11,6 @@ interface WeekendCalendarProps {
   onDateChange: (date: Date) => void;
 }
 
-type StatusOfDay = 'beforeToday' | 'isToday' | 'afterToday';
-
 const WeekendCalendar: React.FC<WeekendCalendarProps> = ({
   selectedDate,
   onDateChange,
@@ -25,7 +23,10 @@ const WeekendCalendar: React.FC<WeekendCalendarProps> = ({
     setWeekendDateList(getWeekendDate(selectedDate));
   }, [selectedDate]);
 
-  const jStatusOfDay = (date: Dayjs): StatusOfDay => {
+  const jStatusOfDay = (date: Dayjs): string => {
+    if (date.isSame(dayjs(selectedDate))) {
+      return 'isToday';
+    }
     if (date.isAfter(dayjs())) {
       return 'afterToday';
     }
@@ -40,12 +41,8 @@ const WeekendCalendar: React.FC<WeekendCalendarProps> = ({
             key={index}
             dayNumber={dateMap['date']}
             dayOfWeek={dateMap['day']}
-            statusOfDay={
-              dateMap['date'].isSame(dayjs(selectedDate))
-                ? 'isToday'
-                : jStatusOfDay(dateMap['date'])
-            }
-            isRecoredDay={true}
+            $statusOfDay={jStatusOfDay(dateMap['date'])}
+            $isRecordedDate={true}
             onClick={() => onDateChange(dateMap['date'].toDate())} // 클릭 핸들러 추가
           />
         ))}

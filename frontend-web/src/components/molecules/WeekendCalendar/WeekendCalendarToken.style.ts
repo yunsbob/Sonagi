@@ -2,10 +2,10 @@ import { styled } from 'styled-components';
 import theme from '../../../styles/theme';
 
 interface TokenWrapperProps {
-  statusOfDay: string;
+  $statusOfDay: string;
 }
 interface FloatingPointProps {
-  isRecorded: boolean;
+  $isRecordedDate: boolean;
 }
 
 export const TokenWrapper = styled.div<TokenWrapperProps>`
@@ -13,8 +13,8 @@ export const TokenWrapper = styled.div<TokenWrapperProps>`
   position: relative;
   flex-direction: column;
   text-align: center;
-  background-color: ${({ statusOfDay }) =>
-    statusOfDay === 'isToday' ? theme.color.calendarTodayBg : undefined};
+  background-color: ${({ $statusOfDay }) =>
+    $statusOfDay === 'isToday' ? theme.color.calendarTodayBg : undefined};
   border-radius: 12px;
   padding: 16px 8px 16px 8px;
   box-sizing: border-box;
@@ -27,7 +27,7 @@ export const FloatingPoint = styled.div<FloatingPointProps>`
   font-size: 20px;
   top: -25%;
   left: 50%;
-  opacity: ${({ isRecorded }) => (isRecorded ? '100%' : '0%')};
+  opacity: ${({ $isRecordedDate }) => ($isRecordedDate ? '100%' : '0%')};
   color: ${() => theme.color.calendarDot};
   transform: translate(-50%, 50%);
 `;
