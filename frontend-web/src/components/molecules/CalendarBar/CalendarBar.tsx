@@ -8,23 +8,13 @@ import { Value } from 'react-calendar/dist/cjs/shared/types';
 import moment from 'moment';
 import { CalendarModal } from '@/components/organisms/CalendarModal/CalendarModal';
 import dayjs from 'dayjs';
+import { selectedDateState } from '@/states/dateState';
+import { useRecoilState } from 'recoil';
+import { formatDate } from '@/utils/formatDate';
 
-interface CalendarBarProps {
-  onDateChange: (date: Date) => void; // 날짜를 인자로 받고 아무 것도 반환하지 않음
-  selectedDate?: Date;
-}
-
-const CalendarBar: React.FC<CalendarBarProps> = ({
-  onDateChange,
-  selectedDate = new Date(),
-}) => {
+const CalendarBar: React.FC = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [pickDate, setPickDate] = useState<Date>(selectedDate);
-
-  // selectedDate 감지 반영
-  useEffect(() => {
-    setPickDate(selectedDate);
-  }, [selectedDate]);
+  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
 
   // calendar bar date click event
   const onClickCalendarBar = () => {
@@ -34,7 +24,6 @@ const CalendarBar: React.FC<CalendarBarProps> = ({
   // calendar modal day click event
   const onCalendarChange = (newDate: Value) => {
     if (newDate instanceof Date) {
-      setPickDate(newDate);
       setSelectedDate(formatDate(newDate));
     }
   };
@@ -44,21 +33,19 @@ const CalendarBar: React.FC<CalendarBarProps> = ({
   };
 
   const onChangeDay = (days: number) => {
-    const newDate = new Date(pickDate);
+    const newDate = new Date(selectedDate);
     newDate.setDate(newDate.getDate() + days);
-    if (dayjs(newDate).isAfter(dayjs())) {
+    newDate.setHours(0, 0, 0, 0);
+    if (dayjs(newDate).isAfter(new Date())) {
       return;
     }
-    // console.log('onChangeDay 실행');
-    setPickDate(newDate);
     setSelectedDate(formatDate(newDate));
-    console.log('onChangeDay', selectedDate, '날짜 바꼈니?');
   };
 
   return (
     <>
       <CalendarModal
-        pickDate={pickDate}
+        pickDate={new Date(selectedDate)}
         onModalClose={onModalClose}
         modalOpen={modalOpen}
         onCalendarChange={onCalendarChange}
@@ -76,7 +63,7 @@ const CalendarBar: React.FC<CalendarBarProps> = ({
           size="medium1"
           style={{ margin: '0px 10px' }}
         >
-          {moment(pickDate).format('YYYY년 M월 D일')}
+          {moment(new Date(selectedDate)).format('YYYY년 M월 D일')}
         </Text>
         <Image
           src={iconArrowMiniRightGrey}
