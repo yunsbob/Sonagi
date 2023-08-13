@@ -1,5 +1,8 @@
+import { useUpdateAlarm } from '@/apis/User/Mutations/useUpdateAlarm';
 import { StyledLabel } from '@/components/molecules/ToggleSwitch/ToggleSwitch.styles';
+import { userInfoState } from '@/states/userState';
 import { ChangeEvent, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
 interface ToggleSwitchProps {
   switchState: boolean;
@@ -12,8 +15,24 @@ const ToggleSwitch = ({
   setSwitchState,
   id,
 }: ToggleSwitchProps) => {
+  const updateAlarmMutation = useUpdateAlarm();
+  const userInfo = useRecoilValue(userInfoState);
+
   const onToggleChange = (e: ChangeEvent<HTMLInputElement>) => {
     console.log('---', e.target.checked);
+    console.log(e.target);
+    updateAlarmMutation.mutate(
+      {
+        alarmType: e.target.id,
+        userId: userInfo.userId,
+        alarmState: e.target.checked,
+      },
+      {
+        onSuccess() {
+          console.log(e.target.id, '변경완료');
+        },
+      }
+    );
     setSwitchState(e.target.checked);
   };
 
