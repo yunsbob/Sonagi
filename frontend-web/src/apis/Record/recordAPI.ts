@@ -12,6 +12,7 @@ const getAllCategoryRecords = async (babyId: number, date: string) => {
     const response = await instance.get(
       `/allRecords?babyId=${babyId}&createdDate=${date}`
     );
+    // TODO: 여기서 바로 리코일 업데이트를 ?
     return response.data;
   } catch {
     new Error('no data returned from the API - AllCategory');

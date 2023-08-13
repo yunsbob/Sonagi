@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Button from '@/components/atoms/Button/Button';
 import moment from 'moment';
 import { RecordBarContainer } from '@/components/molecules/RecordBar/RecordBar.styles';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCategoryState } from '@/states/categoryState';
-import { Category, RecordData } from '@/types';
-import { recordedValues, recordsByCategory } from '@/states/recordState';
+import { Category } from '@/types';
+import { recordsByCategory } from '@/states/recordState';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { PATH } from '@/constants/path';
 import { useAddRecordTypeA } from '@/apis/Record/Mutations/useAddRecordTypeA';
@@ -15,7 +15,6 @@ import { useAddRecordFeeding } from '@/apis/Record/Mutations/useAddRecordFeeding
 import { useAddRecordFever } from '@/apis/Record/Mutations/useAddRecordFever';
 import { userInfoState } from '@/states/userState';
 import { selectedBabyState } from '@/states/babyState';
-import { recordedValuesState } from '../../../states/recordState';
 import { selectedDateState } from '@/states/dateState';
 
 import {
@@ -25,42 +24,14 @@ import {
   TypeB,
   TypeCValues,
   TypeC,
-  RecordedValues,
 } from '@/types/recordTypes';
-import { fetchCounterState } from '@/states/fetchCounterState';
 
 interface RecordBarProps {
   onRecordUpdated: () => void;
 }
 
-// block에 뿌릴 용도로 시간 포맷 정의
-const getCurrentTime = () => {
-  const date = new Date();
-  return `${String(date.getHours()).padStart(2, '0')}:${String(
-    date.getMinutes()
-  ).padStart(2, '0')}`;
-};
-
 const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
-  const [recordedValues, setRecordedValues] =
-    useRecoilState(recordedValuesState);
-
-  // API 요청의 결과를 받아서 recordedValuesState를 업데이트하는 함수
-  const updateRecordedValues = (type: keyof RecordedValues, data: any) => {
-    setRecordedValues(prevState => ({
-      ...prevState,
-      [type]: [...prevState[type], data],
-    }));
-  };
-  // const [recordedValue, setRecordedValue] =
-  //   useSetRecoilState(recordedValuesState);
   const [pickDate, setPickTime] = useState(new Date());
-
-  const nowDate = moment(pickDate).format('YYYY-MM-DD');
-
-  // const [recordBlocks, setRecordBlocks] =
-  //   useRecoilState<RecordData[]>(recordedValues);
-  // console.log(recordBlocks, '리코일에 어떻게 저장되어있는지?');
 
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const selectedDate = useRecoilValue(selectedDateState);
@@ -84,9 +55,6 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
 
   const isTypeC = (query: string): query is TypeC =>
     TypeCValues.includes(query as TypeC);
-
-  // const [fetchCounter, setFetchCounter] = useState(0);
-  const [fetchCounter, setFetchCounter] = useRecoilState(fetchCounterState);
 
   const handleButtonClick = (
     recordType: string,
@@ -162,9 +130,6 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
       });
     }
 
-    const time = getCurrentTime();
-    // setRecordBlocks(prev => [...prev, { recordType, time, color, category }]);
-    // console.log(recordBlocks, 'here');
     onRecordUpdated();
   };
 

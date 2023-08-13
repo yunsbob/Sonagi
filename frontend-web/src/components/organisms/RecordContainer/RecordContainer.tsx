@@ -55,23 +55,9 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
   // const [fetchCounter, setFetchCounter] = useState(0);
   const [fetchCounter, setFetchCounter] = useRecoilState(fetchCounterState);
 
-  const records = useGetAllCategoryRecords(selectedBaby.babyId, selectedDate);
+  // const records = useGetAllCategoryRecords(selectedBaby.babyId, selectedDate);
 
   // 데이터가 추가되었을 ㄸㅐ ! -> 새로운 get요청 해야 함
-  const onRecordUpdated = () => {
-    // useGetAllCategoryRecords(selectedBaby.babyId, selectedDate);
-    setFetchCounter(prev => prev + 1);
-    const container = containerRef.current;
-    if (container) {
-      setTimeout(() => {
-        const targetScrollTop = container.scrollHeight;
-        container.scrollTo({
-          top: targetScrollTop,
-          behavior: 'smooth',
-        });
-      }, 100); // DOM이 완전히 업데이트 된 후 스크롤 위치를 조정
-    }
-  };
 
   useEffect(() => {
     const container = containerRef.current;
@@ -86,9 +72,27 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
       };
     }
   }, []);
+
   combinedData.forEach((item, index) => {
     console.log(item);
   });
+
+  const onRecordUpdated = () => {
+    // useGetAllCategoryRecords(selectedBaby.babyId, selectedDate);
+    setFetchCounter(prev => prev + 1);
+    // 여기서 FetchCounter를 쓰지 말고,
+    // 추가된 객체만 combinedList에 넣어줄까?
+    const container = containerRef.current;
+    if (container) {
+      setTimeout(() => {
+        const targetScrollTop = container.scrollHeight;
+        container.scrollTo({
+          top: targetScrollTop,
+          behavior: 'smooth',
+        });
+      }, 1000); // DOM이 완전히 업데이트 된 후 스크롤 위치를 조정
+    }
+  };
 
   return (
     <>
