@@ -14,11 +14,6 @@ import { Outlet, useNavigate } from 'react-router-dom';
 // TODO: 여기서 GraphPage용 State를 별도관리, Calendar에 Props로 주기
 
 const GraphPage = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const handleDateChange = (date: Date) => {
-    setSelectedDate(date);
-  };
-
   const navigate = useNavigate();
 
   useEffect(() => {
