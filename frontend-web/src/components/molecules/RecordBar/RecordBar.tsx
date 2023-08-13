@@ -27,6 +27,7 @@ import {
   TypeC,
   RecordedValues,
 } from '@/types/recordTypes';
+import { fetchCounterState } from '@/states/fetchCounterState';
 
 interface RecordBarProps {
   onRecordUpdated: () => void;
@@ -84,6 +85,9 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
   const isTypeC = (query: string): query is TypeC =>
     TypeCValues.includes(query as TypeC);
 
+  // const [fetchCounter, setFetchCounter] = useState(0);
+  const [fetchCounter, setFetchCounter] = useRecoilState(fetchCounterState);
+
   const handleButtonClick = (
     recordType: string,
     color: string,
@@ -91,10 +95,11 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
     queryName: string
   ) => {
     setPickTime(new Date());
-
     const nowTime = moment(pickDate).format('HH:mm:ss');
     const nowDate = selectedDate;
     console.log(nowDate, nowTime, queryName, recordType); // ex. medications, 투약
+    // setFetchCounter(prev => prev + 1);
+
     if (isTypeA(queryName)) {
       addRecordTypeAMutation.mutate({
         type: queryName,

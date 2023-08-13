@@ -27,8 +27,6 @@ type RecordItem = RecordTypeA | RecordTypeB | RecordTypeC;
 type StringKeys<T> = Extract<keyof T, string>;
 
 const RecordPage = () => {
-  // 날짜 데이터 형식 바꾸는 함수
-  const formatDate = (date: Date) => moment(date).format('YYYY-MM-DD');
   const queryClient = useQueryClient();
 
   // 처음 화면에 들어왔을 때 날짜 설정, selectedDate로 리코일에 저장
@@ -101,14 +99,19 @@ const RecordPage = () => {
     // recordedList를 리코일에 저장하자
   }, [selectedBaby.babyId, selectedDate, queryClient]);
 
-  const handleDateChange = (date: Date) => {
-    setSelectedDate(formatDate(date));
-  };
+  // const handleDateChange = (date: Date) => {
+  //   console.log(date);
+  //   setSelectedDate(formatDate(date));
+  //   console.log(selectedDate, '여기야~~~');
+  // setTimeout(() => {
+  //   console.log(selectedDate, '늦어서 그런가?');
+  // }, 2500);
+  // };
 
   return (
     <>
       <section>
-        <CalendarBar onDateChange={handleDateChange}></CalendarBar>
+        <CalendarBar></CalendarBar>
         <CategoryBar path={PATH.MAIN}></CategoryBar>
       </section>
       <div style={{ paddingTop: 'env(safe-area-inset-top)' }}>
