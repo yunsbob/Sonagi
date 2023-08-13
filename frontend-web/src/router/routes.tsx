@@ -22,6 +22,7 @@ import { GraphByWeek } from '@/components/organisms/GraphByWeek/GraphByWeek';
 import RedirectPage from '@/pages/RedirectPage/RedirectPage';
 import { DetailRecordPage } from '@/pages/DetailRecordPage/DetailRecordPage';
 import AlarmPage from '@/pages/AlarmPage/AlarmPage';
+import UpdateBabyProfilePage from '@/pages/UpdateBabyProfilePage/UpdateBabyProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: PATH.BABYCODE,
     element: <BabyCodePage />,
+  },
+  {
+    path: PATH.UPDATEBABYPROFILE,
+    element: <UpdateBabyProfilePage />,
   },
   {
     path: PATH.MAIN,
