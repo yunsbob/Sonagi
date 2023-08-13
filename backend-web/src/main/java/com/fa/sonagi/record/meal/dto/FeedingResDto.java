@@ -19,5 +19,6 @@ public class FeedingResDto {
 	private LocalTime rightStartTime;
 	private LocalTime leftEndTime;
 	private LocalTime rightEndTime;
+	private LocalTime createdTime;
 	private String memo;
 }
