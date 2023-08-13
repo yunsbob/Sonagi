@@ -74,7 +74,17 @@ public class MealCategoryServiceImpl implements MealCategoryService {
 	 */
 	@Override
 	public List<FeedingResDto> findAllFeeding(Long babyId, LocalDate createdDate) {
-		return feedingRepository.findByBabyIdAndCreatedDateOrderbyTime(babyId, createdDate);
+		List<FeedingResDto> feedings = feedingRepository.findByBabyIdAndCreatedDateOrderbyTime(babyId, createdDate);
+
+		for (int i = 0; i < feedings.size(); i++) {
+			if (feedings.get(i).getLeftStartTime().isBefore(feedings.get(i).getRightStartTime())) {
+				feedings.get(i).setCreatedTime(feedings.get(i).getLeftStartTime());
+			} else {
+				feedings.get(i).setCreatedTime(feedings.get(i).getRightStartTime());
+			}
+		}
+
+		return feedings;
 	}
 
 	/**

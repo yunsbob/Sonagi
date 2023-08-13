@@ -28,6 +28,7 @@ public class FeedingRepositoryImpl implements FeedingRepostioryCustom{
 				feeding.rightStartTime,
 				feeding.leftEndTime,
 				feeding.rightEndTime,
+				feeding.createdTime,
 				feeding.memo))
 			.from(feeding)
 			.where(feeding.id.eq(feedingId))
