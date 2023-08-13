@@ -11,10 +11,6 @@ import { selectedDateState } from '@/states/dateState';
 import { useRecoilState } from 'recoil';
 import { formatDate } from '@/utils/formatDate';
 
-// interface CalendarBarProps {
-//   onDateChange: (date: Date) => void; // 날짜를 인자로 받고 아무 것도 반환하지 않음
-// }
-
 const CalendarBar: React.FC = () => {
   const today = new Date();
 
@@ -23,12 +19,10 @@ const CalendarBar: React.FC = () => {
   const [pickDate, setPickDate] = useState<Date>(today);
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
 
-  // calendar bar date click event
   const onClickCalendarBar = () => {
     setModalOpen(true);
   };
 
-  // calendar modal day click event
   const onCalendarChange = (newDate: Value) => {
     if (newDate instanceof Date) {
       setPickDate(newDate);

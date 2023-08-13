@@ -6,7 +6,6 @@ import BabyBar from '@/components/molecules/BabyBar/BabyBar';
 import { Suspense } from 'react';
 import LoadingPage from '@/pages/LoadingPage/LoadingPage';
 import Cookies from 'js-cookie';
-import { useDelayedQuery } from '@/apis/Record/Hooks/useDelayedQuery';
 
 const MainPage = () => {
   const saveAndroidTokenToCookie = () => {

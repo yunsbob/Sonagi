@@ -61,8 +61,9 @@ const RecordPage = () => {
 
       setCombinedDataState(tempCombinedData);
     };
-
-    computeCombinedData(recordedList);
+    if (recordedList) {
+      computeCombinedData(recordedList);
+    }
   }, [recordedList]);
 
   useEffect(() => {

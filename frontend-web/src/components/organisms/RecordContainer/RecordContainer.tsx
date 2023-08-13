@@ -22,18 +22,11 @@ type RecordContainerProps = {
   combinedData: CombinedRecord[];
 };
 
-// const RecordContainer: React.FC<RecordContainerProps> = ({
 const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
-  const allDateRecordedValues = useRecoilValue(dateRecordedValuesState);
-  // const recordedList = allDateRecordedValues[currentDate] || [];
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const containerRef = useRef<HTMLDivElement>(null);
   const selectedBaby = useRecoilValue(selectedBabyState);
   const selectedDate = useRecoilValue(selectedDateState);
-
-  // setTimeout(() => {
-  //   console.log('-------', allDateRecordedValues, recordedList, currentDate);
-  // }, 1000);
 
   // 선택된 카테고리에 따라 쌓인 기록 블록들 필터링
   // const filteredRecordList = recordedList.filter(record => {
@@ -43,6 +36,7 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
 
   //   return record.category === currentCategory;
   // });
+  const [fetchCounter, setFetchCounter] = useRecoilState(fetchCounterState);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -50,13 +44,12 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
     if (container && savedScrollTop) {
       container.scrollTop = Number(savedScrollTop);
     }
-  }, []);
+  }, [combinedData, fetchCounter]);
 
   // const [fetchCounter, setFetchCounter] = useState(0);
-  const [fetchCounter, setFetchCounter] = useRecoilState(fetchCounterState);
 
-  // const records = useGetAllCategoryRecords(selectedBaby.babyId, selectedDate);
-
+  const records = useGetAllCategoryRecords(selectedBaby.babyId, selectedDate);
+  // console.log(records, 'heresssds');
   // 데이터가 추가되었을 ㄸㅐ ! -> 새로운 get요청 해야 함
 
   useEffect(() => {
@@ -71,17 +64,16 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
         container.removeEventListener('scroll', onScroll);
       };
     }
-  }, []);
-
-  combinedData.forEach((item, index) => {
-    console.log(item);
-  });
+    // combinedData.forEach((item, index) => {
+    //   console.log('sdfdsf');
+    //   console.log(item, '---------');
+    // });
+  }, [combinedData, fetchCounter]);
 
   const onRecordUpdated = () => {
     // useGetAllCategoryRecords(selectedBaby.babyId, selectedDate);
-    setFetchCounter(prev => prev + 1);
-    // 여기서 FetchCounter를 쓰지 말고,
-    // 추가된 객체만 combinedList에 넣어줄까?
+    console.log('!!', fetchCounter);
+    setFetchCounter(fetchCounter => fetchCounter + 1);
     const container = containerRef.current;
     if (container) {
       setTimeout(() => {
@@ -90,7 +82,7 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
           top: targetScrollTop,
           behavior: 'smooth',
         });
-      }, 1000); // DOM이 완전히 업데이트 된 후 스크롤 위치를 조정
+      }, 700); // DOM이 완전히 업데이트 된 후 스크롤 위치를 조정
     }
   };
 

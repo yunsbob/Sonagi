@@ -56,7 +56,7 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
   const isTypeC = (query: string): query is TypeC =>
     TypeCValues.includes(query as TypeC);
 
-  const handleButtonClick = (
+  const handleButtonClick = async (
     recordType: string,
     color: string,
     category: Category,
@@ -66,10 +66,9 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
     const nowTime = moment(pickDate).format('HH:mm:ss');
     const nowDate = selectedDate;
     console.log(nowDate, nowTime, queryName, recordType); // ex. medications, 투약
-    // setFetchCounter(prev => prev + 1);
 
     if (isTypeA(queryName)) {
-      addRecordTypeAMutation.mutate({
+      await addRecordTypeAMutation.mutateAsync({
         type: queryName,
         userId: userInfo.userId,
         babyId: selectedBaby.babyId,
@@ -79,7 +78,7 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
         memo: '',
       });
     } else if (isTypeB(queryName)) {
-      addRecordTypeBMutation.mutate({
+      await addRecordTypeBMutation.mutateAsync({
         type: queryName,
         userId: userInfo.userId,
         babyId: selectedBaby.babyId,
@@ -88,7 +87,7 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
         memo: '',
       });
     } else if (isTypeC(queryName)) {
-      addRecordTypeCMutation.mutate({
+      await addRecordTypeCMutation.mutateAsync({
         type: queryName,
         userId: userInfo.userId,
         babyId: selectedBaby.babyId,
@@ -98,7 +97,7 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
         memo: '',
       });
     } else if (queryName === 'feedings') {
-      addRecordFeeding.mutate({
+      await addRecordFeeding.mutateAsync({
         type: queryName,
         userId: userInfo.userId,
         babyId: selectedBaby.babyId,
@@ -111,15 +110,7 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
         memo: '',
       });
     } else {
-      console.log(
-        'here0.',
-        queryName,
-        userInfo.userId,
-        selectedBaby.babyId,
-        nowTime,
-        nowDate
-      );
-      addRecordFever.mutate({
+      await addRecordFever.mutateAsync({
         type: queryName,
         userId: userInfo.userId,
         babyId: selectedBaby.babyId,
