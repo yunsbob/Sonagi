@@ -120,6 +120,21 @@ interface RecordedValues {
   extras: Extra[];
 }
 
+// 1. RecordType에 따른 키 값 매핑
+type TypeKeysA = {
+  [key in TypeA]: RecordTypeA[];
+};
+
+type TypeKeysB = {
+  [key in TypeB]: RecordTypeB[];
+};
+
+type TypeKeysC = {
+  [key in TypeC]: RecordTypeC[];
+};
+
+type RecordedList = TypeKeysA & TypeKeysB & TypeKeysC;
+
 export type {
   Feeding,
   Fever,
@@ -141,4 +156,5 @@ export type {
   RecordTypeA,
   RecordTypeB,
   RecordTypeC,
+  RecordedList,
 };
