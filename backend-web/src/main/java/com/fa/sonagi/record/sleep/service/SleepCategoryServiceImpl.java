@@ -24,7 +24,7 @@ public class SleepCategoryServiceImpl implements SleepCategoryService {
 	 */
 	@Override
 	public List<SleepResDto> findAllSleep(Long babyId, LocalDate createdDate) {
-		List<Sleep> findSleeps = sleepRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<Sleep> findSleeps = sleepRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(babyId, createdDate);
 
 		List<SleepResDto> sleeps = findSleeps.stream()
 			.map(s -> new SleepResDto(s.getId(), s.getCreatedTime(), s.getEndTime(), s.getMemo()))

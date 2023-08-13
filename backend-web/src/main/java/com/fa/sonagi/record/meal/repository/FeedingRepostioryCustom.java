@@ -9,6 +9,8 @@ import com.fa.sonagi.statistics.meal.dto.SnackFeedingStatisticsQueryDto;
 public interface FeedingRepostioryCustom {
 	FeedingResDto findFeedingRecord(Long feedingId);
 
+	List<FeedingResDto> findByBabyIdAndCreatedDateOrderbyTime(Long babyId, LocalDate createdDate);
+
 	List<SnackFeedingStatisticsQueryDto> findFeedingByDay(Long babyId, LocalDate createdDate);
 
 	Long findFeedingCnt(Long babyId, LocalDate createdDate);

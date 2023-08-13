@@ -7,5 +7,5 @@ import com.fa.sonagi.record.meal.entity.BabyFood;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BabyFoodRepository extends JpaRepository<BabyFood, Long>, BabyFoodRepositoryCustom{
-	List<BabyFood> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
+	List<BabyFood> findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(Long babyId, LocalDate createdDate);
 }

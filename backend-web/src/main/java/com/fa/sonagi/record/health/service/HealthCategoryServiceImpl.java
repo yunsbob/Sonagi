@@ -31,7 +31,7 @@ public class HealthCategoryServiceImpl implements HealthCategoryService {
 	 */
 	@Override
 	public List<FeverResDto> findAllFever(Long babyId, LocalDate createdDate) {
-		List<Fever> findFevers = feverRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<Fever> findFevers = feverRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(babyId, createdDate);
 
 		List<FeverResDto> fevers = findFevers.stream()
 			.map(f -> new FeverResDto(f.getId(), f.getCreatedTime(), f.getBodyTemperature(), f.getMemo()))
@@ -45,7 +45,8 @@ public class HealthCategoryServiceImpl implements HealthCategoryService {
 	 */
 	@Override
 	public List<HealthResDto> findAllMedication(Long babyId, LocalDate createdDate) {
-		List<Medication> findMedicatoins = medicationRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<Medication> findMedicatoins = medicationRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(babyId,
+			createdDate);
 
 		List<HealthResDto> medications = findMedicatoins.stream()
 			.map(m -> new HealthResDto(m.getId(), m.getCreatedTime(), m.getMemo()))
@@ -59,7 +60,8 @@ public class HealthCategoryServiceImpl implements HealthCategoryService {
 	 */
 	@Override
 	public List<HealthResDto> findAllHospital(Long babyId, LocalDate createdDate) {
-		List<Hospital> findHospitals = hospitalRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<Hospital> findHospitals = hospitalRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(babyId,
+			createdDate);
 
 		List<HealthResDto> hospitals = findHospitals.stream()
 			.map(h -> new HealthResDto(h.getId(), h.getCreatedTime(), h.getMemo()))

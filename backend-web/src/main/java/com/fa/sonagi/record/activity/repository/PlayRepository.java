@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.fa.sonagi.record.activity.entity.Play;
 
 public interface PlayRepository extends JpaRepository<Play, Long>, PlayRepositoryCustom {
-	List<Play> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
+	List<Play> findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(Long babyId, LocalDate createdDate);
 }

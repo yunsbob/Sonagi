@@ -27,7 +27,7 @@ public class DiaperCategoryServiceImpl implements DiaperCategoryService {
 	 */
 	@Override
 	public List<DiaperResDto> findAllPee(Long babyId, LocalDate createdDate) {
-		List<Pee> findPees = peeRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<Pee> findPees = peeRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(babyId, createdDate);
 
 		List<DiaperResDto> pees = findPees.stream()
 			.map(d -> new DiaperResDto(d.getId(), d.getCreatedTime(), d.getMemo()))
@@ -41,7 +41,7 @@ public class DiaperCategoryServiceImpl implements DiaperCategoryService {
 	 */
 	@Override
 	public List<DiaperResDto> findAllPoop(Long babyId, LocalDate createdDate) {
-		List<Poop> findPoops = poopRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<Poop> findPoops = poopRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(babyId, createdDate);
 
 		List<DiaperResDto> poops = findPoops.stream()
 			.map(d -> new DiaperResDto(d.getId(), d.getCreatedTime(), d.getMemo()))

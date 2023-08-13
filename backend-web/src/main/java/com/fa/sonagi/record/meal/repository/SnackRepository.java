@@ -9,5 +9,5 @@ import com.fa.sonagi.record.meal.entity.Snack;
 
 public interface SnackRepository extends JpaRepository<Snack, Long>, SnackRepositoryCustom {
 
-	List<Snack> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
+	List<Snack> findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(Long babyId, LocalDate createdDate);
 }

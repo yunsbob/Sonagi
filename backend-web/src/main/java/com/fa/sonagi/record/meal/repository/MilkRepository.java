@@ -9,5 +9,5 @@ import com.fa.sonagi.record.meal.entity.Milk;
 
 public interface MilkRepository extends JpaRepository<Milk, Long>, MilkRepositoryCustom {
 
-	List<Milk> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
+	List<Milk> findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(Long babyId, LocalDate createdDate);
 }
