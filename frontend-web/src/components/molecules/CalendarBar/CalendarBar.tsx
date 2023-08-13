@@ -3,25 +3,28 @@ import { Text } from '@/components/atoms/Text/Text.styles';
 import { CalendarBarContainer } from '@/components/molecules/CalendarBar/CalendarBar.style';
 import iconArrowMiniLeftGrey from '@/assets/images/icon-arrow-mini-left-grey.png';
 import iconArrowMiniRightGrey from '@/assets/images/icon-arrow-mini-right-grey.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
 import moment from 'moment';
 import { CalendarModal } from '@/components/organisms/CalendarModal/CalendarModal';
-import { selectedDateState } from '@/states/dateState';
-import { useRecoilState } from 'recoil';
-import { formatDate } from '@/utils/formatDate';
+import dayjs from 'dayjs';
 
-// interface CalendarBarProps {
-//   onDateChange: (date: Date) => void; // 날짜를 인자로 받고 아무 것도 반환하지 않음
-// }
+interface CalendarBarProps {
+  onDateChange: (date: Date) => void; // 날짜를 인자로 받고 아무 것도 반환하지 않음
+  selectedDate?: Date;
+}
 
-const CalendarBar: React.FC = () => {
-  const today = new Date();
-
+const CalendarBar: React.FC<CalendarBarProps> = ({
+  onDateChange,
+  selectedDate = new Date(),
+}) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  // pickDate는 화면에 뿌리기용, selectedDate는 리코일에 저장해서 API 호출 등에 쓰이는 용
-  const [pickDate, setPickDate] = useState<Date>(today);
-  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
+  const [pickDate, setPickDate] = useState<Date>(selectedDate);
+
+  // selectedDate 감지 반영
+  useEffect(() => {
+    setPickDate(selectedDate);
+  }, [selectedDate]);
 
   // calendar bar date click event
   const onClickCalendarBar = () => {
@@ -43,6 +46,10 @@ const CalendarBar: React.FC = () => {
   const onChangeDay = (days: number) => {
     const newDate = new Date(pickDate);
     newDate.setDate(newDate.getDate() + days);
+    if (dayjs(newDate).isAfter(dayjs())) {
+      return;
+    }
+    // console.log('onChangeDay 실행');
     setPickDate(newDate);
     setSelectedDate(formatDate(newDate));
     console.log('onChangeDay', selectedDate, '날짜 바꼈니?');

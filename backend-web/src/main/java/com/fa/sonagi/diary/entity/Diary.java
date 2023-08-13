@@ -29,9 +29,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "diary",
-	indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id,created_date")
-)
+@Table(name = "diary", indexes = @Index(name = "idx_baby_id_created_date", columnList = "baby_id,created_date"))
 public class Diary {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +52,6 @@ public class Diary {
 	@Column(name = "created_date")
 	private LocalDate createdDate;
 
-	@CreatedDate
 	@Column(name = "created_time")
 	private LocalTime createdTime;
 
