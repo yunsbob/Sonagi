@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import theme from '../../../styles/theme';
 
 interface TokenWrapperProps {
-  statusOfDay: 'beforeToday' | 'isToday' | 'afterToday';
+  statusOfDay: string;
 }
 interface FloatingPointProps {
   isRecorded: boolean;

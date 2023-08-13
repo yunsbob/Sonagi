@@ -3,11 +3,13 @@ interface DiaryPutDto {
   content: string;
   removesFiles: string[];
 }
+
 interface DiaryPostDto {
   userId: number;
   babyId: number;
   content: string;
 }
+
 interface DiaryInfo {
   diaryId: number;
   userName: string;

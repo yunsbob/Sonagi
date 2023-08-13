@@ -8,6 +8,8 @@ import btnAddDiary from '@/assets/images/btn-add-diary.png';
 import { DiaryListContainer } from '@/pages/DiaryPage/DiaryPage.styles';
 import { Image } from '@/components/atoms/Image/Image';
 import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
 
 const DiaryPage: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -18,6 +20,8 @@ const DiaryPage: React.FC = () => {
     }
     setSelectedDate(date);
   };
+  // router regist
+  const navigate = useNavigate();
 
   return (
     <>
@@ -29,7 +33,7 @@ const DiaryPage: React.FC = () => {
         selectedDate={selectedDate}
         onDateChange={handleDateChange}
       ></WeekendCalendar>
-      <DiaryListContainer>
+      <DiaryListContainer onClick={() => navigate(PATH.DIARYREGISTER)}>
         <Image src={btnAddDiary} width={100} $unit="%"></Image>
       </DiaryListContainer>
     </>
