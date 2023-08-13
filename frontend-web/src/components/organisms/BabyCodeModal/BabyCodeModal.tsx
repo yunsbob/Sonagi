@@ -37,9 +37,6 @@ const BabyCodeModal = ({ onModalClose, modalOpen }: CustomModal) => {
       try {
         await navigator.clipboard.writeText(code);
         setShowToast(true);
-        setTimeout(() => {
-          setShowToast(false);
-        }, 1500);
       } catch (error) {
         console.log('복사 실패', error);
       }
@@ -56,7 +53,9 @@ const BabyCodeModal = ({ onModalClose, modalOpen }: CustomModal) => {
 
   return (
     <>
-      {showToast && <Toast message="아기 코드가 복사되었습니다" />}
+      {showToast && (
+        <Toast message="아기 코드가 복사되었습니다" setToast={setShowToast} />
+      )}
       <Modal isOpen={modalOpen} onClose={onModalClose}>
         <BabyCodeModalContainer>
           <Text size="large">초대 코드</Text>
