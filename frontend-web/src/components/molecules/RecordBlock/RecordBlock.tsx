@@ -5,11 +5,13 @@ import theme from '@/styles/theme';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
+import { CombinedRecord } from '@/types/recordTypes';
 
 interface RecordBlockProps {
   color: string;
   recordType: string;
   time: string;
+  record: CombinedRecord;
 }
 
 const TimeText = styled(Text)`
@@ -29,12 +31,15 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
   color,
   recordType,
   time,
+  record,
 }) => {
   const navigate = useNavigate();
 
   const OnClickButton = () => {
     navigate(PATH.DETAILRECORD, { state: { recordType: recordType } });
   };
+  // TODO: 리코드 자체를 전달해서 새 페이지 안에서 뽑아서 쓴다 !!!
+
   return (
     <BlockButton option="default" size="xLarge" onClick={OnClickButton}>
       <RoundedRect color={color} />

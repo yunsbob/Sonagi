@@ -2,21 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import RecordBar from '@/components/molecules/RecordBar/RecordBar';
 import RecordBlock from '@/components/molecules/RecordBlock/RecordBlock';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { dateRecordedValuesState, recordedValues } from '@/states/recordState';
 import { selectedCategoryState } from '@/states/categoryState';
 import { RecordContainerStyle } from '@/components/organisms/RecordContainer/RecordContainer.styles';
 import { PATH } from '@/constants/path';
-import { RecordTypeA, RecordTypeB, RecordTypeC } from '@/types/recordTypes';
+import { CombinedRecord } from '@/types/recordTypes';
 import theme from '@/styles/theme';
 import { useGetAllCategoryRecords } from '@/apis/Record/Queries/useGetAllCategoryRecords';
 import { selectedBabyState } from '@/states/babyState';
 import { selectedDateState } from '@/states/dateState';
 import { fetchCounterState } from '@/states/fetchCounterState';
-
-type CombinedRecord =
-  | (RecordTypeA & { category: string })
-  | (RecordTypeB & { category: string })
-  | (RecordTypeC & { category: string });
 
 type RecordContainerProps = {
   combinedData: CombinedRecord[];
@@ -45,12 +39,6 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
       container.scrollTop = Number(savedScrollTop);
     }
   }, [combinedData, fetchCounter]);
-
-  // const [fetchCounter, setFetchCounter] = useState(0);
-
-  const records = useGetAllCategoryRecords(selectedBaby.babyId, selectedDate);
-  // console.log(records, 'heresssds');
-  // 데이터가 추가되었을 ㄸㅐ ! -> 새로운 get요청 해야 함
 
   useEffect(() => {
     const container = containerRef.current;
@@ -86,6 +74,7 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
     }
   };
 
+  // TODO: recordBlock 안에 <recordType>id를 넣어줘야함
   return (
     <>
       <RecordContainerStyle className="scrollable" ref={containerRef}>
@@ -94,6 +83,7 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
             key={index}
             color={theme.color.gray1}
             recordType={record.category}
+            record={record}
             time={record.createdTime ? record.createdTime.substring(0, 5) : ''}
           />
         ))}

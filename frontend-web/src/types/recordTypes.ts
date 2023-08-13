@@ -1,146 +1,130 @@
 // category랑 color 일일이 다 지정해줘야할수도?
 
-export const TypeAValues = [
+export const AllTypeValues = [
   'infantFormulas',
   'breastFeedings',
   'babyFoods',
   'milks',
   'pumpingBreasts',
-] as const;
-
-export const TypeBValues = [
   'pees',
   'poops',
   'hospitals',
   'medications',
   'snacks',
   'extras',
-] as const;
+  'sleeps',
+  'plays',
+  'tummytimes',
+  'feedings',
+  'fevers',
+];
 
-export const TypeCValues = ['sleeps', 'plays', 'tummytimes'];
+export type AllType = (typeof AllTypeValues)[number];
 
-export type TypeA = (typeof TypeAValues)[number];
-export type TypeB = (typeof TypeBValues)[number];
-export type TypeC = (typeof TypeCValues)[number];
-
-// 수유
-interface Feeding {
+interface RecordCommon {
   id?: number;
   userId?: number;
   babyId?: number;
-  leftStartTime: string;
-  rightStartTime: string;
-  leftEndTime: string;
-  rightEndTime: string;
   createdDate?: string;
   createdTime?: string;
   memo: string;
 }
+// 수유
+interface Feeding extends RecordCommon {
+  leftStartTime: string;
+  rightStartTime: string;
+  leftEndTime: string;
+  rightEndTime: string;
+  mealId?: number;
+}
 
 // 체온
-interface Fever {
-  id?: number;
-  userId?: number;
-  babyId?: number;
-  createdTime: string;
-  createdDate?: string;
+interface Fever extends RecordCommon {
   bodyTemperature: number;
-  memo: string;
+  healthId?: number;
 }
 
-// recordTypeA : id + 기록시간 + 용량 + 메모
-// => 분유(InfantFormula), 유축(BreastFeeding), 이유식(BabyFood), 우유(Milk), 유축(PumpingBreast)
-interface RecordTypeA {
-  id?: number;
-  userId?: number;
-  babyId?: number;
-  createdDate?: string;
+interface InfantFormula extends RecordCommon {
   amount: number;
-  memo: string;
-  createdTime: string;
+  mealId?: number;
+}
+interface BreastFeeding extends RecordCommon {
+  amount: number;
+  mealId?: number;
+}
+interface BabyFood extends RecordCommon {
+  amount: number;
+  mealId?: number;
+}
+interface Milk extends RecordCommon {
+  amount: number;
+  mealId?: number;
 }
 
-interface InfantFormula extends RecordTypeA {}
-interface BreastFeeding extends RecordTypeA {}
-interface BabyFood extends RecordTypeA {}
-interface Milk extends RecordTypeA {}
-interface PumpingBreast extends RecordTypeA {}
+interface PumpingBreast extends RecordCommon {
+  amount: number;
+  pumpingBreastId?: number;
+}
+// 유축 (개별 카테고리 있음)
 
-// recordTypeB : id + 기록시간 + 메모
-// => 소변(Pee), 대변(Poop), 병원(Hospital), 투약(Medication), 간식(Snack), 기타(Extra)
-interface RecordTypeB {
-  id?: number;
-  userId?: number;
-  babyId?: number;
-  createdDate?: string;
-  createdTime: string;
-  memo: string;
+interface Pee extends RecordCommon {
+  diaperId?: number;
+}
+interface Poop extends RecordCommon {
+  diaperId?: number;
+}
+interface Hospital extends RecordCommon {
+  healthId?: number;
+}
+interface Medication extends RecordCommon {
+  healthId?: number;
+}
+interface Snack extends RecordCommon {
+  mealId?: number;
+}
+interface Extra extends RecordCommon {
+  extraId?: number;
 }
 
-interface Pee extends RecordTypeB {}
-interface Poop extends RecordTypeB {}
-interface Hospital extends RecordTypeB {}
-interface Medication extends RecordTypeB {}
-interface Snack extends RecordTypeB {}
-interface Extra extends RecordTypeB {}
-
-// recordTypeC : id + 기록시간 + 종료시간 + 메모
-// => 수면(Sleep), 놀이(Play), 터미타임(TummyTime)
-interface RecordTypeC {
-  id?: number;
-  userId?: number;
-  babyId?: number;
-  createdTime: string;
-  createdDate?: string;
+interface Sleep extends RecordCommon {
   endTime: string;
-  memo: string;
+  sleepId?: number;
+}
+interface Play extends RecordCommon {
+  endTime: string;
+  activityId?: number;
+}
+interface Tummytime extends RecordCommon {
+  endTime: string;
+  activityId?: number;
 }
 
-interface Sleep extends RecordTypeC {}
-interface Play extends RecordTypeC {}
-interface Tummytime extends RecordTypeC {}
-
-// AllCategory에서 받은 데이터 저장용 - 모든 기록들을 포함하는 타입
-interface RecordedValues {
-  plays: Play[];
-  tummytimes: Tummytime[];
-  pees: Pee[];
-  poops: Poop[];
-  fevers: Fever[];
-  medications: Medication[];
-  hospitals: Hospital[];
-  babyFoods: BabyFood[];
-  breastFeedings: BreastFeeding[];
-  feedings: Feeding[];
-  infantFormulas: InfantFormula[];
-  milks: Milk[];
-  snacks: Snack[];
-  pumpingBreasts: PumpingBreast[];
-  sleeps: Sleep[];
-  extras: Extra[];
-}
-
-// RecordType에 따른 키 값 매핑
-type TypeKeysA = {
-  [key in TypeA]: RecordTypeA[];
+type RecordedValues = {
+  [key in AllType]: AllRecords[];
 };
 
-type TypeKeysB = {
-  [key in TypeB]: RecordTypeB[];
-};
+type AllRecords =
+  | Play
+  | Tummytime
+  | Pee
+  | Poop
+  | Fever
+  | Medication
+  | Hospital
+  | BabyFood
+  | BreastFeeding
+  | Feeding
+  | InfantFormula
+  | Milk
+  | Snack
+  | PumpingBreast
+  | Sleep
+  | Extra;
 
-type TypeKeysC = {
-  [key in TypeC]: RecordTypeC[];
-};
-
-type RecordedList = TypeKeysA &
-  TypeKeysB &
-  TypeKeysC & {
-    feedings: Feeding[];
-    fevers: Fever[];
-  };
+type CombinedRecord = AllRecords & { category: string };
 
 export type {
+  AllRecords,
   Feeding,
   Fever,
   InfantFormula,
@@ -158,8 +142,5 @@ export type {
   Play,
   Tummytime,
   RecordedValues,
-  RecordTypeA,
-  RecordTypeB,
-  RecordTypeC,
-  RecordedList,
+  CombinedRecord,
 };

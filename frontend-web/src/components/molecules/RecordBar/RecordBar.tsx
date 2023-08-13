@@ -8,23 +8,10 @@ import { Category } from '@/types';
 import { recordsByCategory } from '@/states/recordState';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { PATH } from '@/constants/path';
-import { useAddRecordTypeA } from '@/apis/Record/Mutations/useAddRecordTypeA';
-import { useAddRecordTypeB } from '@/apis/Record/Mutations/useAddRecordTypeB';
-import { useAddRecordTypeC } from '@/apis/Record/Mutations/useAddRecordTypeC';
-import { useAddRecordFeeding } from '@/apis/Record/Mutations/useAddRecordFeeding';
-import { useAddRecordFever } from '@/apis/Record/Mutations/useAddRecordFever';
+import { useAddRecord } from '@/apis/Record/Mutations/useAddRecord';
 import { userInfoState } from '@/states/userState';
 import { selectedBabyState } from '@/states/babyState';
 import { selectedDateState } from '@/states/dateState';
-
-import {
-  TypeAValues,
-  TypeA,
-  TypeBValues,
-  TypeB,
-  TypeCValues,
-  TypeC,
-} from '@/types/recordTypes';
 
 interface RecordBarProps {
   onRecordUpdated: () => void;
@@ -41,20 +28,23 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
   const [selectedBaby] = useRecoilState(selectedBabyState);
 
   // 버튼 누르면 post
-  const addRecordTypeAMutation = useAddRecordTypeA();
-  const addRecordTypeBMutation = useAddRecordTypeB();
-  const addRecordTypeCMutation = useAddRecordTypeC();
-  const addRecordFeeding = useAddRecordFeeding();
-  const addRecordFever = useAddRecordFever();
+  const addRecordMutation = useAddRecord();
 
-  const isTypeA = (query: string): query is TypeA =>
-    TypeAValues.includes(query as TypeA);
-
-  const isTypeB = (query: string): query is TypeB =>
-    TypeBValues.includes(query as TypeB);
-
-  const isTypeC = (query: string): query is TypeC =>
-    TypeCValues.includes(query as TypeC);
+  /*
+  -export const TypeAValues = [
++export const AllTypeValues = ;
+-
+-export const TypeBValues = [
+   'pees',
+   'poops',
+   'hospitals',
+   'medications',
+   'snacks',
+   'extras',
+-] as const;
+-
+-export const TypeCValues = ['sleeps', 'plays', 'tummytimes'];
+*/
 
   const handleButtonClick = async (
     recordType: string,
@@ -67,8 +57,16 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
     const nowDate = selectedDate;
     console.log(nowDate, nowTime, queryName, recordType); // ex. medications, 투약
 
-    if (isTypeA(queryName)) {
-      await addRecordTypeAMutation.mutateAsync({
+    if (
+      [
+        'infantFormulas',
+        'breastFeedings',
+        'babyFoods',
+        'milks',
+        'pumpingBreasts',
+      ].includes(queryName)
+    ) {
+      await addRecordMutation.mutateAsync({
         type: queryName,
         userId: userInfo.userId,
         babyId: selectedBaby.babyId,
@@ -77,8 +75,17 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
         createdDate: nowDate,
         memo: '',
       });
-    } else if (isTypeB(queryName)) {
-      await addRecordTypeBMutation.mutateAsync({
+    } else if (
+      [
+        'pees',
+        'poops',
+        'hospitals',
+        'medications',
+        'snacks',
+        'extras',
+      ].includes(queryName)
+    ) {
+      await addRecordMutation.mutateAsync({
         type: queryName,
         userId: userInfo.userId,
         babyId: selectedBaby.babyId,
@@ -86,8 +93,8 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
         createdDate: nowDate,
         memo: '',
       });
-    } else if (isTypeC(queryName)) {
-      await addRecordTypeCMutation.mutateAsync({
+    } else if (['sleeps', 'plays', 'tummytimes'].includes(queryName)) {
+      await addRecordMutation.mutateAsync({
         type: queryName,
         userId: userInfo.userId,
         babyId: selectedBaby.babyId,
@@ -97,7 +104,7 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
         memo: '',
       });
     } else if (queryName === 'feedings') {
-      await addRecordFeeding.mutateAsync({
+      await addRecordMutation.mutateAsync({
         type: queryName,
         userId: userInfo.userId,
         babyId: selectedBaby.babyId,
@@ -110,7 +117,7 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
         memo: '',
       });
     } else {
-      await addRecordFever.mutateAsync({
+      await addRecordMutation.mutateAsync({
         type: queryName,
         userId: userInfo.userId,
         babyId: selectedBaby.babyId,

@@ -9,19 +9,12 @@ import { PATH } from '@/constants/path';
 import { selectedBabyState } from '@/states/babyState';
 import { useGetAllCategoryRecords } from '@/apis/Record/Queries/useGetAllCategoryRecords';
 import {
-  RecordTypeA,
-  RecordTypeB,
-  RecordTypeC,
-  RecordedList,
+  AllRecords,
+  CombinedRecord,
+  RecordedValues,
 } from '@/types/recordTypes';
 import { selectedDateState } from '@/states/dateState';
 
-type CombinedRecord =
-  | (RecordTypeA & { category: string })
-  | (RecordTypeB & { category: string })
-  | (RecordTypeC & { category: string });
-
-type RecordItem = RecordTypeA | RecordTypeB | RecordTypeC;
 type StringKeys<T> = Extract<keyof T, string>;
 
 const RecordPage = () => {
@@ -43,11 +36,11 @@ const RecordPage = () => {
   const [combinedData, setCombinedDataState] = useState<CombinedRecord[]>([]);
 
   useEffect(() => {
-    const computeCombinedData = (recordedList: RecordedList) => {
+    const computeCombinedData = (recordedList: RecordedValues) => {
       const tempCombinedData: CombinedRecord[] = [];
       Object.keys(recordedList).forEach(
         (key: StringKeys<typeof recordedList>) => {
-          recordedList[key].forEach((item: RecordItem) => {
+          recordedList[key].forEach((item: AllRecords) => {
             tempCombinedData.push({ ...item, category: key });
           });
         }
