@@ -16,6 +16,8 @@ import { useAddRecordFever } from '@/apis/Record/Mutations/useAddRecordFever';
 import { userInfoState } from '@/states/userState';
 import { selectedBabyState } from '@/states/babyState';
 import { recordedValuesState } from '../../../states/recordState';
+import { selectedDateState } from '@/states/dateState';
+
 import {
   TypeAValues,
   TypeA,
@@ -51,8 +53,8 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
   };
   // const [recordedValue, setRecordedValue] =
   //   useSetRecoilState(recordedValuesState);
-  const [pickDate, setPickTime] = useState<Date>(new Date());
-  const nowTime = moment(pickDate).format('HH:mm:ss');
+  const [pickDate, setPickTime] = useState(new Date());
+
   const nowDate = moment(pickDate).format('YYYY-MM-DD');
 
   // const [recordBlocks, setRecordBlocks] =
@@ -60,6 +62,8 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
   // console.log(recordBlocks, '리코일에 어떻게 저장되어있는지?');
 
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
+  const selectedDate = useRecoilValue(selectedDateState);
+
   const records = recordsByCategory[currentCategory || 'All'] || [];
   const [userInfo] = useRecoilState(userInfoState);
   const [selectedBaby] = useRecoilState(selectedBabyState);
@@ -86,7 +90,11 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
     category: Category,
     queryName: string
   ) => {
-    console.log(queryName, recordType); // ex. medications, 투약
+    setPickTime(new Date());
+
+    const nowTime = moment(pickDate).format('HH:mm:ss');
+    const nowDate = selectedDate;
+    console.log(nowDate, nowTime, queryName, recordType); // ex. medications, 투약
     if (isTypeA(queryName)) {
       addRecordTypeAMutation.mutate({
         type: queryName,
