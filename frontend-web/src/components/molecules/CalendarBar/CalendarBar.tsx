@@ -45,7 +45,6 @@ const CalendarBar: React.FC = () => {
     newDate.setDate(newDate.getDate() + days);
     setPickDate(newDate);
     setSelectedDate(formatDate(newDate));
-    console.log('onChangeDay', selectedDate, '날짜 바꼈니?');
   };
 
   return (

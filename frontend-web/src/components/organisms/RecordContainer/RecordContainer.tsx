@@ -98,7 +98,7 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
             key={index}
             color={theme.color.gray1}
             recordType={record.category}
-            time={record.createdTime.substring(0, 5)}
+            time={record.createdTime ? record.createdTime.substring(0, 5) : ''}
           />
         ))}
         {/* {filteredRecordList.map((record, index) => (
