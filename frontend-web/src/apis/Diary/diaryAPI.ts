@@ -26,7 +26,17 @@ const addDiary = async (formData: FormData) => {
   }
 };
 // 일기 수정
-// const updateDiary = async ()
+const updateDiary = async (formData: FormData) => {
+  try {
+    await instance.put('/diaries', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', // 특정 요청에서만 변경
+      },
+    });
+  } catch {
+    new Error('Diary Update Error');
+  }
+};
 // 일기 삭제
 const deleteDiary = async (diaryId: number) => {
   try {
@@ -38,4 +48,4 @@ const deleteDiary = async (diaryId: number) => {
 
 // 일기 기록 날짜 리스트 조회
 
-export { getDiariesAtWriteDay, addDiary };
+export { getDiariesAtWriteDay, addDiary, updateDiary, deleteDiary };
