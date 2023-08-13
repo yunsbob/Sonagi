@@ -10,10 +10,17 @@ interface Baby {
   userId: number;
 }
 
+interface UpdateBaby {
+  birthDate: string;
+  gender: 'M' | 'F';
+  name: string;
+  babyId: number;
+}
+
 interface BabiesOfUser {
   babyId: number;
   name: string;
-  gender: string;
+  gender: 'M' | 'F';
   authority: string;
 }
 
@@ -74,4 +81,5 @@ export type {
   RecordsByCategory,
   RecordData,
   CustomModal,
+  UpdateBaby,
 };
