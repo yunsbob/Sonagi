@@ -36,6 +36,7 @@ const CoparentDeleteModal = ({ onModalClose, modalOpen, coparent }: Props) => {
       },
       {
         onSuccess: () => {
+          setShowToast(true);
           queryClient.invalidateQueries(['coParent', babyInfo.babyId]);
           onModalClose();
         },
@@ -48,7 +49,12 @@ const CoparentDeleteModal = ({ onModalClose, modalOpen, coparent }: Props) => {
 
   return (
     <CoparentDeleteModalContainer>
-      {showToast && <Toast message="박홍준님을 삭제하였습니다" />}
+      {showToast && (
+        <Toast
+          message={`${coparent.name}님을 삭제하였습니다`}
+          setToast={setShowToast}
+        />
+      )}
       <Modal isOpen={modalOpen} onClose={onModalClose}>
         <CoparentDeleteModalTitleWrapper>
           <Text size="large" className="title">
