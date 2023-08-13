@@ -1,5 +1,5 @@
 import { instance } from '@/apis/instance';
-import { Baby } from '@/types';
+import { BabiesOfUser, Baby, UpdateBaby } from '@/types';
 
 const addBaby = async (baby: Baby) => {
   try {
@@ -45,6 +45,15 @@ const registerBabyCode = async (userId: number, code: string) => {
   await instance.post('babyCode', { userId: userId, code: code });
 };
 
+// 아이 정보 변경
+const updateBaby = async (baby: UpdateBaby) => {
+  try {
+    await instance.put('/babyDetail', baby);
+  } catch {
+    new Error('baby name put error');
+  }
+};
+
 export {
   addBaby,
   getBaby,
@@ -52,4 +61,5 @@ export {
   deleteCoparent,
   getBabyCode,
   registerBabyCode,
+  updateBaby,
 };

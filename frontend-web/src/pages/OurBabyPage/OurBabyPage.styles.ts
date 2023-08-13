@@ -14,6 +14,7 @@ const OurBabyPageContainer = styled.div`
 const UpperButtonWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   width: 100%;
   /* border-bottom: 2px dashed ${({ theme }) => theme.color.white1}; */
 `;
@@ -22,7 +23,7 @@ const UpperButtonContainer = styled.div`
   display: flex;
   justify-content: space-around;
   width: 100%;
-  padding: 10px;
+  padding: 0 30px;
   gap: 10px;
   /* gap: 20px; */
   /* border-bottom: 2px dashed ${({ theme }) => theme.color.white1}; */

@@ -16,6 +16,7 @@ const PATH = {
   MYPAGE: '/main/myPage',
   ALARM: '/main/alarm',
   REGISTERBABYPROFILE: '/regBabyProfile',
+  UPDATEBABYPROFILE: '/updateBabyProfile',
   DETAILRECORD: '/main/detailRecord',
 } as const;
 

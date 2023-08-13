@@ -10,29 +10,64 @@ import babyCard from '@/assets/images/img-baby-card.png';
 import BabyPersonalInfoContainer from '@/components/organisms/BabyPersonalInfoContainer/BabyPersonalInfoContainer';
 import { Background } from '@/components/atoms/Background/Background.styles';
 import BackgroundImg from '@/assets/images/background.png';
+import { useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { BabiesOfUser, Baby } from '@/types';
+import { babyInfoState, selectedBabyState } from '@/states/babyState';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
+import { BabyCodeModal } from '@/components/organisms/BabyCodeModal/BabyCodeModal';
 
 const OurBabyPage = () => {
+  const navigate = useNavigate();
+
+  const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
+  const [isMale, setIsMale] = useState(babyInfo.gender === 'M');
+
+  const [BabyCodeModalOpen, setBabyCodeModalOpen] = useState(false);
+
+  const modalClose = (
+    setState: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    setState(false);
+  };
+
+  // TODO: 함께한 시간 계산하기.. 근데 selectBaby에는 date가 없다
   return (
     <Background $background={BackgroundImg}>
+      <BabyCodeModal
+        onModalClose={() => modalClose(setBabyCodeModalOpen)}
+        modalOpen={BabyCodeModalOpen}
+      />
       <S.InfoEditWrapper>
-        <Button option="default" size="xSmall" onClick={() => {}}>
-          <Image src={setting} width={1} />
+        <Button
+          option="default"
+          size="xSmall"
+          onClick={() => {
+            navigate(PATH.UPDATEBABYPROFILE);
+          }}
+        >
+          <Image src={setting} width={1} style={{ marginRight: '10px' }} />
           <Text size="small">정보 수정</Text>
         </Button>
       </S.InfoEditWrapper>
       <S.OurBabyPageContainer>
         <S.BabyNameWrapper>
           <Text size="headMedium" $fontWeight={700}>
-            이지은 천사
+            {babyInfo.name} 천사
           </Text>
         </S.BabyNameWrapper>
-        <Image
-          // src={true ? babyBlue : babyYellow}
-          src={babyBlue}
-          // style={{ transform: 'rotate(9.093deg)' }}
-          width={144}
-          $unit="px"
-        />
+        <div style={{ height: '144px' }}>
+          <Image
+            src={isMale ? babyBlue : babyYellow}
+            // src={babyBlue}
+            // style={{ transform: 'rotate(9.093deg)' }}
+            // width={144}
+            // $unit="px"
+            height={100}
+            $unit="%"
+          />
+        </div>
         <Text size="medium1"> 함께한 시간 247일</Text>
         <Text size="headMedium" $fontWeight={700}>
           35주
@@ -45,7 +80,7 @@ const OurBabyPage = () => {
             </S.UpperButtonWrapper>
           </Button>
           <Button>
-            <S.UpperButtonWrapper>
+            <S.UpperButtonWrapper onClick={() => setBabyCodeModalOpen(true)}>
               <Text size="headSmall">초대 코드 공유</Text>
               <Image src={babyCard} width={33} $unit="px" />
             </S.UpperButtonWrapper>
