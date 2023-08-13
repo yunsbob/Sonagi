@@ -42,10 +42,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 	}
 
 	private OAuth2User process(OAuth2UserRequest userRequest, OAuth2User user) {
-		ProviderType providerType = ProviderType.valueOf(userRequest
-			.getClientRegistration()
-			.getRegistrationId()
-			.toUpperCase());
+		ProviderType providerType = ProviderType.valueOf(userRequest.getClientRegistration().getRegistrationId().toUpperCase());
 
 		OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
 		log.info(userInfo.getId());
@@ -67,26 +64,21 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 	}
 
 	private Users createUser(OAuth2UserInfo userInfo, ProviderType providerType) {
-		Users user = Users
-			.builder()
-			.socialId(userInfo.getId())
-			.email(userInfo.getEmail())
-			.name(userInfo.getName())
-			.providerType(providerType)
-			.roles(Collections.singletonList(RoleType.ROLE_USER.name()))
-			.build();
+		Users user = Users.builder()
+		                  .socialId(userInfo.getId())
+		                  .email(userInfo.getEmail())
+		                  .name(userInfo.getName())
+		                  .providerType(providerType)
+		                  .roles(Collections.singletonList(RoleType.ROLE_USER.name()))
+		                  .build();
 		return userRepository.saveAndFlush(user);
 	}
 
 	private void updateUser(Users user, OAuth2UserInfo userInfo) {
-		if (userInfo.getName() != null && !user
-			.getUsername()
-			.equals(userInfo.getName())) {
+		if (userInfo.getName() != null && !user.getUsername().equals(userInfo.getName())) {
 			user.setName(userInfo.getName());
 		}
-		if (userInfo.getEmail() != null && !user
-			.getEmail()
-			.equals(userInfo.getEmail())) {
+		if (userInfo.getEmail() != null && !user.getEmail().equals(userInfo.getEmail())) {
 			user.setName(userInfo.getName());
 		}
 	}

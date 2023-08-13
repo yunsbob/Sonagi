@@ -2,6 +2,7 @@ package com.fa.sonagi.diary.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,67 +37,52 @@ public class DiaryServiceImpl implements DiaryService {
 	@Override
 	@Transactional
 	public void createDiary(DiaryPostDto diaryPostDto, List<MultipartFile> imgFiles) throws Exception {
-		String userName = userRepository
-			.findById(diaryPostDto.getUserId())
-			.orElseThrow()
-			.getName();
+		String userName = userRepository.findById(diaryPostDto.getUserId()).orElseThrow().getName();
 
 		// diary 생성
-		Diary diary = Diary
-			.builder()
-			.babyId(diaryPostDto.getBabyId())
-			.userName(userName)
-			.diaryFiles(new ArrayList<>())
-			.content(diaryPostDto.getContent())
-			.build();
+		Diary diary = Diary.builder()
+		                   .babyId(diaryPostDto.getBabyId())
+		                   .userName(userName)
+		                   .diaryFiles(new ArrayList<>())
+		                   .content(diaryPostDto.getContent())
+		                   .createdTime(LocalTime.now().plusHours(9))
+		                   .build();
 
 		// file 업로드 + Diary Entity에 일대 다 등록
-		imgFiles
-			.stream()
-			.map((imgFile) -> {
-				try {
-					return s3File.upload(imgFile, "img");
-				} catch (Exception e) {
-					log.error("File UploadError : {}", e.getMessage());
-					throw new RuntimeException(e);
-				}
-			})
-			.forEach((url) -> {
-				DiaryFile diaryFile = DiaryFile
-					.builder()
-					.fileName(url)
-					.build();
-				diary.addDiaryFile(diaryFile);
-			});
+		imgFiles.stream().map((imgFile) -> {
+			try {
+				return s3File.upload(imgFile, "img");
+			} catch (Exception e) {
+				log.error("File UploadError : {}", e.getMessage());
+				throw new RuntimeException(e);
+			}
+		}).forEach((url) -> {
+			DiaryFile diaryFile = DiaryFile.builder().fileName(url).build();
+			diary.addDiaryFile(diaryFile);
+		});
 
 		log.info("img upload successfully");
 
 		// Diary repository에 entity build 후 save
 		diaryRepository.save(diary);
 
-		Baby baby = babyRepository
-			.findById(diaryPostDto.getBabyId())
-			.orElseThrow();
+		Baby baby = babyRepository.findById(diaryPostDto.getBabyId()).orElseThrow();
 
 		baby.updateLastDiaryTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
+
 	}
 
 	@Override
 	@Transactional
 	public void updateDiaryContent(DiaryPutDto diaryPutDto, List<MultipartFile> imgFiles) throws Exception {
 		// diary content 수정
-		Diary diary = diaryRepository
-			.findById(diaryPutDto.getDiaryId())
-			.orElseThrow();
+		Diary diary = diaryRepository.findById(diaryPutDto.getDiaryId()).orElseThrow();
 		diary.updateContent(diaryPutDto.getContent());
 
 		// 새로 사진 추가 및 업로드
 		for (MultipartFile imgFile : imgFiles) {
 			String url = s3File.upload(imgFile, "img");
-			DiaryFile diaryFile = DiaryFile
-				.builder()
-				.fileName(url)
-				.build();
+			DiaryFile diaryFile = DiaryFile.builder().fileName(url).build();
 			diary.addDiaryFile(diaryFile);
 		}
 
@@ -104,13 +90,10 @@ public class DiaryServiceImpl implements DiaryService {
 		for (String removeFile : diaryPutDto.getRemoveFiles()) {
 			s3File.delete(removeFile);
 
-			List<DiaryFile> list = diary
-				.getDiaryFiles()
-				.stream()
-				.filter((diaryFile -> diaryFile
-					.getFileName()
-					.equals(removeFile)))
-				.toList();
+			List<DiaryFile> list = diary.getDiaryFiles()
+			                            .stream()
+			                            .filter((diaryFile -> diaryFile.getFileName().equals(removeFile)))
+			                            .toList();
 
 			for (int i = 0; i < list.size(); i++) {
 				DiaryFile diaryFile = list.get(i);
@@ -132,23 +115,17 @@ public class DiaryServiceImpl implements DiaryService {
 		DiaryResDto.DiaryInfos diaryInfos = new DiaryResDto.DiaryInfos();
 		List<DiaryResDto.DiaryInfo> diaryInfoList = new ArrayList<>();
 
-		List<Diary> diaries = diaryRepository
-			.findByBabyIdAndCreatedDate(babyId, writeDay);
+		List<Diary> diaries = diaryRepository.findByBabyIdAndCreatedDate(babyId, writeDay);
 
 		for (Diary diary : diaries) {
-			List<String> urlList = diary
-				.getDiaryFiles()
-				.stream()
-				.map(DiaryFile::getFileName)
-				.toList();
-			DiaryResDto.DiaryInfo diaryInfo = DiaryResDto.DiaryInfo
-				.builder()
-				.diaryId(diary.getId())
-				.userName(diary.getUserName())
-				.writeDay(diary.getCreatedDate())
-				.imgUrls(urlList)
-				.content(diary.getContent())
-				.build();
+			List<String> urlList = diary.getDiaryFiles().stream().map(DiaryFile::getFileName).toList();
+			DiaryResDto.DiaryInfo diaryInfo = DiaryResDto.DiaryInfo.builder()
+			                                                       .diaryId(diary.getId())
+			                                                       .userName(diary.getUserName())
+			                                                       .writeDay(diary.getCreatedDate())
+			                                                       .imgUrls(urlList)
+			                                                       .content(diary.getContent())
+			                                                       .build();
 			diaryInfoList.add(diaryInfo);
 		}
 		diaryInfos.setDiaries(diaryInfoList);

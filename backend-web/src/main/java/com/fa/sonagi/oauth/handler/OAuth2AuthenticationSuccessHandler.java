@@ -40,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
+	private static final String ANDORIOD_DEVICE_TOKEN = "androidToken";
 	private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisTemplate<String, String> redisTemplate;
@@ -61,9 +62,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 	}
 
 	protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-		Optional<String> redirectUri = CookieUtil
-			.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
-			.map(Cookie::getValue);
+		Optional<String> redirectUri = CookieUtil.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME).map(Cookie::getValue);
 
 		if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
 			log.error("determineTargetUrl - redirectUri : {} , 인증을 진행할 수 없습니다.", redirectUri);
@@ -71,11 +70,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		}
 
 		String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-
 		OAuth2AuthenticationToken authToken = (OAuth2AuthenticationToken)authentication;
-		ProviderType providerType = ProviderType.valueOf(authToken
-			.getAuthorizedClientRegistrationId()
-			.toUpperCase());
+		ProviderType providerType = ProviderType.valueOf(authToken.getAuthorizedClientRegistrationId().toUpperCase());
 
 		OidcUser user = ((OidcUser)authentication.getPrincipal());
 		OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
@@ -88,18 +84,18 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		Token tokenInfo = jwtTokenProvider.createToken(String.valueOf(bySocialId.getUserId()), socialId, roleType.name());
 
 		// RT{userId} : refreshToken 형식으로 redis 저장.
-		redisTemplate
-			.opsForValue()
-			.set("RT" + socialId, tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(), TimeUnit.MILLISECONDS);
+		redisTemplate.opsForValue().set("RT" + socialId, tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(), TimeUnit.MILLISECONDS);
 
 		CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
 		CookieUtil.addCookie(response, REFRESH_TOKEN, tokenInfo.getRefreshToken(), JwtTokenProvider.getRefreshTokenExpireTimeCookie());
+		// 기기 토큰 값 업데이트
+		Optional<String> androidDeviceToken = CookieUtil.getCookie(request, ANDORIOD_DEVICE_TOKEN).map(Cookie::getValue);
+		if (androidDeviceToken.isPresent() && !bySocialId.getFirebaseToken().equals(androidDeviceToken.get())) {
+			bySocialId.updateFCMToken(androidDeviceToken.get());
+			userRepository.save(bySocialId);
+		}
 
-		return UriComponentsBuilder
-			.fromUriString(targetUrl)
-			.queryParam("accessToken", tokenInfo.getAccessToken())
-			.build()
-			.toUriString();
+		return UriComponentsBuilder.fromUriString(targetUrl).queryParam("accessToken", tokenInfo.getAccessToken()).build().toUriString();
 	}
 
 	protected void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
@@ -123,10 +119,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		URI clientRedirectUri = URI.create(uri);
 		URI authorizedUri = URI.create(redirectUri);
 
-		return authorizedUri
-			.getHost()
-			.equalsIgnoreCase(clientRedirectUri.getHost())
-			&& authorizedUri.getPort() == clientRedirectUri.getPort();
+		return authorizedUri.getHost().equalsIgnoreCase(clientRedirectUri.getHost()) && authorizedUri.getPort() == clientRedirectUri.getPort();
 	}
 
 }

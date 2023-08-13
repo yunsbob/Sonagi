@@ -12,6 +12,7 @@ import RecordPage from '@/pages/RecordPage/RecordPage';
 import GraphPage from '@/pages/GraphPage/GraphPage';
 import OurBabyPage from '@/pages/OurBabyPage/OurBabyPage';
 import DiaryPage from '@/pages/DiaryPage/DiaryPage';
+import DiaryRegister from '@/pages/DiaryRegisterPage/DiaryRegisterPage';
 import MyPagePage from '@/pages/MyPagePage/MyPagePage';
 import RegisterBabyProfilePage from '@/pages/RegisterBabyProfilePage/RegisterBabyProfilePage';
 import RegisterPage from '@/pages/RegisterPage/RegisterPage';
@@ -67,6 +68,7 @@ const router = createBrowserRouter([
       },
       { path: 'ourBaby', element: <OurBabyPage /> },
       { path: 'diary', element: <DiaryPage /> },
+      { path: 'diaryRegister', element: <DiaryRegister /> },
       { path: 'myPage', element: <MyPagePage /> },
       { path: 'alarm', element: <AlarmPage /> },
       { path: 'detailRecord', element: <DetailRecordPage /> },
