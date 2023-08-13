@@ -27,6 +27,10 @@ const getCoParent = async (userId: number, babyId: number) => {
   }
 };
 
+const deleteCoparent = async (babyId: number, coparentId: number) => {
+  await instance.delete(`/coparents/${babyId}/${coparentId}`);
+};
+
 const getBabyCode = async (babyId: number) => {
   try {
     const response = await instance.get(`/babyCode?babyId=${babyId}`);
@@ -36,4 +40,16 @@ const getBabyCode = async (babyId: number) => {
   }
 };
 
-export { addBaby, getBaby, getCoParent, getBabyCode };
+// 아기 코드로 아기 등록
+const registerBabyCode = async (userId: number, code: string) => {
+  await instance.post('babyCode', { userId: userId, code: code });
+};
+
+export {
+  addBaby,
+  getBaby,
+  getCoParent,
+  deleteCoparent,
+  getBabyCode,
+  registerBabyCode,
+};

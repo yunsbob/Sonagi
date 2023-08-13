@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MealResDto {
-	private Long id;
+	private Long mealId;
 	private Long amount;
 	private String memo;
 	private LocalTime createdTime;

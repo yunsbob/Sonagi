@@ -36,7 +36,7 @@ public class MilkServiceImpl implements MilkService {
 	 */
 	@Override
 	@Transactional
-	public void registMilk(MealPostDto mealPostDto) {
+	public MealResDto registMilk(MealPostDto mealPostDto) {
 		Milk milk = Milk
 			.builder()
 			.userId(mealPostDto.getUserId())
@@ -56,6 +56,12 @@ public class MilkServiceImpl implements MilkService {
 		milkRepository.save(milk);
 		baby.updateMealOn("N");
 
+		return MealResDto.builder()
+			.mealId(milk.getId())
+			.amount(milk.getAmount())
+			.memo(milk.getMemo())
+			.createdTime(milk.getCreatedTime())
+			.build();
 	}
 
 	/**
@@ -65,7 +71,7 @@ public class MilkServiceImpl implements MilkService {
 	@Transactional
 	public void updateMilk(MealPutDto mealPutDto) {
 		Milk milk = milkRepository
-			.findById(mealPutDto.getId())
+			.findById(mealPutDto.getMealId())
 			.orElseThrow();
 
 		milk.updateMilk(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());

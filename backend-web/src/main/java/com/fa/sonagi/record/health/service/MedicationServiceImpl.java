@@ -32,7 +32,7 @@ public class MedicationServiceImpl implements MedicationService {
    */
   @Override
   @Transactional
-  public void registMedication(HealthPostDto healthPostDto) {
+  public HealthResDto registMedication(HealthPostDto healthPostDto) {
     Medication medication = Medication.builder()
         .userId(healthPostDto.getUserId())
         .babyId(healthPostDto.getBabyId())
@@ -42,6 +42,12 @@ public class MedicationServiceImpl implements MedicationService {
         .build();
 
     medicationRepository.save(medication);
+
+    return HealthResDto.builder()
+        .healthId(medication.getId())
+        .createdTime(medication.getCreatedTime())
+        .memo(medication.getMemo())
+        .build();
   }
 
   /**
@@ -50,7 +56,7 @@ public class MedicationServiceImpl implements MedicationService {
   @Override
   @Transactional
   public void updateMedication(HealthPutDto healthPutDto) {
-    Medication medication = medicationRepository.findById(healthPutDto.getId()).orElseThrow();
+    Medication medication = medicationRepository.findById(healthPutDto.getHealthId()).orElseThrow();
     medication.updateMedication(healthPutDto.getCreatedTime(), healthPutDto.getMemo());
   }
 

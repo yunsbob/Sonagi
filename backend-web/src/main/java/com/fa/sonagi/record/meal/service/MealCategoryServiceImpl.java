@@ -42,7 +42,8 @@ public class MealCategoryServiceImpl implements MealCategoryService {
 	 */
 	@Override
 	public List<MealResDto> findAllBabyFood(Long babyId, LocalDate createdDate) {
-		List<BabyFood> findBabyFoods = babyFoodRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<BabyFood> findBabyFoods = babyFoodRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(babyId,
+			createdDate);
 
 		List<MealResDto> babyfoods = findBabyFoods
 			.stream()
@@ -57,7 +58,8 @@ public class MealCategoryServiceImpl implements MealCategoryService {
 	 */
 	@Override
 	public List<MealResDto> findAllBreastFeeding(Long babyId, LocalDate createdDate) {
-		List<BreastFeeding> findBreastFeedings = breastFeedingRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<BreastFeeding> findBreastFeedings = breastFeedingRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(
+			babyId, createdDate);
 
 		List<MealResDto> breastFeedings = findBreastFeedings
 			.stream()
@@ -72,13 +74,16 @@ public class MealCategoryServiceImpl implements MealCategoryService {
 	 */
 	@Override
 	public List<FeedingResDto> findAllFeeding(Long babyId, LocalDate createdDate) {
-		List<Feeding> findFeedings = feedingRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<FeedingResDto> feedings = feedingRepository.findByBabyIdAndCreatedDateOrderbyTime(babyId, createdDate);
 
-		List<FeedingResDto> feedings = findFeedings
-			.stream()
-			.map(f -> new FeedingResDto(f.getId(), f.getLeftStartTime(), f.getRightStartTime(),
-				f.getLeftEndTime(), f.getRightEndTime(), f.getMemo()))
-			.collect(Collectors.toList());
+		for (int i = 0; i < feedings.size(); i++) {
+			if (feedings.get(i).getLeftStartTime().isBefore(feedings.get(i).getRightStartTime())) {
+				feedings.get(i).setCreatedTime(feedings.get(i).getLeftStartTime());
+			} else {
+				feedings.get(i).setCreatedTime(feedings.get(i).getRightStartTime());
+			}
+		}
+
 		return feedings;
 	}
 
@@ -87,7 +92,8 @@ public class MealCategoryServiceImpl implements MealCategoryService {
 	 */
 	@Override
 	public List<MealResDto> findAllInfantFormula(Long babyId, LocalDate createdDate) {
-		List<InfantFormula> findInfantFormulas = infantFormulaRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<InfantFormula> findInfantFormulas = infantFormulaRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(
+			babyId, createdDate);
 
 		List<MealResDto> infantFormulas = findInfantFormulas
 			.stream()
@@ -102,7 +108,7 @@ public class MealCategoryServiceImpl implements MealCategoryService {
 	 */
 	@Override
 	public List<MealResDto> findAllMilk(Long babyId, LocalDate createdDate) {
-		List<Milk> findMilks = milkRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<Milk> findMilks = milkRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(babyId, createdDate);
 
 		List<MealResDto> milks = findMilks
 			.stream()
@@ -117,7 +123,7 @@ public class MealCategoryServiceImpl implements MealCategoryService {
 	 */
 	@Override
 	public List<SnackResDto> findAllSnack(Long babyId, LocalDate createdDate) {
-		List<Snack> findSnacks = snackRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<Snack> findSnacks = snackRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(babyId, createdDate);
 
 		List<SnackResDto> snacks = findSnacks
 			.stream()

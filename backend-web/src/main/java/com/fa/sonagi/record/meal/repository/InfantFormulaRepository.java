@@ -9,5 +9,5 @@ import com.fa.sonagi.record.meal.entity.InfantFormula;
 
 public interface InfantFormulaRepository extends JpaRepository<InfantFormula, Long>, InfantFormulaRepositoryCustom {
 
-	List<InfantFormula> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
+	List<InfantFormula> findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(Long babyId, LocalDate createdDate);
 }

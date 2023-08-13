@@ -33,7 +33,7 @@ public class PlayServiceImpl implements PlayServeice {
    */
   @Override
   @Transactional
-  public void registPlay(ActivityPostDto activityPostDto) {
+  public ActivityResDto registPlay(ActivityPostDto activityPostDto) {
     Play play = Play.builder()
         .userId(activityPostDto.getUserId())
         .babyId(activityPostDto.getBabyId())
@@ -44,6 +44,13 @@ public class PlayServiceImpl implements PlayServeice {
         .build();
 
     playRepository.save(play);
+
+    return ActivityResDto.builder()
+        .activityId(play.getId())
+        .createdTime(play.getCreatedTime())
+        .endTime(play.getEndTime())
+        .memo(play.getMemo())
+        .build();
   }
 
   /**
@@ -52,7 +59,7 @@ public class PlayServiceImpl implements PlayServeice {
   @Override
   @Transactional
   public void updatePlay(ActivityPutDto activityPutDto) {
-    Play play = playRepository.findById(activityPutDto.getId()).orElseThrow();
+    Play play = playRepository.findById(activityPutDto.getActivityId()).orElseThrow();
     play.updatePlay(activityPutDto.getCreatedTime(), activityPutDto.getEndTime(),
         activityPutDto.getMemo());
   }

@@ -1,57 +1,175 @@
+import React, { useState } from 'react';
 import Button from '@/components/atoms/Button/Button';
+import moment from 'moment';
 import { RecordBarContainer } from '@/components/molecules/RecordBar/RecordBar.styles';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { selectedCategoryState } from '@/states/categoryState';
 import { Category, RecordData } from '@/types';
 import { recordedValues, recordsByCategory } from '@/states/recordState';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { PATH } from '@/constants/path';
-
-// const LowBorderButton = styled(Button)<{ $borderColor: string }>`
-//   border-color: ${({ $borderColor }) => $borderColor + '96'};
-// `;
+import { useAddRecordTypeA } from '@/apis/Record/Mutations/useAddRecordTypeA';
+import { useAddRecordTypeB } from '@/apis/Record/Mutations/useAddRecordTypeB';
+import { useAddRecordTypeC } from '@/apis/Record/Mutations/useAddRecordTypeC';
+import { useAddRecordFeeding } from '@/apis/Record/Mutations/useAddRecordFeeding';
+import { useAddRecordFever } from '@/apis/Record/Mutations/useAddRecordFever';
+import { userInfoState } from '@/states/userState';
+import { selectedBabyState } from '@/states/babyState';
+import { recordedValuesState } from '../../../states/recordState';
+import {
+  TypeAValues,
+  TypeA,
+  TypeBValues,
+  TypeB,
+  TypeCValues,
+  TypeC,
+  RecordedValues,
+} from '@/types/recordTypes';
 
 interface RecordBarProps {
   onRecordUpdated: () => void;
 }
 
-const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
-  const [recordBlocks, setRecordBlocks] =
-    useRecoilState<RecordData[]>(recordedValues);
+// block에 뿌릴 용도로 시간 포맷 정의
+const getCurrentTime = () => {
+  const date = new Date();
+  return `${String(date.getHours()).padStart(2, '0')}:${String(
+    date.getMinutes()
+  ).padStart(2, '0')}`;
+};
 
-  // useRecoilValue는 Recoil상태(atom이나 selector)의 현재 값을 읽어오는 것
-  // 상태가 변경될 때마다 UI가 최신 상태를 반영
+const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
+  const [recordedValues, setRecordedValues] =
+    useRecoilState(recordedValuesState);
+
+  // API 요청의 결과를 받아서 recordedValuesState를 업데이트하는 함수
+  const updateRecordedValues = (type: keyof RecordedValues, data: any) => {
+    setRecordedValues(prevState => ({
+      ...prevState,
+      [type]: [...prevState[type], data],
+    }));
+  };
+  // const [recordedValue, setRecordedValue] =
+  //   useSetRecoilState(recordedValuesState);
+  const [pickDate, setPickTime] = useState<Date>(new Date());
+  const nowTime = moment(pickDate).format('HH:mm:ss');
+  const nowDate = moment(pickDate).format('YYYY-MM-DD');
+
+  // const [recordBlocks, setRecordBlocks] =
+  //   useRecoilState<RecordData[]>(recordedValues);
+  // console.log(recordBlocks, '리코일에 어떻게 저장되어있는지?');
+
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const records = recordsByCategory[currentCategory || 'All'] || [];
+  const [userInfo] = useRecoilState(userInfoState);
+  const [selectedBaby] = useRecoilState(selectedBabyState);
 
-  const handleClick = (
+  // 버튼 누르면 post
+  const addRecordTypeAMutation = useAddRecordTypeA();
+  const addRecordTypeBMutation = useAddRecordTypeB();
+  const addRecordTypeCMutation = useAddRecordTypeC();
+  const addRecordFeeding = useAddRecordFeeding();
+  const addRecordFever = useAddRecordFever();
+
+  const isTypeA = (query: string): query is TypeA =>
+    TypeAValues.includes(query as TypeA);
+
+  const isTypeB = (query: string): query is TypeB =>
+    TypeBValues.includes(query as TypeB);
+
+  const isTypeC = (query: string): query is TypeC =>
+    TypeCValues.includes(query as TypeC);
+
+  const handleButtonClick = (
     recordType: string,
     color: string,
-    category: Category
+    category: Category,
+    queryName: string
   ) => {
-    const date = new Date();
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const time = `${hours}:${minutes}`;
+    console.log(queryName, recordType); // ex. medications, 투약
+    if (isTypeA(queryName)) {
+      addRecordTypeAMutation.mutate({
+        type: queryName,
+        userId: userInfo.userId,
+        babyId: selectedBaby.babyId,
+        amount: 0,
+        createdTime: nowTime,
+        createdDate: nowDate,
+        memo: '',
+      });
+    } else if (isTypeB(queryName)) {
+      addRecordTypeBMutation.mutate({
+        type: queryName,
+        userId: userInfo.userId,
+        babyId: selectedBaby.babyId,
+        createdTime: nowTime,
+        createdDate: nowDate,
+        memo: '',
+      });
+    } else if (isTypeC(queryName)) {
+      addRecordTypeCMutation.mutate({
+        type: queryName,
+        userId: userInfo.userId,
+        babyId: selectedBaby.babyId,
+        createdTime: nowTime,
+        createdDate: nowDate,
+        endTime: nowTime,
+        memo: '',
+      });
+    } else if (queryName === 'feedings') {
+      addRecordFeeding.mutate({
+        type: queryName,
+        userId: userInfo.userId,
+        babyId: selectedBaby.babyId,
+        leftStartTime: nowTime,
+        rightStartTime: nowTime,
+        leftEndTime: nowTime,
+        rightEndTime: nowTime,
+        createdDate: nowDate,
+        createdTime: nowTime,
+        memo: '',
+      });
+    } else {
+      console.log(
+        'here0.',
+        queryName,
+        userInfo.userId,
+        selectedBaby.babyId,
+        nowTime,
+        nowDate
+      );
+      addRecordFever.mutate({
+        type: queryName,
+        userId: userInfo.userId,
+        babyId: selectedBaby.babyId,
+        createdTime: nowTime,
+        createdDate: nowDate,
+        bodyTemperature: 36.5,
+        memo: '',
+      });
+    }
 
-    setRecordBlocks(oldRecordBlocks => [
-      ...oldRecordBlocks,
-      { recordType, time, color, category },
-    ]);
-
+    const time = getCurrentTime();
+    // setRecordBlocks(prev => [...prev, { recordType, time, color, category }]);
+    // console.log(recordBlocks, 'here');
     onRecordUpdated();
   };
 
   return (
     <RecordBarContainer>
-      {records.map((record, index) => (
+      {records.map((record, idx) => (
         <Button
           option="default"
           size="xSmall"
-          key={index}
+          key={idx}
           $borderColor={record.color}
           onClick={() =>
-            handleClick(record.type, record.color, record.category)
+            handleButtonClick(
+              record.type,
+              record.color,
+              record.category,
+              record.queryName
+            )
           }
         >
           <Text size="medium3">{record.type}</Text>

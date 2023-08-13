@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.fa.sonagi.record.extra.entity.Extra;
 
 public interface ExtraRepository extends JpaRepository<Extra, Long>, ExtraRepositoryCustom {
-	List<Extra> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
+	List<Extra> findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(Long babyId, LocalDate createdDate);
 }

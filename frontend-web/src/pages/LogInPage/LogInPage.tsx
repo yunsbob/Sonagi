@@ -14,6 +14,7 @@ import {
   LogoContainer,
 } from '@/pages/LogInPage/LogInPage.styles';
 import SocialButton from '@/components/molecules/SocialButton/SocialButton';
+// import { useEffect } from 'react';
 
 const LogInPage = () => {
   const OAUTH2_REDIERECT_URI = `${process.env.REACT_APP_BASE_URL}/oauth/redirect`;
@@ -24,8 +25,11 @@ const LogInPage = () => {
 
   const saveAndroidTokenToCookie = () => {
     // React Native 알림을 위한 기기 Token값 저장
+    console.log('hi1');
     document.addEventListener('message', (e: any) => {
+      console.log('hi2');
       const androidToken = e.data;
+      console.log(androidToken);
 
       if (androidToken) {
         console.log('saveToken');
@@ -34,9 +38,9 @@ const LogInPage = () => {
 
         Cookies.set('androidToken', androidToken, {
           path: '/',
-          expires,
+          expires: expires,
           secure: true,
-          httpOnly: true,
+          // httpOnly: true,
         });
       }
     });

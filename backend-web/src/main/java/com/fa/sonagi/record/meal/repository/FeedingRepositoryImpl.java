@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fa.sonagi.record.meal.dto.FeedingResDto;
+import com.fa.sonagi.record.meal.entity.Feeding;
 import com.fa.sonagi.statistics.meal.dto.SnackFeedingStatisticsQueryDto;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -21,15 +23,36 @@ public class FeedingRepositoryImpl implements FeedingRepostioryCustom{
 	public FeedingResDto findFeedingRecord(Long feedingId) {
 		FeedingResDto feedings = queryFactory
 			.select(Projections.bean(FeedingResDto.class,
-				feeding.id,
+				feeding.id.as("mealId"),
+				feeding.leftStartTime,
+				feeding.rightStartTime,
+				feeding.leftEndTime,
+				feeding.rightEndTime,
+				feeding.createdTime,
+				feeding.memo))
+			.from(feeding)
+			.where(feeding.id.eq(feedingId))
+			.fetchOne();
+		return feedings;
+	}
+
+	@Override
+	public List<FeedingResDto> findByBabyIdAndCreatedDateOrderbyTime(Long babyId, LocalDate createdDate) {
+		List<FeedingResDto> feedings = queryFactory
+			.select(Projections.bean(FeedingResDto.class,
+				feeding.id.as("mealId"),
 				feeding.leftStartTime,
 				feeding.rightStartTime,
 				feeding.leftEndTime,
 				feeding.rightEndTime,
 				feeding.memo))
 			.from(feeding)
-			.where(feeding.id.eq(feedingId))
-			.fetchOne();
+			.where(feeding.babyId.eq(babyId), feeding.createdDate.eq(createdDate))
+			.orderBy(new CaseBuilder().when(feeding.leftStartTime.before(feeding.rightStartTime))
+				.then(feeding.leftStartTime)
+				.otherwise(feeding.rightStartTime)
+				.asc())
+			.fetch();
 
 		return feedings;
 	}

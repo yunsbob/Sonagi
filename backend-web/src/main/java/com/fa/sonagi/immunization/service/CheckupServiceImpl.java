@@ -34,7 +34,7 @@ public class CheckupServiceImpl implements CheckupService {
 
 		CheckupStatus checkupStatus = checkupStatusRepository.findByBabyIdAndCheckupId(babyId, checkupId);
 		return CheckupResDto.builder()
-			.id(checkupStatus.getId())
+			.checkupStatusId(checkupStatus.getId())
 			.checkupId(checkupStatus.getCheckup().getId())
 			.checkupName(checkupStatus.getCheckup().getCheckupName())
 			.startDate(birth.plusDays(checkupStatus.getCheckup().getStartDate()))
@@ -55,7 +55,7 @@ public class CheckupServiceImpl implements CheckupService {
 		List<CheckupStatus> checkupStatus = checkupStatusRepository.findByBabyId(babyId);
 		List<CheckupResDto> checkupResDto = checkupStatus.stream()
 			.map(c -> CheckupResDto.builder()
-				.id(c.getId())
+				.checkupStatusId(c.getId())
 				.checkupId(c.getCheckup().getId())
 				.checkupName(c.getCheckup().getCheckupName())
 				.startDate(birth.plusDays(c.getCheckup().getStartDate()))
@@ -73,7 +73,7 @@ public class CheckupServiceImpl implements CheckupService {
 	@Override
 	@Transactional
 	public void updateCheckupDate(CheckupPutDto checkupPutDto) {
-		CheckupStatus checkupStatus = checkupStatusRepository.findById(checkupPutDto.getId()).orElseThrow();
+		CheckupStatus checkupStatus = checkupStatusRepository.findById(checkupPutDto.getCheckupStatusId()).orElseThrow();
 		checkupStatus.updateCheckup(checkupPutDto.getCheckupDate());
 	}
 }

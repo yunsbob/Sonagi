@@ -10,13 +10,13 @@ import lombok.Setter;
 @Setter
 public class SleepStatisticsResDto {
 	private List<SleepStatisticsQueryDto> sleeps;
-	private Long sleepCnt;
-	private Long allSleepHour;
-	private Long allSleepMinute;
-	private Long sleepCntPercent;
-	private Long yesterdaySleepCntPercent;
-	private Long allSleepPercent;
-	private Long yesterdayAllSleepPercent;
+	private Long cnt;
+	private Long sleepHour;
+	private Long sleepMinute;
+	private Long cntPercent;
+	private Long yesterdayCntPercent;
+	private Long sleepPercent;
+	private Long yesterdaySleepPercent;
 
 	public SleepStatisticsResDto() {
 		this.sleeps = new ArrayList<>();

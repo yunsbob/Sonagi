@@ -36,7 +36,7 @@ public class BreastFeedingServiceImpl implements BreastFeedingService {
 	 */
 	@Override
 	@Transactional
-	public void registBreastFeeding(MealPostDto mealPostDto) {
+	public MealResDto registBreastFeeding(MealPostDto mealPostDto) {
 		BreastFeeding breastFeeding = BreastFeeding
 			.builder()
 			.userId(mealPostDto.getUserId())
@@ -56,6 +56,12 @@ public class BreastFeedingServiceImpl implements BreastFeedingService {
 		breastFeedingRepository.save(breastFeeding);
 		baby.updateMealOn("N");
 
+		return MealResDto.builder()
+			.mealId(breastFeeding.getId())
+			.amount(breastFeeding.getAmount())
+			.memo(breastFeeding.getMemo())
+			.createdTime(breastFeeding.getCreatedTime())
+			.build();
 	}
 
 	/**
@@ -65,7 +71,7 @@ public class BreastFeedingServiceImpl implements BreastFeedingService {
 	@Transactional
 	public void updateBreastFeeding(MealPutDto mealPutDto) {
 		BreastFeeding breastFeeding = breastFeedingRepository
-			.findById(mealPutDto.getId())
+			.findById(mealPutDto.getMealId())
 			.orElseThrow();
 
 		breastFeeding.updateBreastFeeding(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());

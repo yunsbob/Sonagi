@@ -10,7 +10,7 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class CheckupResDto {
-	private Long id;
+	private Long checkupStatusId;
 	private Long checkupId;
 	private String checkupName;
 	private LocalDate startDate;

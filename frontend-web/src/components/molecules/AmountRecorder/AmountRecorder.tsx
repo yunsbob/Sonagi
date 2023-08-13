@@ -26,6 +26,20 @@ const AmountRecorder = ({
 }: AmountRecorderProps) => {
   const [value, setValue] = useState(defaultValue);
 
+  const onAmountBtnClick = (changeAmount: number) => {
+    const newValue = value + changeAmount;
+
+    if (newValue >= minValue && newValue < maxValue) {
+      // Use toFixed to round the value to the desired precision
+      const roundedValue = parseFloat(newValue.toFixed(1));
+      setValue(roundedValue);
+    } else if (newValue < minValue) {
+      setValue(minValue);
+    } else {
+      setValue(maxValue);
+    }
+  };
+
   return (
     <AmountRecorderContainer>
       <LeftWrapper>
@@ -46,16 +60,13 @@ const AmountRecorder = ({
             option="primary"
             $borderRadius="9px"
             onClick={() => {
-              if (value + number >= minValue && value + number < maxValue) {
-                setValue(value + number);
-              } else if (value + number < minValue) {
-                setValue(minValue);
-              } else {
-                setValue(maxValue);
-              }
+              onAmountBtnClick(number);
             }}
           >
-            <Text size="medium3">{number}</Text>
+            <Text size="medium3">
+              {number > 0 && '+'}
+              {number}
+            </Text>
           </Button>
         ))}
       </AmountButtonWrapper>

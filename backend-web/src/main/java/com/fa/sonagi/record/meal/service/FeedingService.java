@@ -7,7 +7,7 @@ import com.fa.sonagi.record.meal.dto.FeedingResDto;
 public interface FeedingService {
 	FeedingResDto findFeedingById(Long id);
 
-	void registFeeding(FeedingPostDto feedingPostDto);
+	FeedingResDto registFeeding(FeedingPostDto feedingPostDto);
 
 	void updateFeeding(FeedingPutDto feedingPutDto);
 

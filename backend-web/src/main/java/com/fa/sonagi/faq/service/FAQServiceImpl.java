@@ -21,11 +21,11 @@ public class FAQServiceImpl implements FAQService {
 	private final FAQRepository faqRepository;
 
 	@Override
-	public List<FAQResDto> findAllFAQs() {
-		List<FAQ> allFAQs = faqRepository.findAll();
-		return allFAQs.stream()
+	public List<FAQResDto> findAllFAQ() {
+		List<FAQ> allFAQ = faqRepository.findAll();
+		return allFAQ.stream()
 			.map(faq -> FAQResDto.builder()
-				.id(faq.getId())
+				.FAQId(faq.getId())
 				.title(faq.getTitle())
 				.content(faq.getContent())
 				.build())
@@ -40,7 +40,7 @@ public class FAQServiceImpl implements FAQService {
 		FAQ faq = faqRepository.findById(id).orElseThrow();
 
 		FAQResDto faqResDto = FAQResDto.builder()
-			.id(faq.getId())
+			.FAQId(faq.getId())
 			.title(faq.getTitle())
 			.content(faq.getContent())
 			.build();
@@ -68,7 +68,7 @@ public class FAQServiceImpl implements FAQService {
 	@Override
 	@Transactional
 	public void updateFAQ(FAQPutDto faqPutDto) {
-		FAQ faq = faqRepository.findById(faqPutDto.getId()).orElseThrow();
+		FAQ faq = faqRepository.findById(faqPutDto.getFAQId()).orElseThrow();
 		faq.updateFAQ(faqPutDto.getTitle(), faqPutDto.getContent());
 	}
 

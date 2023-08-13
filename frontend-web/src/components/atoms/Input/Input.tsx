@@ -38,7 +38,6 @@ const Input = (
       $borderRadius={$borderRadius ?? 22}
       $unit={$unit ?? 'rem'}
       fontSize={fontSize ?? 20}
-      maxLength={10}
       onChange={onChange}
       {...attributes}
     />

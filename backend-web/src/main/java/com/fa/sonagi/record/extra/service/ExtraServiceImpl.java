@@ -32,7 +32,7 @@ public class ExtraServiceImpl implements ExtraService {
    */
   @Override
   @Transactional
-  public void registExtra(ExtraPostDto extraPostDto) {
+  public ExtraResDto registExtra(ExtraPostDto extraPostDto) {
     Extra extra = Extra.builder()
         .userId(extraPostDto.getUserId())
         .babyId(extraPostDto.getBabyId())
@@ -42,6 +42,12 @@ public class ExtraServiceImpl implements ExtraService {
         .build();
 
     extraRepository.save(extra);
+
+    return ExtraResDto.builder()
+        .extraId(extra.getId())
+        .createdTime(extra.getCreatedTime())
+        .memo(extra.getMemo())
+        .build();
   }
 
   /**
@@ -50,7 +56,7 @@ public class ExtraServiceImpl implements ExtraService {
   @Override
   @Transactional
   public void updateExtra(ExtraPutDto extraPutDto) {
-    Extra extra = extraRepository.findById(extraPutDto.getId()).orElseThrow();
+    Extra extra = extraRepository.findById(extraPutDto.getExtraId()).orElseThrow();
     extra.updateExtra(extraPutDto.getCreatedTime(), extraPutDto.getMemo());
   }
 

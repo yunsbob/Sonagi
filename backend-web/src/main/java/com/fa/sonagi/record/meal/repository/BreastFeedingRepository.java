@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BreastFeedingRepository extends JpaRepository<BreastFeeding, Long>, BreastFeedingRepositoryCustom {
 
-	List<BreastFeeding> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
+	List<BreastFeeding> findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(Long babyId, LocalDate createdDate);
 }

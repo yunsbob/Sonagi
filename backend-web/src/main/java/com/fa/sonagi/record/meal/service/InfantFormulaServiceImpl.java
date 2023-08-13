@@ -36,7 +36,7 @@ public class InfantFormulaServiceImpl implements InfantFormulaService {
 	 */
 	@Override
 	@Transactional
-	public void registInfantFormula(MealPostDto mealPostDto) {
+	public MealResDto registInfantFormula(MealPostDto mealPostDto) {
 		InfantFormula infantFormula = InfantFormula
 			.builder()
 			.userId(mealPostDto.getUserId())
@@ -56,6 +56,12 @@ public class InfantFormulaServiceImpl implements InfantFormulaService {
 		infantFormulaRepository.save(infantFormula);
 		baby.updateMealOn("N");
 
+		return MealResDto.builder()
+			.mealId(infantFormula.getId())
+			.amount(infantFormula.getAmount())
+			.memo(infantFormula.getMemo())
+			.createdTime(infantFormula.getCreatedTime())
+			.build();
 	}
 
 	/**
@@ -65,7 +71,7 @@ public class InfantFormulaServiceImpl implements InfantFormulaService {
 	@Transactional
 	public void updateInfantFormula(MealPutDto mealPutDto) {
 		InfantFormula infantFormula = infantFormulaRepository
-			.findById(mealPutDto.getId())
+			.findById(mealPutDto.getMealId())
 			.orElseThrow();
 
 		infantFormula.updateInfantFormula(mealPutDto.getAmount(), mealPutDto.getMemo(), mealPutDto.getCreatedTime());

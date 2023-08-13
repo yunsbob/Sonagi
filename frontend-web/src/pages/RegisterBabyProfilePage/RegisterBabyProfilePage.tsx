@@ -15,7 +15,7 @@ const RegisterBabyProfilePage = () => {
             <br /> 성별, 이름을 입력해주세요
           </Text>
           <RegisterBabyProfile />
-          <S.AddBabyWrapper></S.AddBabyWrapper>
+          <S.AddBabyWrapper />
         </S.RegisterBabyProfilePageWrapper>
       </S.RegisterBabyProfilePageContainer>
     </Background>

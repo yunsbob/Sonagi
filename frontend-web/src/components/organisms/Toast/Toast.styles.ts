@@ -13,13 +13,13 @@ const ToastContainer = styled.div`
   transform: translate(-50%, 0);
   background: ${({ theme }) => theme.color.black5};
 
-  animation: fadein 2s linear forwards;
-  -moz-animation: fadein 2s linear forwards;
-  -webkit-animation: fadein 2s linear forwards;
+  animation: fadeIn 1s ease-out forwards;
+  -moz-animation: fadeIn 1s ease-out forwards;
+  -webkit-animation: fadeIn 1s ease-out forwards;
 
-  animation: fadeout 2s linear forwards;
-  -moz-animation: fadeout 2s linear forwards;
-  -webkit-animation: fadeout 2s linear forwards;
+  animation: fadeOut 2s ease-out forwards;
+  -moz-animation: fadeOut 2s ease-out forwards;
+  -webkit-animation: fadeOut 2s ease-out forwards;
 `;
 
 export { ToastContainer };

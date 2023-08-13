@@ -21,7 +21,7 @@ public class ExtraCategoryServiceImpl implements ExtraCategoryService {
 
 	@Override
 	public List<ExtraResDto> findAllExtra(Long babyId, LocalDate createdDate) {
-		List<Extra> findExtra = extraRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<Extra> findExtra = extraRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(babyId, createdDate);
 
 		List<ExtraResDto> extras = findExtra.stream()
 			.map(e -> new ExtraResDto(e.getId(), e.getCreatedTime(), e.getMemo()))

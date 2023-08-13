@@ -14,6 +14,7 @@ const PATH = {
   DIARY: '/main/diary',
   DIARYREGISTER: '/main/diaryRegister',
   MYPAGE: '/main/myPage',
+  ALARM: '/main/alarm',
   REGISTERBABYPROFILE: '/regBabyProfile',
   DETAILRECORD: '/main/detailRecord',
 } as const;

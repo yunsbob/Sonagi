@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
         }
     }
 
-    @keyframes fadein {
+    @keyframes fadeIn {
         from {
             opacity: 0;
         }
@@ -37,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
         }
     }
 
-    @-moz-keyframes fadein { /* Firefox */
+    @-moz-keyframes fadeIn { /* Firefox */
         from {
             opacity: 0;
         }
@@ -46,7 +46,7 @@ const GlobalStyle = createGlobalStyle`
         }
     }
 
-    @-webkit-keyframes fadein { /* Safari and Chrome */
+    @-webkit-keyframes fadeIn { /* Safari and Chrome */
         from {
             opacity: 0;
         }
@@ -55,7 +55,7 @@ const GlobalStyle = createGlobalStyle`
         }
     }   
 
-    @keyframes fadeout {
+    @keyframes fadeOut {
         from {
             opacity: 1;
         }
@@ -63,7 +63,7 @@ const GlobalStyle = createGlobalStyle`
             opacity: 0;
         }
     }
-    @-moz-keyframes fadeout { /* Firefox */
+    @-moz-keyframes fadeOut { /* Firefox */
         from {
             opacity: 1;
         }
@@ -71,7 +71,7 @@ const GlobalStyle = createGlobalStyle`
             opacity: 0;
         }
     }
-    @-webkit-keyframes fadeout { /* Safari and Chrome */
+    @-webkit-keyframes fadeOut { /* Safari and Chrome */
         from {
             opacity: 1;
         }

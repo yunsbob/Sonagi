@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.fa.sonagi.record.activity.entity.Tummytime;
 
 public interface TummytimeRepository extends JpaRepository<Tummytime, Long>, TummytimeRepositoryCustom {
-	List<Tummytime> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
+	List<Tummytime> findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(Long babyId, LocalDate createdDate);
 }

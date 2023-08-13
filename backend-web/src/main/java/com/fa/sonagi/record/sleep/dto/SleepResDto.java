@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SleepResDto {
-	private Long id;
+	private Long sleepId;
 	private LocalTime createdTime;
 	private LocalTime endTime;
 	private String memo;

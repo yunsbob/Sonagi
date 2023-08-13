@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HealthResDto {
-	private Long id;
+	private Long healthId;
 	private LocalTime createdTime;
 	private String memo;
 }

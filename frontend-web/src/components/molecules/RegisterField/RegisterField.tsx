@@ -21,6 +21,7 @@ interface RegisterFieldProps {
   onClickButtonAction?: (value: string) => void;
   placeholder?: string;
   activeButtonColor?: string;
+  $maxLength?: number;
 }
 
 const RegisterField = ({
@@ -28,6 +29,7 @@ const RegisterField = ({
   alertMessage,
   onClickButtonAction,
   placeholder,
+  $maxLength,
   activeButtonColor = theme.gradient.orangeBtn,
 }: RegisterFieldProps) => {
   const [value, setValue] = useState<string>('');
@@ -65,6 +67,7 @@ const RegisterField = ({
         placeholder={placeholder}
         fontSize={theme.fontSize.large}
         $borderRadius={22}
+        maxLength={$maxLength}
       />
       <Button
         option={option} // 상태에 따른 option 전달

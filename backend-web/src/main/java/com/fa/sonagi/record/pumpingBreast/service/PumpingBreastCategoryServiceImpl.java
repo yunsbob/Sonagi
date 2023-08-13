@@ -25,7 +25,8 @@ public class PumpingBreastCategoryServiceImpl implements PumpingBreastCategorySe
 	 */
 	@Override
 	public List<PumpingBreastResDto> findAllPumpingBreast(Long babyId, LocalDate createdDate) {
-		List<PumpingBreast> findPumpingBreasts = pumpingBreastRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<PumpingBreast> findPumpingBreasts = pumpingBreastRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(
+			babyId, createdDate);
 
 		List<PumpingBreastResDto> pumpingBreasts = findPumpingBreasts.stream()
 			.map(pb -> new PumpingBreastResDto(pb.getId(), pb.getAmount(), pb.getMemo(), pb.getCreatedTime()))

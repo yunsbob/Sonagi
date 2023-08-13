@@ -31,7 +31,7 @@ public class PumpingBreastServiceImpl implements PumpingBreastService {
    */
   @Override
   @Transactional
-  public void registPumpingBreast(PumpingBreastPostDto pumpingBreastPostDto) {
+  public PumpingBreastResDto registPumpingBreast(PumpingBreastPostDto pumpingBreastPostDto) {
     PumpingBreast pumpingBreast = PumpingBreast.builder()
         .userId(pumpingBreastPostDto.getUserId())
         .babyId(pumpingBreastPostDto.getBabyId())
@@ -42,6 +42,13 @@ public class PumpingBreastServiceImpl implements PumpingBreastService {
         .build();
 
     pumpingBreastRepository.save(pumpingBreast);
+
+    return PumpingBreastResDto.builder()
+        .pumpingBreastId(pumpingBreast.getId())
+        .amount(pumpingBreast.getAmount())
+        .memo(pumpingBreast.getMemo())
+        .createdTime(pumpingBreast.getCreatedTime())
+        .build();
   }
 
   /**
@@ -50,7 +57,7 @@ public class PumpingBreastServiceImpl implements PumpingBreastService {
   @Override
   @Transactional
   public void updatePumpingBreast(PumpingBreastPutDto pumpingBreastPutDto) {
-    PumpingBreast pumpingBreast = pumpingBreastRepository.findById(pumpingBreastPutDto.getId()).orElseThrow();
+    PumpingBreast pumpingBreast = pumpingBreastRepository.findById(pumpingBreastPutDto.getPumpingBreastId()).orElseThrow();
 
     pumpingBreast.updatePumpingBreast(pumpingBreastPutDto.getAmount(), pumpingBreastPutDto.getMemo(), pumpingBreastPutDto.getCreatedTime());
   }

@@ -8,7 +8,7 @@ public interface ExtraService {
 
   ExtraResDto findExtraById(Long id);
 
-  void registExtra(ExtraPostDto extraPostDto);
+  ExtraResDto registExtra(ExtraPostDto extraPostDto);
 
   void updateExtra(ExtraPutDto extraPutDto);
 

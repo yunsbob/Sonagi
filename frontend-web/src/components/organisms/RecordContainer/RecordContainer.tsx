@@ -1,26 +1,58 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import RecordBar from '@/components/molecules/RecordBar/RecordBar';
 import RecordBlock from '@/components/molecules/RecordBlock/RecordBlock';
 import { useRecoilValue } from 'recoil';
-import { recordedValues } from '@/states/recordState';
+import { dateRecordedValuesState, recordedValues } from '@/states/recordState';
 import { selectedCategoryState } from '@/states/categoryState';
 import { RecordContainerStyle } from '@/components/organisms/RecordContainer/RecordContainer.styles';
 import { PATH } from '@/constants/path';
+import {
+  RecordTypeA,
+  RecordTypeB,
+  RecordTypeC,
+  RecordedList,
+} from '@/types/recordTypes';
+import theme from '@/styles/theme';
+import { useQueryClient } from '@tanstack/react-query';
+import { useGetAllCategoryRecords } from '@/apis/Record/Queries/useGetAllCategoryRecords';
+import { selectedBabyState } from '@/states/babyState';
+import { selectedDateState } from '@/states/dateState';
 
-const RecordContainer: React.FC = () => {
-  const recordedList = useRecoilValue(recordedValues);
+// type RecordContainerProps = {
+//   recordedList: RecordedList | null;
+//   currentDate: string;
+// };
+
+type CombinedRecord =
+  | (RecordTypeA & { category: string })
+  | (RecordTypeB & { category: string })
+  | (RecordTypeC & { category: string });
+
+type RecordContainerProps = {
+  combinedData: CombinedRecord[];
+};
+
+// const RecordContainer: React.FC<RecordContainerProps> = ({
+const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
+  const allDateRecordedValues = useRecoilValue(dateRecordedValuesState);
+  // const recordedList = allDateRecordedValues[currentDate] || [];
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const containerRef = useRef<HTMLDivElement>(null);
+  const selectedBaby = useRecoilValue(selectedBabyState);
+  const selectedDate = useRecoilValue(selectedDateState);
 
-  console.log('container', recordedList);
+  // setTimeout(() => {
+  //   console.log('-------', allDateRecordedValues, recordedList, currentDate);
+  // }, 1000);
+
   // 선택된 카테고리에 따라 쌓인 기록 블록들 필터링
-  const filteredRecordList = recordedList.filter(record => {
-    if (currentCategory === 'All') {
-      return true;
-    }
+  // const filteredRecordList = recordedList.filter(record => {
+  //   if (currentCategory === 'All') {
+  //     return true;
+  //   }
 
-    return record.category === currentCategory;
-  });
+  //   return record.category === currentCategory;
+  // });
 
   useEffect(() => {
     const container = containerRef.current;
@@ -30,14 +62,22 @@ const RecordContainer: React.FC = () => {
     }
   }, []);
 
+  const [fetchCounter, setFetchCounter] = useState(0);
+  const records = useGetAllCategoryRecords(selectedBaby.babyId, selectedDate);
+
+  // 데이터가 추가되었을 ㄸㅐ ! -> 새로운 get요청 해야 함
   const onRecordUpdated = () => {
+    // useGetAllCategoryRecords(selectedBaby.babyId, selectedDate);
+    setFetchCounter(prev => prev + 1);
     const container = containerRef.current;
     if (container) {
-      const targetScrollTop = container.scrollHeight; // 목표 스크롤 위치
-      container.scrollTo({
-        top: targetScrollTop,
-        behavior: 'smooth', // html 태그에 기본으로 있는 ScrolOptions..
-      });
+      setTimeout(() => {
+        const targetScrollTop = container.scrollHeight;
+        container.scrollTo({
+          top: targetScrollTop,
+          behavior: 'smooth',
+        });
+      }, 100); // DOM이 완전히 업데이트 된 후 스크롤 위치를 조정
     }
   };
 
@@ -58,14 +98,22 @@ const RecordContainer: React.FC = () => {
   return (
     <>
       <RecordContainerStyle className="scrollable" ref={containerRef}>
-        {filteredRecordList.map((record, index) => (
+        {combinedData.map((record, index) => (
+          <RecordBlock
+            key={index}
+            color={theme.color.gray1}
+            recordType={record.category}
+            time={record.createdTime}
+          />
+        ))}
+        {/* {filteredRecordList.map((record, index) => (
           <RecordBlock
             key={index}
             color={record.color}
             recordType={record.recordType}
             time={record.time}
           ></RecordBlock>
-        ))}
+        ))} */}
       </RecordContainerStyle>
       <RecordBar onRecordUpdated={onRecordUpdated}></RecordBar>
     </>

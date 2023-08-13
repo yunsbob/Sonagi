@@ -1,6 +1,7 @@
 import { Image } from '@/components/atoms/Image/Image';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import {
+  AuthorityTagWrapper,
   CoParentContainer,
   Container,
   SettingContainer,
@@ -13,13 +14,20 @@ import { userInfoState } from '@/states/userState';
 import Button from '@/components/atoms/Button/Button';
 import setting from '@/assets/images/icon-setting-grey.png';
 import theme from '@/styles/theme';
-import { User } from '@/types';
+import { BabiesOfUser, User } from '@/types';
 import { CoparentList } from '@/components/organisms/CoparentList/CoparentList';
 import { useState } from 'react';
 import { UserUpdateModal } from '@/components/organisms/UserUpdateModal/UserUpdateModal';
+import { selectedBabyState } from '@/states/babyState';
+import authorityBlue from '@/assets/images/btn-authority-blue.png';
+import authorityGreen from '@/assets/images/btn-authority-green.png';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
 
 const MyPagePage = () => {
   const userInfo: User = useRecoilValue(userInfoState);
+  const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
+  const navigate = useNavigate();
 
   // 사용자 정보 수정
   const [userModalOpen, setuserModalOpen] = useState(false);
@@ -30,12 +38,15 @@ const MyPagePage = () => {
     setState(false);
   };
 
+  const navigateToAlarmPage = () => {
+    navigate(PATH.ALARM);
+  };
+
   return (
     <Container>
       <UserUpdateModal
         onModalClose={() => modalClose(setuserModalOpen)}
         modalOpen={userModalOpen}
-        setModalOpen={setuserModalOpen}
       />
 
       <UserContainer>
@@ -47,6 +58,12 @@ const MyPagePage = () => {
           <Text size="headSmall" color={theme.color.black3}>
             <b>{userInfo.name}</b>님.
           </Text>
+          <AuthorityTagWrapper>
+            <Image
+              src={babyInfo.authority === 'Y' ? authorityBlue : authorityGreen}
+              height={1.3}
+            />
+          </AuthorityTagWrapper>
         </UserNameWrapper>
         <Button
           option="default"
@@ -63,7 +80,9 @@ const MyPagePage = () => {
       </CoParentContainer>
       <SettingContainer>
         <Text size="medium1">우리 아이 추가하기</Text>
-        <Text size="medium1">알림 설정</Text>
+        <Text size="medium1" onClick={navigateToAlarmPage}>
+          알림 설정
+        </Text>
         <Text size="medium1">앨범 생성하기</Text>
         <Text size="medium1">로그아웃</Text>
         <Text size="medium1">자주 묻는 질문(FAQ)</Text>

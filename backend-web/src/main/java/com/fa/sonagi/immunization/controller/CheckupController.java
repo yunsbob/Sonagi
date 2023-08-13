@@ -14,6 +14,7 @@ import com.fa.sonagi.immunization.dto.CheckupPutDto;
 import com.fa.sonagi.immunization.dto.CheckupResDto;
 import com.fa.sonagi.immunization.service.CheckupService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -28,25 +29,28 @@ public class CheckupController {
 	 * 건강검진 리스트 조회
 	 */
 	@GetMapping("/{babyId}")
+	@Operation(summary = "아이 아이디로 아이의 건강검진 리스트들을 조회함")
 	public List<CheckupResDto> findCheckupList(@PathVariable Long babyId) {
 		return checkupService.findCheckupList(babyId);
-	}
-
-	/**
-	 * 건강검진일 등록, 수정
-	 */
-	@PutMapping
-	public ResponseEntity<?> updateCheckupDate(@RequestBody CheckupPutDto checkupPutDto) {
-		checkupService.updateCheckupDate(checkupPutDto);
-		return ResponseEntity.ok().build();
 	}
 
 	/**
 	 * 건강검진 상세 정보 조회
 	 */
 	@GetMapping("/{babyId}/{checkupId}")
+	@Operation(summary = "아이아이디와 건강검진 아이디로 건강검진 상세정보를 조회함")
 	public ResponseEntity<?> findCheckup(@PathVariable Long babyId, @PathVariable Long checkupId) {
 		CheckupResDto checkupResDto = checkupService.findCheckup(babyId, checkupId);
 		return ResponseEntity.ok().body(checkupResDto);
+	}
+
+	/**
+	 * 건강검진일 등록, 수정
+	 */
+	@PutMapping
+	@Operation(summary = "아이의 건강검진일을 수정함")
+	public ResponseEntity<?> updateCheckupDate(@RequestBody CheckupPutDto checkupPutDto) {
+		checkupService.updateCheckupDate(checkupPutDto);
+		return ResponseEntity.ok().build();
 	}
 }

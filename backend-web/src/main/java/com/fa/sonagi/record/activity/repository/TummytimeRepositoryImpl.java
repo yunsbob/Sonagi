@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fa.sonagi.record.activity.dto.ActivityResDto;
+import com.fa.sonagi.record.allCategory.dto.StatisticsTime;
 import com.fa.sonagi.statistics.activity.dto.ActivityStatisticsQueryDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -20,7 +21,7 @@ public class TummytimeRepositoryImpl implements TummytimeRepositoryCustom {
 	public ActivityResDto findTummytimeRecord(Long tummytimeId) {
 		ActivityResDto tummytimes = queryFactory
 			.select(Projections.bean(ActivityResDto.class,
-				tummytime.id,
+				tummytime.id.as("activityId"),
 				tummytime.createdTime,
 				tummytime.endTime,
 				tummytime.memo))
@@ -42,5 +43,20 @@ public class TummytimeRepositoryImpl implements TummytimeRepositoryCustom {
 			.fetch();
 
 		return activityStatisticsQueryDto;
+	}
+
+	@Override
+	public List<StatisticsTime> findTummytimeForWeek(Long babyId, LocalDate startDay, LocalDate endDay) {
+		List<StatisticsTime> tummytimes = queryFactory
+			.select(Projections.bean(StatisticsTime.class,
+				tummytime.createdDate,
+				tummytime.createdTime,
+				tummytime.endTime))
+			.from(tummytime)
+			.where(tummytime.babyId.eq(babyId),
+				tummytime.createdDate.goe(startDay), tummytime.createdDate.loe(endDay))
+			.fetch();
+
+		return tummytimes;
 	}
 }

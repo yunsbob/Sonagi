@@ -28,7 +28,7 @@ public class ActivityCategoryServiceImpl implements ActivityCategoryService {
 	@Override
 	public List<ActivityResDto> findAllPlay(Long babyId, LocalDate createdDate) {
 
-		List<Play> findPlays = playRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<Play> findPlays = playRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(babyId, createdDate);
 
 		List<ActivityResDto> plays = findPlays.stream()
 			.map(p -> new ActivityResDto(p.getId(), p.getCreatedTime(), p.getEndTime(), p.getMemo()))
@@ -42,7 +42,8 @@ public class ActivityCategoryServiceImpl implements ActivityCategoryService {
 	 */
 	@Override
 	public List<ActivityResDto> findAllTummytime(Long babyId, LocalDate createdDate) {
-		List<Tummytime> findTummytimes = tummytimeRepository.findByBabyIdAndCreatedDate(babyId, createdDate);
+		List<Tummytime> findTummytimes = tummytimeRepository.findByBabyIdAndCreatedDateOrderByCreatedTimeAsc(babyId,
+			createdDate);
 
 		List<ActivityResDto> tummytimes = findTummytimes.stream()
 			.map(t -> new ActivityResDto(t.getId(), t.getCreatedTime(), t.getEndTime(), t.getMemo()))
