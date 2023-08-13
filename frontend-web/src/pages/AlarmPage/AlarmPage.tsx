@@ -1,3 +1,4 @@
+import { useUpdateAlarm } from '@/apis/User/Mutations/useUpdateAlarm';
 import { useGetNotification } from '@/apis/User/Queries/useGetNotification';
 import Back from '@/components/atoms/Back/Back';
 import { Text } from '@/components/atoms/Text/Text.styles';
