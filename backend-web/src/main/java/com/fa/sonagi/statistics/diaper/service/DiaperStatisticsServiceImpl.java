@@ -40,10 +40,11 @@ public class DiaperStatisticsServiceImpl implements DiaperStatisticsService{
 	public DiaperStatisticsResDto getDiaperStatisticsDay(Long babyId, LocalDate createdDate) {
 		DiaperStatisticsResDto diaperStatisticsResDto = new DiaperStatisticsResDto();
 
-		List<Times> diaperDay;
+		List<Times> diaperDay = new ArrayList<>();
 		// 데이터 조회
 		List<Times> pees = peeRepository.findPeeByDay(babyId, createdDate);
-		diaperDay = pees;
+		for (Times t : pees)
+			diaperDay.add(t);
 		List<Times> poops = poopRepository.findPoopByDay(babyId, createdDate);
 		for (Times t : poops)
 			diaperDay.add(t);
