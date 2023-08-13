@@ -100,7 +100,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 					.getOperations()
 					.delete(refreshTokenFromRedis);
 			} else {// 정상 유저 - 토큰 재발급 해줘야함
-				// 토큰 생성.
+				// 토큰 생성. RTR
 				Users user = userRepository
 					.findBySocialId(userSocialId);
 

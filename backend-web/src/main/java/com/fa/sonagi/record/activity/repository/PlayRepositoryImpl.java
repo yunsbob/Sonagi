@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.fa.sonagi.record.activity.dto.ActivityResDto;
 import com.fa.sonagi.record.allCategory.dto.StatisticsTime;
-import com.fa.sonagi.statistics.activity.dto.ActivityStatisticsQueryDto;
+import com.fa.sonagi.statistics.common.dto.EndTimes;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -32,16 +32,16 @@ public class PlayRepositoryImpl implements PlayRepositoryCustom {
 	}
 
 	@Override
-	public List<ActivityStatisticsQueryDto> findPlayByDay(Long babyId, LocalDate createdDate) {
-		List<ActivityStatisticsQueryDto> activityStatisticsQueryDto = queryFactory
-			.select(Projections.bean(ActivityStatisticsQueryDto.class,
+	public List<EndTimes> findPlayByDay(Long babyId, LocalDate createdDate) {
+		List<EndTimes> plays = queryFactory
+			.select(Projections.bean(EndTimes.class,
 				play.createdTime,
 				play.endTime))
 			.from(play)
 			.where(play.babyId.eq(babyId), play.createdDate.eq(createdDate))
 			.fetch();
 
-		return activityStatisticsQueryDto;
+		return plays;
 	}
 
 	@Override

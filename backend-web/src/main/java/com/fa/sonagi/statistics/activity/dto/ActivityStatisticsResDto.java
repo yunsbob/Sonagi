@@ -3,14 +3,15 @@ package com.fa.sonagi.statistics.activity.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fa.sonagi.statistics.common.dto.EndTimes;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class ActivityStatisticsResDto {
-	private List<ActivityStatisticsQueryDto> plays;
-	private List<ActivityStatisticsQueryDto> tummytimes;
+	private List<EndTimes> times;
 	private Long cnt;
 	private Long activityHour;
 	private Long activityMinute;
@@ -20,7 +21,6 @@ public class ActivityStatisticsResDto {
 	private Long yesterdayActivityPercent;
 
 	public ActivityStatisticsResDto() {
-		this.plays = new ArrayList<>();
-		this.tummytimes = new ArrayList<>();
+		this.times = new ArrayList<>();
 	}
 }

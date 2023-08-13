@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,10 +21,9 @@ import com.fa.sonagi.record.activity.repository.TummytimeRepository;
 import com.fa.sonagi.record.allCategory.dto.StatisticsTime;
 import com.fa.sonagi.record.allCategory.dto.StatisticsTimeLong;
 import com.fa.sonagi.statistics.activity.dto.ActivityStatisticsDayForWeekDto;
-import com.fa.sonagi.statistics.activity.dto.ActivityStatisticsQueryDto;
 import com.fa.sonagi.statistics.activity.dto.ActivityStatisticsResDto;
 import com.fa.sonagi.statistics.activity.dto.ActivityStatisticsWeekResDto;
-import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsDayForWeekDto;
+import com.fa.sonagi.statistics.common.dto.EndTimes;
 
 import lombok.RequiredArgsConstructor;
 
@@ -44,13 +45,14 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 	public ActivityStatisticsResDto getActivityStatisticsDay(Long babyId, LocalDate createdDate) {
 		ActivityStatisticsResDto activityStatisticsResDto = new ActivityStatisticsResDto();
 
+		List<EndTimes> activityDay = new ArrayList<>();
 		// 데이터 조회
-		List<ActivityStatisticsQueryDto> plays = playRepository.findPlayByDay(babyId, createdDate);
+		List<EndTimes> plays = playRepository.findPlayByDay(babyId, createdDate);
 		int checkIdx = checkTimeDay(plays);
 		if (checkIdx != -1)
 			plays.get(checkIdx).setEndTime(LAST_TIME);
 
-		List<ActivityStatisticsQueryDto> tummytimes = tummytimeRepository.findTummytimeByDay(babyId, createdDate);
+		List<EndTimes> tummytimes = tummytimeRepository.findTummytimeByDay(babyId, createdDate);
 		checkIdx = checkTimeDay(tummytimes);
 		if (checkIdx != -1)
 			tummytimes.get(checkIdx).setCreatedTime(LAST_TIME);
@@ -58,14 +60,14 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 		createdDate = createdDate.minus(1, ChronoUnit.DAYS);
 
 		// 전날 데이터 조회
-		List<ActivityStatisticsQueryDto> yesterdayPlays = playRepository.findPlayByDay(babyId, createdDate);
+		List<EndTimes> yesterdayPlays = playRepository.findPlayByDay(babyId, createdDate);
 		checkIdx = checkTimeDay(yesterdayPlays);
 		if (checkIdx != -1) {
 			plays.add(createActivityStatisticsQueryDto(yesterdayPlays.get(checkIdx).getEndTime()));
 			yesterdayPlays.get(checkIdx).setEndTime(LAST_TIME);
 		}
 
-		List<ActivityStatisticsQueryDto> yesterdayTummytimes = tummytimeRepository.findTummytimeByDay(babyId, createdDate);
+		List<EndTimes> yesterdayTummytimes = tummytimeRepository.findTummytimeByDay(babyId, createdDate);
 		checkIdx = checkTimeDay(yesterdayTummytimes);
 		if (checkIdx != -1) {
 			tummytimes.add(createActivityStatisticsQueryDto(yesterdayTummytimes.get(checkIdx).getEndTime()));
@@ -74,19 +76,23 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 
 		createdDate = createdDate.minus(1, ChronoUnit.DAYS);
 
-		List<ActivityStatisticsQueryDto> pastPlays = playRepository.findPlayByDay(babyId, createdDate);
+		List<EndTimes> pastPlays = playRepository.findPlayByDay(babyId, createdDate);
 		checkIdx = checkTimeDay(pastPlays);
 		if (checkIdx != -1)
 			yesterdayPlays.add(createActivityStatisticsQueryDto(pastPlays.get(checkIdx).getEndTime()));
 
-		List<ActivityStatisticsQueryDto> pastTummytimes = tummytimeRepository.findTummytimeByDay(babyId, createdDate);
+		List<EndTimes> pastTummytimes = tummytimeRepository.findTummytimeByDay(babyId, createdDate);
 		checkIdx = checkTimeDay(pastTummytimes);
 		if (checkIdx != -1) {
 			pastTummytimes.add(createActivityStatisticsQueryDto(pastTummytimes.get(checkIdx).getEndTime()));
 		}
 
-		activityStatisticsResDto.setPlays(plays);
-		activityStatisticsResDto.setTummytimes(tummytimes);
+		for (EndTimes et : plays)
+			activityDay.add(et);
+		for (EndTimes et : tummytimes)
+			activityDay.add(et);
+		Collections.sort(activityDay, Comparator.comparing(EndTimes::getCreatedTime));
+		activityStatisticsResDto.setTimes(activityDay);
 
 		// 카드 통계
 		Long activityTime = sumActivityTimeDay(plays) + sumActivityTimeDay(tummytimes);
@@ -220,11 +226,12 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 	/**
 	 * 총 시간 계산 - day
 	 */
-	public Long sumActivityTimeDay(List<ActivityStatisticsQueryDto> activities) {
+	public Long sumActivityTimeDay(List<EndTimes> activities) {
 		Long activityTime = 0L;
 
 		for (int i = 0; i < activities.size(); i++) {
-			long startTime = activities.get(i).getCreatedTime().getHour() * 60 + activities.get(i).getCreatedTime().getMinute();
+			long startTime =
+				activities.get(i).getCreatedTime().getHour() * 60 + activities.get(i).getCreatedTime().getMinute();
 			long endTime = activities.get(i).getEndTime().getHour() * 60 + activities.get(i).getEndTime().getMinute();
 			long passTime = endTime - startTime;
 
@@ -276,7 +283,7 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 	/**
 	 * 오전 12시 기준으로 이전에 시작해서 이후에 끝나는 기록이 있는지 확인
 	 */
-	public int checkTimeDay(List<com.fa.sonagi.statistics.activity.dto.ActivityStatisticsQueryDto> activities) {
+	public int checkTimeDay(List<EndTimes> activities) {
 		for (int i = 0; i < activities.size(); i++) {
 			if (activities.get(i).getEndTime().isBefore(activities.get(i).getCreatedTime())) {
 				return i;
@@ -301,8 +308,8 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 	/**
 	 * 12시 기준으로 전날에 기록이 존재하면 12시 이후로 추가하기 - Day
 	 */
-	public ActivityStatisticsQueryDto createActivityStatisticsQueryDto(LocalTime endTime) {
-		ActivityStatisticsQueryDto activityStatisticsQueryDto = new ActivityStatisticsQueryDto();
+	public EndTimes createActivityStatisticsQueryDto(LocalTime endTime) {
+		EndTimes activityStatisticsQueryDto = new EndTimes();
 		activityStatisticsQueryDto.setCreatedTime(FIRST_TIME);
 		activityStatisticsQueryDto.setEndTime(endTime);
 

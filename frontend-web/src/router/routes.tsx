@@ -12,6 +12,7 @@ import RecordPage from '@/pages/RecordPage/RecordPage';
 import GraphPage from '@/pages/GraphPage/GraphPage';
 import OurBabyPage from '@/pages/OurBabyPage/OurBabyPage';
 import DiaryPage from '@/pages/DiaryPage/DiaryPage';
+import DiaryRegister from '@/pages/DiaryRegisterPage/DiaryRegisterPage';
 import MyPagePage from '@/pages/MyPagePage/MyPagePage';
 import RegisterBabyProfilePage from '@/pages/RegisterBabyProfilePage/RegisterBabyProfilePage';
 import RegisterPage from '@/pages/RegisterPage/RegisterPage';
@@ -21,6 +22,7 @@ import { GraphByWeek } from '@/components/organisms/GraphByWeek/GraphByWeek';
 import RedirectPage from '@/pages/RedirectPage/RedirectPage';
 import { DetailRecordPage } from '@/pages/DetailRecordPage/DetailRecordPage';
 import AlarmPage from '@/pages/AlarmPage/AlarmPage';
+import UpdateBabyProfilePage from '@/pages/UpdateBabyProfilePage/UpdateBabyProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +55,10 @@ const router = createBrowserRouter([
     element: <BabyCodePage />,
   },
   {
+    path: PATH.UPDATEBABYPROFILE,
+    element: <UpdateBabyProfilePage />,
+  },
+  {
     path: PATH.MAIN,
     element: <MainPage />,
     children: [
@@ -67,6 +73,7 @@ const router = createBrowserRouter([
       },
       { path: 'ourBaby', element: <OurBabyPage /> },
       { path: 'diary', element: <DiaryPage /> },
+      { path: 'diaryRegister', element: <DiaryRegister /> },
       { path: 'myPage', element: <MyPagePage /> },
       { path: 'alarm', element: <AlarmPage /> },
       { path: 'detailRecord', element: <DetailRecordPage /> },

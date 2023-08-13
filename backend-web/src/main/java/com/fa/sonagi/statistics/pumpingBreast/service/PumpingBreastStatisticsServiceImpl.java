@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.pumpingBreast.repository.PumpingBreastRepository;
+import com.fa.sonagi.statistics.common.dto.Times;
 import com.fa.sonagi.statistics.pumpingBreast.dto.PumpingBreastStatisticsDayForWeekDto;
 import com.fa.sonagi.statistics.pumpingBreast.dto.PumpingBreastStatisticsResDto;
 import com.fa.sonagi.statistics.pumpingBreast.dto.PumpingBreastStatisticsQueryDto;
@@ -34,9 +36,14 @@ public class PumpingBreastStatisticsServiceImpl implements PumpingBreastStatisti
 	public PumpingBreastStatisticsResDto getPumpingBreastStatisticsDay(Long babyId, LocalDate createdDate) {
 		PumpingBreastStatisticsResDto pumpingBreastStatisticsResDto = new PumpingBreastStatisticsResDto();
 
+		List<Times> pumpingBreastDay = new ArrayList<>();
 		// 카테고리 데이터 조회
-		List<PumpingBreastStatisticsQueryDto> pumpingBreasts = pumpingBreastRepository.findPumpingBreastByDay(babyId, createdDate);
-		pumpingBreastStatisticsResDto.setPumpingBreasts(pumpingBreasts);
+		List<PumpingBreastStatisticsQueryDto> pumpingBreasts = pumpingBreastRepository.findPumpingBreastByDay(babyId,
+			createdDate);
+		for (int i = 0; i < pumpingBreasts.size(); i++) {
+			pumpingBreastDay.add(new Times(pumpingBreasts.get(i).getCreatedTime()));
+		}
+		pumpingBreastStatisticsResDto.setTimes(pumpingBreastDay);
 
 		// 카테고리 카드 통계 조회
 		Long cnt = (long)pumpingBreasts.size();

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.extra.repository.ExtraRepository;
+import com.fa.sonagi.statistics.common.dto.Times;
 import com.fa.sonagi.statistics.extra.dto.ExtraStatisticsDayForWeekDto;
-import com.fa.sonagi.statistics.extra.dto.ExtraStatisticsQueryDto;
 import com.fa.sonagi.statistics.extra.dto.ExtraStatisticsResDto;
 import com.fa.sonagi.statistics.extra.dto.ExtraStatisticsWeekResDto;
 
@@ -34,8 +35,13 @@ public class ExtraStatisticServiceImpl implements ExtraStatisticsService {
 	public ExtraStatisticsResDto getExtraStatisticsDay(Long babyId, LocalDate createdDate) {
 		ExtraStatisticsResDto extraStatisticsResDto = new ExtraStatisticsResDto();
 
+		List<Times> extraDay = new ArrayList<>();
 		// 데이터 조회 및 카드 통계
-		List<ExtraStatisticsQueryDto> extras = extraRepository.findExtraByDay(babyId, createdDate);
+		List<Times> extras = extraRepository.findExtraByDay(babyId, createdDate);
+		for (Times t : extras)
+			extraDay.add(t);
+		extraStatisticsResDto.setTimes(extraDay);
+		
 		Long extraCnt = (long)extras.size();
 		extraStatisticsResDto.setCnt(extraCnt);
 

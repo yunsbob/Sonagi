@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.fa.sonagi.record.health.dto.HealthResDto;
-import com.fa.sonagi.statistics.health.dto.HealthStatisticsQueryDto;
+import com.fa.sonagi.statistics.common.dto.Times;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -32,9 +32,9 @@ public class MedicationRepositoryImpl implements MedicationRepositoryCustom {
 	}
 
 	@Override
-	public List<HealthStatisticsQueryDto> findMedicationByDay(Long babyId, LocalDate createdDate) {
-		List<HealthStatisticsQueryDto> healthStatisticsQueryDto = queryFactory
-			.select(Projections.bean(HealthStatisticsQueryDto.class,
+	public List<Times> findMedicationByDay(Long babyId, LocalDate createdDate) {
+		List<Times> healthStatisticsQueryDto = queryFactory
+			.select(Projections.bean(Times.class,
 				medication.createdTime))
 			.from(medication)
 			.where(medication.babyId.eq(babyId), medication.createdDate.eq(createdDate))

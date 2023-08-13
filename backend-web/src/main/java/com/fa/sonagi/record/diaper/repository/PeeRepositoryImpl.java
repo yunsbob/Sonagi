@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import com.fa.sonagi.record.allCategory.dto.StatisticsTime;
 import com.fa.sonagi.record.diaper.dto.DiaperResDto;
-import com.fa.sonagi.statistics.diaper.dto.DiaperStatisticsQueryDto;
+import com.fa.sonagi.statistics.common.dto.Times;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -35,17 +35,16 @@ public class PeeRepositoryImpl implements PeeRepositoryCustom{
 		return pees;
 	}
 
-
 	@Override
-	public List<DiaperStatisticsQueryDto> findPeeByDay(Long babyId, LocalDate createdDate) {
-		List<DiaperStatisticsQueryDto> diaperStatisticsQueryDto = queryFactory
-			.select(Projections.bean(DiaperStatisticsQueryDto.class,
+	public List<Times> findPeeByDay(Long babyId, LocalDate createdDate) {
+		List<Times> pees = queryFactory
+			.select(Projections.bean(Times.class,
 				pee.createdTime))
 			.from(pee)
 			.where(pee.babyId.eq(babyId), pee.createdDate.eq(createdDate))
 			.fetch();
 
-		return diaperStatisticsQueryDto;
+		return pees;
 	}
 
 	@Override
@@ -60,7 +59,7 @@ public class PeeRepositoryImpl implements PeeRepositoryCustom{
 	}
 
 	@Override
-	public Map<LocalDate, List<LocalTime>> findPeeForWeek(Long babyId, LocalDate monday, LocalDate sunday) {
+	public Map<LocalDate, List<java.time.LocalTime>> findPeeForWeek(Long babyId, LocalDate monday, LocalDate sunday) {
 		List<StatisticsTime> pees = queryFactory
 			.select(Projections.bean(StatisticsTime.class,
 				pee.createdDate,

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fa.sonagi.record.meal.dto.SnackResDto;
-import com.fa.sonagi.statistics.meal.dto.SnackFeedingStatisticsQueryDto;
+import com.fa.sonagi.statistics.common.dto.Times;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -32,9 +32,9 @@ public class SnackRepositoryImpl implements SnackRepositoryCustom{
 	}
 
 	@Override
-	public List<SnackFeedingStatisticsQueryDto> findSnackByDay(Long babyId, LocalDate createdDate) {
-		List<SnackFeedingStatisticsQueryDto> snackFeedingStatisticsQueryDto = queryFactory
-			.select(Projections.bean(SnackFeedingStatisticsQueryDto.class,
+	public List<Times> findSnackByDay(Long babyId, LocalDate createdDate) {
+		List<Times> snackFeedingStatisticsQueryDto = queryFactory
+			.select(Projections.bean(Times.class,
 				snack.createdTime))
 			.from(snack)
 			.where(snack.babyId.eq(babyId), snack.createdDate.eq(createdDate))

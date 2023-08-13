@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fa.sonagi.record.allCategory.dto.StatisticsTime;
 import com.fa.sonagi.record.allCategory.dto.StatisticsTimeLong;
 import com.fa.sonagi.record.sleep.repository.SleepRepository;
+import com.fa.sonagi.statistics.common.dto.EndTimes;
 import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsDayForWeekDto;
-import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsQueryDto;
 import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsResDto;
 import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsWeekResDto;
 
@@ -41,8 +43,9 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 	public SleepStatisticsResDto getSleepStatisticsDay(Long babyId, LocalDate createdDate) {
 		SleepStatisticsResDto sleepStatisticsResDto = new SleepStatisticsResDto();
 
+		List<EndTimes> sleepDay = new ArrayList<>();
 		// 데이터 조회
-		List<SleepStatisticsQueryDto> sleeps = sleepRepository.findSleepByDay(babyId, createdDate);
+		List<EndTimes> sleeps = sleepRepository.findSleepByDay(babyId, createdDate);
 		int checkIdx = checkTimeDay(sleeps);
 		if (checkIdx != -1)
 			sleeps.get(checkIdx).setEndTime(LAST_TIME);
@@ -50,7 +53,7 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 		createdDate = createdDate.minus(1, ChronoUnit.DAYS);
 
 		// 전날 수면 데이터 조회
-		List<SleepStatisticsQueryDto> yesterdaySleeps = sleepRepository.findSleepByDay(babyId, createdDate);
+		List<EndTimes> yesterdaySleeps = sleepRepository.findSleepByDay(babyId, createdDate);
 		checkIdx = checkTimeDay(yesterdaySleeps);
 		if (checkIdx != -1) {
 			sleeps.add(createSleepStatisticsQueryDto(yesterdaySleeps.get(checkIdx).getEndTime()));
@@ -59,13 +62,16 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 
 		createdDate = createdDate.minus(1, ChronoUnit.DAYS);
 
-		List<SleepStatisticsQueryDto> pastSleeps = sleepRepository.findSleepByDay(babyId, createdDate);
+		List<EndTimes> pastSleeps = sleepRepository.findSleepByDay(babyId, createdDate);
 		checkIdx = checkTimeDay(pastSleeps);
 		if (checkIdx != -1) {
 			yesterdaySleeps.add(createSleepStatisticsQueryDto(pastSleeps.get(checkIdx).getEndTime()));
 		}
 
-		sleepStatisticsResDto.setSleeps(sleeps);
+		for (EndTimes et : sleeps)
+			sleepDay.add(et);
+		Collections.sort(sleepDay, Comparator.comparing(EndTimes::getCreatedTime));
+		sleepStatisticsResDto.setTimes(sleepDay);
 
 		// 카드 통계
 		Long sleepTime = sumSleepTimeDay(sleeps);
@@ -182,7 +188,7 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 	/**
 	 * 총 시간 계산 - day
 	 */
-	public Long sumSleepTimeDay(List<SleepStatisticsQueryDto> sleeps) {
+	public Long sumSleepTimeDay(List<EndTimes> sleeps) {
 		Long sleepTime = 0L;
 
 		for (int i = 0; i < sleeps.size(); i++) {
@@ -232,7 +238,7 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 	/**
 	 * 오전 12시 기준으로 이전에 시작해서 이후에 끝나는 기록이 있는지 확인
 	 */
-	public int checkTimeDay(List<SleepStatisticsQueryDto> sleeps) {
+	public int checkTimeDay(List<EndTimes> sleeps) {
 		for (int i = 0; i < sleeps.size(); i++) {
 			if (sleeps.get(i).getEndTime().isBefore(sleeps.get(i).getCreatedTime())) {
 				return i;
@@ -257,8 +263,8 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 	/**
 	 * 12시 기준으로 전날에 기록이 존재하면 12시 이후로 추가하기 - Day
 	 */
-	public SleepStatisticsQueryDto createSleepStatisticsQueryDto(LocalTime endTime) {
-		SleepStatisticsQueryDto sleepStatisticsQueryDto = new SleepStatisticsQueryDto();
+	public EndTimes createSleepStatisticsQueryDto(LocalTime endTime) {
+		EndTimes sleepStatisticsQueryDto = new EndTimes();
 		sleepStatisticsQueryDto.setCreatedTime(FIRST_TIME);
 		sleepStatisticsQueryDto.setEndTime(endTime);
 

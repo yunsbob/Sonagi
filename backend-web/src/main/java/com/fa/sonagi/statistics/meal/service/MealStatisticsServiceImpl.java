@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -18,11 +20,11 @@ import com.fa.sonagi.record.meal.repository.FeedingRepository;
 import com.fa.sonagi.record.meal.repository.InfantFormulaRepository;
 import com.fa.sonagi.record.meal.repository.MilkRepository;
 import com.fa.sonagi.record.meal.repository.SnackRepository;
+import com.fa.sonagi.statistics.common.dto.Times;
 import com.fa.sonagi.statistics.meal.dto.MealStatisticsDayForWeekDto;
 import com.fa.sonagi.statistics.meal.dto.MealStatisticsQueryDto;
 import com.fa.sonagi.statistics.meal.dto.MealStatisticsResDto;
 import com.fa.sonagi.statistics.meal.dto.MealStatisticsWeekResDto;
-import com.fa.sonagi.statistics.meal.dto.SnackFeedingStatisticsQueryDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -46,22 +48,38 @@ public class MealStatisticsServiceImpl implements MealStatisticsService{
 	public MealStatisticsResDto getMealStatisticsDay(Long babyId, LocalDate createdDate) {
 		MealStatisticsResDto mealStatisticsResDto = new MealStatisticsResDto();
 
+		List<Times> mealDay = new ArrayList<>();
 		// 데이터 조회
 		List<MealStatisticsQueryDto> babyFoods = babyFoodRepository.findBabyFoodByDay(babyId, createdDate);
-		mealStatisticsResDto.setBabyFoods(babyFoods);
-		List<MealStatisticsQueryDto> breastFeedings = breastFeedingRepository.findBreastFeedingByDay(babyId, createdDate);
-		mealStatisticsResDto.setBreastFeedings(breastFeedings);
-		List<SnackFeedingStatisticsQueryDto> feedings = feedingRepository.findFeedingByDay(babyId, createdDate);
-		mealStatisticsResDto.setFeedings(feedings);
-		List<MealStatisticsQueryDto> infantFormulas = infantFormulaRepository.findInfantFormulaByDay(babyId, createdDate);
-		mealStatisticsResDto.setInfantFormulas(infantFormulas);
+		for (int i = 0; i < babyFoods.size(); i++) {
+			mealDay.add(new Times(babyFoods.get(i).getCreatedTime()));
+		}
+		List<MealStatisticsQueryDto> breastFeedings = breastFeedingRepository.findBreastFeedingByDay(babyId,
+			createdDate);
+		for (int i = 0; i < breastFeedings.size(); i++) {
+			mealDay.add(new Times(breastFeedings.get(i).getCreatedTime()));
+		}
+		List<MealStatisticsQueryDto> infantFormulas = infantFormulaRepository.findInfantFormulaByDay(babyId,
+			createdDate);
+		for (int i = 0; i < infantFormulas.size(); i++) {
+			mealDay.add(new Times(infantFormulas.get(i).getCreatedTime()));
+		}
 		List<MealStatisticsQueryDto> milks = milkRepository.findMilkByDay(babyId, createdDate);
-		mealStatisticsResDto.setMilks(milks);
-		List<SnackFeedingStatisticsQueryDto> snacks = snackRepository.findSnackByDay(babyId, createdDate);
-		mealStatisticsResDto.setSnacks(snacks);
+		for (int i = 0; i < milks.size(); i++) {
+			mealDay.add(new Times(milks.get(i).getCreatedTime()));
+		}
+		List<Times> feedings = feedingRepository.findFeedingByDay(babyId, createdDate);
+		for (Times t : feedings)
+			mealDay.add(t);
+		List<Times> snacks = snackRepository.findSnackByDay(babyId, createdDate);
+		for (Times t : snacks)
+			mealDay.add(t);
+		Collections.sort(mealDay, Comparator.comparing(Times::getCreatedTime));
+		mealStatisticsResDto.setTimes(mealDay);
 
 		// 횟수 통계
-		Long cnt = (long)(babyFoods.size() + breastFeedings.size() + feedings.size() + infantFormulas.size() + milks.size() + snacks.size());
+		Long cnt = (long)(babyFoods.size() + breastFeedings.size() + feedings.size() + infantFormulas.size()
+			+ milks.size() + snacks.size());
 		mealStatisticsResDto.setCnt(cnt);
 
 		// 용량 통계
