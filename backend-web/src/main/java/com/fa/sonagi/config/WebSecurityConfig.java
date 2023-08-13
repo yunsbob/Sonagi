@@ -32,11 +32,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class WebSecurityConfig {
-	private static final String[] GET_LIST = {
-		"/api/oauth2/authorization", "/api/login/oauth2/code/**", "/swagger-ui/**", "/v3/api-docs/**",
-		"/api/logout","/**"
-	};
-	private static final String[] POST_LIST = {"/swagger-ui/**", "/v3/api-docs/**", "/api/logout","/**"};
+	private static final String[] All_list = {"/**"};
+	private static final String[] GET_LIST = {"/api/oauth2/authorization", "/api/login/oauth2/code/**", "/swagger-ui/**", "/v3/api-docs/**", "/api/logout"};
+	private static final String[] POST_LIST = {"/swagger-ui/**", "/v3/api-docs/**", "/api/logout"};
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisTemplate<String, String> redisTemplate;
 	private final CustomOAuth2UserService customOAuth2UserService;
@@ -45,45 +43,39 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity
-			.csrf(AbstractHttpConfigurer::disable)
-			.httpBasic(AbstractHttpConfigurer::disable)
-			.formLogin(AbstractHttpConfigurer::disable)
-			.cors(c -> c.configurationSource(corsConfigurationSource()))
-			.exceptionHandling(c ->
-				c
-					.authenticationEntryPoint(new RestAuthenticationEntryPoint())
-					.accessDeniedHandler(tokenAccessDeniedHandler))
-			.sessionManagement(c -> c.sessionCreationPolicy((SessionCreationPolicy.STATELESS)))
-			.authorizeHttpRequests(
-				auth ->
-					auth
-						.requestMatchers(HttpMethod.GET, GET_LIST)
-						.permitAll()
-						.requestMatchers(HttpMethod.POST, POST_LIST)
-						.permitAll()
-						.requestMatchers("/**")
-						.hasAnyRole("USER", "ADMIN")
-						.anyRequest()
-						.authenticated())
+		httpSecurity.csrf(AbstractHttpConfigurer::disable)
+		            .httpBasic(AbstractHttpConfigurer::disable)
+		            .formLogin(AbstractHttpConfigurer::disable)
+		            .cors(c -> c.configurationSource(corsConfigurationSource()))
+		            .exceptionHandling(c -> c.authenticationEntryPoint(new RestAuthenticationEntryPoint()).accessDeniedHandler(tokenAccessDeniedHandler))
+		            .sessionManagement(c -> c.sessionCreationPolicy((SessionCreationPolicy.STATELESS)))
+		            .authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.GET, GET_LIST)
+		                                               .permitAll()
+		                                               .requestMatchers(HttpMethod.POST, POST_LIST)
+		                                               .permitAll()
+		                                               .requestMatchers(All_list)
+		                                               .permitAll()
+		                                               .requestMatchers("/**")
+		                                               .hasAnyRole("USER", "ADMIN")
+		                                               .anyRequest()
+		                                               .authenticated())
+		            .oauth2Login()
+		            .authorizationEndpoint()
+		            .baseUri("/api/oauth2/authorization") // 인가 요청을 해야하는 인가 요청url의 앞부분
+		            .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
+		            .and()
+		            .redirectionEndpoint()
+		            .baseUri("/api/login/oauth2/code/*") // 인가요청이의 응답으로 인가코드를 보내오는 어플리케이션 등록시의 redirect uri
+		            .and()
+		            .userInfoEndpoint()
+		            .userService(customOAuth2UserService)
+		            .and()
+		            .successHandler(oAuth2AuthenticationSuccessHandler())
+		            .failureHandler(oAuth2AuthenticationFailureHandler())
+		            .permitAll()
 
-			.oauth2Login()
-			.authorizationEndpoint()
-			.baseUri("/api/oauth2/authorization") // 인가 요청을 해야하는 인가 요청url의 앞부분
-			.authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
-			.and()
-			.redirectionEndpoint()
-			.baseUri("/api/login/oauth2/code/*") // 인가요청이의 응답으로 인가코드를 보내오는 어플리케이션 등록시의 redirect uri
-			.and()
-			.userInfoEndpoint()
-			.userService(customOAuth2UserService)
-			.and()
-			.successHandler(oAuth2AuthenticationSuccessHandler())
-			.failureHandler(oAuth2AuthenticationFailureHandler())
-			.permitAll()
-
-			.and()
-			.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisTemplate, userRepository), UsernamePasswordAuthenticationFilter.class);
+		            .and()
+		            .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisTemplate, userRepository), UsernamePasswordAuthenticationFilter.class);
 
 		return httpSecurity.build();
 	}
@@ -98,12 +90,7 @@ public class WebSecurityConfig {
 	// Oauth 인증 성공 핸들러
 	@Bean
 	public OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler() {
-		return new OAuth2AuthenticationSuccessHandler(
-			oAuth2AuthorizationRequestBasedOnCookieRepository(),
-			jwtTokenProvider,
-			redisTemplate,
-			userRepository
-		);
+		return new OAuth2AuthenticationSuccessHandler(oAuth2AuthorizationRequestBasedOnCookieRepository(), jwtTokenProvider, redisTemplate, userRepository);
 	}
 
 	// Oauth 인증 실패 핸들러
