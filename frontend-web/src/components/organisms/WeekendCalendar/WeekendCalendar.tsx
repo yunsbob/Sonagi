@@ -3,36 +3,39 @@ import WeekendCalendarToken from '../../molecules/WeekendCalendar/WeekendCalenda
 import getWeekendDate from '../../../utils/weekendUtils';
 import WeekendCalendarContainer from './WeekendCalendar.styles';
 import dayjs, { Dayjs } from 'dayjs';
+import { useRecoilState } from 'recoil';
+import { selectedDateState } from '@/states/dateState';
+import { formatDate } from '@/utils/formatDate';
 
 //TODO: isRecoredDay 데이터 바인딩 이후 처리용 함수 제작.
 
-interface WeekendCalendarProps {
-  selectedDate: Date;
-  onDateChange: (date: Date) => void;
-}
-
-const WeekendCalendar: React.FC<WeekendCalendarProps> = ({
-  selectedDate,
-  onDateChange,
-}) => {
+const WeekendCalendar: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
   const [weekendDateList, setWeekendDateList] = useState<
     Array<{ date: Dayjs; day: string }>
   >([]);
 
   useEffect(() => {
-    setWeekendDateList(getWeekendDate(selectedDate));
+    setWeekendDateList(getWeekendDate(new Date(selectedDate)));
   }, [selectedDate]);
 
-  const jStatusOfDay = (date: Dayjs): string => {
-    if (date.isSame(dayjs(selectedDate))) {
+  const jStatusOfDay = (newDate: Dayjs): string => {
+    if (newDate.isSame(dayjs(selectedDate))) {
       return 'isToday';
     }
-    if (date.isAfter(dayjs())) {
+    if (newDate.isAfter(dayjs())) {
       return 'afterToday';
     }
     return 'beforeToday';
   };
-
+  const handleChangeDay = (date: Date) => {
+    const newDate = new Date();
+    newDate.setHours(0, 0, 0, 0);
+    if (dayjs(date).isAfter(newDate)) {
+      return;
+    }
+    setSelectedDate(formatDate(date));
+  };
   return (
     <>
       <WeekendCalendarContainer>
@@ -43,7 +46,7 @@ const WeekendCalendar: React.FC<WeekendCalendarProps> = ({
             dayOfWeek={dateMap['day']}
             $statusOfDay={jStatusOfDay(dateMap['date'])}
             $isRecordedDate={true}
-            onClick={() => onDateChange(dateMap['date'].toDate())} // 클릭 핸들러 추가
+            onClick={() => handleChangeDay(dateMap['date'].toDate())}
           />
         ))}
       </WeekendCalendarContainer>

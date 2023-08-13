@@ -40,10 +40,7 @@ const GraphPage = () => {
   return (
     <>
       <section>
-        <CalendarBar
-          onDateChange={handleDateChange}
-          selectedDate={selectedDate}
-        ></CalendarBar>
+        <CalendarBar></CalendarBar>
         <CategoryBarContainer>
           <CategoryBar path={PATH.GRAPH}></CategoryBar>
         </CategoryBarContainer>
