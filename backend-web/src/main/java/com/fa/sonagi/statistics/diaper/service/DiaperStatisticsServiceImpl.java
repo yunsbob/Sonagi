@@ -6,6 +6,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.record.diaper.repository.PeeRepository;
 import com.fa.sonagi.record.diaper.repository.PoopRepository;
+import com.fa.sonagi.statistics.common.dto.Times;
 import com.fa.sonagi.statistics.diaper.dto.DiaperStatisticsDayForWeekDto;
-import com.fa.sonagi.statistics.diaper.dto.DiaperStatisticsQueryDto;
 import com.fa.sonagi.statistics.diaper.dto.DiaperStatisticsResDto;
 import com.fa.sonagi.statistics.diaper.dto.DiaperStatisticsWeekResDto;
 
@@ -37,11 +40,15 @@ public class DiaperStatisticsServiceImpl implements DiaperStatisticsService{
 	public DiaperStatisticsResDto getDiaperStatisticsDay(Long babyId, LocalDate createdDate) {
 		DiaperStatisticsResDto diaperStatisticsResDto = new DiaperStatisticsResDto();
 
+		List<Times> diaperDay;
 		// 데이터 조회
-		List<DiaperStatisticsQueryDto> pees = peeRepository.findPeeByDay(babyId, createdDate);
-		diaperStatisticsResDto.setPees(pees);
-		List<DiaperStatisticsQueryDto> poops = poopRepository.findPoopByDay(babyId, createdDate);
-		diaperStatisticsResDto.setPoops(poops);
+		List<Times> pees = peeRepository.findPeeByDay(babyId, createdDate);
+		diaperDay = pees;
+		List<Times> poops = poopRepository.findPoopByDay(babyId, createdDate);
+		for (Times t : poops)
+			diaperDay.add(t);
+		Collections.sort(diaperDay, Comparator.comparing(Times::getCreatedTime));
+		diaperStatisticsResDto.setTimes(diaperDay);
 
 		// 횟수 통계
 		Long peeCnt = (long)pees.size();
@@ -78,8 +85,8 @@ public class DiaperStatisticsServiceImpl implements DiaperStatisticsService{
 		DiaperStatisticsWeekResDto diaperWeek = new DiaperStatisticsWeekResDto();
 
 		// 일주일 데이터 조회
-		Map<LocalDate, List<LocalTime>> peeForWeek = peeRepository.findPeeForWeek(babyId, monday, sunday);
-		Map<LocalDate, List<LocalTime>> poopForWeek = poopRepository.findPoopForWeek(babyId, monday, sunday);
+		Map<LocalDate, List<java.time.LocalTime>> peeForWeek = peeRepository.findPeeForWeek(babyId, monday, sunday);
+		Map<LocalDate, List<java.time.LocalTime>> poopForWeek = poopRepository.findPoopForWeek(babyId, monday, sunday);
 
 		// 날짜별 데이터 세팅
 		LocalDate writeDay = monday;

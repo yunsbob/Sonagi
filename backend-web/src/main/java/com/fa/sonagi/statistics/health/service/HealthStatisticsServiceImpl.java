@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fa.sonagi.record.health.repository.FeverRepository;
 import com.fa.sonagi.record.health.repository.HospitalRepository;
 import com.fa.sonagi.record.health.repository.MedicationRepository;
+import com.fa.sonagi.statistics.common.dto.Times;
 import com.fa.sonagi.statistics.health.dto.HealthStatisticsDayForWeekDto;
-import com.fa.sonagi.statistics.health.dto.HealthStatisticsQueryDto;
 import com.fa.sonagi.statistics.health.dto.HealthStatisticsResDto;
 import com.fa.sonagi.statistics.health.dto.HealthStatisticsWeekResDto;
 
@@ -38,11 +40,15 @@ public class HealthStatisticsServiceImpl implements HealthStatisticsService{
 	public HealthStatisticsResDto getHealthStatisticsDay(Long babyId, LocalDate createdDate) {
 		HealthStatisticsResDto healthStatisticsResDto = new HealthStatisticsResDto();
 
+		List<Times> healthDay;
 		// 카테고리별 데이터 조회
-		List<HealthStatisticsQueryDto> hospitals = hospitalRepository.findHospitalByDay(babyId, createdDate);
-		healthStatisticsResDto.setHospitals(hospitals);
-		List<HealthStatisticsQueryDto> medications = medicationRepository.findMedicationByDay(babyId, createdDate);
-		healthStatisticsResDto.setMedications(medications);
+		List<Times> hospitals = hospitalRepository.findHospitalByDay(babyId, createdDate);
+		healthDay = hospitals;
+		List<Times> medications = medicationRepository.findMedicationByDay(babyId, createdDate);
+		for (Times t : medications)
+			healthDay.add(t);
+		Collections.sort(healthDay, Comparator.comparing(Times::getCreatedTime));
+		healthStatisticsResDto.setTimes(healthDay);
 
 		// 카테고리별 카드 통계 조회
 		Long hospitalCnt = (long)hospitals.size();

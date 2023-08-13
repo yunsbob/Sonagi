@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.fa.sonagi.record.health.dto.HealthResDto;
-import com.fa.sonagi.statistics.health.dto.HealthStatisticsQueryDto;
+import com.fa.sonagi.statistics.common.dto.Times;
 
 public interface MedicationRepositoryCustom {
 
 	HealthResDto findMedicationRecord(Long medicationId);
 
-	List<HealthStatisticsQueryDto> findMedicationByDay(Long babyId, LocalDate createdDate);
+	List<Times> findMedicationByDay(Long babyId, LocalDate createdDate);
 
 	Long findMedicationCnt(Long babyId, LocalDate createdDate);
 

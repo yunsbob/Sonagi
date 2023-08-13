@@ -42,6 +42,7 @@ public class PumpingBreastRepositoryImpl implements PumpingBreastRepositoryCusto
 				pumpingBreast.amount))
 			.from(pumpingBreast)
 			.where(pumpingBreast.babyId.eq(babyId), pumpingBreast.createdDate.eq(createdDate))
+			.orderBy(pumpingBreast.createdTime.asc())
 			.fetch();
 
 		return pumpingBreastStatisticsQueryDto;

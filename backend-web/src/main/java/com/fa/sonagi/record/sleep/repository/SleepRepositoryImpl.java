@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.fa.sonagi.record.allCategory.dto.StatisticsTime;
 import com.fa.sonagi.record.sleep.dto.SleepResDto;
-import com.fa.sonagi.statistics.sleep.dto.SleepStatisticsQueryDto;
+import com.fa.sonagi.statistics.common.dto.EndTimes;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -33,9 +33,9 @@ public class SleepRepositoryImpl implements SleepRepositoryCustom {
 	}
 
 	@Override
-	public List<SleepStatisticsQueryDto> findSleepByDay(Long babyId, LocalDate createdDate) {
-		List<SleepStatisticsQueryDto> sleepStatisticsQueryDto = queryFactory
-			.select(Projections.bean(SleepStatisticsQueryDto.class,
+	public List<EndTimes> findSleepByDay(Long babyId, LocalDate createdDate) {
+		List<EndTimes> sleepStatisticsQueryDto = queryFactory
+			.select(Projections.bean(EndTimes.class,
 				sleep.createdTime,
 				sleep.endTime))
 			.from(sleep)

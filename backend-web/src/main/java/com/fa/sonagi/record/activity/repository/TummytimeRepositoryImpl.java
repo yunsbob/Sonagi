@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.fa.sonagi.record.activity.dto.ActivityResDto;
 import com.fa.sonagi.record.allCategory.dto.StatisticsTime;
-import com.fa.sonagi.statistics.activity.dto.ActivityStatisticsQueryDto;
+import com.fa.sonagi.statistics.common.dto.EndTimes;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -33,16 +33,16 @@ public class TummytimeRepositoryImpl implements TummytimeRepositoryCustom {
 	}
 
 	@Override
-	public List<ActivityStatisticsQueryDto> findTummytimeByDay(Long babyId, LocalDate createdDate) {
-		List<ActivityStatisticsQueryDto> activityStatisticsQueryDto = queryFactory
-			.select(Projections.bean(ActivityStatisticsQueryDto.class,
+	public List<EndTimes> findTummytimeByDay(Long babyId, LocalDate createdDate) {
+		List<EndTimes> tummytimes = queryFactory
+			.select(Projections.bean(EndTimes.class,
 				tummytime.createdTime,
 				tummytime.endTime))
 			.from(tummytime)
 			.where(tummytime.babyId.eq(babyId), tummytime.createdDate.eq(createdDate))
 			.fetch();
 
-		return activityStatisticsQueryDto;
+		return tummytimes;
 	}
 
 	@Override
