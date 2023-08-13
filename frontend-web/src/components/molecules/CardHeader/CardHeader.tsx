@@ -8,12 +8,10 @@ interface CardHeaderProps {
 }
 
 const CardHeader = ({ text, imgSrc }: CardHeaderProps) => {
-  const src = `@/assets/images/img-${imgSrc}.png`;
-
   return (
     <CardHeaderWrapper>
       <Text size="headSmall">{text}</Text>
-      <Image src={imgSrc} width={2} />
+      <Image src={imgSrc} height={1.5} />
     </CardHeaderWrapper>
   );
 };
