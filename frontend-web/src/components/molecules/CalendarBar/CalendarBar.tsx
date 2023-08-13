@@ -7,16 +7,21 @@ import { useState } from 'react';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
 import moment from 'moment';
 import { CalendarModal } from '@/components/organisms/CalendarModal/CalendarModal';
+import { selectedDateState } from '@/states/dateState';
+import { useRecoilState } from 'recoil';
+import { formatDate } from '@/utils/formatDate';
 
-interface CalendarBarProps {
-  onDateChange: (date: Date) => void; // 날짜를 인자로 받고 아무 것도 반환하지 않음
-}
+// interface CalendarBarProps {
+//   onDateChange: (date: Date) => void; // 날짜를 인자로 받고 아무 것도 반환하지 않음
+// }
 
-const CalendarBar: React.FC<CalendarBarProps> = ({ onDateChange }) => {
+const CalendarBar: React.FC = () => {
   const today = new Date();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  // pickDate는 화면에 뿌리기용, selectedDate는 리코일에 저장해서 API 호출 등에 쓰이는 용
   const [pickDate, setPickDate] = useState<Date>(today);
+  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
 
   // calendar bar date click event
   const onClickCalendarBar = () => {
@@ -26,10 +31,8 @@ const CalendarBar: React.FC<CalendarBarProps> = ({ onDateChange }) => {
   // calendar modal day click event
   const onCalendarChange = (newDate: Value) => {
     if (newDate instanceof Date) {
-      console.log('onCalendarChange 실행');
       setPickDate(newDate);
-      onDateChange(newDate); // 상위로 건네주기
-      console.log(newDate, 'newDate in CalendarBar'); // 여기에 추가
+      setSelectedDate(formatDate(newDate));
     }
   };
 
@@ -40,10 +43,9 @@ const CalendarBar: React.FC<CalendarBarProps> = ({ onDateChange }) => {
   const onChangeDay = (days: number) => {
     const newDate = new Date(pickDate);
     newDate.setDate(newDate.getDate() + days);
-    // console.log('onChangeDay 실행');
     setPickDate(newDate);
-    onDateChange(newDate); // 상위로 건네주기
-    console.log(newDate, 'newDate in CalendarBar'); // 여기에 추가
+    setSelectedDate(formatDate(newDate));
+    console.log('onChangeDay', selectedDate, '날짜 바꼈니?');
   };
 
   return (

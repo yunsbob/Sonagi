@@ -1,27 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import RecordBar from '@/components/molecules/RecordBar/RecordBar';
 import RecordBlock from '@/components/molecules/RecordBlock/RecordBlock';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { dateRecordedValuesState, recordedValues } from '@/states/recordState';
 import { selectedCategoryState } from '@/states/categoryState';
 import { RecordContainerStyle } from '@/components/organisms/RecordContainer/RecordContainer.styles';
 import { PATH } from '@/constants/path';
-import {
-  RecordTypeA,
-  RecordTypeB,
-  RecordTypeC,
-  RecordedList,
-} from '@/types/recordTypes';
+import { RecordTypeA, RecordTypeB, RecordTypeC } from '@/types/recordTypes';
 import theme from '@/styles/theme';
-import { useQueryClient } from '@tanstack/react-query';
 import { useGetAllCategoryRecords } from '@/apis/Record/Queries/useGetAllCategoryRecords';
 import { selectedBabyState } from '@/states/babyState';
 import { selectedDateState } from '@/states/dateState';
-
-// type RecordContainerProps = {
-//   recordedList: RecordedList | null;
-//   currentDate: string;
-// };
+import { fetchCounterState } from '@/states/fetchCounterState';
 
 type CombinedRecord =
   | (RecordTypeA & { category: string })
@@ -62,7 +52,9 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
     }
   }, []);
 
-  const [fetchCounter, setFetchCounter] = useState(0);
+  // const [fetchCounter, setFetchCounter] = useState(0);
+  const [fetchCounter, setFetchCounter] = useRecoilState(fetchCounterState);
+
   const records = useGetAllCategoryRecords(selectedBaby.babyId, selectedDate);
 
   // 데이터가 추가되었을 ㄸㅐ ! -> 새로운 get요청 해야 함
@@ -94,6 +86,9 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
       };
     }
   }, []);
+  combinedData.forEach((item, index) => {
+    console.log(item);
+  });
 
   return (
     <>
@@ -103,7 +98,7 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
             key={index}
             color={theme.color.gray1}
             recordType={record.category}
-            time={record.createdTime}
+            time={record.createdTime.substring(0, 5)}
           />
         ))}
         {/* {filteredRecordList.map((record, index) => (
