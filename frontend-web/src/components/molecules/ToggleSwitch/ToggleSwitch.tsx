@@ -1,5 +1,6 @@
 import { useUpdateAlarm } from '@/apis/User/Mutations/useUpdateAlarm';
 import { StyledLabel } from '@/components/molecules/ToggleSwitch/ToggleSwitch.styles';
+import { Toast } from '@/components/organisms/Toast/Toast';
 import { userInfoState } from '@/states/userState';
 import { ChangeEvent, useState } from 'react';
 import { useRecoilValue } from 'recoil';
@@ -20,7 +21,7 @@ const ToggleSwitch = ({
 
   const onToggleChange = (e: ChangeEvent<HTMLInputElement>) => {
     console.log('---', e.target.checked);
-    console.log(e.target);
+
     updateAlarmMutation.mutate(
       {
         alarmType: e.target.id,

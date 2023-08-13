@@ -30,23 +30,16 @@ const BabyCodePage = () => {
     '발급된 아이코드가 올바르지 않습니다'
   );
 
-  const toastMessageShow = () => {
-    setShowToast(true);
-    setTimeout(() => {
-      setShowToast(false);
-    }, 1500);
-  };
-
   const onClickButtonAction = (code: string) => {
     useRegisterBabyCodeMutation.mutate(
       { userId: userInfo.userId, code: code },
       {
         onError: () => {
-          toastMessageShow();
+          setShowToast(true);
         },
         onSuccess: () => {
           setToastText('아이의 공동양육자로 등록되었습니다');
-          toastMessageShow();
+          setShowToast(true);
           navigate(PATH.MAIN);
         },
       }
@@ -61,7 +54,7 @@ const BabyCodePage = () => {
   return (
     <>
       <CheckBabyModal onModalClose={onModalClose} modalOpen={modalOpen} />
-      {showToast && <Toast message={toastText} />}
+      {showToast && <Toast message={toastText} setToast={setShowToast} />}
       <Background $background={orangeBackground}>
         <Back />
         <S.BabyCodePageContainer>
