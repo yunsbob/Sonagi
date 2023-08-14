@@ -11,6 +11,7 @@ import { useGetAllCategoryRecords } from '@/apis/Record/Queries/useGetAllCategor
 import { selectedBabyState } from '@/states/babyState';
 import { selectedDateState } from '@/states/dateState';
 import { fetchCounterState } from '@/states/fetchCounterState';
+import { recordEnToKo } from '@/constants/recordEnToKo';
 
 type RecordContainerProps = {
   combinedData: CombinedRecord[];
@@ -59,8 +60,6 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
   }, [combinedData, fetchCounter]);
 
   const onRecordUpdated = () => {
-    // useGetAllCategoryRecords(selectedBaby.babyId, selectedDate);
-    console.log('!!', fetchCounter);
     setFetchCounter(fetchCounter => fetchCounter + 1);
     const container = containerRef.current;
     if (container) {
@@ -82,7 +81,7 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
           <RecordBlock
             key={index}
             color={theme.color.gray1}
-            recordType={record.category}
+            recordType={recordEnToKo[record.category]}
             record={record}
             time={record.createdTime ? record.createdTime.substring(0, 5) : ''}
           />
