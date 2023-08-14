@@ -19,7 +19,8 @@ interface MealCardProps {
 const MealCard = ({ data }: MealCardProps) => {
   const currentTheme = categoryToColorMap['Meal'];
   const color = theme.color[currentTheme];
-
+  const darkColor = theme.color.cardMeal2;
+  const lightColor = theme.color.cardMeal3;
   return (
     <CardContainer $borderColor={color}>
       <CardHeader
@@ -28,14 +29,20 @@ const MealCard = ({ data }: MealCardProps) => {
       />
       <CardContentText type="횟수" data={data.cnt} unit="회" />
       <CardContentBar
-        $borderColor={color}
+        $borderColor={
+          data.cntPercent > data.yesterdayCntPercent ? darkColor : lightColor
+        }
         $ratio={data.cntPercent}
         $yesterDayRatio={data.yesterdayCntPercent}
       />
 
       <CardContentText type="용량" data={data.amount} unit="ml" />
       <CardContentBar
-        $borderColor={color}
+        $borderColor={
+          data.amountPercent > data.yesterdayAmountPercent
+            ? darkColor
+            : lightColor
+        }
         $ratio={data.amountPercent}
         $yesterDayRatio={data.yesterdayAmountPercent}
       />

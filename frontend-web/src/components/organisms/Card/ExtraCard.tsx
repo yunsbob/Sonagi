@@ -16,6 +16,8 @@ interface ExtraCardProps {
 const ExtraCard = ({ data }: ExtraCardProps) => {
   const currentTheme = categoryToColorMap['Extra'];
   const color = theme.color[currentTheme];
+  const darkColor = theme.color.cardExtra;
+  const lightColor = theme.color.gray3;
 
   return (
     <CardContainer $borderColor={color}>
@@ -25,7 +27,9 @@ const ExtraCard = ({ data }: ExtraCardProps) => {
       />
       <CardContentText type="횟수" data={data.cnt} unit="회" />
       <CardContentBar
-        $borderColor={color}
+        $borderColor={
+          data.cntPercent > data.yesterdayCntPercent ? darkColor : lightColor
+        }
         $ratio={data.cntPercent}
         $yesterDayRatio={data.yesterdayCntPercent}
       />

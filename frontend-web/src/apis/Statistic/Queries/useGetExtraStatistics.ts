@@ -8,7 +8,7 @@ const useGetExtraStatistics = (
   date: string
 ) => {
   const { data: extraStatistic } = useQuery(
-    ['extraStatistics', babyId, date],
+    ['extraStatistics', babyId, date, period],
     () => getExtraStatistics(babyId, period, date)
   );
 
