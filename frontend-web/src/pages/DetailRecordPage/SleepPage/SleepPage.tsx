@@ -10,12 +10,13 @@ import theme from '@/styles/theme';
 
 interface NameProps {
   name: string;
+  recordName: string;
 }
 
-const SleepPage: React.FC<NameProps> = ({ name }) => {
+const SleepPage: React.FC<NameProps> = ({ name, recordName }) => {
   return (
     <>
-      <Back>{name + ' 상세페이지'}</Back>
+      <Back>{name + ' 상세페이지' + recordName}</Back>
       <S.SleepPageContainer>
         <S.SleepPageWrapper>
           <S.Divider>

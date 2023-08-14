@@ -15,6 +15,23 @@ interface RecordBlockProps {
   time: string;
   record: CombinedRecord;
   recordId: string | number | undefined;
+  // queryName:
+  //   | 'infantFormulas'
+  //   | 'breastFeedings'
+  //   | 'babyFoods'
+  //   | 'milks'
+  //   | 'pumpingBreasts'
+  //   | 'plays'
+  //   | 'tummytimes'
+  //   | 'pees'
+  //   | 'poops'
+  //   | 'fevers'
+  //   | 'medications'
+  //   | 'hospitals'
+  //   | 'feedings'
+  //   | 'snacks'
+  //   | 'sleeps'
+  //   | 'extras';
 }
 
 const TimeText = styled(Text)`
@@ -51,21 +68,23 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
   time,
   record,
   recordId,
+  // queryName,
 }) => {
   const navigate = useNavigate();
-
   const OnClickButton = () => {
-    navigate(PATH.DETAILRECORD, { state: { recordType: recordType } });
+    navigate(PATH.DETAILRECORD, {
+      state: { recordType: recordType, recordName: record.category },
+    });
   };
-  // TODO: 리코드 자체를 전달해서 새 페이지 안에서 뽑아서 쓴다 !!!
 
   return (
     <BlockButton option="default" size="xLarge" onClick={OnClickButton}>
       <RoundedRect color={color} />
       <TimeText size="medium2">{time}</TimeText>
       <Text size="medium1" style={{ minWidth: 'fit-content' }}>
-        {recordType}
         {recordId}
+        {record.category}
+        {recordType}
       </Text>
       <MemoText size="medium2">{record.memo}</MemoText>
       <Image

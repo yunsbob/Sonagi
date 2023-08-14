@@ -66,7 +66,7 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
           top: targetScrollTop,
           behavior: 'smooth',
         });
-      }, 300); // DOM이 완전히 업데이트 된 후 스크롤 위치를 조정
+      }, 500); // DOM이 완전히 업데이트 된 후 스크롤 위치를 조정
     }
   };
 
@@ -87,6 +87,7 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
                 record.createdTime ? record.createdTime.substring(0, 5) : ''
               }
               recordId={recordId}
+              // queryName={record.queryName}
             />
           );
         })}

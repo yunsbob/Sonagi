@@ -6,12 +6,15 @@ import Back from '@/components/atoms/Back/Back';
 import Button from '@/components/atoms/Button/Button';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import theme from '@/styles/theme';
+import { useGetRecordDetails } from '@/apis/Record/Queries/useGetRecordDetails';
 
 interface NameProps {
   name: string;
+  recordName: string;
 }
 
 const FeedingPage: React.FC<NameProps> = ({ name }) => {
+  // const details = useGetRecordDetails();
   return (
     <>
       <Back>{name + ' 상세페이지'}</Back>

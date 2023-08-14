@@ -10,14 +10,15 @@ import { useLocation } from 'react-router-dom';
 const DetailRecordPage: React.FC = () => {
   const location = useLocation();
   const name = location.state.recordType;
+  const recordName = location.state.recordName;
 
   const DetailRecordRenderer = () => {
     if (name === '체온') {
-      return <TemperaturePage name={name} />;
+      return <TemperaturePage name={name} recordName={recordName} />;
     } else if (name === '수유') {
-      return <FeedingPage name={name} />;
+      return <FeedingPage name={name} recordName={recordName} />;
     } else if (name === '수면' || name === '놀이' || name === '터미 타임') {
-      return <SleepPage name={name} />;
+      return <SleepPage name={name} recordName={recordName} />;
     } else if (
       name === '유축 수유' ||
       name === '분유' ||
@@ -25,9 +26,14 @@ const DetailRecordPage: React.FC = () => {
       name === '우유' ||
       name === '유축'
     ) {
-      return <InfantFormulaPage name={name}></InfantFormulaPage>;
+      return (
+        <InfantFormulaPage
+          name={name}
+          recordName={recordName}
+        ></InfantFormulaPage>
+      );
     } else {
-      return <DiaperPage name={name} />;
+      return <DiaperPage name={name} recordName={recordName} />;
     }
   };
 

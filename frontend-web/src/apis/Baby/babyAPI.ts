@@ -1,5 +1,5 @@
 import { instance } from '@/apis/instance';
-import { BabiesOfUser, Baby, UpdateBaby } from '@/types';
+import { Baby, UpdateBaby } from '@/types';
 
 const addBaby = async (baby: Baby) => {
   try {

@@ -1,5 +1,5 @@
 import { instance } from '@/apis/instance';
-import { AllRecords } from '@/types/recordTypes';
+import { AllRecords, CombinedRecord } from '@/types/recordTypes';
 
 const getAllCategoryRecords = async (babyId: number, date: string) => {
   try {
@@ -12,6 +12,16 @@ const getAllCategoryRecords = async (babyId: number, date: string) => {
   }
 };
 
+const getRecordDetails = async (type: string, recordId: number) => {
+  try {
+    // ex. tummytimes/38
+    const response = await instance.get(`/${type}/${recordId}`);
+    return response.data;
+  } catch {
+    new Error('get record code error');
+  }
+};
+
 const addRecord = async (type: string, record: AllRecords) => {
   try {
     await instance.post(`/${type}`, record);
@@ -20,4 +30,12 @@ const addRecord = async (type: string, record: AllRecords) => {
   }
 };
 
-export { getAllCategoryRecords, addRecord };
+const updateRecord = async (record: CombinedRecord) => {
+  try {
+    await instance.put(`/${record.category}`);
+  } catch {
+    new Error('record put error');
+  }
+};
+
+export { getAllCategoryRecords, addRecord, updateRecord, getRecordDetails };

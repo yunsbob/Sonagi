@@ -10,6 +10,7 @@ import theme from '@/styles/theme';
 
 interface NameProps {
   name: string;
+  recordName: string;
 }
 
 const InfantFormulaPage: React.FC<NameProps> = ({ name }) => {

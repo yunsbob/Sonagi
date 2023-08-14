@@ -8,6 +8,7 @@ import theme from '@/styles/theme';
 
 interface NameProps {
   name: string;
+  recordName: string;
 }
 
 const DiaperPage: React.FC<NameProps> = ({ name }) => {

@@ -46,67 +46,84 @@ interface Feeding extends RecordCommon {
   leftEndTime: string;
   rightEndTime: string;
   mealId?: number;
+  // recordName: 'feedings';
 }
 
 // 체온
 interface Fever extends RecordCommon {
   bodyTemperature: number;
   healthId?: number;
+  // recordName: 'fevers';
 }
 
 interface InfantFormula extends RecordCommon {
   amount: number;
   mealId?: number;
+  // recordName: 'infantFormulas';
 }
 interface BreastFeeding extends RecordCommon {
   amount: number;
   mealId?: number;
+  // recordName: 'breastFeedings';
 }
 interface BabyFood extends RecordCommon {
   amount: number;
   mealId?: number;
+  // recordName: 'babyFoods';
 }
+
 interface Milk extends RecordCommon {
   amount: number;
   mealId?: number;
+  // recordName: 'milks';
 }
 
 interface PumpingBreast extends RecordCommon {
   amount: number;
   pumpingBreastId?: number;
+  // recordName: 'pumpingBreasts';
 }
 // 유축 (개별 카테고리 있음)
 
 interface Pee extends RecordCommon {
   diaperId?: number;
+  // recordName: 'pees';
 }
 interface Poop extends RecordCommon {
   diaperId?: number;
+  // recordName: 'poops';
 }
 interface Hospital extends RecordCommon {
   healthId?: number;
+  // recordName: 'hospitals';
 }
 interface Medication extends RecordCommon {
   healthId?: number;
+  // recordName: 'medications';
 }
 interface Snack extends RecordCommon {
   mealId?: number;
+  // recordName: 'snacks';
 }
 interface Extra extends RecordCommon {
   extraId?: number;
+  // recordName: 'extras';
 }
 
 interface Sleep extends RecordCommon {
   endTime: string;
   sleepId?: number;
+  // recordName: 'sleeps';
 }
 interface Play extends RecordCommon {
   endTime: string;
   activityId?: number;
+  // recordName: 'plays';
 }
 interface Tummytime extends RecordCommon {
   endTime: string;
   activityId?: number;
+  // recordName: 'tummytimes';
 }
 
 type RecordedValues = {
@@ -131,6 +148,7 @@ type AllRecords =
   | Sleep
   | Extra;
 
+// 카테고리로 요청 보낼 수 있나?
 type CombinedRecord = AllRecords & { category: string };
 
 export type {

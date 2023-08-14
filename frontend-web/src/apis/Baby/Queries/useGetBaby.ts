@@ -1,7 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { getBaby } from '@/apis/Baby/babyAPI';
-import { useRecoilState } from 'recoil';
-import { babiesOfUserState } from '@/states/babyState';
 import { BabiesOfUser } from '@/types';
 
 // TODO: onSuccess랑 onError 삭제해주기
