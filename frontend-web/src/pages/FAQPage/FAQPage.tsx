@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Background } from '@/components/atoms/Background/Background.styles';
 import orangeBackground from '@/assets/images/background-orange-to-blue.png';
 import AdminBar from '@/components/molecules/AdminBar/AdminBar';
@@ -14,7 +14,7 @@ const FAQPage = () => {
       const response = await instance.get(`/faqs`);
       return response.data;
     } catch (error) {
-      throw new Error('no data returned from the API - AllCategory');
+      throw new Error('no data returned from the API - FAQ');
     }
   };
 

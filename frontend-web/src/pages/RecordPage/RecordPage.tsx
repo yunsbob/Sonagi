@@ -1,10 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { useRecoilValue } from 'recoil';
 
 import CalendarBar from '@/components/molecules/CalendarBar/CalendarBar';
 import CategoryBar from '@/components/molecules/CategoryBar/CategoryBar';
@@ -22,12 +17,10 @@ import { selectedDateState } from '@/states/dateState';
 type StringKeys<T> = Extract<keyof T, string>;
 
 const RecordPage = () => {
-  const queryClient = useQueryClient();
-
   // 처음 화면에 들어왔을 때 날짜 설정, selectedDate로 리코일에 저장
-  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
+  const selectedDate = useRecoilValue(selectedDateState);
 
-  // 처음 화면에 들어왔을 때 아이 id를 selectedBaby로 리코일에 저장
+  // 처음 화면에 들어왔을 때 아이 id를 리코일에서 가져와 사용
   const selectedBaby = useRecoilValue(selectedBabyState);
 
   // 저장된 아이 id랑 날짜로 get요청
@@ -36,7 +29,7 @@ const RecordPage = () => {
     selectedDate
   );
 
-  // combinedData를 state로 지정
+  // combinedData를 state로 지정 -> TODO: 리코일에 저장하는 로직으로 바꾸자
   const [combinedData, setCombinedDataState] = useState<CombinedRecord[]>([]);
 
   useEffect(() => {
@@ -45,8 +38,11 @@ const RecordPage = () => {
       Object.keys(recordedList).forEach(
         (key: StringKeys<typeof recordedList>) => {
           recordedList[key].forEach((item: AllRecords) => {
-            // TODO: push대신 스프레드로
             tempCombinedData.push({ ...item, category: key });
+            //   tempCombinedData = [
+            //     ...tempCombinedData,
+            //     { ...item, category: key },
+            //   ]; // 왜인지... 스프레드연산자로 하니 조금 더 느립니다
           });
         }
       );
@@ -56,22 +52,13 @@ const RecordPage = () => {
         const timeB = b.createdTime || '00:00:00';
         return timeA.localeCompare(timeB);
       });
-
       setCombinedDataState(tempCombinedData);
     };
+
     if (recordedList) {
       computeCombinedData(recordedList);
     }
   }, [recordedList]);
-
-  // useEffect(() => {
-  //   // babyId 바뀔 때마다 쿼리 결과 무효화 -> 데이터 다시 불러오기
-  //   queryClient.invalidateQueries(['record', selectedBaby.babyId]);
-  //   // 날짜 바뀔 때마다 쿼리 결과 무효화 -> 데이터 다시 불러오기
-  //   queryClient.invalidateQueries(['record', selectedDate]);
-
-  //   // recordedList를 리코일에 저장하자
-  // }, [selectedBaby.babyId, selectedDate, queryClient]);
 
   return (
     <>

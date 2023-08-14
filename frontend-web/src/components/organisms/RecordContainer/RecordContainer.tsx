@@ -11,7 +11,7 @@ import { useGetAllCategoryRecords } from '@/apis/Record/Queries/useGetAllCategor
 import { selectedBabyState } from '@/states/babyState';
 import { selectedDateState } from '@/states/dateState';
 import { fetchCounterState } from '@/states/fetchCounterState';
-import { recordEnToKo } from '@/constants/recordEnToKo';
+import { recordEnToKo, recordTypeToCategory } from '@/constants/recordEnToKo';
 
 type RecordContainerProps = {
   combinedData: CombinedRecord[];
@@ -20,8 +20,6 @@ type RecordContainerProps = {
 const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const containerRef = useRef<HTMLDivElement>(null);
-  const selectedBaby = useRecoilValue(selectedBabyState);
-  const selectedDate = useRecoilValue(selectedDateState);
 
   // 선택된 카테고리에 따라 쌓인 기록 블록들 필터링
   // const filteredRecordList = recordedList.filter(record => {
@@ -53,10 +51,6 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
         container.removeEventListener('scroll', onScroll);
       };
     }
-    // combinedData.forEach((item, index) => {
-    //   console.log('sdfdsf');
-    //   console.log(item, '---------');
-    // });
   }, [combinedData, fetchCounter]);
 
   const onRecordUpdated = () => {
@@ -69,7 +63,7 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
           top: targetScrollTop,
           behavior: 'smooth',
         });
-      }, 700); // DOM이 완전히 업데이트 된 후 스크롤 위치를 조정
+      }, 300); // DOM이 완전히 업데이트 된 후 스크롤 위치를 조정
     }
   };
 
@@ -80,7 +74,7 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
         {combinedData.map((record, index) => (
           <RecordBlock
             key={index}
-            color={theme.color.gray1}
+            color={theme.color[recordTypeToCategory[record.category]]}
             recordType={recordEnToKo[record.category]}
             record={record}
             time={record.createdTime ? record.createdTime.substring(0, 5) : ''}
