@@ -13,7 +13,7 @@ interface DiaryPostDto {
 interface DiaryInfo {
   diaryId: number;
   userName: string;
-  writeDay: string;
+  writedTime: string;
   imgUrls: string[];
   content: string;
 }
