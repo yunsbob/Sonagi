@@ -10,12 +10,9 @@ import { userInfoState } from '@/states/userState';
 import { selectedBabyState } from '@/states/babyState';
 import DiaryCard from '@/components/organisms/DiaryCard/DiaryCard';
 import { BabiesOfUser, User } from '@/types';
-<<<<<<< HEAD
-=======
 import { selectedDateState } from '@/states/dateState';
 import { useGetDiaryInfoByBabyId } from '@/apis/Diary/Queries/useGetDiaryInfoByBabyId';
 import { DiaryInfo } from '@/types/diaryTypes';
->>>>>>> d00159d90366629883a8b814493084109a5583db
 
 const DiaryPage: React.FC = () => {
   const navigate = useNavigate();
