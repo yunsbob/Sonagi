@@ -19,8 +19,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Tag(name = "User", description = "사용자 API")
+@Slf4j
 @RequestMapping("/api")
 @RestController
 @RequiredArgsConstructor
@@ -52,6 +54,7 @@ public class UserController {
 	 */
 	@PutMapping("/fcm")
 	public ResponseEntity<?> updateFCMToken(@RequestBody FCMTokenDto fcmTokenDto) {
+		log.info("test : {} ", fcmTokenDto.getFirebaseToken());
 		userService.updateFCMToken(fcmTokenDto);
 		return ResponseEntity.ok().build();
 	}
@@ -112,8 +115,8 @@ public class UserController {
 
 	@PostMapping("/logout")
 	@Operation(summary = "유저가 요청을 보내면 쿠키의 RefreshToken과 Redis의 저장된 토큰을 지운다.")
-	public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response){
-		userService.logout(request,response);
+	public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+		userService.logout(request, response);
 		return ResponseEntity.ok().build();
 	}
 }
