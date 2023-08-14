@@ -18,6 +18,10 @@ const PATH = {
   REGISTERBABYPROFILE: '/regBabyProfile',
   UPDATEBABYPROFILE: '/updateBabyProfile',
   DETAILRECORD: '/main/detailRecord',
+  ADMIN: '/admin',
+  FAQ: '/admin/faq',
+  QUESTION: '/admin/question',
+  RESTORE: '/admin/restore',
 } as const;
 
 export { PATH };
