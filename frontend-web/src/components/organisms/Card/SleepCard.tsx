@@ -20,6 +20,8 @@ interface SleepCardProps {
 const SleepCard = ({ data }: SleepCardProps) => {
   const currentTheme = categoryToColorMap['Sleep'];
   const color = theme.color[currentTheme];
+  const darkColor = theme.color.cardSleep1;
+  const lightColor = theme.color.cardSleep2;
 
   return (
     <CardContainer $borderColor={color}>
@@ -29,7 +31,9 @@ const SleepCard = ({ data }: SleepCardProps) => {
       />
       <CardContentText type="횟수" data={data.cnt} unit="회" />
       <CardContentBar
-        $borderColor={color}
+        $borderColor={
+          data.cntPercent > data.yesterdayCntPercent ? darkColor : lightColor
+        }
         $ratio={data.cntPercent}
         $yesterDayRatio={data.yesterdayCntPercent}
       />
@@ -42,7 +46,11 @@ const SleepCard = ({ data }: SleepCardProps) => {
         unit2="분"
       />
       <CardContentBar
-        $borderColor={color}
+        $borderColor={
+          data.sleepPercent > data.yesterdaySleepPercent
+            ? darkColor
+            : lightColor
+        }
         $ratio={data.sleepPercent}
         $yesterDayRatio={data.yesterdaySleepPercent}
       />

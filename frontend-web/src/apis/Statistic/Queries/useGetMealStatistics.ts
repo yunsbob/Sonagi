@@ -8,7 +8,7 @@ const useGetMealStatistics = (
   date: string
 ) => {
   const { data: mealStatistic } = useQuery(
-    ['mealStatistics', babyId, date],
+    ['mealStatistics', babyId, date, period],
     () => getMealStatistics(babyId, period, date)
   );
 
