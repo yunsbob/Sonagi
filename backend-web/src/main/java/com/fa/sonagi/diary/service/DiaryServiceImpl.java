@@ -47,8 +47,8 @@ public class DiaryServiceImpl implements DiaryService {
 
 		// diary 생성
 		Diary diary = Diary.builder()
-			.babyId(diaryPostDto.getBabyId())
-			.userName(userName)
+		                   .babyId(diaryPostDto.getBabyId())
+		                   .userName(userName)
 		                   .diaryFiles(new ArrayList<>())
 		                   .content(diaryPostDto.getContent())
 		                   .createdTime(LocalTime.now().plusHours(9))
@@ -133,7 +133,7 @@ public class DiaryServiceImpl implements DiaryService {
 			DiaryResDto.DiaryInfo diaryInfo = DiaryResDto.DiaryInfo.builder()
 			                                                       .diaryId(diary.getId())
 			                                                       .userName(diary.getUserName())
-			                                                       .writeDay(diary.getCreatedDate())
+			                                                       .writedTime(diary.getCreatedTime())
 			                                                       .imgUrls(urlList)
 			                                                       .content(diary.getContent())
 			                                                       .build();
