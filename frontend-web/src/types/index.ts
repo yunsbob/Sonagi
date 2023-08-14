@@ -31,7 +31,7 @@ interface FAQ {
 }
 
 interface Question {
-  id: number;
+  questionId: number;
   createdAt: string;
   title: string;
   content: string;
@@ -39,7 +39,7 @@ interface Question {
 }
 
 interface DeletedBaby {
-  id: number;
+  babyId: number;
   name: string;
   birthDate: string;
   gender: string;
