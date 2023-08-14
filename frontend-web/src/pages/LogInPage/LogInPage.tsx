@@ -14,7 +14,7 @@ import {
   LogoContainer,
 } from '@/pages/LogInPage/LogInPage.styles';
 import SocialButton from '@/components/molecules/SocialButton/SocialButton';
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 
 const LogInPage = () => {
   const OAUTH2_REDIERECT_URI = `${process.env.REACT_APP_BASE_URL}/oauth/redirect`;
@@ -23,28 +23,31 @@ const LogInPage = () => {
     window.location.href = AUTH_URL;
   };
 
-  const saveAndroidTokenToCookie = () => {
-    // React Native 알림을 위한 기기 Token값 저장
-    document.addEventListener('message', (e: any) => {
-      console.log('hi2');
-      const androidToken = e.data;
-      console.log(androidToken);
+  // const saveAndroidTokenToCookie = () => {
+  //   // React Native 알림을 위한 기기 Token값 저장
+  //   document.addEventListener('message', (e: any) => {
+  //     console.log('hi2');
+  //     const androidToken = e.data;
+  //     console.log(androidToken);
 
-      if (androidToken) {
-        console.log('saveToken');
-        const expires = new Date();
-        expires.setMinutes(expires.getMinutes() + 60);
+  //     if (androidToken) {
+  //       console.log('saveToken');
+  //       const expires = new Date();
+  //       expires.setMinutes(expires.getMinutes() + 60);
 
-        Cookies.set('androidToken', androidToken, {
-          path: '/',
-          expires: expires,
-          secure: true,
-          // httpOnly: true,
-        });
-      }
-    });
-  };
-  saveAndroidTokenToCookie();
+  //       Cookies.set('androidToken', androidToken, {
+  //         path: '/',
+  //         expires: expires,
+  //         secure: true,
+  //         // httpOnly: true,
+  //       });
+  //     }
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   saveAndroidTokenToCookie();
+  // }, []);
 
   return (
     <Background $background={babyBackground}>

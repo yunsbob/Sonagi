@@ -14,6 +14,7 @@ const App = () => {
   // 뒤로가기 로직
   const webViewRef = useRef<any>(null);
   const [isCanGoBack, setIsCanGoBack] = useState(false);
+  const [fcmTokenState, setFcmTokenState] = useState('');
   const onPressHardwareBackButton = useCallback(() => {
     if (webViewRef.current && isCanGoBack) {
       webViewRef.current.goBack();
@@ -25,6 +26,7 @@ const App = () => {
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       console.log(remoteMessage);
+      getToken();
       pushNoti.displayNoti(remoteMessage);
     });
     return unsubscribe;
@@ -118,9 +120,36 @@ const App = () => {
     const fcmToken = await messaging().getToken();
 
     try {
+      console.log(fcmToken);
+      setFcmTokenState(fcmToken);
       webViewRef.current.postMessage(fcmToken);
     } catch (e) {
       console.log(e, 'Error');
+    }
+  };
+
+  const userIdHandler = async (receivedMessage: any) => {
+    const requestBody = {
+      userId: receivedMessage.code,
+      firebaseToken: fcmTokenState,
+    };
+    try {
+      const response = await fetch('http://localhost:8080/api/fcm', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        console.log(requestBody.firebaseToken);
+        console.log('API request successful');
+      } else {
+        console.error('API reqeust failed with status', response.status);
+      }
+    } catch (error) {
+      console.log('fetch error', error);
     }
   };
 
@@ -134,9 +163,7 @@ const App = () => {
         getToken();
         requestPermission();
       }}
-      userAgent={
-        'Mozilla/5.0 (iPhone; CPU iPhone OS 15_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/102.0.5005.87 Mobile/15E148 Safari/604.1'
-      }
+      userAgent="Mozilla/5.0 (Linux; Android 10; Redmi Note 8 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.88 Mobile Safari/537.36"
       sharedCookiesEnabled={true}
       domStorageEnabled={true}
       allowFileAccess={true}
@@ -179,6 +206,9 @@ const App = () => {
             webViewRef.current.requestFocus();
             Clipboard.setString(receivedMessage.code);
             console.log('clipboard success', receivedMessage.code);
+          } else if (receivedMessage.type === 'userId') {
+            console.log(receivedMessage.code);
+            userIdHandler(receivedMessage);
           }
         } catch (error) {
           console.log(error);

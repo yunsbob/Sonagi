@@ -9,6 +9,7 @@ import { useRecoilValue } from 'recoil';
 import { userInfoState } from '@/states/userState';
 import { selectedBabyState } from '@/states/babyState';
 import DiaryCard from '@/components/organisms/DiaryCard/DiaryCard';
+import { BabiesOfUser, User } from '@/types';
 
 const DiaryPage: React.FC = () => {
   const navigate = useNavigate();

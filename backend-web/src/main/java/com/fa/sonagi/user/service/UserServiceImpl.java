@@ -56,6 +56,8 @@ public class UserServiceImpl implements UserService {
 	public void updateFCMToken(FCMTokenDto fcmTokenDto) {
 		Users user = userRepository.findById(fcmTokenDto.getUserId()).orElseThrow();
 		user.updateFCMToken(fcmTokenDto.getFirebaseToken());
+		userRepository.save(user);
+
 	}
 
 	/**

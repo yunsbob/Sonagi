@@ -90,7 +90,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		CookieUtil.addCookie(response, REFRESH_TOKEN, tokenInfo.getRefreshToken(), JwtTokenProvider.getRefreshTokenExpireTimeCookie());
 		// 기기 토큰 값 업데이트
 		Optional<String> androidDeviceToken = CookieUtil.getCookie(request, ANDORIOD_DEVICE_TOKEN).map(Cookie::getValue);
-		if (androidDeviceToken.isPresent() && !bySocialId.getFirebaseToken().equals(androidDeviceToken.get())) {
+		if (androidDeviceToken.isPresent() && !bySocialId.getFirebaseToken().isEmpty() && !bySocialId.getFirebaseToken().equals(androidDeviceToken.get())) {
 			bySocialId.updateFCMToken(androidDeviceToken.get());
 			userRepository.save(bySocialId);
 		}
