@@ -21,7 +21,7 @@ public class FAQ {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "faq_id", nullable = false)
-	private Long id;
+	private Long faqId;
 
 	@Column(name = "user_id", nullable = false)
 	private Long userId;
