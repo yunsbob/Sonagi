@@ -19,6 +19,16 @@ export const AllTypeValues = [
   'fevers',
 ];
 
+export type RecordIdKeys =
+  | 'mealId'
+  | 'healthId'
+  | 'pumpingBreastId'
+  | 'diaperId'
+  | 'healthId'
+  | 'sleepId'
+  | 'activityId'
+  | 'extraId';
+
 export type AllType = (typeof AllTypeValues)[number];
 
 interface RecordCommon {

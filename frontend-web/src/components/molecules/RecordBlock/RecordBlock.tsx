@@ -14,6 +14,7 @@ interface RecordBlockProps {
   recordType: string;
   time: string;
   record: CombinedRecord;
+  recordId: string | number | undefined;
 }
 
 const TimeText = styled(Text)`
@@ -49,6 +50,7 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
   recordType,
   time,
   record,
+  recordId,
 }) => {
   const navigate = useNavigate();
 
@@ -63,6 +65,7 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
       <TimeText size="medium2">{time}</TimeText>
       <Text size="medium1" style={{ minWidth: 'fit-content' }}>
         {recordType}
+        {recordId}
       </Text>
       <MemoText size="medium2">{record.memo}</MemoText>
       <Image
