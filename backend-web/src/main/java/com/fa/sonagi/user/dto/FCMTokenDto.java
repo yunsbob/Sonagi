@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class FCMTokenDto {
 	private Long userId;
-	private String FirebaseToken;
+	private String firebaseToken;
 }
