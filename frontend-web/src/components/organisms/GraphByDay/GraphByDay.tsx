@@ -8,7 +8,7 @@ import { BabiesOfUser, Category } from '@/types';
 import { selectedDateState } from '@/states/dateState';
 import { selectedCategoryState } from '@/states/categoryState';
 import { PATH } from '@/constants/path';
-import { MealCard } from '@/components/organisms/Card/MealCard';
+// import { MealCard } from '@/components/organisms/Card/MealCard';
 import { useGetDiaperStatistics } from '@/apis/Statistic/Queries/useGetDiaperStatistics';
 import { DiaperCard } from '@/components/organisms/Card/DiaperCard';
 import { SleepCard } from '@/components/organisms/Card/SleepCard';
@@ -21,6 +21,14 @@ import { PumpCard } from '@/components/organisms/Card/PumpCard';
 import { ActivityCard } from '@/components/organisms/Card/ActivityCard';
 import { HealthCard } from '@/components/organisms/Card/HealthCard';
 import { ExtraCard } from '@/components/organisms/Card/ExtraCard';
+import React, { Suspense, lazy } from 'react';
+import LoadingPage from '@/pages/LoadingPage/LoadingPage';
+
+const mealCardPromise = import('@/components/organisms/Card/MealCard');
+
+const MealCard = React.lazy(() =>
+  mealCardPromise.then(({ MealCard }) => ({ default: MealCard }))
+);
 
 const GraphByDay = () => {
   const currentCategory: Category = useRecoilValue(
@@ -41,19 +49,23 @@ const GraphByDay = () => {
   const healthStatistics = useGetHealthStatistics(babyInfo.babyId, 'day', date);
   const extraStatistics = useGetExtraStatistics(babyInfo.babyId, 'day', date);
 
+  console.log(mealStatistics);
+
   return (
-    <GrapByDayContainer className="scrollable">
-      <DoughnutChart />
-      {currentCategory === 'Meal' && <MealCard data={mealStatistics} />}
-      {currentCategory === 'Diaper' && <DiaperCard data={diaperStatistics} />}
-      {currentCategory === 'Sleep' && <SleepCard data={sleepStatistics} />}
-      {currentCategory === 'Pump' && <PumpCard data={pumpStatistics} />}
-      {currentCategory === 'Activity' && (
-        <ActivityCard data={activityStatistics} />
-      )}
-      {currentCategory === 'Health' && <HealthCard data={healthStatistics} />}
-      {currentCategory === 'Extra' && <ExtraCard data={extraStatistics} />}
-    </GrapByDayContainer>
+    <Suspense fallback={<LoadingPage />}>
+      <GrapByDayContainer className="scrollable">
+        <DoughnutChart />
+        {currentCategory === 'Meal' && <MealCard data={mealStatistics} />}
+        {currentCategory === 'Diaper' && <DiaperCard data={diaperStatistics} />}
+        {currentCategory === 'Sleep' && <SleepCard data={sleepStatistics} />}
+        {currentCategory === 'Pump' && <PumpCard data={pumpStatistics} />}
+        {currentCategory === 'Activity' && (
+          <ActivityCard data={activityStatistics} />
+        )}
+        {currentCategory === 'Health' && <HealthCard data={healthStatistics} />}
+        {currentCategory === 'Extra' && <ExtraCard data={extraStatistics} />}
+      </GrapByDayContainer>
+    </Suspense>
   );
 };
 
