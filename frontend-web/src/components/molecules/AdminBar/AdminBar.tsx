@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { StyledTabBar } from '../TabBar/TabBar.style';
+import { StyledAdminBar } from '../AdminBar/AdminBar.style';
 import { PATH } from '@/constants/path';
 
 const tabBarInfo = [
@@ -17,7 +17,7 @@ export default function TabBar() {
   };
 
   return (
-    <StyledTabBar>
+    <StyledAdminBar>
       {tabBarInfo.map(({ text, path }) => (
         <div
           key={path}
@@ -31,6 +31,6 @@ export default function TabBar() {
           {text}
         </div>
       ))}
-    </StyledTabBar>
+    </StyledAdminBar>
   );
 }
