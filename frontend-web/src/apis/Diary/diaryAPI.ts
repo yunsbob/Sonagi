@@ -1,6 +1,16 @@
 import { instance } from '@/apis/instance';
 import { DiaryPostDto } from '@/types/diaryTypes';
 
+// 일기 기록 전부 조회
+const getAllDiariesRecord = async (babyId: number) => {
+  try {
+    const response = await instance.get('/diaries/dates');
+    return response.data;
+  } catch {
+    new Error('no data returned from the API - DiariesAtWriteDay');
+  }
+};
+
 // 날짜 별 일기 조회
 const getDiariesAtWriteDay = async (babyId: number, writeDay: string) => {
   try {
@@ -46,6 +56,10 @@ const deleteDiary = async (diaryId: number) => {
   }
 };
 
-// 일기 기록 날짜 리스트 조회
-
-export { getDiariesAtWriteDay, addDiary, updateDiary, deleteDiary };
+export {
+  getDiariesAtWriteDay,
+  addDiary,
+  updateDiary,
+  deleteDiary,
+  getAllDiariesRecord,
+};

@@ -19,10 +19,21 @@ import {
 
 import DoughnutSlice from '@/components/molecules/DoughnutSlices/DoughnutSlices';
 import { PATH } from '@/constants/path';
+import { ReactNode } from 'react';
 
-const DoughnutChart: React.FC = () => {
+interface TimeProps {
+  createdTime: string;
+  endTime?: string;
+}
+
+interface DoughnutChartProps {
+  data: TimeProps[];
+}
+
+const DoughnutChart = ({ data }: DoughnutChartProps) => {
   // numbers도 따로 molcules로 빼고 싶었지만 ... JSX의 svg Elements 관련 지식 무지로 보류
-  const numbers = [];
+  let numbers: ReactNode[] = [];
+
   for (let i = 0; i <= 23; i++) {
     const angle = ((i * 15 - 90) * Math.PI) / 180;
     const x = xCenter + textRadius * Math.cos(angle);
@@ -32,7 +43,8 @@ const DoughnutChart: React.FC = () => {
     if (i % 2 === 1) {
       displayText = '•';
     }
-    numbers.push(
+
+    const svgTextElement = (
       <text
         fontSize="9px"
         fill={theme.color.gray1}
@@ -45,16 +57,17 @@ const DoughnutChart: React.FC = () => {
         {displayText}
       </text>
     );
+
+    numbers = [...numbers, svgTextElement];
   }
 
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.GRAPH));
   const currentColor = categoryToColorMap[currentCategory];
 
-  const timeSections: string[] = ['00:00', '00:00'];
-  const [start, finished] = timeStringToDegrees(timeSections);
-
-  const recordedTimes: string[] = ['12:00', '03:48', '18:23', '16:08'];
-  const testDegrees = recordedTimes.map(timeToDegreeAddPadding);
+  // 시간이 2개 있는지 확인하는 함수
+  const isTimeItem2 = (timeObj: TimeProps[]) => {
+    return timeObj.length > 0 && 'endTime' in timeObj[0];
+  };
 
   return (
     <svg viewBox={VIEW_BOX}>
@@ -65,20 +78,34 @@ const DoughnutChart: React.FC = () => {
         fill="transparent"
         strokeWidth={sectorHeight}
       />
-      <path // 구간 도넛
-        d={getArc(start, finished)}
-        stroke={theme.color[currentColor]}
-        fill="transparent"
-        strokeWidth={sectorHeight}
-      />
-      {testDegrees.map((degree, index) => (
-        <DoughnutSlice
-          key={index}
-          start={degree[0]}
-          finished={degree[1]}
-          color={theme.color[currentColor]}
-        />
-      ))}
+      {isTimeItem2(data) &&
+        data.map(record => {
+          const timeSections: string[] = [record.createdTime, record.endTime!];
+          const [start, finished] = timeStringToDegrees(timeSections);
+
+          return (
+            <path // 구간 도넛
+              key={record.createdTime}
+              d={getArc(start, finished)}
+              stroke={theme.color[currentColor]}
+              fill="transparent"
+              strokeWidth={sectorHeight}
+            />
+          );
+        })}
+
+      {!isTimeItem2(data) &&
+        data
+          .map(key => key.createdTime)
+          .map(timeToDegreeAddPadding)
+          .map((degree, index) => (
+            <DoughnutSlice
+              key={index}
+              start={degree[0]}
+              finished={degree[1]}
+              color={theme.color[currentColor]}
+            />
+          ))}
     </svg>
   );
 };
