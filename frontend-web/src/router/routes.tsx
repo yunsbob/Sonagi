@@ -11,7 +11,6 @@ import MainPage from '@/pages/MainPage/MainPage';
 import RecordPage from '@/pages/RecordPage/RecordPage';
 import GraphPage from '@/pages/GraphPage/GraphPage';
 import OurBabyPage from '@/pages/OurBabyPage/OurBabyPage';
-import OurBabyVaccinationPage from '@/pages/OurBabyVaccinationPage/OurBabyVaccinationPage';
 import DiaryPage from '@/pages/DiaryPage/DiaryPage';
 import DiaryRegister from '@/pages/DiaryRegisterPage/DiaryRegisterPage';
 import MyPagePage from '@/pages/MyPagePage/MyPagePage';
@@ -32,6 +31,7 @@ import FAQModifyPage from '@/pages/FAQPage/FAQModifyPage';
 import RestorePage from '@/pages/RestorePage/frontend-web/src/pages/RestorePage/RestorePage';
 import QuestionPage from '@/pages/QuestionPage/QuestionPage';
 import QuestionDetailPage from '@/pages/QuestionPage/QuestionDetailPage';
+import MedicalInfoPage from '@/pages/MedicalInfoPage/MedicalInfoPage';
 
 const router = createBrowserRouter([
   {
@@ -81,7 +81,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: 'ourBaby', element: <OurBabyPage /> },
-      { path: 'ourBaby/vaccination', element: <OurBabyVaccinationPage /> },
+      { path: 'ourBaby/medicalInfo', element: <MedicalInfoPage /> },
       { path: 'diary', element: <DiaryPage /> },
       { path: 'diaryRegister', element: <DiaryRegister /> },
       { path: 'myPage', element: <MyPagePage /> },

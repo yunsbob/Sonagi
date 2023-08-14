@@ -1,6 +1,6 @@
 import { Text } from '@/components/atoms/Text/Text.styles';
 
-const BabyMedicalStatus = () => {
+const BabyVaccinationStatus = () => {
   return (
     <>
       <Text size="medium2">결핵</Text>
@@ -10,4 +10,4 @@ const BabyMedicalStatus = () => {
   );
 };
 
-export default BabyMedicalStatus;
+export default BabyVaccinationStatus;
