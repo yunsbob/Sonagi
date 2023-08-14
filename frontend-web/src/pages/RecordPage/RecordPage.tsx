@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { useQueryClient } from '@tanstack/react-query';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQueryClient,
+} from '@tanstack/react-query';
 
 import CalendarBar from '@/components/molecules/CalendarBar/CalendarBar';
 import CategoryBar from '@/components/molecules/CategoryBar/CategoryBar';
@@ -41,6 +45,7 @@ const RecordPage = () => {
       Object.keys(recordedList).forEach(
         (key: StringKeys<typeof recordedList>) => {
           recordedList[key].forEach((item: AllRecords) => {
+            // TODO: push대신 스프레드로
             tempCombinedData.push({ ...item, category: key });
           });
         }
@@ -59,14 +64,14 @@ const RecordPage = () => {
     }
   }, [recordedList]);
 
-  useEffect(() => {
-    // babyId 바뀔 때마다 쿼리 결과 무효화 -> 데이터 다시 불러오기
-    queryClient.invalidateQueries(['record', selectedBaby.babyId]);
-    // 날짜 바뀔 때마다 쿼리 결과 무효화 -> 데이터 다시 불러오기
-    queryClient.invalidateQueries(['record', selectedDate]);
+  // useEffect(() => {
+  //   // babyId 바뀔 때마다 쿼리 결과 무효화 -> 데이터 다시 불러오기
+  //   queryClient.invalidateQueries(['record', selectedBaby.babyId]);
+  //   // 날짜 바뀔 때마다 쿼리 결과 무효화 -> 데이터 다시 불러오기
+  //   queryClient.invalidateQueries(['record', selectedDate]);
 
-    // recordedList를 리코일에 저장하자
-  }, [selectedBaby.babyId, selectedDate, queryClient]);
+  //   // recordedList를 리코일에 저장하자
+  // }, [selectedBaby.babyId, selectedDate, queryClient]);
 
   return (
     <>

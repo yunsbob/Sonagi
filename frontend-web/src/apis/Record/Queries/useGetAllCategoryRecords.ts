@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getAllCategoryRecords } from '@/apis/Record/recordAPI';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { fetchCounterState } from '@/states/fetchCounterState';
 
 const useGetAllCategoryRecords = (babyId: number, date: string) => {
@@ -12,6 +12,7 @@ const useGetAllCategoryRecords = (babyId: number, date: string) => {
     },
     {
       enabled: Boolean(babyId),
+      suspense: false,
     }
   );
   return records;

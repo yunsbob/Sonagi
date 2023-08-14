@@ -13,6 +13,9 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 // TODO: 여기서 GraphPage용 State를 별도관리, Calendar에 Props로 주기
 
+// TODO: 방법 1 라우팅을 다르게 해줘서 Suspense 감싸기
+// TODO: 방법 2 누를때마다 statistics 받기
+
 const GraphPage = () => {
   const navigate = useNavigate();
 

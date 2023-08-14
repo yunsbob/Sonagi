@@ -37,7 +37,9 @@ const MainPage = () => {
         <header>
           <BabyBar></BabyBar>
         </header>
+        {/* <Suspense fallback={<LoadingPage />}> */}
         <Outlet />
+        {/* </Suspense> */}
         <TabBar />
       </Background>
     </Suspense>
