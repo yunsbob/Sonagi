@@ -31,6 +31,7 @@ import FAQModifyPage from '@/pages/FAQPage/FAQModifyPage';
 import RestorePage from '@/pages/RestorePage/frontend-web/src/pages/RestorePage/RestorePage';
 import QuestionPage from '@/pages/QuestionPage/QuestionPage';
 import QuestionDetailPage from '@/pages/QuestionPage/QuestionDetailPage';
+import MedicalInfoPage from '@/pages/MedicalInfoPage/MedicalInfoPage';
 
 const router = createBrowserRouter([
   {
@@ -80,6 +81,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: 'ourBaby', element: <OurBabyPage /> },
+      { path: 'ourBaby/medicalInfo', element: <MedicalInfoPage /> },
       { path: 'diary', element: <DiaryPage /> },
       { path: 'diaryRegister', element: <DiaryRegister /> },
       { path: 'myPage', element: <MyPagePage /> },
