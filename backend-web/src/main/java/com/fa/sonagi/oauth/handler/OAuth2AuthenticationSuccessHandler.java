@@ -49,7 +49,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 	private String redirectUri;
 
 	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+		Authentication authentication) throws IOException {
 		String targetUrl = determineTargetUrl(request, response, authentication);
 
 		if (response.isCommitted()) {
@@ -61,12 +62,15 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		getRedirectStrategy().sendRedirect(request, response, targetUrl);
 	}
 
-	protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-		Optional<String> redirectUri = CookieUtil.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME).map(Cookie::getValue);
+	protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response,
+		Authentication authentication) {
+		Optional<String> redirectUri = CookieUtil.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
+		                                         .map(Cookie::getValue);
 
 		if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
 			log.error("determineTargetUrl - redirectUri : {} , 인증을 진행할 수 없습니다.", redirectUri);
-			throw new IllegalArgumentException("Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
+			throw new IllegalArgumentException(
+				"Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
 		}
 
 		String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
@@ -78,24 +82,34 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		Collection<? extends GrantedAuthority> authorities = ((OidcUser)authentication.getPrincipal()).getAuthorities();
 
 		String socialId = userInfo.getId();
-		RoleType roleType = hasAuthority(authorities, RoleType.ROLE_ADMIN.name()) ? RoleType.ROLE_ADMIN : RoleType.ROLE_USER;
+		RoleType roleType =
+			hasAuthority(authorities, RoleType.ROLE_ADMIN.name()) ? RoleType.ROLE_ADMIN : RoleType.ROLE_USER;
 
 		Users bySocialId = userRepository.findBySocialId(socialId);
-		Token tokenInfo = jwtTokenProvider.createToken(String.valueOf(bySocialId.getUserId()), socialId, roleType.name());
+		Token tokenInfo = jwtTokenProvider.createToken(String.valueOf(bySocialId.getUserId()), socialId,
+			roleType.name());
 
 		// RT{userId} : refreshToken 형식으로 redis 저장.
-		redisTemplate.opsForValue().set("RT" + socialId, tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(), TimeUnit.MILLISECONDS);
+		redisTemplate.opsForValue()
+		             .set("RT" + socialId, tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(),
+			             TimeUnit.MILLISECONDS);
 
 		CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
-		CookieUtil.addCookie(response, REFRESH_TOKEN, tokenInfo.getRefreshToken(), JwtTokenProvider.getRefreshTokenExpireTimeCookie());
-		// 기기 토큰 값 업데이트
-		Optional<String> androidDeviceToken = CookieUtil.getCookie(request, ANDORIOD_DEVICE_TOKEN).map(Cookie::getValue);
-		if (androidDeviceToken.isPresent() && !bySocialId.getFirebaseToken().equals(androidDeviceToken.get())) {
-			bySocialId.updateFCMToken(androidDeviceToken.get());
-			userRepository.save(bySocialId);
-		}
+		CookieUtil.addCookie(response, REFRESH_TOKEN, tokenInfo.getRefreshToken(),
+			JwtTokenProvider.getRefreshTokenExpireTimeCookie());
 
-		return UriComponentsBuilder.fromUriString(targetUrl).queryParam("accessToken", tokenInfo.getAccessToken()).build().toUriString();
+		// // 기기 토큰 값 업데이트
+		// Optional<String> androidDeviceToken = CookieUtil.getCookie(request, ANDORIOD_DEVICE_TOKEN)
+		//                                                 .map(Cookie::getValue);
+		// if (androidDeviceToken.isPresent() && !bySocialId.getFirebaseToken().equals(androidDeviceToken.get())) {
+		// 	bySocialId.updateFCMToken(androidDeviceToken.get());
+		// 	userRepository.save(bySocialId);
+		// }
+
+		return UriComponentsBuilder.fromUriString(targetUrl)
+		                           .queryParam("accessToken", tokenInfo.getAccessToken())
+		                           .build()
+		                           .toUriString();
 	}
 
 	protected void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
@@ -119,7 +133,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		URI clientRedirectUri = URI.create(uri);
 		URI authorizedUri = URI.create(redirectUri);
 
-		return authorizedUri.getHost().equalsIgnoreCase(clientRedirectUri.getHost()) && authorizedUri.getPort() == clientRedirectUri.getPort();
+		return authorizedUri.getHost().equalsIgnoreCase(clientRedirectUri.getHost())
+			&& authorizedUri.getPort() == clientRedirectUri.getPort();
 	}
 
 }
