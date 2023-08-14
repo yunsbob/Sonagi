@@ -73,7 +73,11 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
   const navigate = useNavigate();
   const OnClickButton = () => {
     navigate(PATH.DETAILRECORD, {
-      state: { recordType: recordType, recordName: record.category },
+      state: {
+        recordType: recordType,
+        recordName: record.category,
+        recordId: recordId,
+      },
     });
   };
 

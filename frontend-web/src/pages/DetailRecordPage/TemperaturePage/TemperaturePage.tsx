@@ -11,9 +11,14 @@ import theme from '@/styles/theme';
 interface NameProps {
   name: string;
   recordName: string;
+  recordId: number;
 }
 
-const TemperaturePage: React.FC<NameProps> = ({ name }) => {
+const TemperaturePage: React.FC<NameProps> = ({
+  name,
+  recordName,
+  recordId,
+}) => {
   return (
     <>
       <Back>{name + ' 상세페이지'}</Back>

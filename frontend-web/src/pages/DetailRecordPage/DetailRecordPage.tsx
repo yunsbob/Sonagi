@@ -11,14 +11,25 @@ const DetailRecordPage: React.FC = () => {
   const location = useLocation();
   const name = location.state.recordType;
   const recordName = location.state.recordName;
+  const recordId = location.state.recordId;
 
   const DetailRecordRenderer = () => {
     if (name === '체온') {
-      return <TemperaturePage name={name} recordName={recordName} />;
+      return (
+        <TemperaturePage
+          name={name}
+          recordName={recordName}
+          recordId={recordId}
+        />
+      );
     } else if (name === '수유') {
-      return <FeedingPage name={name} recordName={recordName} />;
+      return (
+        <FeedingPage name={name} recordName={recordName} recordId={recordId} />
+      );
     } else if (name === '수면' || name === '놀이' || name === '터미 타임') {
-      return <SleepPage name={name} recordName={recordName} />;
+      return (
+        <SleepPage name={name} recordName={recordName} recordId={recordId} />
+      );
     } else if (
       name === '유축 수유' ||
       name === '분유' ||
@@ -30,10 +41,13 @@ const DetailRecordPage: React.FC = () => {
         <InfantFormulaPage
           name={name}
           recordName={recordName}
+          recordId={recordId}
         ></InfantFormulaPage>
       );
     } else {
-      return <DiaperPage name={name} recordName={recordName} />;
+      return (
+        <DiaperPage name={name} recordName={recordName} recordId={recordId} />
+      );
     }
   };
 

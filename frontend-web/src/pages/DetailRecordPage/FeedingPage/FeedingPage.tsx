@@ -11,9 +11,12 @@ import { useGetRecordDetails } from '@/apis/Record/Queries/useGetRecordDetails';
 interface NameProps {
   name: string;
   recordName: string;
+  recordId: number;
 }
 
-const FeedingPage: React.FC<NameProps> = ({ name }) => {
+const FeedingPage: React.FC<NameProps> = ({ name, recordName, recordId }) => {
+  const recordDetailValue = useGetRecordDetails(recordName, recordId);
+  console.log(recordDetailValue);
   // const details = useGetRecordDetails();
   return (
     <>
