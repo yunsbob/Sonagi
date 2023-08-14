@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams, Outlet } from 'react-router-dom';
-import { Background } from '@/components/atoms/Background/Background.styles';
-import orangeBackground from '@/assets/images/background-orange-to-blue.png';
-import AdminBar from '@/components/molecules/AdminBar/AdminBar';
 import { instance } from '@/apis/instance';
+import {
+  ButtonContainer,
+  FAQButton,
+  FAQContentContainer,
+  FAQDetailContent,
+  FAQDetailTitle,
+  FAQListContainer,
+} from './FAQPage.style';
 
 const FAQModifyPage = () => {
   const faqId = useParams().id;
@@ -27,9 +32,7 @@ const FAQModifyPage = () => {
     }
   }, [faqId, navigate]);
 
-  const formSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
+  const formSubmit = async () => {
     if (title.length === 0) {
       alert('제목을 입력해 주세요.');
     } else if (content.length === 0) {
@@ -51,20 +54,18 @@ const FAQModifyPage = () => {
     }
   };
 
-  const formCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
+  const formCancel = async () => {
     if (window.confirm('게시글 수정을 취소하시겠습니까?')) {
       navigate('/admin/faq');
     }
   };
 
   return (
-    <Background $background={orangeBackground}>
-      <div>faq 수정</div>
-      <div className="board-modify">
+    <FAQListContainer>
+      <FAQContentContainer>
+        <div>FAQ 수정</div>
         <form>
-          <div>
+          <FAQDetailTitle>
             <input
               type="text"
               id="title"
@@ -72,10 +73,9 @@ const FAQModifyPage = () => {
               onChange={e => setTitle(e.target.value)}
               placeholder="제목을 입력해주세요."
             />
-          </div>
+          </FAQDetailTitle>
 
-          <div>
-            <label htmlFor="content">Content</label>
+          <FAQDetailContent>
             <textarea
               name="content"
               id="content"
@@ -83,17 +83,16 @@ const FAQModifyPage = () => {
               onChange={e => setContent(e.target.value)}
               placeholder="내용을 입력해주세요."
             />
-          </div>
+          </FAQDetailContent>
         </form>
 
-        <div className="grid-3">
-          <button onClick={formSubmit}>수정</button>
-          <button onClick={formCancel}>취소</button>
-        </div>
-      </div>
-      <AdminBar />
-      <Outlet />
-    </Background>
+        <ButtonContainer>
+          <FAQButton onClick={formSubmit}>수정</FAQButton>
+          <FAQButton onClick={formCancel}>취소</FAQButton>
+        </ButtonContainer>
+        <Outlet />
+      </FAQContentContainer>
+    </FAQListContainer>
   );
 };
 
