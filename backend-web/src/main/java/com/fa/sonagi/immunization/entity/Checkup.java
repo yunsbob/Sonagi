@@ -32,6 +32,6 @@ public class Checkup {
 	@Column(name = "end_date")
 	private int endDate;
 
-	@Column(name = "content")
+	@Column(name = "content", length = 300)
 	private String content;
 }

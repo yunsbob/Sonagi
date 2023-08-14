@@ -26,7 +26,7 @@ public class Vaccination {
 	@Column(name = "disease", length = 50, nullable = false)
 	private String disease;
 
-	@Column(name = "vaccine_name", length = 25, nullable = false)
+	@Column(name = "vaccine_name", length = 50, nullable = false)
 	private String vaccineName;
 
 	@Column(name = "start_date", nullable = false)
@@ -35,6 +35,6 @@ public class Vaccination {
 	@Column(name = "end_date", nullable = false)
 	private int endDate;
 
-	@Column(name = "content", nullable = false)
+	@Column(name = "content", nullable = false, length = 2000)
 	private String content;
 }
