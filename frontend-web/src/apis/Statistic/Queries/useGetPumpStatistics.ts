@@ -8,7 +8,7 @@ const useGetPumpStatistics = (
   date: string
 ) => {
   const { data: pumpStatistic } = useQuery(
-    ['pumpStatistics', babyId, date],
+    ['pumpStatistics', babyId, date, period],
     () => getPumpStatistics(babyId, period, date)
   );
 

@@ -22,6 +22,8 @@ interface HealthCardProps {
 const HealthCard = ({ data }: HealthCardProps) => {
   const currentTheme = categoryToColorMap['Health'];
   const color = theme.color[currentTheme];
+  const darkColor = theme.color.cardHealth1;
+  const lightColor = theme.color.cardHealth2;
 
   return (
     <CardContainer $borderColor={color}>
@@ -31,21 +33,33 @@ const HealthCard = ({ data }: HealthCardProps) => {
       />
       <CardContentText type="체온" data={data.feverAvg} unit="도" />
       <CardContentBar
-        $borderColor={color}
+        $borderColor={
+          data.feverAvgPercent > data.yesterdayFeverAvgPercent
+            ? darkColor
+            : lightColor
+        }
         $ratio={data.feverAvgPercent}
         $yesterDayRatio={data.yesterdayFeverAvgPercent}
       />
 
       <CardContentText type="병원 진료" data={data.hospitalCnt} unit="회" />
       <CardContentBar
-        $borderColor={color}
+        $borderColor={
+          data.hospitalCntPercent > data.yesterdayHospitalCntPercent
+            ? darkColor
+            : lightColor
+        }
         $ratio={data.hospitalCntPercent}
         $yesterDayRatio={data.yesterdayHospitalCntPercent}
       />
 
       <CardContentText type="투약" data={data.medicationCnt} unit="회" />
       <CardContentBar
-        $borderColor={color}
+        $borderColor={
+          data.medicationCntPercent > data.yesterdayMedicationCntPercent
+            ? darkColor
+            : lightColor
+        }
         $ratio={data.medicationCntPercent}
         $yesterDayRatio={data.yesterdayMedicationCntPercent}
       />

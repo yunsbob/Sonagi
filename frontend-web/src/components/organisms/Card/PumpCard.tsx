@@ -19,6 +19,8 @@ interface PumpCardProps {
 const PumpCard = ({ data }: PumpCardProps) => {
   const currentTheme = categoryToColorMap['Pump'];
   const color = theme.color[currentTheme];
+  const darkColor = theme.color.cardPumpingBreast1;
+  const lightColor = theme.color.cardPumpingBreast2;
 
   return (
     <CardContainer $borderColor={color}>
@@ -28,14 +30,20 @@ const PumpCard = ({ data }: PumpCardProps) => {
       />
       <CardContentText type="횟수" data={data.cnt} unit="회" />
       <CardContentBar
-        $borderColor={color}
+        $borderColor={
+          data.cntPercent > data.yesterdayCntPercent ? darkColor : lightColor
+        }
         $ratio={data.cntPercent}
         $yesterDayRatio={data.yesterdayCntPercent}
       />
 
       <CardContentText type="용량" data={data.amount} unit="회" />
       <CardContentBar
-        $borderColor={color}
+        $borderColor={
+          data.amountPercent > data.yesterdayAmountPercent
+            ? darkColor
+            : lightColor
+        }
         $ratio={data.amountPercent}
         $yesterDayRatio={data.yesterdayAmountPercent}
       />

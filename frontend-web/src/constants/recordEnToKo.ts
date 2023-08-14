@@ -1,4 +1,4 @@
-export const recordEnToKo = {
+export const recordEnToKo: { [key: string]: string } = {
   feedings: '수유',
   infantFormulas: '분유',
   pees: '소변',
@@ -6,7 +6,7 @@ export const recordEnToKo = {
   sleeps: '수면',
   pumpingBreasts: '유축',
   babyFoods: '이유식',
-  breastFeadings: '유축 수유',
+  breastFeedings: '유축 수유',
   fevers: '체온',
   hospitals: '병원',
   medications: '투약',
@@ -15,4 +15,23 @@ export const recordEnToKo = {
   plays: '놀이',
   tummytimes: '터미 타임',
   extras: '기타',
+};
+
+export const recordTypeToCategory: { [key: string]: string } = {
+  feedings: 'categoryMeal',
+  infantFormulas: 'categoryMeal',
+  pees: 'categoryDiaper',
+  poops: 'categoryDiaper',
+  sleeps: 'categorySleep',
+  pumpingBreasts: 'categoryPumpingBreast',
+  babyFoods: 'categoryMeal',
+  breastFeedings: 'categoryMeal',
+  fevers: 'categoryHealth',
+  hospitals: 'categoryHealth',
+  medications: 'categoryHealth',
+  snacks: 'categoryMeal',
+  milks: 'categoryMeal',
+  plays: 'categoryActivity',
+  tummytimes: 'categoryActivity',
+  extras: 'categoryExtra',
 };

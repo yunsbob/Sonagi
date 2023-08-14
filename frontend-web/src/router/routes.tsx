@@ -23,6 +23,14 @@ import RedirectPage from '@/pages/RedirectPage/RedirectPage';
 import { DetailRecordPage } from '@/pages/DetailRecordPage/DetailRecordPage';
 import AlarmPage from '@/pages/AlarmPage/AlarmPage';
 import UpdateBabyProfilePage from '@/pages/UpdateBabyProfilePage/UpdateBabyProfilePage';
+import AdminPage from '@/pages/AdminPage/AdminPage';
+import FAQPage from '@/pages/FAQPage/FAQPage';
+import FAQCreatePage from '@/pages/FAQPage/frontend-web/src/pages/FAQPage/FAQCreatePage';
+import FAQDetailPage from '@/pages/FAQPage/FAQDetailPage';
+import FAQModifyPage from '@/pages/FAQPage/FAQModifyPage';
+import RestorePage from '@/pages/RestorePage/frontend-web/src/pages/RestorePage/RestorePage';
+import QuestionPage from '@/pages/QuestionPage/QuestionPage';
+import QuestionDetailPage from '@/pages/QuestionPage/QuestionDetailPage';
 
 const router = createBrowserRouter([
   {
@@ -77,6 +85,22 @@ const router = createBrowserRouter([
       { path: 'myPage', element: <MyPagePage /> },
       { path: 'alarm', element: <AlarmPage /> },
       { path: 'detailRecord', element: <DetailRecordPage /> },
+    ],
+  },
+  {
+    path: PATH.ADMIN,
+    element: <AdminPage />,
+  },
+  {
+    path: PATH.ADMIN,
+    children: [
+      { path: 'faq', element: <FAQPage /> },
+      { path: 'faq/:id', element: <FAQDetailPage /> },
+      { path: 'faq/modify/:id', element: <FAQModifyPage /> },
+      { path: 'faq/create', element: <FAQCreatePage /> },
+      { path: 'question', element: <QuestionPage /> },
+      { path: 'question/:id', element: <QuestionDetailPage /> },
+      { path: 'restore', element: <RestorePage /> },
     ],
   },
 ]);
