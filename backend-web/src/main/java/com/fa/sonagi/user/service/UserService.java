@@ -4,6 +4,9 @@ import com.fa.sonagi.user.dto.FCMTokenDto;
 import com.fa.sonagi.user.dto.NameDto;
 import com.fa.sonagi.user.dto.NotificationDto;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 public interface UserService {
 
 	void updateName(NameDto nameDto);
@@ -21,4 +24,6 @@ public interface UserService {
 	void updateDAlarm(Long userId, String dAlarm);
 
 	void updateCAlarm(Long userId, String cAlarm);
+
+	void logout( HttpServletRequest request,HttpServletResponse response);
 }

@@ -92,6 +92,9 @@ const router = createBrowserRouter([
   {
     path: PATH.ADMIN,
     element: <AdminPage />,
+  },
+  {
+    path: PATH.ADMIN,
     children: [
       { path: 'faq', element: <FAQPage /> },
       { path: 'faq/:id', element: <FAQDetailPage /> },
