@@ -24,7 +24,7 @@ const CardContentText = ({
         <b>{data}</b>
 
         {unit}
-        {data2 && (
+        {Boolean(data2) && (
           <>
             <b>{data2}</b>
             {unit2}

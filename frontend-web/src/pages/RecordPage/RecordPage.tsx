@@ -1,38 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import moment from 'moment';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
 import CalendarBar from '@/components/molecules/CalendarBar/CalendarBar';
 import CategoryBar from '@/components/molecules/CategoryBar/CategoryBar';
 import RecordContainer from '@/components/organisms/RecordContainer/RecordContainer';
 import { PATH } from '@/constants/path';
 import { selectedBabyState } from '@/states/babyState';
-import { recordedValuesState } from '@/states/recordState';
 import { useGetAllCategoryRecords } from '@/apis/Record/Queries/useGetAllCategoryRecords';
 import {
-  RecordTypeA,
-  RecordTypeB,
-  RecordTypeC,
-  RecordedList,
+  AllRecords,
+  CombinedRecord,
+  RecordedValues,
 } from '@/types/recordTypes';
 import { selectedDateState } from '@/states/dateState';
 
-type CombinedRecord =
-  | (RecordTypeA & { category: string })
-  | (RecordTypeB & { category: string })
-  | (RecordTypeC & { category: string });
-
-type RecordItem = RecordTypeA | RecordTypeB | RecordTypeC;
 type StringKeys<T> = Extract<keyof T, string>;
 
 const RecordPage = () => {
-  const queryClient = useQueryClient();
-
   // 처음 화면에 들어왔을 때 날짜 설정, selectedDate로 리코일에 저장
-  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
+  const selectedDate = useRecoilValue(selectedDateState);
 
-  // 처음 화면에 들어왔을 때 아이 id를 selectedBaby로 리코일에 저장
+  // 처음 화면에 들어왔을 때 아이 id를 리코일에서 가져와 사용
   const selectedBaby = useRecoilValue(selectedBabyState);
 
   // 저장된 아이 id랑 날짜로 get요청
@@ -41,29 +29,20 @@ const RecordPage = () => {
     selectedDate
   );
 
-  // combinedData를 state로 지정
+  // combinedData를 state로 지정 -> TODO: 리코일에 저장하는 로직으로 바꾸자
   const [combinedData, setCombinedDataState] = useState<CombinedRecord[]>([]);
 
-  // console.log(
-  //   'baby',
-  //   selectedBaby.babyId,
-  //   '날짜',
-  //   selectedDate,
-  //   '--------',
-  //   recordedList
-  // );
-
-  // const [recordedValues, setRecordedValues] = useSetRecoilState(recordedList);
-  // 리코일에 rcordedList 저장
-  // setRecordedValues(recordedList);
-
   useEffect(() => {
-    const computeCombinedData = (recordedList: RecordedList) => {
+    const computeCombinedData = (recordedList: RecordedValues) => {
       const tempCombinedData: CombinedRecord[] = [];
       Object.keys(recordedList).forEach(
         (key: StringKeys<typeof recordedList>) => {
-          recordedList[key].forEach((item: RecordItem) => {
+          recordedList[key].forEach((item: AllRecords) => {
             tempCombinedData.push({ ...item, category: key });
+            //   tempCombinedData = [
+            //     ...tempCombinedData,
+            //     { ...item, category: key },
+            //   ]; // 왜인지... 스프레드연산자로 하니 조금 더 느립니다
           });
         }
       );
@@ -73,40 +52,13 @@ const RecordPage = () => {
         const timeB = b.createdTime || '00:00:00';
         return timeA.localeCompare(timeB);
       });
-
-      setCombinedDataState(tempCombinedData); // Set the state here
+      setCombinedDataState(tempCombinedData);
     };
 
-    computeCombinedData(recordedList);
+    if (recordedList) {
+      computeCombinedData(recordedList);
+    }
   }, [recordedList]);
-
-  // const setRecordedValues = useSetRecoilState(recordedList);
-  //const setRecordedValues = useSetRecoilState(recordedValuesState);
-
-  // useEffect(() => {
-  //   setRecordedValues(recordedList);
-  //   console.log('recordedList', selectedDate, recordedList);
-  // }, [selectedDate, recordedList, setRecordedValues]);
-
-  useEffect(() => {
-    // babyId 바뀔 때마다 쿼리 결과 무효화 -> 데이터 다시 불러오기
-    queryClient.invalidateQueries(['record', selectedBaby.babyId]);
-    // 날짜 바뀔 때마다 쿼리 결과 무효화 -> 데이터 다시 불러오기
-    queryClient.invalidateQueries(['record', selectedDate]);
-    // console.log('baby', selectedBaby.babyId, '날짜', selectedDate);
-    console.log('get쿼리 다시 재실행됐는지?');
-
-    // recordedList를 리코일에 저장하자
-  }, [selectedBaby.babyId, selectedDate, queryClient]);
-
-  // const handleDateChange = (date: Date) => {
-  //   console.log(date);
-  //   setSelectedDate(formatDate(date));
-  //   console.log(selectedDate, '여기야~~~');
-  // setTimeout(() => {
-  //   console.log(selectedDate, '늦어서 그런가?');
-  // }, 2500);
-  // };
 
   return (
     <>

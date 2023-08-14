@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.fa.sonagi.record.extra.dto.ExtraResDto;
-import com.fa.sonagi.statistics.extra.dto.ExtraStatisticsQueryDto;
+import com.fa.sonagi.statistics.common.dto.Times;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -32,15 +32,18 @@ public class ExtraRepositoryImpl implements ExtraRepositoryCustom {
 	}
 
 	@Override
-	public List<ExtraStatisticsQueryDto> findExtraByDay(Long babyId, LocalDate createdDate) {
-		List<ExtraStatisticsQueryDto> extraStatisticsQueryDto = queryFactory
-			.select(Projections.bean(ExtraStatisticsQueryDto.class,
-				extra.createdTime))
+	public List<Times> findExtraByDay(Long babyId, LocalDate createdDate) {
+		System.out.println("!!!!");
+		List<Times> extras = queryFactory
+			.select(Projections.bean(Times.class,
+				extra.createdTime.as("createdTime")))
 			.from(extra)
 			.where(extra.babyId.eq(babyId), extra.createdDate.eq(createdDate))
+			.orderBy(extra.createdTime.asc())
 			.fetch();
+		System.out.println("????");
 
-		return extraStatisticsQueryDto;
+		return extras;
 	}
 
 	@Override

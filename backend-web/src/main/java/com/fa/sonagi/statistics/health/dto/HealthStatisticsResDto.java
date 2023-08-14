@@ -3,14 +3,15 @@ package com.fa.sonagi.statistics.health.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fa.sonagi.statistics.common.dto.Times;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class HealthStatisticsResDto {
-	private List<HealthStatisticsQueryDto> hospitals;
-	private List<HealthStatisticsQueryDto> medications;
+	private List<Times> times;
 	private Double feverAvg;
 	private Long hospitalCnt;
 	private Long medicationCnt;
@@ -22,7 +23,6 @@ public class HealthStatisticsResDto {
 	private Long yesterdayMedicationCntPercent;
 
 	public HealthStatisticsResDto() {
-		this.hospitals = new ArrayList<>();
-		this.medications = new ArrayList<>();
+		this.times = new ArrayList<>();
 	}
 }

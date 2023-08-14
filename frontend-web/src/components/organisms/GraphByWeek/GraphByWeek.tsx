@@ -1,7 +1,7 @@
 import { DiaperBarGraph } from '@/components/molecules/BarChart/Diaper/DiaperBarGraph';
 import { MealBarGraph } from '@/components/molecules/BarChart/Meal/MealBarGraph';
 import { PumpingBreastBarGraph } from '@/components/molecules/BarChart/PumpingBreast/PumpingBreastBarGraph';
-import { Card } from '@/components/organisms/Card/Card';
+// import { Card } from '@/components/organisms/Card/Card';
 import { GraphByWeekContainer } from '@/components/organisms/GraphByWeek/GraphByWeek.style';
 import { selectedCategoryState } from '@/states/categoryState';
 import { useRecoilValue } from 'recoil';
@@ -19,7 +19,7 @@ const GraphByWeek = () => {
       {currentCategory === 'Diaper' && <DiaperBarGraph />}
       {currentCategory === 'Pump' && <PumpingBreastBarGraph />}
       {currentCategory === 'Health' && <HealthBarGraph />}
-      <Card />
+      {/* <Card /> */}
     </GraphByWeekContainer>
   );
 };

@@ -10,11 +10,41 @@ interface Baby {
   userId: number;
 }
 
+interface UpdateBaby {
+  birthDate: string;
+  gender: 'M' | 'F';
+  name: string;
+  babyId: number;
+}
+
 interface BabiesOfUser {
   babyId: number;
   name: string;
-  gender: string;
+  gender: 'M' | 'F';
   authority: string;
+}
+
+interface FAQ {
+  faqId: number;
+  title: string;
+  content: string;
+}
+
+interface Question {
+  questionId: number;
+  createdAt: string;
+  title: string;
+  content: string;
+  userId: number;
+}
+
+interface DeletedBaby {
+  babyId: number;
+  name: string;
+  birthDate: string;
+  gender: string;
+  isDeleted: string;
+  deletedAt: string;
 }
 
 // 가능한 모든 카테고리 목록
@@ -74,4 +104,8 @@ export type {
   RecordsByCategory,
   RecordData,
   CustomModal,
+  UpdateBaby,
+  FAQ,
+  Question,
+  DeletedBaby,
 };

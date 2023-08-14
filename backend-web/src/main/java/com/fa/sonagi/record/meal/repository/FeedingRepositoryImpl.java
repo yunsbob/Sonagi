@@ -4,8 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fa.sonagi.record.meal.dto.FeedingResDto;
-import com.fa.sonagi.record.meal.entity.Feeding;
-import com.fa.sonagi.statistics.meal.dto.SnackFeedingStatisticsQueryDto;
+import com.fa.sonagi.statistics.common.dto.Times;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -58,9 +57,9 @@ public class FeedingRepositoryImpl implements FeedingRepostioryCustom{
 	}
 
 	@Override
-	public List<SnackFeedingStatisticsQueryDto> findFeedingByDay(Long babyId, LocalDate createdDate) {
-		List<SnackFeedingStatisticsQueryDto> snackFeedingStatisticsQueryDto = queryFactory
-			.select(Projections.bean(SnackFeedingStatisticsQueryDto.class,
+	public List<Times> findFeedingByDay(Long babyId, LocalDate createdDate) {
+		List<Times> snackFeedingStatisticsQueryDto = queryFactory
+			.select(Projections.bean(Times.class,
 				feeding.leftStartTime.as("createdTime")))
 			.from(feeding)
 			.where(feeding.babyId.eq(babyId), feeding.createdDate.eq(createdDate))

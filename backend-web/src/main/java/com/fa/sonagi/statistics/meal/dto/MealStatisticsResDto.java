@@ -3,18 +3,15 @@ package com.fa.sonagi.statistics.meal.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fa.sonagi.statistics.common.dto.Times;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class MealStatisticsResDto {
-	private List<MealStatisticsQueryDto> babyFoods;
-	private List<MealStatisticsQueryDto> breastFeedings;
-	private List<SnackFeedingStatisticsQueryDto> feedings;
-	private List<MealStatisticsQueryDto> infantFormulas;
-	private List<MealStatisticsQueryDto> milks;
-	private List<SnackFeedingStatisticsQueryDto> snacks;
+	private List<Times> times;
 	private Long cnt;
 	private Long amount;
 	private Long cntPercent;
@@ -23,11 +20,6 @@ public class MealStatisticsResDto {
 	private Long yesterdayAmountPercent;
 
 	public MealStatisticsResDto() {
-		this.babyFoods = new ArrayList<>();
-		this.breastFeedings = new ArrayList<>();
-		this.feedings = new ArrayList<>();
-		this.infantFormulas = new ArrayList<>();
-		this.milks = new ArrayList<>();
-		this.snacks = new ArrayList<>();
+		this.times = new ArrayList<>();
 	}
 }

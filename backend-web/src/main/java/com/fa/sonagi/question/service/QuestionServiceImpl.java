@@ -23,11 +23,11 @@ public class QuestionServiceImpl implements QuestionService {
 	 * 문의사항 조회
 	 */
 	@Override
-	public QuestionResDto findQuestionById(Long id) {
-		Question question = questionRepository.findById(id).orElseThrow();
+	public QuestionResDto findQuestionById(Long questionID) {
+		Question question = questionRepository.findById(questionID).orElseThrow();
 
 		QuestionResDto questionResDto = QuestionResDto.builder()
-			.questionId(question.getId())
+			.questionId(question.getQuestionID())
 			.userId(question.getUserId())
 			.title(question.getTitle())
 			.content(question.getContent())
@@ -60,7 +60,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 		return questions.stream()
 			.map(q -> QuestionResDto.builder()
-				.questionId(q.getId())
+				.questionId(q.getQuestionID())
 				.title(q.getTitle())
 				.userId(q.getUserId())
 				.createdAt(q.getCreatedAt())

@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.fa.sonagi.record.extra.dto.ExtraResDto;
-import com.fa.sonagi.statistics.extra.dto.ExtraStatisticsQueryDto;
+import com.fa.sonagi.statistics.common.dto.Times;
 
 public interface ExtraRepositoryCustom {
 	ExtraResDto findExtraByDay(Long extraId);
 
-	List<ExtraStatisticsQueryDto> findExtraByDay(Long babyId, LocalDate createdDate);
+	List<Times> findExtraByDay(Long babyId, LocalDate createdDate);
 
 	Long findExtraCnt(Long babyId, LocalDate createdDate);
 

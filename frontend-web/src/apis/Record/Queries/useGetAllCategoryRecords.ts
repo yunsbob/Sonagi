@@ -12,6 +12,7 @@ const useGetAllCategoryRecords = (babyId: number, date: string) => {
     },
     {
       enabled: Boolean(babyId),
+      suspense: false,
     }
   );
   return records;

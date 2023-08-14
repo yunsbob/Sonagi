@@ -6,7 +6,7 @@ const useGetBabyCode = (babyId: number): string => {
     getBabyCode(babyId)
   );
 
-  return codeObj.code;
+  return codeObj?.code;
 };
 
 export { useGetBabyCode };

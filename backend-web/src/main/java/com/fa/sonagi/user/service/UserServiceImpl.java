@@ -1,17 +1,24 @@
 package com.fa.sonagi.user.service;
 
+import static com.fa.sonagi.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.*;
+
+import java.util.Optional;
+
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fa.sonagi.jwt.JwtTokenProvider;
+import com.fa.sonagi.oauth.utils.CookieUtil;
 import com.fa.sonagi.user.dto.FCMTokenDto;
 import com.fa.sonagi.user.dto.NameDto;
 import com.fa.sonagi.user.dto.NotificationDto;
 import com.fa.sonagi.user.entity.Users;
 import com.fa.sonagi.user.repository.UserRepository;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,7 +29,6 @@ import lombok.extern.slf4j.Slf4j;
 public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 	private final JwtTokenProvider jwtTokenProvider;
-	private final AuthenticationManagerBuilder authenticationManagerBuilder;
 	private final RedisTemplate<String, Object> redisTemplate;
 
 	/**
@@ -107,5 +113,19 @@ public class UserServiceImpl implements UserService {
 	public void updateCAlarm(Long userId, String cAlarm) {
 		Users user = userRepository.findById(userId).orElseThrow();
 		user.updateCAlarm(cAlarm);
+	}
+
+	@Override
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		Optional<String> cookie = CookieUtil.getCookie(request, REFRESH_TOKEN).map(Cookie::getValue);
+		if (cookie.isEmpty()) {
+			return;
+		}
+		String refreshTokenFromCookie = cookie.get();
+		String userSocialId = jwtTokenProvider.parseClaims(refreshTokenFromCookie).getSubject();
+		// 쿠키 삭제
+		CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
+		// redis 토큰 삭제
+		redisTemplate.opsForValue().getOperations().delete("RT" + userSocialId);
 	}
 }

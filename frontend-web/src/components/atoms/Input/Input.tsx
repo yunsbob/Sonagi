@@ -1,12 +1,6 @@
 import * as S from '@/components/atoms/Input/Input.style';
 import { Text } from '@/components/atoms/Text/Text.styles';
-import React, {
-  ChangeEvent,
-  ComponentPropsWithRef,
-  InputHTMLAttributes,
-  useRef,
-  useState,
-} from 'react';
+import React, { ChangeEvent } from 'react';
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,

@@ -2,38 +2,24 @@ import { useEffect, useRef, useState } from 'react';
 import RecordBar from '@/components/molecules/RecordBar/RecordBar';
 import RecordBlock from '@/components/molecules/RecordBlock/RecordBlock';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { dateRecordedValuesState, recordedValues } from '@/states/recordState';
 import { selectedCategoryState } from '@/states/categoryState';
 import { RecordContainerStyle } from '@/components/organisms/RecordContainer/RecordContainer.styles';
 import { PATH } from '@/constants/path';
-import { RecordTypeA, RecordTypeB, RecordTypeC } from '@/types/recordTypes';
+import { CombinedRecord } from '@/types/recordTypes';
 import theme from '@/styles/theme';
 import { useGetAllCategoryRecords } from '@/apis/Record/Queries/useGetAllCategoryRecords';
 import { selectedBabyState } from '@/states/babyState';
 import { selectedDateState } from '@/states/dateState';
 import { fetchCounterState } from '@/states/fetchCounterState';
-
-type CombinedRecord =
-  | (RecordTypeA & { category: string })
-  | (RecordTypeB & { category: string })
-  | (RecordTypeC & { category: string });
+import { recordEnToKo, recordTypeToCategory } from '@/constants/recordEnToKo';
 
 type RecordContainerProps = {
   combinedData: CombinedRecord[];
 };
 
-// const RecordContainer: React.FC<RecordContainerProps> = ({
 const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
-  const allDateRecordedValues = useRecoilValue(dateRecordedValuesState);
-  // const recordedList = allDateRecordedValues[currentDate] || [];
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const containerRef = useRef<HTMLDivElement>(null);
-  const selectedBaby = useRecoilValue(selectedBabyState);
-  const selectedDate = useRecoilValue(selectedDateState);
-
-  // setTimeout(() => {
-  //   console.log('-------', allDateRecordedValues, recordedList, currentDate);
-  // }, 1000);
 
   // 선택된 카테고리에 따라 쌓인 기록 블록들 필터링
   // const filteredRecordList = recordedList.filter(record => {
@@ -43,6 +29,7 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
 
   //   return record.category === currentCategory;
   // });
+  const [fetchCounter, setFetchCounter] = useRecoilState(fetchCounterState);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -50,28 +37,7 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
     if (container && savedScrollTop) {
       container.scrollTop = Number(savedScrollTop);
     }
-  }, []);
-
-  // const [fetchCounter, setFetchCounter] = useState(0);
-  const [fetchCounter, setFetchCounter] = useRecoilState(fetchCounterState);
-
-  const records = useGetAllCategoryRecords(selectedBaby.babyId, selectedDate);
-
-  // 데이터가 추가되었을 ㄸㅐ ! -> 새로운 get요청 해야 함
-  const onRecordUpdated = () => {
-    // useGetAllCategoryRecords(selectedBaby.babyId, selectedDate);
-    setFetchCounter(prev => prev + 1);
-    const container = containerRef.current;
-    if (container) {
-      setTimeout(() => {
-        const targetScrollTop = container.scrollHeight;
-        container.scrollTo({
-          top: targetScrollTop,
-          behavior: 'smooth',
-        });
-      }, 100); // DOM이 완전히 업데이트 된 후 스크롤 위치를 조정
-    }
-  };
+  }, [combinedData, fetchCounter]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -85,20 +51,33 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
         container.removeEventListener('scroll', onScroll);
       };
     }
-  }, []);
-  combinedData.forEach((item, index) => {
-    console.log(item);
-  });
+  }, [combinedData, fetchCounter]);
 
+  const onRecordUpdated = () => {
+    setFetchCounter(fetchCounter => fetchCounter + 1);
+    const container = containerRef.current;
+    if (container) {
+      setTimeout(() => {
+        const targetScrollTop = container.scrollHeight;
+        container.scrollTo({
+          top: targetScrollTop,
+          behavior: 'smooth',
+        });
+      }, 300); // DOM이 완전히 업데이트 된 후 스크롤 위치를 조정
+    }
+  };
+
+  // TODO: recordBlock 안에 <recordType>id를 넣어줘야함
   return (
     <>
       <RecordContainerStyle className="scrollable" ref={containerRef}>
         {combinedData.map((record, index) => (
           <RecordBlock
             key={index}
-            color={theme.color.gray1}
-            recordType={record.category}
-            time={record.createdTime.substring(0, 5)}
+            color={theme.color[recordTypeToCategory[record.category]]}
+            recordType={recordEnToKo[record.category]}
+            record={record}
+            time={record.createdTime ? record.createdTime.substring(0, 5) : ''}
           />
         ))}
         {/* {filteredRecordList.map((record, index) => (

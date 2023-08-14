@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import * as S from '@/components/organisms/BabyPersonalInfoContainer/BabyPersonalInfoContainer.style';
 import { BabyPersonalInfoButton } from '@/components/molecules/BabyPersonalInfoButton/BabyPersonalInfoButton';
@@ -6,6 +6,11 @@ import Button from '@/components/atoms/Button/Button';
 
 interface BabyPersonalInfoProps {
   isDisease: boolean;
+}
+
+interface BabyPersonalInfoArrayProps {
+  memo: string;
+  name: string;
 }
 
 const BabyPersonalInfoContainer: React.FC<BabyPersonalInfoProps> = ({
@@ -17,7 +22,8 @@ const BabyPersonalInfoContainer: React.FC<BabyPersonalInfoProps> = ({
   const info =
     '우리 아이를 돌봐주실 땐 <span style="font-weight: 700">이런 점을 주의해주세요</span>';
 
-  const BabyPersonalInfoArray = [{ memo: 'memo1', name: 'name1' }];
+  // const BabyPersonalInfoArray = [{ memo: 'memo1', name: 'name1' }];
+  const BabyPersonalInfoArray: BabyPersonalInfoArrayProps[] = [];
 
   const BabyPersonalInfoButtonHandler = () => {
     return BabyPersonalInfoArray.map((data, index) => (
@@ -34,7 +40,10 @@ const BabyPersonalInfoContainer: React.FC<BabyPersonalInfoProps> = ({
       />
       <div style={{ display: 'flex', gap: '15px', overflow: 'auto' }}>
         {BabyPersonalInfoButtonHandler()}
-        <Button style={{ height: '150px', width: '130px' }}> 추가 버튼</Button>
+        <Button style={{ height: '150px', width: '130px' }} onClick={() => {}}>
+          {' '}
+          추가 버튼
+        </Button>
       </div>
     </S.BPICContainer>
   );
