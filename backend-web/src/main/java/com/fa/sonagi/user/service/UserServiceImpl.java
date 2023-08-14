@@ -31,9 +31,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void updateName(NameDto nameDto) {
-		Users user = userRepository
-			.findById(nameDto.getUserId())
-			.orElseThrow();
+		Users user = userRepository.findById(nameDto.getUserId()).orElseThrow();
 		user.updateName(nameDto.getName());
 	}
 
@@ -49,10 +47,9 @@ public class UserServiceImpl implements UserService {
 	 * FCM 토큰 업데이트
 	 */
 	@Override
+	@Transactional
 	public void updateFCMToken(FCMTokenDto fcmTokenDto) {
-		Users user = userRepository
-			.findById(fcmTokenDto.getUserId())
-			.orElseThrow();
+		Users user = userRepository.findById(fcmTokenDto.getUserId()).orElseThrow();
 		user.updateFCMToken(fcmTokenDto.getFirebaseToken());
 	}
 
@@ -64,12 +61,12 @@ public class UserServiceImpl implements UserService {
 		Users user = userRepository.findById(userId).orElseThrow();
 
 		return NotificationDto.builder()
-			.userId(userId)
-			.vAlarm(user.getVAlarm())
-			.cAlarm(user.getCAlarm())
-			.dAlarm(user.getDAlarm())
-			.mAlarm(user.getMAlarm())
-			.build();
+		                      .userId(userId)
+		                      .vAlarm(user.getVAlarm())
+		                      .cAlarm(user.getCAlarm())
+		                      .dAlarm(user.getDAlarm())
+		                      .mAlarm(user.getMAlarm())
+		                      .build();
 	}
 
 	/**
