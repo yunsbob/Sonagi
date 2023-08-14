@@ -10,7 +10,6 @@ import SignInPage from '@/pages/SignInPage/SignInPage';
 import MainPage from '@/pages/MainPage/MainPage';
 import RecordPage from '@/pages/RecordPage/RecordPage';
 import GraphPage from '@/pages/GraphPage/GraphPage';
-import OurBabyPage from '@/pages/OurBabyPage/OurBabyPage';
 import DiaryPage from '@/pages/DiaryPage/DiaryPage';
 import DiaryRegister from '@/pages/DiaryRegisterPage/DiaryRegisterPage';
 import MyPagePage from '@/pages/MyPagePage/MyPagePage';
@@ -31,6 +30,7 @@ import FAQModifyPage from '@/pages/FAQPage/FAQModifyPage';
 import RestorePage from '@/pages/RestorePage/frontend-web/src/pages/RestorePage/RestorePage';
 import QuestionPage from '@/pages/QuestionPage/QuestionPage';
 import QuestionDetailPage from '@/pages/QuestionPage/QuestionDetailPage';
+import OurBabyInfo from '@/components/organisms/OurBabyInfo/OurBabyInfo';
 import MedicalInfoPage from '@/pages/MedicalInfoPage/MedicalInfoPage';
 
 const router = createBrowserRouter([
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
           { path: 'week', element: <GraphByWeek /> },
         ],
       },
-      { path: 'ourBaby', element: <OurBabyPage /> },
+      { path: 'ourBaby', element: <OurBabyInfo /> },
       { path: 'ourBaby/medicalInfo', element: <MedicalInfoPage /> },
       { path: 'diary', element: <DiaryPage /> },
       { path: 'diaryRegister', element: <DiaryRegister /> },
