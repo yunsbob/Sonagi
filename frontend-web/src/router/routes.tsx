@@ -81,7 +81,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: 'ourBaby', element: <OurBabyPage /> },
-      { path: 'ourBaby/vgaccination', element: <OurBabyVaccinationPage /> },
+      { path: 'ourBaby/vaccination', element: <OurBabyVaccinationPage /> },
       { path: 'diary', element: <DiaryPage /> },
       { path: 'diaryRegister', element: <DiaryRegister /> },
       { path: 'myPage', element: <MyPagePage /> },
