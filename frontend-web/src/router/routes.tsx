@@ -27,6 +27,7 @@ import FAQModifyPage from '@/pages/FAQPage/FAQModifyPage';
 import QuestionPage from '@/components/QuestionPage/QuestionPage';
 import RestorePage from '@/pages/RestorePage/RestorePage';
 import FAQCreatePage from '@/pages/FAQPage/FAQCreatePage';
+import QuestionDetailPage from '@/components/QuestionPage/QuestionDetailPage';
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,7 @@ const router = createBrowserRouter([
       { path: 'faq/modify/:id', element: <FAQModifyPage /> },
       { path: 'faq/create', element: <FAQCreatePage /> },
       { path: 'question', element: <QuestionPage /> },
+      { path: 'question/:id', element: <QuestionDetailPage /> },
       { path: 'restore', element: <RestorePage /> },
     ],
   },

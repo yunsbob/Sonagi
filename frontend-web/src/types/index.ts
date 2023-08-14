@@ -22,6 +22,23 @@ interface FAQ {
   content: string;
 }
 
+interface Question {
+  id: number;
+  createdAt: string;
+  title: string;
+  content: string;
+  userId: number;
+}
+
+interface DeletedBaby {
+  id: number;
+  name: string;
+  birthDate: string;
+  gender: string;
+  isDeleted: string;
+  deletedAt: string;
+}
+
 // 가능한 모든 카테고리 목록
 type Category =
   | 'All'
@@ -80,4 +97,6 @@ export type {
   RecordData,
   CustomModal,
   FAQ,
+  Question,
+  DeletedBaby,
 };
