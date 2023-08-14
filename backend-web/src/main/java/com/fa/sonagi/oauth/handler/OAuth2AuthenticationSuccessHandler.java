@@ -95,18 +95,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 			             TimeUnit.MILLISECONDS);
 
 		CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
-<<<<<<< HEAD
-		CookieUtil.addCookie(response, REFRESH_TOKEN, tokenInfo.getRefreshToken(), JwtTokenProvider.getRefreshTokenExpireTimeCookie());
-		// 기기 토큰 값 업데이트
-		Optional<String> androidDeviceToken = CookieUtil.getCookie(request, ANDORIOD_DEVICE_TOKEN).map(Cookie::getValue);
-		if (androidDeviceToken.isPresent() && !bySocialId.getFirebaseToken().isEmpty() && !bySocialId.getFirebaseToken().equals(androidDeviceToken.get())) {
-			bySocialId.updateFCMToken(androidDeviceToken.get());
-			userRepository.save(bySocialId);
-		}
-=======
 		CookieUtil.addCookie(response, REFRESH_TOKEN, tokenInfo.getRefreshToken(),
 			JwtTokenProvider.getRefreshTokenExpireTimeCookie());
->>>>>>> d00159d90366629883a8b814493084109a5583db
 
 		// // 기기 토큰 값 업데이트
 		// Optional<String> androidDeviceToken = CookieUtil.getCookie(request, ANDORIOD_DEVICE_TOKEN)

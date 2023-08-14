@@ -8,7 +8,9 @@ const OurBabyInfoContainer = styled.div`
   flex-direction: column;
   /* margin-top: 30px; */
   padding-top: 30px;
+  padding-bottom: 60px;
   gap: 15px;
+  /* height: 100vh; */
 `;
 
 const UpperButtonWrapper = styled.div`
@@ -37,8 +39,10 @@ const ButtonsDivider = styled.div`
 
 const BabyNameWrapper = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
+  justify-content: center;
   width: 100%;
+  /* position: absolute; */
 `;
 
 const InfoEditWrapper = styled.div`
@@ -50,6 +54,17 @@ const InfoEditWrapper = styled.div`
   position: absolute;
   width: 100%;
 `;
+
+const OurBabyInfoWholeContainer = styled.div`
+  display: flex;
+  height: calc(100% - 52px);
+  background-color: ${({ theme }) => theme.color.white1};
+  flex-direction: column;
+  position: relative;
+`;
+
+const EmptyContainer = styled.div``;
+
 export {
   OurBabyInfoContainer,
   UpperButtonWrapper,
@@ -57,4 +72,6 @@ export {
   InfoEditWrapper,
   ButtonsDivider,
   UpperButtonContainer,
+  OurBabyInfoWholeContainer,
+  EmptyContainer,
 };

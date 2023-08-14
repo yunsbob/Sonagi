@@ -44,7 +44,7 @@ const App = () => {
 
   useEffect(() => {
     requestUserPermission();
-    requestPermission;
+    requestPermission();
   });
 
   // PermissionsAndroid 사용 로직
@@ -98,6 +98,7 @@ const App = () => {
     const requestBody = {
       userId: receivedMessage.code,
       firebaseToken: fcmTokenState,
+      // firebaseToken: 'TestingWithReactNative',
     };
     try {
       const response = await fetch('http://localhost:8080/api/fcm', {
@@ -112,7 +113,7 @@ const App = () => {
         console.log(requestBody.firebaseToken);
         console.log('API request successful');
       } else {
-        console.error('API reqeust failed with status', response.status);
+        console.error('API request failed with status', response.status);
       }
     } catch (error) {
       console.log('fetch error', error);
@@ -129,7 +130,8 @@ const App = () => {
         getToken();
         requestPermission();
       }}
-      userAgent="Mozilla/5.0 (Linux; Android 13; SAMSUNG SM-S906U) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/22.0 Chrome/111.0.5563.116 Mobile Safari/537.36"
+      // userAgent="Mozilla/5.0 (Linux; Android 13; SAMSUNG SM-S906U) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/22.0 Chrome/111.0.5563.116 Mobile Safari/537.36 kwdApp"
+      userAgent="kwdApp"
       sharedCookiesEnabled={true}
       domStorageEnabled={true}
       allowFileAccess={true}
