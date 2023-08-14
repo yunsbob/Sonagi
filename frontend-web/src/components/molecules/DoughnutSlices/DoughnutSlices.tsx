@@ -12,7 +12,12 @@ const DoughnutSlice: React.FC<DoughnutSliceProps> = ({
   finished,
   color,
 }) => (
-  <path d={getArc(start, finished)} stroke={color} strokeWidth={sectorHeight} />
+  <path
+    d={getArc(start, finished)}
+    stroke={color}
+    strokeWidth={sectorHeight}
+    fill="transparent"
+  />
 );
 
 export default DoughnutSlice;
