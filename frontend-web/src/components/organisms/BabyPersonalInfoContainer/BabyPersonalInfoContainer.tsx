@@ -3,6 +3,7 @@ import { Text } from '@/components/atoms/Text/Text.styles';
 import * as S from '@/components/organisms/BabyPersonalInfoContainer/BabyPersonalInfoContainer.style';
 import { BabyPersonalInfoButton } from '@/components/molecules/BabyPersonalInfoButton/BabyPersonalInfoButton';
 import Button from '@/components/atoms/Button/Button';
+import AddCautionButton from '@/components/molecules/AddCautionButton/AddCautionButton';
 
 interface BabyPersonalInfoProps {
   isDisease: boolean;
@@ -22,8 +23,17 @@ const BabyPersonalInfoContainer: React.FC<BabyPersonalInfoProps> = ({
   const info =
     '우리 아이를 돌봐주실 땐 <span style="font-weight: 700">이런 점을 주의해주세요</span>';
 
-  // const BabyPersonalInfoArray = [{ memo: 'memo1', name: 'name1' }];
-  const BabyPersonalInfoArray: BabyPersonalInfoArrayProps[] = [];
+  const BabyPersonalInfoArray = [
+    { memo: 'memo1', name: 'name1' },
+    { memo: 'memo1', name: 'name1' },
+    { memo: 'memo1', name: 'name1' },
+    // { memo: 'memo1', name: 'name1' },
+    // { memo: 'memo1', name: 'name1' },
+    // { memo: 'memo1', name: 'name1' },
+  ];
+  // const BabyPersonalInfoArray: BabyPersonalInfoArrayProps[] = [];
+
+  // TODO: AddCautionButton 찾기
 
   const BabyPersonalInfoButtonHandler = () => {
     return BabyPersonalInfoArray.map((data, index) => (
@@ -38,13 +48,10 @@ const BabyPersonalInfoContainer: React.FC<BabyPersonalInfoProps> = ({
         dangerouslySetInnerHTML={{ __html: isDisease ? disease : info }}
         style={{ marginBottom: '10px' }}
       />
-      <div style={{ display: 'flex', gap: '15px', overflow: 'auto' }}>
+      <S.BPICButtonWrapper>
         {BabyPersonalInfoButtonHandler()}
-        <Button style={{ height: '150px', width: '130px' }} onClick={() => {}}>
-          {' '}
-          추가 버튼
-        </Button>
-      </div>
+        <AddCautionButton />
+      </S.BPICButtonWrapper>
     </S.BPICContainer>
   );
 };

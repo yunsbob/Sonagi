@@ -16,7 +16,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import OurBabyPage from '../../../pages/OurBabyPage/OurBabyPage';
+// import OurBabyPage from '../../../pages/OurBabyPage/OurBabyPage';
 import { PATH } from '@/constants/path';
 
 interface Props extends CustomModal {
