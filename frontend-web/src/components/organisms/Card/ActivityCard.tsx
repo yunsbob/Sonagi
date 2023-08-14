@@ -20,6 +20,8 @@ interface ActivityCardProps {
 const ActivityCard = ({ data }: ActivityCardProps) => {
   const currentTheme = categoryToColorMap['Activity'];
   const color = theme.color[currentTheme];
+  const darkColor = theme.color.cardActivity1;
+  const lightColor = theme.color.cardActivity2;
 
   return (
     <CardContainer $borderColor={color}>
@@ -29,7 +31,9 @@ const ActivityCard = ({ data }: ActivityCardProps) => {
       />
       <CardContentText type="횟수" data={data.cnt} unit="회" />
       <CardContentBar
-        $borderColor={color}
+        $borderColor={
+          data.cntPercent > data.yesterdayCntPercent ? darkColor : lightColor
+        }
         $ratio={data.cntPercent}
         $yesterDayRatio={data.yesterdayCntPercent}
       />
@@ -42,7 +46,11 @@ const ActivityCard = ({ data }: ActivityCardProps) => {
         unit2="분"
       />
       <CardContentBar
-        $borderColor={color}
+        $borderColor={
+          data.activityPercent > data.yesterdayActivityPercent
+            ? darkColor
+            : lightColor
+        }
         $ratio={data.activityPercent}
         $yesterDayRatio={data.yesterdayActivityPercent}
       />

@@ -8,7 +8,7 @@ const useGetSleepStatistics = (
   date: string
 ) => {
   const { data: sleepStatistic } = useQuery(
-    ['sleepStatistics', babyId, date],
+    ['sleepStatistics', babyId, date, period],
     () => getSleepStatistics(babyId, period, date)
   );
 
