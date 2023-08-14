@@ -41,31 +41,50 @@ const GraphByDay = () => {
   const date = useRecoilValue(selectedDateState);
 
   const getGraphDatas = useGetAllStatistics(babyInfo.babyId, 'day', date);
-  console.log(getGraphDatas[2].data.times);
   return (
     <Suspense fallback={<LoadingPage />}>
       <GrapByDayContainer className="scrollable">
-        <DoughnutChart />
         {currentCategory === 'Meal' && (
-          <MealCard data={getGraphDatas[0].data} />
+          <>
+            <DoughnutChart data={getGraphDatas[0].data.times} />
+            <MealCard data={getGraphDatas[0].data} />
+          </>
         )}
         {currentCategory === 'Diaper' && (
-          <DiaperCard data={getGraphDatas[1].data} />
+          <>
+            <DoughnutChart data={getGraphDatas[1].data.times} />
+            <DiaperCard data={getGraphDatas[1].data} />
+          </>
         )}
         {currentCategory === 'Sleep' && (
-          <SleepCard data={getGraphDatas[2].data} />
+          <>
+            <DoughnutChart data={getGraphDatas[2].data.times} />
+            <SleepCard data={getGraphDatas[2].data} />
+          </>
         )}
         {currentCategory === 'Pump' && (
-          <PumpCard data={getGraphDatas[3].data} />
+          <>
+            <DoughnutChart data={getGraphDatas[3].data.times} />
+            <PumpCard data={getGraphDatas[3].data} />
+          </>
         )}
         {currentCategory === 'Activity' && (
-          <ActivityCard data={getGraphDatas[4].data} />
+          <>
+            <DoughnutChart data={getGraphDatas[4].data.times} />
+            <ActivityCard data={getGraphDatas[4].data} />
+          </>
         )}
         {currentCategory === 'Health' && (
-          <HealthCard data={getGraphDatas[5].data} />
+          <>
+            <DoughnutChart data={getGraphDatas[5].data.times} />
+            <HealthCard data={getGraphDatas[5].data} />
+          </>
         )}
         {currentCategory === 'Extra' && (
-          <ExtraCard data={getGraphDatas[6].data} />
+          <>
+            <DoughnutChart data={getGraphDatas[6].data.times} />
+            <ExtraCard data={getGraphDatas[6].data} />
+          </>
         )}
       </GrapByDayContainer>
     </Suspense>
