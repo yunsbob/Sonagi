@@ -58,15 +58,7 @@ const OurBabyPage = () => {
           </Text>
         </S.BabyNameWrapper>
         <div style={{ height: '144px' }}>
-          <Image
-            src={isMale ? babyBlue : babyYellow}
-            // src={babyBlue}
-            // style={{ transform: 'rotate(9.093deg)' }}
-            // width={144}
-            // $unit="px"
-            height={100}
-            $unit="%"
-          />
+          <Image src={isMale ? babyBlue : babyYellow} height={100} $unit="%" />
         </div>
         <Text size="medium1"> 함께한 시간 247일</Text>
         <Text size="headMedium" $fontWeight={700}>
