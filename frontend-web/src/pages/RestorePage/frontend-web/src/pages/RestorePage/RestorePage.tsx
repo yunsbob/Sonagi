@@ -1,10 +1,11 @@
-import { Background } from '@/components/atoms/Background/Background.styles';
-import orangeBackground from '@/assets/images/background-orange-to-blue.png';
 import { useEffect, useState } from 'react';
-import AdminBar from '@/components/molecules/AdminBar/AdminBar';
 import { Outlet } from 'react-router-dom';
 import { DeletedBaby } from '@/types';
 import { instance } from '@/apis/instance';
+import {
+  MainContainer,
+  RestoreContainer,
+} from '@/pages/AdminPage/AdminPage.style';
 
 const RestorePage = () => {
   const [deletedBabyList, setDeletedBabyList] = useState<DeletedBaby[]>([]);
@@ -40,54 +41,42 @@ const RestorePage = () => {
   };
 
   return (
-    <Background $background={orangeBackground}>
-      <div>데이터 복구</div>
-      <AdminBar />
+    <MainContainer>
       <Outlet />
-      <div className="faq-list">
+      <RestoreContainer>
         <table>
           <colgroup>
             <col width="10%" />
-            <col width="10%" />
             <col width="20%" />
             <col width="20%" />
             <col width="10%" />
             <col width="20%" />
-            <col width="10%" />
           </colgroup>
 
           <thead>
             <tr>
-              <th>번호</th>
               <th>아이ID</th>
               <th>아이 이름</th>
               <th>생년월일</th>
               <th>성별</th>
-              <th>삭제된 날짜</th>
-              <th></th>
+              <th>삭제일자</th>
             </tr>
           </thead>
 
           <tbody>
             {currentPost.map((deletedBaby, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
+              <tr key={index} onClick={() => restoreBaby(deletedBaby.babyId)}>
                 <td>{deletedBaby.babyId}</td>
                 <td>{deletedBaby.name}</td>
                 <td>{deletedBaby.birthDate}</td>
                 <td>{deletedBaby.gender}</td>
                 <td>{deletedBaby.deletedAt}</td>
-                <td>
-                  <button onClick={() => restoreBaby(deletedBaby.babyId)}>
-                    복구
-                  </button>
-                </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
-    </Background>
+      </RestoreContainer>
+    </MainContainer>
   );
 };
 

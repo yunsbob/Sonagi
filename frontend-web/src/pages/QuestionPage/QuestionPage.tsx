@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Background } from '@/components/atoms/Background/Background.styles';
-import orangeBackground from '@/assets/images/background-orange-to-blue.png';
-import AdminBar from '@/components/molecules/AdminBar/AdminBar';
 import { Link, Outlet } from 'react-router-dom';
 import { Question } from '@/types';
 import { instance } from '@/apis/instance';
+import { MainContainer, QuestionContainer } from '../AdminPage/AdminPage.style';
 
 const QuestionPage = () => {
   const [currentPost, setCurrentPost] = useState<Question[]>([]);
@@ -28,24 +26,22 @@ const QuestionPage = () => {
       });
   }, []);
   return (
-    <Background $background={orangeBackground}>
-      <div>문의사항</div>
-      <AdminBar />
+    <MainContainer>
       <Outlet />
-      <div className="questionList-list">
+      <QuestionContainer>
         <table>
           <colgroup>
             <col width="15%" />
+            <col width="35%" />
+            <col width="20%" />
             <col width="40%" />
-            <col width="15%" />
-            <col width="30%" />
           </colgroup>
 
           <thead>
             <tr>
               <th>번호</th>
               <th>제목</th>
-              <th>사용자ID</th>
+              <th>사용자</th>
               <th>등록일</th>
             </tr>
           </thead>
@@ -65,8 +61,8 @@ const QuestionPage = () => {
             ))}
           </tbody>
         </table>
-      </div>
-    </Background>
+      </QuestionContainer>
+    </MainContainer>
   );
 };
 
