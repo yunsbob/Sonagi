@@ -1,4 +1,4 @@
-export const recordEnToKo = {
+export const recordEnToKo: { [key: string]: string } = {
   feedings: '수유',
   infantFormulas: '분유',
   pees: '소변',
@@ -6,7 +6,7 @@ export const recordEnToKo = {
   sleeps: '수면',
   pumpingBreasts: '유축',
   babyFoods: '이유식',
-  breastFeadings: '유축 수유',
+  breastFeedings: '유축 수유',
   fevers: '체온',
   hospitals: '병원',
   medications: '투약',

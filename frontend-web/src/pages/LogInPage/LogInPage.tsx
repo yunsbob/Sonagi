@@ -25,7 +25,6 @@ const LogInPage = () => {
 
   const saveAndroidTokenToCookie = () => {
     // React Native 알림을 위한 기기 Token값 저장
-    console.log('hi1');
     document.addEventListener('message', (e: any) => {
       console.log('hi2');
       const androidToken = e.data;
