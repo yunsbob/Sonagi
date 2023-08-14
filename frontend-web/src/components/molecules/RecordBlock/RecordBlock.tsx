@@ -45,6 +45,9 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
       <RoundedRect color={color} />
       <TimeText size="medium2">{time}</TimeText>
       <Text size="medium1">{recordType}</Text>
+      <TimeText size="medium2" style={{ marginLeft: '20px' }}>
+        {record.memo}
+      </TimeText>
     </BlockButton>
   );
 };
