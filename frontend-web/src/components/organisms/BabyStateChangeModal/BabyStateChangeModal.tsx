@@ -29,17 +29,20 @@ const BabyStateChangeModal = ({ onModalClose, modalOpen, babyInfo }: Props) => {
 
   const navigate = useNavigate();
 
-  // const babyInfo = useRecoilValue(selectedBabyState);
   const queryClient = useQueryClient();
 
-  // TODO: mutateasync 적용 및 toast 활성화
   const changeBabyState = (selectedBabyId: number) => {
-    useChangeBabyStateMutation.mutate(selectedBabyId);
-  };
-
-  const changeBabyStateHandler = () => {
-    changeBabyState(babyInfo.babyId);
-    navigate(PATH.OURBABY);
+    useChangeBabyStateMutation.mutate(selectedBabyId, {
+      onSuccess: () => {
+        queryClient.invalidateQueries([babyInfo]);
+        setShowToast(true);
+        onModalClose();
+        navigate(PATH.OURBABY);
+      },
+      onError: () => {
+        console.log('삭제 실패');
+      },
+    });
   };
 
   return (
@@ -69,7 +72,10 @@ const BabyStateChangeModal = ({ onModalClose, modalOpen, babyInfo }: Props) => {
           <Button option="primary" onClick={onModalClose}>
             취소
           </Button>
-          <Button option="danger" onClick={changeBabyStateHandler}>
+          <Button
+            option="danger"
+            onClick={() => changeBabyState(babyInfo.babyId)}
+          >
             삭제
           </Button>
         </BabyStateChangeButtonContainer>
