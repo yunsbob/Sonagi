@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate, Outlet, useParams } from 'react-router-dom';
 import { instance } from '@/apis/instance';
 import {
-  ButtonContainer,
-  FAQButton,
-  FAQContentContainer,
-  FAQDetailContent,
-  FAQDetailTitle,
-  FAQListContainer,
-} from './FAQPage.style';
+  AdminButtonContainer,
+  AdminButton,
+  ContentContainer,
+  DetailContent,
+  DetailTitle,
+  ListContainer,
+} from '../AdminPage/AdminPage.style';
 
 const FAQDetailPage = () => {
   const faqId = useParams().id;
@@ -39,26 +39,26 @@ const FAQDetailPage = () => {
     }
   };
   return (
-    <FAQListContainer>
-      <FAQContentContainer>
-        <FAQDetailTitle>
+    <ListContainer>
+      <ContentContainer>
+        <DetailTitle>
           <p>{detailFAQData.title}</p>
-        </FAQDetailTitle>
-        <FAQDetailContent>
+        </DetailTitle>
+        <DetailContent>
           <p>{detailFAQData.content}</p>
-        </FAQDetailContent>
-      </FAQContentContainer>
-      <ButtonContainer>
-        <FAQButton>
+        </DetailContent>
+      </ContentContainer>
+      <AdminButtonContainer>
+        <AdminButton>
           <Link to={`/admin/faq/modify/${detailFAQData.faqId}`}>수정</Link>
-        </FAQButton>
-        <FAQButton onClick={deleteFAQ}>삭제</FAQButton>
-        <FAQButton>
+        </AdminButton>
+        <AdminButton onClick={deleteFAQ}>삭제</AdminButton>
+        <AdminButton>
           <Link to={`/admin/faq`}>목록</Link>
-        </FAQButton>
-      </ButtonContainer>
+        </AdminButton>
+      </AdminButtonContainer>
       <Outlet />
-    </FAQListContainer>
+    </ListContainer>
   );
 };
 

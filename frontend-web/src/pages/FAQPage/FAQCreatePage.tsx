@@ -1,25 +1,20 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import { userInfoState } from '@/states/userState';
 import { useRecoilValue } from 'recoil';
+import { instance } from '@/apis/instance';
 import { useNavigate, Outlet } from 'react-router-dom';
-import { Background } from '@/components/atoms/Background/Background.styles';
-import orangeBackground from '@/assets/images/background-orange-to-blue.png';
-import AdminBar from '@/components/molecules/AdminBar/AdminBar';
 import {
-  ButtonContainer,
-  FAQButton,
-  FAQContentContainer,
-  FAQDetailContent,
-  FAQDetailTitle,
-  FAQListContainer,
-} from './FAQPage.style';
+  AdminButtonContainer,
+  AdminButton,
+  ContentContainer,
+  DetailContent,
+  DetailTitle,
+  ListContainer,
+} from '../AdminPage/AdminPage.style';
 const FAQCreatePage = () => {
-  // hook
   const userInfo = useRecoilValue(userInfoState);
   const navigate = useNavigate();
 
-  // state
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
 
@@ -29,7 +24,7 @@ const FAQCreatePage = () => {
     } else if (content.length === 0) {
       alert('내용을 입력해 주세요.');
     } else {
-      axios
+      instance
         .post('http://localhost:8080/api/faqs', {
           userId: userInfo.userId,
           title: title,
@@ -52,11 +47,11 @@ const FAQCreatePage = () => {
     }
   };
   return (
-    <FAQListContainer>
-      <FAQContentContainer>
+    <ListContainer>
+      <ContentContainer>
         <div>FAQ 작성</div>
         <form>
-          <FAQDetailTitle>
+          <DetailTitle>
             <input
               type="text"
               id="title"
@@ -64,8 +59,8 @@ const FAQCreatePage = () => {
               onChange={e => setTitle(e.target.value)}
               placeholder="제목을 입력해주세요."
             />
-          </FAQDetailTitle>
-          <FAQDetailContent>
+          </DetailTitle>
+          <DetailContent>
             <textarea
               name="content"
               id="content"
@@ -73,15 +68,15 @@ const FAQCreatePage = () => {
               onChange={e => setContent(e.target.value)}
               placeholder="내용을 입력해주세요."
             />
-          </FAQDetailContent>
+          </DetailContent>
         </form>
-        <ButtonContainer>
-          <FAQButton onClick={formSubmit}>수정</FAQButton>
-          <FAQButton onClick={formCancel}>취소</FAQButton>
-        </ButtonContainer>
+        <AdminButtonContainer>
+          <AdminButton onClick={formSubmit}>수정</AdminButton>
+          <AdminButton onClick={formCancel}>취소</AdminButton>
+        </AdminButtonContainer>
         <Outlet />
-      </FAQContentContainer>
-    </FAQListContainer>
+      </ContentContainer>
+    </ListContainer>
   );
 };
 

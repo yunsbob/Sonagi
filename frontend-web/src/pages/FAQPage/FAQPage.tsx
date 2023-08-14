@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Background } from '@/components/atoms/Background/Background.styles';
-import orangeBackground from '@/assets/images/background-orange-to-blue.png';
 import { Link, Outlet } from 'react-router-dom';
 import { instance } from '@/apis/instance';
 import { FAQ } from '@/types';
-import { FAQContainer, FAQListContainer } from './FAQPage.style';
+import { MainContainer, ListContainer } from '../AdminPage/AdminPage.style';
 
 const FAQPage = () => {
   const [currentPost, setCurrentPost] = useState<FAQ[]>([]);
@@ -29,9 +27,9 @@ const FAQPage = () => {
   }, []);
 
   return (
-    <FAQContainer>
+    <MainContainer>
       <Outlet />
-      <FAQListContainer>
+      <ListContainer>
         <table>
           <colgroup>
             <col width="15%" />
@@ -62,8 +60,8 @@ const FAQPage = () => {
         <Link to="/admin/faq/create">
           <div>작성하기</div>
         </Link>
-      </FAQListContainer>
-    </FAQContainer>
+      </ListContainer>
+    </MainContainer>
   );
 };
 
