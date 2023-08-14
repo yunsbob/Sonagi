@@ -16,3 +16,22 @@ export const recordEnToKo: { [key: string]: string } = {
   tummytimes: '터미 타임',
   extras: '기타',
 };
+
+export const recordTypeToCategory: { [key: string]: string } = {
+  feedings: 'categoryMeal',
+  infantFormulas: 'categoryMeal',
+  pees: 'categoryDiaper',
+  poops: 'categoryDiaper',
+  sleeps: 'categorySleep',
+  pumpingBreasts: 'categoryPumpingBreast',
+  babyFoods: 'categoryMeal',
+  breastFeedings: 'categoryMeal',
+  fevers: 'categoryHealth',
+  hospitals: 'categoryHealth',
+  medications: 'categoryHealth',
+  snacks: 'categoryMeal',
+  milks: 'categoryMeal',
+  plays: 'categoryActivity',
+  tummytimes: 'categoryActivity',
+  extras: 'categoryExtra',
+};

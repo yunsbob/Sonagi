@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import LogInPage from '@/pages/LogInPage/LogInPage';
 import LoadingPage from '@/pages/LoadingPage/LoadingPage';
 
