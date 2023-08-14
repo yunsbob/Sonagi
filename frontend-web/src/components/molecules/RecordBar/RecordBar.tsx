@@ -30,22 +30,6 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
   // 버튼 누르면 post
   const addRecordMutation = useAddRecord();
 
-  /*
-  -export const TypeAValues = [
-+export const AllTypeValues = ;
--
--export const TypeBValues = [
-   'pees',
-   'poops',
-   'hospitals',
-   'medications',
-   'snacks',
-   'extras',
--] as const;
--
--export const TypeCValues = ['sleeps', 'plays', 'tummytimes'];
-*/
-
   const handleButtonClick = async (
     recordType: string,
     color: string,
