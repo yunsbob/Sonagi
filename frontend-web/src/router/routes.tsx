@@ -11,6 +11,7 @@ import MainPage from '@/pages/MainPage/MainPage';
 import RecordPage from '@/pages/RecordPage/RecordPage';
 import GraphPage from '@/pages/GraphPage/GraphPage';
 import OurBabyPage from '@/pages/OurBabyPage/OurBabyPage';
+import OurBabyVaccinationPage from '@/pages/OurBabyVaccinationPage/OurBabyVaccinationPage';
 import DiaryPage from '@/pages/DiaryPage/DiaryPage';
 import DiaryRegister from '@/pages/DiaryRegisterPage/DiaryRegisterPage';
 import MyPagePage from '@/pages/MyPagePage/MyPagePage';
@@ -80,6 +81,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: 'ourBaby', element: <OurBabyPage /> },
+      { path: 'ourBaby/vgaccination', element: <OurBabyVaccinationPage /> },
       { path: 'diary', element: <DiaryPage /> },
       { path: 'diaryRegister', element: <DiaryRegister /> },
       { path: 'myPage', element: <MyPagePage /> },
