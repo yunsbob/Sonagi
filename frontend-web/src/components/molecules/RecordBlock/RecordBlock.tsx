@@ -17,9 +17,17 @@ interface RecordBlockProps {
 }
 
 const TimeText = styled(Text)`
-  margin: 0 20px 0 5px;
+  margin: 0 12px 0 5px;
   color: ${theme.color.gray1};
+  /* flex-grow: 1; */
+`;
+
+const MemoText = styled(TimeText)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-style: italic;
+  margin-left: 18px;
 `;
 
 const BlockButton = styled(Button)`
@@ -53,10 +61,10 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
     <BlockButton option="default" size="xLarge" onClick={OnClickButton}>
       <RoundedRect color={color} />
       <TimeText size="medium2">{time}</TimeText>
-      <Text size="medium1">{recordType}</Text>
-      <TimeText size="medium2" style={{ marginLeft: '20px' }}>
-        {record.memo}
-      </TimeText>
+      <Text size="medium1" style={{ minWidth: 'fit-content' }}>
+        {recordType}
+      </Text>
+      <MemoText size="medium2">{record.memo}</MemoText>
       <Image
         src={iconArrowMiniRightGrey}
         width={1.3}
