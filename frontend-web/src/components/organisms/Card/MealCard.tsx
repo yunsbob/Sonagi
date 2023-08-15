@@ -4,6 +4,7 @@ import { CardHeader } from '@/components/molecules/CardHeader/CardHeader';
 import { CardContainer } from '@/components/organisms/Card/Card.styles';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import theme from '@/styles/theme';
+import { PeriodType } from '@/types/card';
 
 interface MealCardProps {
   data: {
@@ -14,9 +15,10 @@ interface MealCardProps {
     cntPercent: number;
     yesterdayAmountPercent: number;
   };
+  graphType?: PeriodType;
 }
 
-const MealCard = ({ data }: MealCardProps) => {
+const MealCard = ({ data, graphType = 'day' }: MealCardProps) => {
   const currentTheme = categoryToColorMap['Meal'];
   const color = theme.color[currentTheme];
   const darkColor = theme.color.cardMeal2;
@@ -34,6 +36,7 @@ const MealCard = ({ data }: MealCardProps) => {
         }
         $ratio={data.cntPercent}
         $yesterDayRatio={data.yesterdayCntPercent}
+        $graphType={graphType}
       />
 
       <CardContentText type="용량" data={data.amount} unit="ml" />
@@ -45,6 +48,7 @@ const MealCard = ({ data }: MealCardProps) => {
         }
         $ratio={data.amountPercent}
         $yesterDayRatio={data.yesterdayAmountPercent}
+        $graphType={graphType}
       />
     </CardContainer>
   );
