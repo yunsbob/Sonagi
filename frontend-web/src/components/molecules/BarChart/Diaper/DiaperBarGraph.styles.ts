@@ -7,7 +7,7 @@ interface DiaperBarGraphStyleProps {
 const Container = styled.div`
   width: 90vw;
   height: 50vh;
-  margin: 30px auto 60px;
+  margin: 30px auto 100px;
   position: relative;
 `;
 
@@ -19,51 +19,55 @@ const LineContainer = styled.div`
   width: 100%;
 `;
 
-const Time = styled.div`
-  width: max-content;
+const LineWrapper = styled.div`
+  height: 10px;
   display: flex;
-  flex-direction: column;
-  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  text-align: right;
 `;
 
 const Line = styled.div`
   border: 1px solid ${({ theme }) => theme.color.gray4};
-  /* color: ${({ theme }) => theme.color.gray4}; */
   width: calc(100% - 20px);
-
   height: 0.1px;
 `;
 
 const BarContainer = styled.div`
   width: inherit;
   padding: 0px 20px 0px 40px;
-  height: calc(100% - 7.5px);
+  height: calc(100% - 10px);
   display: flex;
   justify-content: space-between;
   align-items: end;
   position: absolute;
-  bottom: calc(100% / 9 + 3px);
+  bottom: 5px;
 `;
 
 const Wrapper = styled.div<DiaperBarGraphStyleProps>`
   width: 33px;
   height: ${props => `${props.$barHeight}%`};
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  position: relative;
 `;
 
-const DiaperBar = styled.div<{ height: number; color: string }>`
-  height: ${props => `${props.height}%`};
+const DiaperBar = styled.div<{ color: string; top: number }>`
   background-color: ${props => props.color};
   border-radius: 4px;
+  position: absolute;
+  top: ${props => `calc((100% - 10px) / 1440 * ${props.top})`};
+  width: 100%;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const DateContainer = styled.div`
   width: 100%;
   padding: 0px 20px 0px 40px;
-  height: calc(100% / 9 + 5px);
-  position: absolute;
-  bottom: 0;
+  height: calc(100% / 12);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -73,19 +77,17 @@ const DateContainer = styled.div`
 const CategoryContainer = styled.div`
   display: flex;
   float: right;
-  width: calc(66px + ((100% - (33px * 7)) / 6));
   justify-content: space-between;
   margin-right: 20px;
+  position: relative;
+  margin-bottom: 30px;
 `;
 
 const CategoryWrapper = styled.div`
   display: flex;
   width: fit-content;
   margin-top: 10px;
-
-  > div {
-    margin-right: 6px;
-  }
+  margin-left: 10px;
 `;
 
 const CategoryCircle = styled.div<{ $bgColor: string }>`
@@ -93,12 +95,13 @@ const CategoryCircle = styled.div<{ $bgColor: string }>`
   height: 14px;
   border-radius: 50%;
   background-color: ${props => props.$bgColor};
+  margin-right: 6px;
 `;
 
 export {
   Container,
   LineContainer,
-  Time,
+  LineWrapper,
   Line,
   BarContainer,
   Wrapper,

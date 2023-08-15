@@ -24,10 +24,10 @@ interface HealthWeekItem {
 interface HealthWeekProps {
   [key: string]: HealthWeekItem;
 }
+
 const HealthBarGraph = ({ data }: HealthWeekProps) => {
   const days = Object.keys(data);
   const values: HealthWeekItem[] = Object.values(data);
-  console.log(values);
 
   // 최대 횟수에 따라 선의 개수가 달라짐
   let maxCnt = 4; // 현재 기록의 최대 병원 + 투약 cnt 값
