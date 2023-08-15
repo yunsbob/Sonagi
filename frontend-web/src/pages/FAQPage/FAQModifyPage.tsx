@@ -8,6 +8,7 @@ import {
   DetailContent,
   DetailTitle,
   ListContainer,
+  DetailContainer,
 } from '../AdminPage/AdminPage.style';
 
 const FAQModifyPage = () => {
@@ -61,7 +62,7 @@ const FAQModifyPage = () => {
   };
 
   return (
-    <ListContainer>
+    <DetailContainer>
       <ContentContainer>
         <div>FAQ 수정</div>
         <form>
@@ -92,7 +93,7 @@ const FAQModifyPage = () => {
         </AdminButtonContainer>
         <Outlet />
       </ContentContainer>
-    </ListContainer>
+    </DetailContainer>
   );
 };
 

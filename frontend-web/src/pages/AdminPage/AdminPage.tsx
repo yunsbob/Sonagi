@@ -1,9 +1,5 @@
-import { Background } from '@/components/atoms/Background/Background.styles';
-import orangeBackground from '@/assets/images/background-orange-to-blue.png';
-import { Link, Outlet } from 'react-router-dom';
-import Button from '@/components/atoms/Button/Button';
+import { Outlet } from 'react-router-dom';
 import { AdminContainer, Header } from '@/pages/AdminPage/AdminPage.style';
-import { Text } from '@/components/atoms/Text/Text.styles';
 import AdminBar from '@/components/molecules/AdminBar/AdminBar';
 
 const AdminPage = () => {

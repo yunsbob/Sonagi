@@ -26,8 +26,8 @@ const RestorePage = () => {
     setCurrentPost(deletedBabyList);
   }, [deletedBabyList]);
 
-  const restoreBaby = (babyId: number) => {
-    if (window.confirm('해당 아기 정보를 복구하시겠습니까?')) {
+  const restoreBaby = (babyId: number, name: string) => {
+    if (window.confirm(`"${name}"님 정보를 복구하시겠습니까?`)) {
       instance
         .put(`/isDeleted/${babyId}`)
         .then(response => {
@@ -55,7 +55,7 @@ const RestorePage = () => {
 
           <thead>
             <tr>
-              <th>아이ID</th>
+              <th>ID</th>
               <th>아이 이름</th>
               <th>생년월일</th>
               <th>성별</th>
@@ -65,7 +65,12 @@ const RestorePage = () => {
 
           <tbody>
             {currentPost.map((deletedBaby, index) => (
-              <tr key={index} onClick={() => restoreBaby(deletedBaby.babyId)}>
+              <tr
+                key={index}
+                onClick={() =>
+                  restoreBaby(deletedBaby.babyId, deletedBaby.name)
+                }
+              >
                 <td>{deletedBaby.babyId}</td>
                 <td>{deletedBaby.name}</td>
                 <td>{deletedBaby.birthDate}</td>
