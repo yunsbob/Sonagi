@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-interface HealthBarGraphStyleProps {
+interface ExtraBarGraphStyleProps {
   $barHeight: number;
 }
 
@@ -44,7 +44,7 @@ const BarContainer = styled.div`
   bottom: 5px;
 `;
 
-const Wrapper = styled.div<HealthBarGraphStyleProps>`
+const Wrapper = styled.div<ExtraBarGraphStyleProps>`
   width: 33px;
   height: ${props => `calc(${props.$barHeight}%)`};
   display: flex;
@@ -53,7 +53,7 @@ const Wrapper = styled.div<HealthBarGraphStyleProps>`
   position: relative;
 `;
 
-const HealthBar = styled.div<{ height: number; color: string }>`
+const ExtraBar = styled.div<{ height: number; color: string }>`
   height: ${props => `${props.height}%`};
   background-color: ${props => props.color};
   border-radius: 8px;
@@ -121,7 +121,7 @@ export {
   // Time,
   BarContainer,
   Wrapper,
-  HealthBar,
+  ExtraBar,
   FeverWrapper,
   DateContainer,
   CategoryContainer,

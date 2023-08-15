@@ -25,24 +25,12 @@ interface HealthWeekProps {
   [key: string]: HealthWeekItem;
 }
 const HealthBarGraph = ({ data }: HealthWeekProps) => {
-  // 10개의 line
-  // let lines: JSX.Element[] = [];
-
-  // for (let i = 0; i < 9; i++) {
-  //   lines = [...lines, <Line key={i} />];
-  // }
-
-  // const lineLen = 5;
-  // const percent100 = (100 - 100 / lineLen) / 100;
-
-  // const times = [0, 3, 9, 12, 15, 18, 21, 24];
-
   const days = Object.keys(data);
   const values: HealthWeekItem[] = Object.values(data);
   console.log(values);
 
   // 최대 횟수에 따라 선의 개수가 달라짐
-  let maxCnt = 5; // 현재 기록의 최대 병원 + 투약 cnt 값
+  let maxCnt = 4; // 현재 기록의 최대 병원 + 투약 cnt 값
 
   values.forEach(value => {
     maxCnt =
@@ -108,6 +96,10 @@ const HealthBarGraph = ({ data }: HealthWeekProps) => {
           );
         })}
       </DateContainer>
+      <LineWrapper>
+        <Text size="xSmall" width={10}></Text>
+        <Line />
+      </LineWrapper>
       <CategoryContainer>
         <CategoryWrapper>
           <CategoryCircle
