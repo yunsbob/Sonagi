@@ -3,7 +3,7 @@ import * as S from '@/pages/DiaryRegisterPage/DiaryRegisterPage.styles';
 import DiaryRecorder from '@/components/molecules/DiaryRecorder/DiaryRecorder';
 import { Image } from '@/components/atoms/Image/Image';
 import IconPlusBlueRectDash from '@/assets/images/icon-plus-blue-rect-dash.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import backArrow from '@/assets/images/icon-arrow-left-grey.png';
 import Button from '@/components/atoms/Button/Button';
 import { DiaryPostDto } from '@/types/diaryTypes';
@@ -12,18 +12,39 @@ import { BabiesOfUser, User } from '@/types';
 import { userInfoState } from '@/states/userState';
 import { selectedBabyState } from '@/states/babyState';
 import { PATH } from '@/constants/path';
-import { useAddDiary } from '@/apis/Diary/Mutations/useAddDiaries';
+import { useUpdateDiary } from '@/apis/Diary/Mutations/useUpdateDiary';
+import { useGetDiaryInfoById } from '@/apis/Diary/Queries/useGetDiaryInfoById';
 
-const DiaryRegisterPage = () => {
+interface RouteParams {
+  [key: string]: string | undefined;
+  diaryId: string;
+}
+
+const DiaryUpdatePage: React.FC = () => {
   const navigate = useNavigate();
   const userInfo: User = useRecoilValue(userInfoState);
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
+  const updateDiaryMutation = useUpdateDiary();
+  const { diaryId } = useParams<RouteParams>();
+  const diaryInfo = useGetDiaryInfoById(parseInt(diaryId ? diaryId : '', 10));
 
   const [files, setFiles] = useState<File[]>([]);
   const [diaryContent, setDiaryContent] = useState<string>('');
   const fileInputRefs = useRef<HTMLInputElement[]>([]);
 
-  const addDiaryMutation = useAddDiary();
+  useEffect(() => {
+    const imgfiles: File[] = [];
+    diaryInfo.imgUrls.forEach(e => {
+      fetch(e)
+        .then(res => res.blob())
+        .then(blob => {
+          const file = new File([blob], `img.jpg`, { type: blob.type });
+          imgfiles.push(file);
+        });
+    });
+    setFiles(imgfiles);
+    setDiaryContent(diaryInfo.content);
+  }, [diaryInfo]);
 
   const handleSubmit = async () => {
     const formData = new FormData();
@@ -43,7 +64,7 @@ const DiaryRegisterPage = () => {
       new Blob([JSON.stringify(diaryPostDto)], { type: 'application/json' })
     );
 
-    await addDiaryMutation.mutateAsync(formData);
+    await updateDiaryMutation.mutateAsync(formData);
     navigate(PATH.DIARY);
   };
 
@@ -80,11 +101,13 @@ const DiaryRegisterPage = () => {
       fileInputRefs.current[index] = ref;
     }
   };
+
   const handleDiaryContent = (data: string) => {
     setDiaryContent(data);
   };
 
   const RouteHandler = useCallback(() => navigate(-1), [navigate]);
+
   return (
     <>
       <S.DiaryRegisterContainer>
@@ -92,7 +115,7 @@ const DiaryRegisterPage = () => {
           <S.BackArrow onClick={RouteHandler}>
             <Image src={backArrow} width={1} />
           </S.BackArrow>
-          <S.TitleText size="headSmall">육아일기 작성하기</S.TitleText>
+          <S.TitleText size="headSmall">육아일기 수정하기</S.TitleText>
         </S.DiaryRegisterHeadContainer>
         <S.DiaryRegisterBodyContainer>
           <DiaryRecorder onDataUpdate={handleDiaryContent}></DiaryRecorder>
@@ -151,4 +174,4 @@ const DiaryRegisterPage = () => {
   );
 };
 
-export default DiaryRegisterPage;
+export default DiaryUpdatePage;

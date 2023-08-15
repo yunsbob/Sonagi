@@ -21,7 +21,6 @@ const DiaryEditBtn = styled.img`
 const DiaryContentContainer = styled.div`
   background-color: white;
   padding: 2rem;
-
   box-sizing: border-box;
 `;
 

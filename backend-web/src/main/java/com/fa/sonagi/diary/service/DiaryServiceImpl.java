@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +39,23 @@ public class DiaryServiceImpl implements DiaryService {
 	private final S3File s3File;
 	private final BabyService babyService;
 	private final FCMNotificationService fcmNotificationService;
+
+	@Override
+	public DiaryResDto.DiaryInfo selectByDiaryId(Long diaryId) {
+		Optional<Diary> byId = diaryRepository.findById(diaryId);
+		Diary diary = byId.orElseThrow();
+		DiaryResDto.DiaryInfo diaryInfo = DiaryResDto.DiaryInfo.builder()
+		                                                       .diaryId(diary.getId())
+		                                                       .content(diary.getContent())
+		                                                       .userName(diary.getUserName())
+		                                                       .imgUrls(diary.getDiaryFiles()
+		                                                                     .stream()
+		                                                                     .map((c) -> c.getFileName())
+		                                                                     .toList())
+		                                                       .writedTime(diary.getCreatedTime())
+		                                                       .build();
+		return diaryInfo;
+	}
 
 	@Override
 	@Transactional

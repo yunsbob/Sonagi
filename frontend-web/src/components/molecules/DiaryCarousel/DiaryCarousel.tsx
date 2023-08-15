@@ -30,14 +30,18 @@ const DiaryCarousel: React.FC<DiaryCarouselProps> = ({ images }) => {
   return (
     <>
       <S.CarouselContainer>
-        <S.PrevButton
-          src={IconArrowLeftWhite}
-          onClick={() => handleStep(-1)}
-        ></S.PrevButton>
-        <S.NextButton
-          src={IconArrowRightWhite}
-          onClick={() => handleStep(1)}
-        ></S.NextButton>
+        {images.length !== 1 && (
+          <S.PrevButton
+            src={IconArrowLeftWhite}
+            onClick={() => handleStep(-1)}
+          ></S.PrevButton>
+        )}
+        {images.length !== 1 && (
+          <S.NextButton
+            src={IconArrowRightWhite}
+            onClick={() => handleStep(1)}
+          ></S.NextButton>
+        )}
         <S.CarouselSlider $transformXsize={currnetXsize}>
           {images.map((url, index) => (
             <S.CarouselImage key={index} src={url} />

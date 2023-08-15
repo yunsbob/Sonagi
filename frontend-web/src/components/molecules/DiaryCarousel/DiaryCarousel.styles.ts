@@ -12,7 +12,7 @@ const CarouselContainer = styled.div`
 
 const CarouselImage = styled.img`
   min-width: 100%;
-  max-height: 23vh;
+  max-height: 22vh;
   object-fit: cover;
 `;
 
