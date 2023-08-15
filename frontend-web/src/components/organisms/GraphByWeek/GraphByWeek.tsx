@@ -61,7 +61,7 @@ const GraphByWeek = () => {
       )}
       {currentCategory === 'Health' && (
         <>
-          <HealthBarGraph />
+          <HealthBarGraph data={getGraphDatas[5].data.healthStatistics} />
           <HealthCard data={getGraphDatas[5].data} />
         </>
       )}

@@ -23,9 +23,6 @@ interface PumpWeekProps {
 }
 
 const PumpingBreastBarGraph = ({ data }: PumpWeekProps) => {
-  const lineLen = 9;
-  const percent100 = (100 - 100 / lineLen) / 100;
-
   const days = Object.keys(data);
   const values = Object.values(data);
 
