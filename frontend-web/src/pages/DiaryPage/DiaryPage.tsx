@@ -21,7 +21,7 @@ const DiaryPage: React.FC = () => {
   const selectedDate: string = useRecoilValue(selectedDateState);
 
   const diaries: DiaryInfo[] = useGetDiaryInfoByBabyId(
-    babyInfo?.babyId,
+    babyInfo.babyId,
     selectedDate
   );
 
@@ -30,7 +30,7 @@ const DiaryPage: React.FC = () => {
       <CalendarBar></CalendarBar>
       <WeekendCalendar></WeekendCalendar>
       <DiaryListContainer>
-        {diaries?.map((diary, index) => (
+        {diaries.map((diary, index) => (
           <DiaryCard
             key={index}
             writer={diary.userName}
