@@ -6,42 +6,41 @@ import {
   Line,
   BarContainer,
   Wrapper,
-  ExtraBar,
+  SleepBar,
   DateContainer,
   CategoryContainer,
   CategoryWrapper,
   CategoryCircle,
-} from '@/components/molecules/BarChart/Extra/ExtraBarGraph.styles';
+} from '@/components/molecules/BarChart/Sleep/SleepBarGraph.styles';
 import theme from '@/styles/theme';
 
-interface ExtraWeekItem {
-  cnt: number;
+interface SleepsProps {
+  createdTime: number;
+  passTime: number;
 }
 
-interface ExtraWeekProps {
-  [key: string]: ExtraWeekItem;
+interface SleepWeekItem {
+  sleeps: SleepsProps[];
 }
-const ExtraBarGraph = ({ data }: ExtraWeekProps) => {
+
+interface SleepWeekProps {
+  [key: string]: SleepWeekItem;
+}
+
+const SleepBarGraph = ({ data }: SleepWeekProps) => {
+  const times: number[] = [0, 3, 6, 9, 12, 15, 18, 21, 24];
+
   const days = Object.keys(data);
-  const values: ExtraWeekItem[] = Object.values(data);
-
-  // 최대 횟수에 따라 선의 개수가 달라짐
-  let maxCnt = 4; // 현재 기록의 최대 병원 + 투약 cnt 값
-
-  values.forEach(value => {
-    maxCnt = maxCnt > value.cnt ? maxCnt : value.cnt;
-  });
-
-  const lines = [...Array(maxCnt + 1)];
-
+  const values: SleepWeekItem[] = Object.values(data);
+  console.log(values);
   return (
     <Container>
       <LineContainer>
-        {lines.map((_, idx) => {
+        {[...times].map(time => {
           return (
-            <LineWrapper key={idx}>
+            <LineWrapper key={time}>
               <Text size="xSmall" width={10}>
-                {idx}
+                {time}
               </Text>
               <Line />
             </LineWrapper>
@@ -52,13 +51,14 @@ const ExtraBarGraph = ({ data }: ExtraWeekProps) => {
       <BarContainer>
         {values.map((value, idx) => {
           return (
-            <Wrapper key={idx} $barHeight={(100 * value.cnt) / maxCnt}>
-              {[...Array(value.cnt)].map((_, hIdx) => {
+            <Wrapper key={idx} $barHeight={100}>
+              {value.sleeps.map((sleep, sIdx) => {
                 return (
-                  <ExtraBar
-                    key={hIdx}
-                    height={100}
-                    color={theme.color.graphExtra}
+                  <SleepBar
+                    key={sIdx}
+                    top={sleep.createdTime}
+                    pass={sleep.passTime}
+                    color={theme.color.graphSleep}
                   />
                 );
               })}
@@ -82,12 +82,12 @@ const ExtraBarGraph = ({ data }: ExtraWeekProps) => {
       </LineWrapper>
       <CategoryContainer>
         <CategoryWrapper>
-          <CategoryCircle $bgColor={theme.color.graphExtra} />
-          <Text size="xSmall">기타</Text>
+          <CategoryCircle $bgColor={theme.color.graphSleep} />
+          <Text size="xSmall">수면</Text>
         </CategoryWrapper>
       </CategoryContainer>
     </Container>
   );
 };
 
-export { ExtraBarGraph };
+export { SleepBarGraph };
