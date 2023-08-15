@@ -160,14 +160,14 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 		Long cntPercent = getPercent(cnt, lastWeekCnt);
 		Long lastWeekCntPercent = getPercent(lastWeekCnt, cnt);
 		sleepWeek.setCntPercent(cntPercent);
-		sleepWeek.setLastWeekCntPercent(lastWeekCntPercent);
+		sleepWeek.setYesterdayCntPercent(lastWeekCntPercent);
 
 		// 수면 시간 통계 퍼센트 계산
 		Long lastWeekSleepTime = sumSleepTimeWeek(sleepDay, writeDay);
 		Long sleepTimePercent = getPercent(sleepTime, lastWeekSleepTime);
 		Long lastWeekSleepTimePercent = getPercent(lastWeekSleepTime, sleepTime);
 		sleepWeek.setSleepPercent(sleepTimePercent);
-		sleepWeek.setLastWeekSleepPercent(lastWeekSleepTimePercent);
+		sleepWeek.setYesterdaySleepPercent(lastWeekSleepTimePercent);
 
 		return sleepWeek;
 	}

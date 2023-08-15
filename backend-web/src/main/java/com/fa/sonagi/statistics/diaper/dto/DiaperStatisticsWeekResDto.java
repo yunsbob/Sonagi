@@ -1,6 +1,6 @@
 package com.fa.sonagi.statistics.diaper.dto;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import lombok.Getter;
@@ -13,11 +13,11 @@ public class DiaperStatisticsWeekResDto {
 	private Long peeCnt;
 	private Long poopCnt;
 	private Long peeCntPercent;
-	private Long lastWeekPeeCntPercent;
+	private Long yesterdayPeeCntPercent;
 	private Long poopCntPercent;
-	private Long lastWeekPoopCntPercent;
+	private Long yesterdayPoopCntPercent;
 
 	public DiaperStatisticsWeekResDto() {
-		this.diaperStatistics = new HashMap<>();
+		this.diaperStatistics = new LinkedHashMap<>();
 	}
 }

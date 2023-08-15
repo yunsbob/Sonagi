@@ -6,7 +6,7 @@ import com.fa.sonagi.question.dto.QuestionPostDto;
 import com.fa.sonagi.question.dto.QuestionResDto;
 
 public interface QuestionService {
-	QuestionResDto findQuestionById(Long id);
+	QuestionResDto findQuestionById(Long questionId);
 
 	void registQuestion(QuestionPostDto questionPostDto);
 

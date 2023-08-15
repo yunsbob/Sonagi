@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.fa.sonagi.baby.dto.CoparentResDto;
 import com.fa.sonagi.baby.entity.Baby;
 import com.fa.sonagi.baby.entity.UserBaby;
 import com.fa.sonagi.baby.repository.BabyRepository;
@@ -103,7 +104,20 @@ public class FCMNotificationService {
 		diaryNotification(diaryFilter);
 	}
 
+	public void sendWritedDiaryNotification(List<CoparentResDto> coparentResDtos) {
+		for (CoparentResDto coparents : coparentResDtos) {
+			Long userId = coparents.getUserId();
+			Users user = userRepository.findById(userId).orElseThrow();
+
+			if (user.getDAlarm().equals("Y")) {
+				System.out.println("사용자" + user.getUserId());
+				sendNotificationByToken(userId, "작성된 일기 알림", "우리 아이의 일기가 작성되었어요!");
+			}
+		}
+	}
+
 	public void mealNotification(List<Baby> mealFilter) {
+		System.out.println("dfjskfjaldjfaslfh");
 		for (Baby baby : mealFilter) {
 			List<UserBaby> userBabies = userBabyRepository.findByBabyId(baby.getId());
 

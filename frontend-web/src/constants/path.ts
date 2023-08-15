@@ -11,6 +11,7 @@ const PATH = {
   GRAPHBYDAY: '/main/graph',
   GRAPHBYWEEK: '/main/graph/week',
   OURBABY: '/main/ourBaby',
+  MEDICALINFO: '/main/ourBaby/medicalInfo',
   DIARY: '/main/diary',
   DIARYREGISTER: '/main/diaryRegister',
   MYPAGE: '/main/myPage',
@@ -18,6 +19,10 @@ const PATH = {
   REGISTERBABYPROFILE: '/regBabyProfile',
   UPDATEBABYPROFILE: '/updateBabyProfile',
   DETAILRECORD: '/main/detailRecord',
+  ADMIN: '/admin',
+  FAQ: '/admin/faq',
+  QUESTION: '/admin/question',
+  RESTORE: '/admin/restore',
 } as const;
 
 export { PATH };

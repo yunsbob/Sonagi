@@ -124,14 +124,14 @@ public class PumpingBreastStatisticsServiceImpl implements PumpingBreastStatisti
 		Long cntPercent = getPercent(cnt, lastWeekCnt);
 		Long lastWeekCntPercent = getPercent(lastWeekCnt, cnt);
 		pumpingBreastWeek.setCntPercent(cntPercent);
-		pumpingBreastWeek.setLastWeekCntPercent(lastWeekCntPercent);
+		pumpingBreastWeek.setYesterdayCntPercent(lastWeekCntPercent);
 
 		// 유축 용량 통계 퍼센트 계산
 		Long lastWeekAmount = pumpingBreastRepository.findPumpingBreastAmountByWeek(babyId, monday, sunday);
 		Long amountPercent = getPercent(amount, lastWeekAmount);
 		Long lastWeekAmountPercent = getPercent(lastWeekAmount, amount);
 		pumpingBreastWeek.setAmountPercent(amountPercent);
-		pumpingBreastWeek.setLastWeekAmountPercent(lastWeekAmountPercent);
+		pumpingBreastWeek.setYesterdayAmountPercent(lastWeekAmountPercent);
 
 		return pumpingBreastWeek;
 	}

@@ -20,22 +20,27 @@ const WeekendCalendar = () => {
   }, [selectedDate]);
 
   const jStatusOfDay = (newDate: Dayjs): string => {
-    if (newDate.isSame(dayjs(selectedDate))) {
+    const curDate = new Date();
+    curDate.setHours(0, 0, 0, 0);
+    const curDay = dayjs(curDate);
+    if (newDate.isSame(dayjs(selectedDate), 'day')) {
       return 'isToday';
     }
-    if (newDate.isAfter(dayjs())) {
+    if (curDay.isBefore(newDate, 'day')) {
       return 'afterToday';
     }
     return 'beforeToday';
   };
+
   const handleChangeDay = (date: Date) => {
     const newDate = new Date();
     newDate.setHours(0, 0, 0, 0);
-    if (dayjs(date).isAfter(newDate)) {
+    if (dayjs(date).isAfter(newDate, 'day')) {
       return;
     }
     setSelectedDate(formatDate(date));
   };
+
   return (
     <>
       <WeekendCalendarContainer>

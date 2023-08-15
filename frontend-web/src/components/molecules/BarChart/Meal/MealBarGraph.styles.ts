@@ -63,13 +63,14 @@ const CategoryContainer = styled.div`
   display: flex;
   width: inherit;
   padding: 0px 15px;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 const CategoryWrapper = styled.div`
   display: flex;
   width: fit-content;
   margin-top: 10px;
+  margin-left: 20px;
 
   > div {
     margin-right: 6px;

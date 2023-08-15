@@ -23,6 +23,9 @@ import { HealthCard } from '@/components/organisms/Card/HealthCard';
 import { ExtraCard } from '@/components/organisms/Card/ExtraCard';
 import React, { Suspense, lazy } from 'react';
 import LoadingPage from '@/pages/LoadingPage/LoadingPage';
+import { UseQueryResult, useQueries } from '@tanstack/react-query';
+import { queries } from '@testing-library/react';
+import { useGetAllStatistics } from '@/apis/Statistic/Queries/useGetAllStatistics';
 
 const mealCardPromise = import('@/components/organisms/Card/MealCard');
 
@@ -37,33 +40,52 @@ const GraphByDay = () => {
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
   const date = useRecoilValue(selectedDateState);
 
-  const mealStatistics = useGetMealStatistics(babyInfo.babyId, 'day', date);
-  const diaperStatistics = useGetDiaperStatistics(babyInfo.babyId, 'day', date);
-  const sleepStatistics = useGetSleepStatistics(babyInfo.babyId, 'day', date);
-  const pumpStatistics = useGetPumpStatistics(babyInfo.babyId, 'day', date);
-  const activityStatistics = useGetActivityStatistics(
-    babyInfo.babyId,
-    'day',
-    date
-  );
-  const healthStatistics = useGetHealthStatistics(babyInfo.babyId, 'day', date);
-  const extraStatistics = useGetExtraStatistics(babyInfo.babyId, 'day', date);
-
-  console.log(mealStatistics);
-
+  const getGraphDatas = useGetAllStatistics(babyInfo.babyId, 'day', date);
   return (
     <Suspense fallback={<LoadingPage />}>
       <GrapByDayContainer className="scrollable">
-        <DoughnutChart />
-        {currentCategory === 'Meal' && <MealCard data={mealStatistics} />}
-        {currentCategory === 'Diaper' && <DiaperCard data={diaperStatistics} />}
-        {currentCategory === 'Sleep' && <SleepCard data={sleepStatistics} />}
-        {currentCategory === 'Pump' && <PumpCard data={pumpStatistics} />}
-        {currentCategory === 'Activity' && (
-          <ActivityCard data={activityStatistics} />
+        {currentCategory === 'Meal' && (
+          <>
+            <DoughnutChart data={getGraphDatas[0].data.times} />
+            <MealCard data={getGraphDatas[0].data} />
+          </>
         )}
-        {currentCategory === 'Health' && <HealthCard data={healthStatistics} />}
-        {currentCategory === 'Extra' && <ExtraCard data={extraStatistics} />}
+        {currentCategory === 'Diaper' && (
+          <>
+            <DoughnutChart data={getGraphDatas[1].data.times} />
+            <DiaperCard data={getGraphDatas[1].data} />
+          </>
+        )}
+        {currentCategory === 'Sleep' && (
+          <>
+            <DoughnutChart data={getGraphDatas[2].data.times} />
+            <SleepCard data={getGraphDatas[2].data} />
+          </>
+        )}
+        {currentCategory === 'Pump' && (
+          <>
+            <DoughnutChart data={getGraphDatas[3].data.times} />
+            <PumpCard data={getGraphDatas[3].data} />
+          </>
+        )}
+        {currentCategory === 'Activity' && (
+          <>
+            <DoughnutChart data={getGraphDatas[4].data.times} />
+            <ActivityCard data={getGraphDatas[4].data} />
+          </>
+        )}
+        {currentCategory === 'Health' && (
+          <>
+            <DoughnutChart data={getGraphDatas[5].data.times} />
+            <HealthCard data={getGraphDatas[5].data} />
+          </>
+        )}
+        {currentCategory === 'Extra' && (
+          <>
+            <DoughnutChart data={getGraphDatas[6].data.times} />
+            <ExtraCard data={getGraphDatas[6].data} />
+          </>
+        )}
       </GrapByDayContainer>
     </Suspense>
   );

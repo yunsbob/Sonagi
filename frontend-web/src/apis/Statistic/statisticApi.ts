@@ -1,5 +1,21 @@
 import { PeriodType } from '@/types/card';
 import { instance } from '@/apis/instance';
+// 전체
+const getAllStatistics = async (
+  categoryType: string,
+  babyId: number,
+  period: PeriodType,
+  date: string
+) => {
+  try {
+    const respose = await instance.get(
+      `/${categoryType}Statistics?babyId=${babyId}&period=${period}&createdDate=${date}`
+    );
+    return respose.data;
+  } catch {
+    new Error('get meal statistics error');
+  }
+};
 
 // 식사 통계
 const getMealStatistics = async (
@@ -113,6 +129,7 @@ const getExtraStatistics = async (
   }
 };
 export {
+  getAllStatistics,
   getMealStatistics,
   getDiaperStatistics,
   getSleepStatistics,

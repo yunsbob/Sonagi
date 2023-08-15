@@ -8,7 +8,12 @@ interface DoughnutSliceProps {
 }
 
 const DoughnutSlice = ({ start, finished, color }: DoughnutSliceProps) => (
-  <path d={getArc(start, finished)} stroke={color} strokeWidth={sectorHeight} />
+  <path
+    d={getArc(start, finished)}
+    stroke={color}
+    strokeWidth={sectorHeight}
+    fill="transparent"
+  />
 );
 
 export default DoughnutSlice;

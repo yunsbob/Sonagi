@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fa.sonagi.FCM.service.FCMNotificationService;
+import com.fa.sonagi.baby.dto.CoparentResDto;
 import com.fa.sonagi.baby.entity.Baby;
 import com.fa.sonagi.baby.repository.BabyRepository;
+import com.fa.sonagi.baby.service.BabyService;
 import com.fa.sonagi.diary.dto.DiaryPostDto;
 import com.fa.sonagi.diary.dto.DiaryPutDto;
 import com.fa.sonagi.diary.dto.DiaryResDto;
@@ -33,9 +36,12 @@ public class DiaryServiceImpl implements DiaryService {
 	private final UserRepository userRepository;
 	private final BabyRepository babyRepository;
 	private final S3File s3File;
+	private final BabyService babyService;
+	private final FCMNotificationService fcmNotificationService;
 
 	@Override
 	@Transactional
+
 	public void createDiary(DiaryPostDto diaryPostDto, List<MultipartFile> imgFiles) throws Exception {
 		String userName = userRepository.findById(diaryPostDto.getUserId()).orElseThrow().getName();
 
@@ -70,6 +76,11 @@ public class DiaryServiceImpl implements DiaryService {
 
 		baby.updateLastDiaryTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
 
+		// 공동양육자를 조회
+		List<CoparentResDto> coparents = babyService.findCoparentListByBabyId(baby.getId(), diaryPostDto.getUserId());
+		if (coparents.size() > 0) {
+			fcmNotificationService.sendWritedDiaryNotification(coparents);
+		}
 	}
 
 	@Override
@@ -122,7 +133,7 @@ public class DiaryServiceImpl implements DiaryService {
 			DiaryResDto.DiaryInfo diaryInfo = DiaryResDto.DiaryInfo.builder()
 			                                                       .diaryId(diary.getId())
 			                                                       .userName(diary.getUserName())
-			                                                       .writeDay(diary.getCreatedDate())
+			                                                       .writedTime(diary.getCreatedTime())
 			                                                       .imgUrls(urlList)
 			                                                       .content(diary.getContent())
 			                                                       .build();

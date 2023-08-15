@@ -19,6 +19,8 @@ interface DiaperCardProps {
 const DiaperCard = ({ data }: DiaperCardProps) => {
   const currentTheme = categoryToColorMap['Diaper'];
   const color = theme.color[currentTheme];
+  const darkColor = theme.color.cardDiaper1;
+  const lightColor = theme.color.cardDiaper2;
 
   return (
     <CardContainer $borderColor={color}>
@@ -28,14 +30,22 @@ const DiaperCard = ({ data }: DiaperCardProps) => {
       />
       <CardContentText type="대변" data={data.poopCnt} unit="회" />
       <CardContentBar
-        $borderColor={color}
+        $borderColor={
+          data.poopCntPercent > data.yesterdayPoopCntPercent
+            ? darkColor
+            : lightColor
+        }
         $ratio={data.poopCntPercent}
         $yesterDayRatio={data.yesterdayPoopCntPercent}
       />
 
       <CardContentText type="소변" data={data.peeCnt} unit="회" />
       <CardContentBar
-        $borderColor={color}
+        $borderColor={
+          data.peeCntPercent > data.yesterdayPeeCntPercent
+            ? darkColor
+            : lightColor
+        }
         $ratio={data.peeCntPercent}
         $yesterDayRatio={data.yesterdayPeeCntPercent}
       />

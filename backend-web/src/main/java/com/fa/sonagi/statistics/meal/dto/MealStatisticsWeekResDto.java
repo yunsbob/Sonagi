@@ -1,6 +1,6 @@
 package com.fa.sonagi.statistics.meal.dto;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import lombok.Getter;
@@ -13,11 +13,11 @@ public class MealStatisticsWeekResDto {
 	private Long cnt;
 	private Long amount;
 	private Long cntPercent;
-	private Long lastWeekCntPercent;
+	private Long yesterdayCntPercent;
 	private Long amountPercent;
-	private Long lastWeekAmountPercent;
+	private Long yesterdayAmountPercent;
 
 	public MealStatisticsWeekResDto() {
-		this.mealStatistics = new HashMap<>();
+		this.mealStatistics = new LinkedHashMap<>();
 	}
 }

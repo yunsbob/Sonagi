@@ -13,7 +13,7 @@ const BabyPersonalInfoButton = ({
 }: BabyPersonalInfoButtonProps) => {
   return (
     <S.BabyPersonalInfoButtonContainer>
-      <Button style={{ height: '150px', width: '130px' }}>
+      <Button style={{ height: '164px', width: '133px' }}>
         <Text size="medium3">{memo}</Text>
         <S.NameWrapper>
           <Text size="small">{name}</Text>

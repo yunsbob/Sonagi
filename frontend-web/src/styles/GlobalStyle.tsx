@@ -28,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
         }
     }
 
+
     @keyframes fadeIn {
         from {
             opacity: 0;

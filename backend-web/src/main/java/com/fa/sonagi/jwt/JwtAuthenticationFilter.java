@@ -35,7 +35,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private final UserRepository userRepository;
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws
+		ServletException,
+		IOException {
 		// 1. Request Header 에서 JWT 토큰 추출 - token null => 로그아웃
 		String token = resolveToken(request);
 		if (token == null) {
@@ -50,18 +52,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			log.info("jwt 인증 성공");
 			// 토큰이 유효할 경우 토큰에서 Authentication 객체를 가지고 와서 SecurityContext 에 저장
 			Authentication authentication = jwtTokenProvider.getAuthentication(token);
-			SecurityContextHolder
-				.getContext()
-				.setAuthentication(authentication);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 			chain.doFilter(request, response);
 			return;
 		}
 
 		//3. expired 된 access 토큰 처리
 		if (Objects.equals(validateResult, "isExpired")) {
-			Optional<String> cookie = CookieUtil
-				.getCookie(request, REFRESH_TOKEN)
-				.map(Cookie::getValue);
+			Optional<String> cookie = CookieUtil.getCookie(request, REFRESH_TOKEN).map(Cookie::getValue);
 
 			// 쿠키에 리프레시 토큰이 없음. => 로그아웃
 			if (cookie.isEmpty()) {
@@ -78,13 +76,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				return;
 			}
 
-			String userSocialId = jwtTokenProvider
-				.parseClaims(refreshTokenFromCookie)
-				.getSubject();
+			String userSocialId = jwtTokenProvider.parseClaims(refreshTokenFromCookie).getSubject();
 
-			String refreshTokenFromRedis = redisTemplate
-				.opsForValue()
-				.get("RT" + userSocialId);
+			String refreshTokenFromRedis = redisTemplate.opsForValue().get("RT" + userSocialId);
 
 			// Redis 에 토큰이 없음 => 로그아웃
 			if (refreshTokenFromRedis == null) {
@@ -95,37 +89,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			// redis토큰 != cookie토큰 => 로그아웃 + 토큰 burn
 			if (!Objects.equals(refreshTokenFromRedis, refreshTokenFromCookie)) {
 				log.info("Redis RT와 쿠키 RT가 다름");
-				redisTemplate
-					.opsForValue()
-					.getOperations()
-					.delete(refreshTokenFromRedis);
+				redisTemplate.opsForValue().getOperations().delete("RT" + userSocialId);
 			} else {// 정상 유저 - 토큰 재발급 해줘야함
 				// 토큰 생성. RTR
-				Users user = userRepository
-					.findBySocialId(userSocialId);
+				Users user = userRepository.findBySocialId(userSocialId);
 
-				Token tokenInfo = jwtTokenProvider.createToken(String.valueOf(user.getUserId()), userSocialId, user
-					.getRoles()
-					.get(0));
+				Token tokenInfo = jwtTokenProvider.createToken(String.valueOf(user.getUserId()), userSocialId,
+					user.getRoles().get(0));
 
 				// from Redis 기존 토큰 burn 그리고 새로 생성후 cookie 에 추가
-				redisTemplate
-					.opsForValue()
-					.getOperations()
-					.delete(refreshTokenFromRedis);
-				redisTemplate
-					.opsForValue()
-					.set("RT" + userSocialId, tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(), TimeUnit.MILLISECONDS);
+				redisTemplate.opsForValue().getOperations().delete("RT" + userSocialId);
+				redisTemplate.opsForValue()
+				             .set("RT" + userSocialId, tokenInfo.getRefreshToken(), tokenInfo.getExpireTime(),
+					             TimeUnit.MILLISECONDS);
 
 				// refresh Token -> Http only 쿠키.
 				CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
-				CookieUtil.addCookie(response, REFRESH_TOKEN, tokenInfo.getRefreshToken(), JwtTokenProvider.getRefreshTokenExpireTimeCookie());
+				CookieUtil.addCookie(response, REFRESH_TOKEN, tokenInfo.getRefreshToken(),
+					JwtTokenProvider.getRefreshTokenExpireTimeCookie());
 				response.setHeader("x-access-token", tokenInfo.getAccessToken());
 
 				Authentication authentication = jwtTokenProvider.getAuthentication(tokenInfo.getAccessToken());
-				SecurityContextHolder
-					.getContext()
-					.setAuthentication(authentication);
+				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
 			chain.doFilter(request, response);
 		}

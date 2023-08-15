@@ -3,6 +3,7 @@ package com.fa.sonagi.user.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +16,13 @@ import com.fa.sonagi.user.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Tag(name = "User", description = "사용자 API")
+@Slf4j
 @RequestMapping("/api")
 @RestController
 @RequiredArgsConstructor
@@ -49,6 +54,7 @@ public class UserController {
 	 */
 	@PutMapping("/fcm")
 	public ResponseEntity<?> updateFCMToken(@RequestBody FCMTokenDto fcmTokenDto) {
+		log.info("test : {} ", fcmTokenDto.getFirebaseToken());
 		userService.updateFCMToken(fcmTokenDto);
 		return ResponseEntity.ok().build();
 	}
@@ -104,6 +110,13 @@ public class UserController {
 	public ResponseEntity<?> updateCAlarm(@PathVariable Long userId, @PathVariable Long alarm) {
 		String check = (alarm == 0) ? "N" : "Y";
 		userService.updateCAlarm(userId, check);
+		return ResponseEntity.ok().build();
+	}
+
+	@PostMapping("/logout")
+	@Operation(summary = "유저가 요청을 보내면 쿠키의 RefreshToken과 Redis의 저장된 토큰을 지운다.")
+	public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+		userService.logout(request, response);
 		return ResponseEntity.ok().build();
 	}
 }

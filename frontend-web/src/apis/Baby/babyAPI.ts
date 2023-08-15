@@ -9,6 +9,14 @@ const addBaby = async (baby: Baby) => {
   }
 };
 
+const changeBabyState = async (babyId: number) => {
+  try {
+    await instance.put(`/babyState/${babyId}`);
+  } catch {
+    new Error('baby state change error');
+  }
+};
+
 const getBaby = async (userId: number) => {
   try {
     const response = await instance.get(`/babyInfos/${userId}`);
@@ -62,4 +70,5 @@ export {
   getBabyCode,
   registerBabyCode,
   updateBaby,
+  changeBabyState,
 };
