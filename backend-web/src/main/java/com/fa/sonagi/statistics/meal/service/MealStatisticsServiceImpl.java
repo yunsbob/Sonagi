@@ -140,23 +140,23 @@ public class MealStatisticsServiceImpl implements MealStatisticsService{
 
 			if (babyFoodAmounts.containsKey(writeDay))
 				mealDay.setBabyFoodAmount(
-					getPercent(babyFoodAmounts.get(writeDay), amountWEEK[i][0], amountWEEK[i][1]));
+					Math.floor(getPercent(babyFoodAmounts.get(writeDay), amountWEEK[i][0], amountWEEK[i][1]) * 100) / 100);
 			else
-				mealDay.setBabyFoodAmount(0L);
+				mealDay.setBabyFoodAmount((double)0);
 			if (breastFeedingAmounts.containsKey(writeDay))
 				mealDay.setBreastFeedingAmount(
-					getPercent(breastFeedingAmounts.get(writeDay), amountWEEK[i][0], amountWEEK[i][1]));
+					Math.floor(getPercent(breastFeedingAmounts.get(writeDay), amountWEEK[i][0], amountWEEK[i][1]) * 100) / 100);
 			else
-				mealDay.setBreastFeedingAmount(0L);
+				mealDay.setBreastFeedingAmount((double)0);
 			if (infantFormulaAmounts.containsKey(writeDay))
 				mealDay.setInfantFormulaAmount(
-					getPercent(infantFormulaAmounts.get(writeDay), amountWEEK[i][0], amountWEEK[i][1]));
+					Math.floor(getPercent(infantFormulaAmounts.get(writeDay), amountWEEK[i][0], amountWEEK[i][1]) * 100) / 100);
 			else
-				mealDay.setInfantFormulaAmount(0L);
+				mealDay.setInfantFormulaAmount((double)0);
 			if (milkAmounts.containsKey(writeDay))
-				mealDay.setMilkAmount(getPercent(milkAmounts.get(writeDay), amountWEEK[i][0], amountWEEK[i][1]));
+				mealDay.setMilkAmount(Math.floor(getPercent(milkAmounts.get(writeDay), amountWEEK[i][0], amountWEEK[i][1]) * 100) / 100);
 			else
-				mealDay.setMilkAmount(0L);
+				mealDay.setMilkAmount((double)0);
 
 			mealWeek.getMealStatistics().put(writeDay.format(DateTimeFormatter.ofPattern("M/dd")), mealDay);
 			writeDay = writeDay.plusDays(1);
@@ -222,11 +222,11 @@ public class MealStatisticsServiceImpl implements MealStatisticsService{
 	/**
 	 * 퍼센트 계산하기 Week
 	 */
-	public Long getPercent(Long target, Long opponent, Long percent) {
+	public Double getPercent(Long target, Long opponent, Long percent) {
 		if (opponent == 0)
-			return 0L;
+			return (double)0L;
 		else
-			return target * percent / opponent;
+			return (double)target * (double)percent / (double)opponent;
 	}
 
 	/**
@@ -247,7 +247,7 @@ public class MealStatisticsServiceImpl implements MealStatisticsService{
 	public Long[][] getPercentByDay(Map<LocalDate, Long> babyFood, Map<LocalDate, Long> breastFeeding,
 		Map<LocalDate, Long> infantFormula, Map<LocalDate, Long> milk, LocalDate writeDay) {
 		Long[][] amountWeek = new Long[WEEK][2];
-		Long mostAmount = 0L;
+		long mostAmount = 0L;
 
 		// 최대 용량 계산하기
 		for (int i = 0; i < WEEK; i++) {
