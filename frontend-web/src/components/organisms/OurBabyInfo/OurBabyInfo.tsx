@@ -10,20 +10,24 @@ import babyCard from '@/assets/images/img-baby-card.png';
 import BabyPersonalInfoContainer from '@/components/organisms/BabyPersonalInfoContainer/BabyPersonalInfoContainer';
 import { Background } from '@/components/atoms/Background/Background.styles';
 import BackgroundImg from '@/assets/images/background.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { BabiesOfUser, Baby } from '@/types';
+import { BabiesOfUser, Baby, User } from '@/types';
 import { babyInfoState, selectedBabyState } from '@/states/babyState';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import { BabyCodeModal } from '@/components/organisms/BabyCodeModal/BabyCodeModal';
 import { Container } from '@/pages/MyPagePage/MyPagePage.styles';
+import { useGetBabyDetail } from '@/apis/Baby/Queries/useGetBabyDetail';
+import { userInfoState } from '@/states/userState';
 
 const OurBabyInfo = () => {
   const navigate = useNavigate();
 
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
+  const userInfo: User = useRecoilValue(userInfoState);
   const [isMale, setIsMale] = useState(babyInfo.gender === 'M');
+  const [selectedBirthDate, setSelectedBirthDate] = useState('string');
 
   const [BabyCodeModalOpen, setBabyCodeModalOpen] = useState(false);
 
@@ -32,6 +36,12 @@ const OurBabyInfo = () => {
   ) => {
     setState(false);
   };
+
+  console.log(userInfo.userId, babyInfo.babyId);
+  useGetBabyDetail(babyInfo.babyId, userInfo.userId);
+
+  useEffect(() => {});
+
   // TODO: 함께한 시간 계산하기.. 근데 selectBaby에는 date가 없다
   return (
     <S.OurBabyInfoWholeContainer>

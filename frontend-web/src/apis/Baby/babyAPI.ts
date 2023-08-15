@@ -62,6 +62,15 @@ const updateBaby = async (baby: UpdateBaby) => {
   }
 };
 
+// 아이 세부 정보 불러오기
+const getBabyDetail = async (babyId: number, userId: number) => {
+  try {
+    await instance.get(`/babyDetail/${babyId}/${userId}`);
+  } catch {
+    new Error('baby detail get error');
+  }
+};
+
 export {
   addBaby,
   getBaby,
@@ -71,4 +80,5 @@ export {
   registerBabyCode,
   updateBaby,
   changeBabyState,
+  getBabyDetail,
 };
