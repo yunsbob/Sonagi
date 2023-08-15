@@ -7,10 +7,10 @@ interface BabyPersonalInfoButtonProps {
   name: string;
 }
 
-const BabyPersonalInfoButton: React.FC<BabyPersonalInfoButtonProps> = ({
+const BabyPersonalInfoButton = ({
   memo,
   name,
-}) => {
+}: BabyPersonalInfoButtonProps) => {
   return (
     <S.BabyPersonalInfoButtonContainer>
       <Button style={{ height: '164px', width: '133px' }}>

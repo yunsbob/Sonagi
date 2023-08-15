@@ -12,6 +12,9 @@ const MemoArea = styled.textarea`
     border: none;
     outline: none;
   }
+  &:focus::placeholder {
+    color: transparent;
+  }
   font-family: 'Happiness-Sans';
   resize: none;
   border: none;
