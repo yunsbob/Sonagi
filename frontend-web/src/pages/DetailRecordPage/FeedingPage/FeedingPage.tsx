@@ -16,7 +16,7 @@ interface NameProps {
 
 const FeedingPage: React.FC<NameProps> = ({ name, recordName, recordId }) => {
   const recordDetailValue = useGetRecordDetails(recordName, recordId);
-  console.log(recordDetailValue);
+  console.log(recordDetailValue, '-----');
   // const details = useGetRecordDetails();
   return (
     <>

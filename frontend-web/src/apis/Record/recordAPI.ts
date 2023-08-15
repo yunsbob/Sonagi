@@ -32,9 +32,9 @@ const addRecord = async (type: string, record: AllRecords) => {
 
 const updateRecord = async (record: CombinedRecord) => {
   try {
-    await instance.put(`/${record.category}`);
-  } catch {
-    new Error('record put error');
+    await instance.put(`/${record.category}`, record);
+  } catch (error) {
+    throw new Error('record put error');
   }
 };
 
