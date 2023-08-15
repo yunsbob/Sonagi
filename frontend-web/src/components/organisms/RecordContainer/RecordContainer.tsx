@@ -15,7 +15,7 @@ type RecordContainerProps = {
   combinedData: CombinedRecord[];
 };
 
-const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
+const RecordContainer = ({ combinedData }: RecordContainerProps) => {
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const containerRef = useRef<HTMLDivElement>(null);
 

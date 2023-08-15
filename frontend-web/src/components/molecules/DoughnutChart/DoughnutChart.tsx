@@ -20,7 +20,7 @@ import {
 import DoughnutSlice from '@/components/molecules/DoughnutSlices/DoughnutSlices';
 import { PATH } from '@/constants/path';
 
-const DoughnutChart: React.FC = () => {
+const DoughnutChart = () => {
   // numbers도 따로 molcules로 빼고 싶었지만 ... JSX의 svg Elements 관련 지식 무지로 보류
   const numbers = [];
   for (let i = 0; i <= 23; i++) {

@@ -20,11 +20,7 @@ interface NameProps {
   recordId: number;
 }
 
-const InfantFormulaPage: React.FC<NameProps> = ({
-  name,
-  recordName,
-  recordId,
-}) => {
+const InfantFormulaPage = ({ name, recordName, recordId }: NameProps) => {
   const recordDetails = useGetRecordDetails(recordName, recordId);
   const userInfo = useRecoilValue(userInfoState);
   const babyInfo = useRecoilValue(selectedBabyState);

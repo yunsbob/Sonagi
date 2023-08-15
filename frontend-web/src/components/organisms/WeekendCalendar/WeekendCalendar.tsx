@@ -9,7 +9,7 @@ import { formatDate } from '@/utils/formatDate';
 
 //TODO: isRecoredDay 데이터 바인딩 이후 처리용 함수 제작.
 
-const WeekendCalendar: React.FC = () => {
+const WeekendCalendar = () => {
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
   const [weekendDateList, setWeekendDateList] = useState<
     Array<{ date: Dayjs; day: string }>

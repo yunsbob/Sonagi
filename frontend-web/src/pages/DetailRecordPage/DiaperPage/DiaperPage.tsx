@@ -63,15 +63,10 @@ const DiaperPage = ({ name, recordName, recordId }: NameProps) => {
       createdTime,
       memo
     );
-    // console.log(currentRecord, recordName);
     await updateRecordMutation.mutateAsync({
       record: currentRecord,
       queryName: recordName,
     });
-    // await updateRecordMutation.mutateAsync({
-    //   record: currentRecord,
-    //   queryName: recordName,
-    // });
     RouteHandler();
   };
 
@@ -90,16 +85,8 @@ const DiaperPage = ({ name, recordName, recordId }: NameProps) => {
           <S.Divider>
             <MemoRecorder setMemo={setMemo} placeholder={memo}></MemoRecorder>
           </S.Divider>
-          <Button
-            option="activated"
-            size="large"
-            // onClick={onClickButton}
-          >
-            <Text
-              size="headSmall"
-              color={theme.color.white1}
-              onClick={handleUpdate}
-            >
+          <Button option="activated" size="large" onClick={handleUpdate}>
+            <Text size="headSmall" color={theme.color.white1}>
               등록하기
             </Text>
           </Button>

@@ -89,8 +89,6 @@ const RecordBlock = ({
       <RoundedRect color={color} />
       <TimeText size="medium2">{time}</TimeText>
       <Text size="medium1" style={{ minWidth: 'fit-content' }}>
-        {recordId}
-        {record.category}
         {recordType}
       </Text>
       <MemoText size="medium2">{record.memo}</MemoText>
