@@ -31,7 +31,6 @@ const BabyCodeModal = ({ onModalClose, modalOpen }: CustomModal) => {
           code: code,
         })
       );
-      console.log('isReactNative', code);
     } else {
       // Web이라면 writeText활용
       try {
