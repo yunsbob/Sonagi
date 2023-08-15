@@ -1,6 +1,6 @@
 package com.fa.sonagi.statistics.pumpingBreast.dto;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import lombok.Getter;
@@ -18,6 +18,6 @@ public class PumpingBreastStatisticsWeekResDto {
 	private Long yesterdayAmountPercent;
 
 	public PumpingBreastStatisticsWeekResDto() {
-		this.pumpingBreastStatistics = new HashMap<>();
+		this.pumpingBreastStatistics = new LinkedHashMap<>();
 	}
 }

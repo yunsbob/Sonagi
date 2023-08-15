@@ -1,6 +1,6 @@
 package com.fa.sonagi.statistics.health.dto;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import lombok.Getter;
@@ -21,6 +21,6 @@ public class HealthStatisticsWeekResDto {
 	private Long yesterdayMedicationCntPercent;
 
 	public HealthStatisticsWeekResDto() {
-		this.healthStatistics = new HashMap<>();
+		this.healthStatistics = new LinkedHashMap<>();
 	}
 }

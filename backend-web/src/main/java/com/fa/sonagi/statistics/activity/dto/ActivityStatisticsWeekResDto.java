@@ -1,6 +1,6 @@
 package com.fa.sonagi.statistics.activity.dto;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import lombok.Getter;
@@ -19,6 +19,6 @@ public class ActivityStatisticsWeekResDto {
 	private Long yesterdayActivityPercent;
 
 	public ActivityStatisticsWeekResDto() {
-		this.activityStatistics = new HashMap<>();
+		this.activityStatistics = new LinkedHashMap<>();
 	}
 }

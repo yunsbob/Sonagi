@@ -1,6 +1,6 @@
 package com.fa.sonagi.statistics.sleep.dto;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import lombok.Getter;
@@ -19,6 +19,6 @@ public class SleepStatisticsWeekResDto {
 	private Long yesterdaySleepPercent;
 
 	public SleepStatisticsWeekResDto() {
-		this.sleepStatistics =  new HashMap<>();
+		this.sleepStatistics =  new LinkedHashMap<>();
 	}
 }
