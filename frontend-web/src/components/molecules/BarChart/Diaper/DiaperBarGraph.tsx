@@ -29,8 +29,6 @@ const DiaperBarGraph = ({ data }: DiaperWeekProps) => {
   const days = Object.keys(data);
   const values: DiaperWeekItem[] = Object.values(data);
 
-  values.map(value => console.log(value.pees));
-  console.log(values);
   return (
     <Container>
       <LineContainer>
