@@ -8,6 +8,7 @@ import {
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import { selectedCategoryState } from '@/states/categoryState';
 import theme from '@/styles/theme';
+import { PeriodType } from '@/types/card';
 import { useRecoilValue } from 'recoil';
 
 export interface YesterdayProps {
@@ -21,12 +22,15 @@ export interface CardBarWrapperProps {
 
 export interface CardContentBarProps
   extends YesterdayProps,
-    CardBarWrapperProps {}
+    CardBarWrapperProps {
+  $graphType: PeriodType;
+}
 
 const CardContentBar = ({
   $borderColor,
   $ratio,
   $yesterDayRatio,
+  $graphType,
 }: CardContentBarProps) => {
   return (
     <>
@@ -34,7 +38,8 @@ const CardContentBar = ({
         <CardBarWrapper $borderColor={$borderColor} $ratio={$ratio} />
         <Yesterday $yesterDayRatio={$yesterDayRatio}>
           <YesterdayLine />
-          <Text size="xSmall">어제</Text>
+
+          <Text size="xSmall">{$graphType === 'day' ? '어제' : '지난주'}</Text>
         </Yesterday>
       </CardBarContainer>
     </>

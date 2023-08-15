@@ -33,18 +33,18 @@ const GraphByWeek = () => {
       {currentCategory === 'Meal' && (
         <>
           <MealBarGraph data={getGraphDatas[0].data.mealStatistics} />
-          <MealCard data={getGraphDatas[0].data} />
+          <MealCard data={getGraphDatas[0].data} graphType="week" />
         </>
       )}
       {currentCategory === 'Diaper' && (
         <>
           <DiaperBarGraph data={getGraphDatas[1].data.diaperStatistics} />
-          <DiaperCard data={getGraphDatas[1].data} />
+          <DiaperCard data={getGraphDatas[1].data} graphType="week" />
         </>
       )}
       {currentCategory === 'Sleep' && (
         <>
-          <SleepCard data={getGraphDatas[2].data} />
+          <SleepCard data={getGraphDatas[2].data} graphType="week" />
         </>
       )}
       {currentCategory === 'Pump' && (
@@ -52,24 +52,24 @@ const GraphByWeek = () => {
           <PumpingBreastBarGraph
             data={getGraphDatas[3].data.pumpingBreastStatistics}
           />
-          <PumpCard data={getGraphDatas[3].data} />
+          <PumpCard data={getGraphDatas[3].data} graphType="week" />
         </>
       )}
       {currentCategory === 'Activity' && (
         <>
-          <ActivityCard data={getGraphDatas[4].data} />
+          <ActivityCard data={getGraphDatas[4].data} graphType="week" />
         </>
       )}
       {currentCategory === 'Health' && (
         <>
           <HealthBarGraph data={getGraphDatas[5].data.healthStatistics} />
-          <HealthCard data={getGraphDatas[5].data} />
+          <HealthCard data={getGraphDatas[5].data} graphType="week" />
         </>
       )}
       {currentCategory === 'Extra' && (
         <>
           <ExtraBarGraph data={getGraphDatas[6].data.extraStatistics} />
-          <ExtraCard data={getGraphDatas[6].data} />
+          <ExtraCard data={getGraphDatas[6].data} graphType="week" />
         </>
       )}
     </GraphByWeekContainer>
