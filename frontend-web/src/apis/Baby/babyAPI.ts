@@ -35,6 +35,16 @@ const getCoParent = async (userId: number, babyId: number) => {
   }
 };
 
+// 아이 세부 정보 불러오기
+const getBabyDetail = async (babyId: number, userId: number) => {
+  try {
+    const response = await instance.get(`/babyDetail/${babyId}/${userId}`);
+    return response.data;
+  } catch {
+    new Error('baby detail get error');
+  }
+};
+
 const deleteCoparent = async (babyId: number, coparentId: number) => {
   await instance.delete(`/coparents/${babyId}/${coparentId}`);
 };
@@ -91,4 +101,5 @@ export {
   changeBabyState,
   getVaccination,
   getMedicalCheck,
+  getBabyDetail,
 };
