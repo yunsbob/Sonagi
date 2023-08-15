@@ -1,33 +1,19 @@
 import { Background } from '@/components/atoms/Background/Background.styles';
 import orangeBackground from '@/assets/images/background-orange-to-blue.png';
 import { Link, Outlet } from 'react-router-dom';
+import Button from '@/components/atoms/Button/Button';
+import { AdminContainer, Header } from '@/pages/AdminPage/AdminPage.style';
+import { Text } from '@/components/atoms/Text/Text.styles';
+import AdminBar from '@/components/molecules/AdminBar/AdminBar';
 
 const AdminPage = () => {
   return (
-    <Background $background={orangeBackground}>
-      <div>어드민</div>
-      <p>
-        <Link to={`/main/myPage`}>
-          <button>마이페이지</button>
-        </Link>
-      </p>
-      <p>
-        <Link to={`/admin/faq`}>
-          <button>FAQ</button>
-        </Link>
-      </p>
-      <p>
-        <Link to={`/admin/question`}>
-          <button>문의사항</button>
-        </Link>
-      </p>
-      <p>
-        <Link to={`/admin/restore`}>
-          <button>아이 데이터 복구</button>
-        </Link>
-      </p>
+    <AdminContainer>
+      <Header>관리자 페이지</Header>
+      <AdminBar />
+
       <Outlet />
-    </Background>
+    </AdminContainer>
   );
 };
 

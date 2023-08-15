@@ -10,7 +10,6 @@ import SignInPage from '@/pages/SignInPage/SignInPage';
 import MainPage from '@/pages/MainPage/MainPage';
 import RecordPage from '@/pages/RecordPage/RecordPage';
 import GraphPage from '@/pages/GraphPage/GraphPage';
-import OurBabyPage from '@/pages/OurBabyPage/OurBabyPage';
 import DiaryPage from '@/pages/DiaryPage/DiaryPage';
 import DiaryRegister from '@/pages/DiaryRegisterPage/DiaryRegisterPage';
 import MyPagePage from '@/pages/MyPagePage/MyPagePage';
@@ -25,12 +24,14 @@ import AlarmPage from '@/pages/AlarmPage/AlarmPage';
 import UpdateBabyProfilePage from '@/pages/UpdateBabyProfilePage/UpdateBabyProfilePage';
 import AdminPage from '@/pages/AdminPage/AdminPage';
 import FAQPage from '@/pages/FAQPage/FAQPage';
-import FAQCreatePage from '@/pages/FAQPage/frontend-web/src/pages/FAQPage/FAQCreatePage';
+import FAQCreatePage from '@/pages/FAQPage/FAQCreatePage';
 import FAQDetailPage from '@/pages/FAQPage/FAQDetailPage';
 import FAQModifyPage from '@/pages/FAQPage/FAQModifyPage';
 import RestorePage from '@/pages/RestorePage/frontend-web/src/pages/RestorePage/RestorePage';
 import QuestionPage from '@/pages/QuestionPage/QuestionPage';
 import QuestionDetailPage from '@/pages/QuestionPage/QuestionDetailPage';
+import OurBabyInfo from '@/components/organisms/OurBabyInfo/OurBabyInfo';
+import MedicalInfoPage from '@/pages/MedicalInfoPage/MedicalInfoPage';
 
 const router = createBrowserRouter([
   {
@@ -79,7 +80,8 @@ const router = createBrowserRouter([
           { path: 'week', element: <GraphByWeek /> },
         ],
       },
-      { path: 'ourBaby', element: <OurBabyPage /> },
+      { path: 'ourBaby', element: <OurBabyInfo /> },
+      { path: 'ourBaby/medicalInfo', element: <MedicalInfoPage /> },
       { path: 'diary', element: <DiaryPage /> },
       { path: 'diaryRegister', element: <DiaryRegister /> },
       { path: 'myPage', element: <MyPagePage /> },
@@ -90,9 +92,6 @@ const router = createBrowserRouter([
   {
     path: PATH.ADMIN,
     element: <AdminPage />,
-  },
-  {
-    path: PATH.ADMIN,
     children: [
       { path: 'faq', element: <FAQPage /> },
       { path: 'faq/:id', element: <FAQDetailPage /> },

@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, Outlet, useParams } from 'react-router-dom';
-import { Background } from '@/components/atoms/Background/Background.styles';
-import orangeBackground from '@/assets/images/background-orange-to-blue.png';
-import AdminBar from '@/components/molecules/AdminBar/AdminBar';
 import { instance } from '@/apis/instance';
+import {
+  AdminButtonContainer,
+  AdminButton,
+  ContentContainer,
+  DetailContent,
+  DetailTitle,
+  ListContainer,
+} from '../AdminPage/AdminPage.style';
 
 const FAQDetailPage = () => {
   const faqId = useParams().id;
   const navigate = useNavigate();
-  // state
   const [detailFAQData, setDetailFAQData] = useState<any>([]);
 
   useEffect(() => {
@@ -35,35 +39,26 @@ const FAQDetailPage = () => {
     }
   };
   return (
-    <Background $background={orangeBackground}>
-      <div>faq detail</div>
-      <div className="faq-detail">
-        <div className="faq-wrapper">
-          <div className="faq-header">
-            <p>번호 : {detailFAQData.faqId}</p>
-          </div>
-
-          <div className="faq-title">
-            <p>제목 : {detailFAQData.title}</p>
-          </div>
-          <div className="faq-content">
-            <p>내용 : {detailFAQData.content}</p>
-          </div>
-        </div>
-
-        <div className="grid-2">
-          <Link to={`/admin/faq/modify/${detailFAQData.faqId}`}>
-            <button>수정</button>
-          </Link>
-          <button onClick={deleteFAQ}>삭제</button>
-          <Link to={`/admin/faq`}>
-            <button>목록</button>
-          </Link>
-        </div>
-      </div>
-      <AdminBar />
+    <ListContainer>
+      <ContentContainer>
+        <DetailTitle>
+          <p>{detailFAQData.title}</p>
+        </DetailTitle>
+        <DetailContent>
+          <p>{detailFAQData.content}</p>
+        </DetailContent>
+      </ContentContainer>
+      <AdminButtonContainer>
+        <AdminButton>
+          <Link to={`/admin/faq/modify/${detailFAQData.faqId}`}>수정</Link>
+        </AdminButton>
+        <AdminButton onClick={deleteFAQ}>삭제</AdminButton>
+        <AdminButton>
+          <Link to={`/admin/faq`}>목록</Link>
+        </AdminButton>
+      </AdminButtonContainer>
       <Outlet />
-    </Background>
+    </ListContainer>
   );
 };
 

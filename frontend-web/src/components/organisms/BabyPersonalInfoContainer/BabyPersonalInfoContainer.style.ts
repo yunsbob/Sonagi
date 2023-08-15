@@ -8,4 +8,17 @@ const BPICContainer = styled.div`
   width: 100%;
 `;
 
-export { BPICContainer };
+const BPICButtonWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  /* width: fit-content; */
+`;
+
+export { BPICContainer, BPICButtonWrapper };

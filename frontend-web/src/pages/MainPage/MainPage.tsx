@@ -3,33 +3,25 @@ import { Background } from '@/components/atoms/Background/Background.styles';
 import backgroundGradient from '@/assets/images/background-gradient.png';
 import TabBar from '@/components/molecules/TabBar/TabBar';
 import BabyBar from '@/components/molecules/BabyBar/BabyBar';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import LoadingPage from '@/pages/LoadingPage/LoadingPage';
-import Cookies from 'js-cookie';
+import { useRecoilValue } from 'recoil';
+import { userInfoState } from '@/states/userState';
 
 const MainPage = () => {
-  const saveAndroidTokenToCookie = () => {
-    // React Native 알림을 위한 기기 Token값 저장
-    document.addEventListener('message', (e: any) => {
-      console.log('hi2');
-      const androidToken = e.data;
-      console.log(androidToken);
+  const userInfo = useRecoilValue(userInfoState);
 
-      if (androidToken) {
-        console.log('saveToken');
-        const expires = new Date();
-        expires.setMinutes(expires.getMinutes() + 60);
-
-        Cookies.set('androidToken', androidToken, {
-          path: '/',
-          expires: expires,
-          secure: true,
-          // httpOnly: true,
-        });
-      }
-    });
-  };
-  saveAndroidTokenToCookie();
+  useEffect(() => {
+    if (window.ReactNativeWebView && userInfo.userId) {
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify({
+          type: 'userId',
+          code: userInfo.userId,
+        })
+      );
+    }
+    console.log('isReactNative', userInfo.userId);
+  }, [userInfo.userId]);
 
   return (
     <Suspense fallback={<LoadingPage />}>

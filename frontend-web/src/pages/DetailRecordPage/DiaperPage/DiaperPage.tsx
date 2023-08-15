@@ -8,9 +8,11 @@ import theme from '@/styles/theme';
 
 interface NameProps {
   name: string;
+  recordName: string;
+  recordId: number;
 }
 
-const DiaperPage: React.FC<NameProps> = ({ name }) => {
+const DiaperPage: React.FC<NameProps> = ({ name, recordName, recordId }) => {
   return (
     <>
       <Back>{name + ' 상세페이지'}</Back>
