@@ -1,12 +1,23 @@
-import { getBabyDetail } from '@/apis/Baby/babyAPI';
-import { Baby } from '@/types';
 import { useQuery } from '@tanstack/react-query';
+// import { BabiesOfUser } from '@/types';
+import { getBabyDetail } from '@/apis/Baby/babyAPI';
 
-const useGetBabyDetail = (babyId: number, userId: number) => {
-  const { data: babyInfo } = useQuery(['babyInfo', babyId], () =>
-    getBabyDetail(4, 3)
+interface BabyDetail {
+  babyId: number;
+  name: string;
+  birthDate: string;
+  gender: string;
+  authority: string;
+  isDeleted: string;
+  deletedAt: string;
+}
+
+const useGetBabyDetail = (babyId: number, userId: number): BabyDetail => {
+  const { data: selectedBabyInfo } = useQuery(
+    ['babyInfo2', babyId, userId],
+    () => getBabyDetail(babyId, userId)
   );
-  console.log(babyInfo);
+  return selectedBabyInfo;
 };
 
 export { useGetBabyDetail };
