@@ -10,6 +10,7 @@ import {
   DetailContent,
   DetailTitle,
   ListContainer,
+  DetailContainer,
 } from '../AdminPage/AdminPage.style';
 const FAQCreatePage = () => {
   const userInfo = useRecoilValue(userInfoState);
@@ -47,7 +48,7 @@ const FAQCreatePage = () => {
     }
   };
   return (
-    <ListContainer>
+    <DetailContainer>
       <ContentContainer>
         <div>FAQ 작성</div>
         <form>
@@ -71,12 +72,12 @@ const FAQCreatePage = () => {
           </DetailContent>
         </form>
         <AdminButtonContainer>
-          <AdminButton onClick={formSubmit}>수정</AdminButton>
+          <AdminButton onClick={formSubmit}>등록</AdminButton>
           <AdminButton onClick={formCancel}>취소</AdminButton>
         </AdminButtonContainer>
         <Outlet />
       </ContentContainer>
-    </ListContainer>
+    </DetailContainer>
   );
 };
 
