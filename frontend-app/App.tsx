@@ -9,6 +9,8 @@ import {PermissionsAndroid} from 'react-native';
 import Toast from 'react-native-toast-message';
 
 const App = () => {
+  // TODO: 빌드할때 fetch부분 링크 잊지말기
+
   // 뒤로가기 로직
   const webViewRef = useRef<any>(null);
   const [isCanGoBack, setIsCanGoBack] = useState(false);
@@ -190,7 +192,7 @@ const App = () => {
       <WebView
         ref={webViewRef}
         source={{
-          uri: 'http://127.0.0.1:3000',
+          uri: 'http://localhost:3000',
         }}
         onLoad={() => {}}
         // userAgent="Mozilla/5.0 (Linux; Android 13; SAMSUNG SM-S906U) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/22.0 Chrome/111.0.5563.116 Mobile Safari/537.36 kwdApp"
