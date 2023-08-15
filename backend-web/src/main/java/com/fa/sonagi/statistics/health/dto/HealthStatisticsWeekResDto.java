@@ -14,11 +14,11 @@ public class HealthStatisticsWeekResDto {
 	private Long hospitalCnt;
 	private Long medicationCnt;
 	private Long feverAvgPercent;
-	private Long lastWeekFeverAvgPercent;
+	private Long yesterdayFeverAvgPercent;
 	private Long hospitalCntPercent;
-	private Long lastWeekHospitalCntPercent;
+	private Long yesterdayHospitalCntPercent;
 	private Long medicationCntPercent;
-	private Long lastWeekMedicationCntPercent;
+	private Long yesterdayMedicationCntPercent;
 
 	public HealthStatisticsWeekResDto() {
 		this.healthStatistics = new HashMap<>();
