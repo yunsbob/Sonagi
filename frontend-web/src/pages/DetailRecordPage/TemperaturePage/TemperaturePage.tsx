@@ -7,9 +7,11 @@ import Button from '@/components/atoms/Button/Button';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import theme from '@/styles/theme';
 import { useGetRecordDetails } from '@/apis/Record/Queries/useGetRecordDetails';
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useUpdateRecord } from '@/apis/Record/Mutations/useUpdateRecord';
-import { CombinedRecord } from '@/types/recordTypes';
+import { useRecoilValue } from 'recoil';
+import { selectedDateState } from '@/states/dateState';
+import { useNavigate } from 'react-router-dom';
 
 interface NameProps {
   name: string;
@@ -17,28 +19,35 @@ interface NameProps {
   recordId: number;
 }
 
-const TemperaturePage: React.FC<NameProps> = ({
-  name,
-  recordName,
-  recordId,
-}) => {
+const TemperaturePage = ({ name, recordName, recordId }: NameProps) => {
+  // recordId로 해당 detailRecords 정보 get --- queryName과 id
   const recordDetails = useGetRecordDetails(recordName, recordId);
-  const [currentRecord, setCurrentRecord] = useState<CombinedRecord | null>(
-    null
-  );
-  const mutation = useUpdateRecord();
+
+  // 리코일에서 user정보와 baby정보, 선택한 날짜 정보 가져와 사용
+  const selectedDate = useRecoilValue(selectedDateState); // YYYY-DD-MM
+
+  // 하위 컴포넌트에서 공동으로 사용 및 수정할 state 생성
+  const [createdTime, setCreatedTime] = useState(recordDetails.createdTime);
+  const [amount, setAmount] = useState(36.5); // 기본값은 36.5
+  const [memo, setMemo] = useState('');
+
+  const updateRecordMutation = useUpdateRecord();
+  const navigate = useNavigate();
+  const RouteHandler = useCallback(() => navigate(-1), [navigate]);
 
   const handleUpdate = () => {
-    if (currentRecord) {
-      mutation.mutate(currentRecord);
-    }
+    const currentRecord = {
+      healthId: recordId,
+      createdTime,
+      bodyTemperature: amount,
+      memo,
+    };
+    updateRecordMutation.mutate({
+      record: currentRecord,
+      queryName: recordName,
+    });
+    RouteHandler();
   };
-
-  useEffect(() => {
-    if (recordDetails) {
-      console.log('hhhhhhh', recordDetails);
-    }
-  }, [recordDetails]);
 
   return (
     <>
@@ -47,7 +56,9 @@ const TemperaturePage: React.FC<NameProps> = ({
         <S.TemperaturePageWrapper>
           <S.Divider>
             <TimeRecorder
-              initialTime={recordDetails.createdTime}
+              initialTime={createdTime}
+              selectedDate={selectedDate}
+              setCreatedTime={setCreatedTime}
             ></TimeRecorder>
           </S.Divider>
           <S.Divider>
@@ -58,10 +69,11 @@ const TemperaturePage: React.FC<NameProps> = ({
               defaultValue={parseFloat(recordDetails.bodyTemperature)}
               minValue={35}
               maxValue={40}
+              setAmount={setAmount}
             ></AmountRecorder>
           </S.Divider>
           <S.Divider>
-            <MemoRecorder></MemoRecorder>
+            <MemoRecorder setMemo={setMemo}></MemoRecorder>
           </S.Divider>
           <Button option="activated" size="large" onClick={handleUpdate}>
             <Text size="headSmall" color={theme.color.white1}>

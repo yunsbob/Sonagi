@@ -7,6 +7,12 @@ import Back from '@/components/atoms/Back/Back';
 import Button from '@/components/atoms/Button/Button';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import theme from '@/styles/theme';
+import { useGetRecordDetails } from '@/apis/Record/Queries/useGetRecordDetails';
+import { useRecoilValue } from 'recoil';
+import { userInfoState } from '@/states/userState';
+import { selectedBabyState } from '@/states/babyState';
+import { selectedDateState } from '@/states/dateState';
+import { useState } from 'react';
 
 interface NameProps {
   name: string;
@@ -19,14 +25,21 @@ const InfantFormulaPage: React.FC<NameProps> = ({
   recordName,
   recordId,
 }) => {
+  const recordDetails = useGetRecordDetails(recordName, recordId);
+  const userInfo = useRecoilValue(userInfoState);
+  const babyInfo = useRecoilValue(selectedBabyState);
+  const selectedDate = useRecoilValue(selectedDateState); // YYYY-DD-MM
+  const [memo, setMemo] = useState('');
+
+  const [createdTime, setCreatedTime] = useState(recordDetails.createdTime);
+  const [amount, setAmount] = useState(0);
+
   return (
     <>
       <Back>{name + ' 상세페이지'}</Back>
       <S.InfantFormulaPageContainer>
         <S.InfantFormulaPageWrapper>
-          <S.Divider>
-            <TimeRecorder></TimeRecorder>
-          </S.Divider>
+          <S.Divider>{/* <TimeRecorder></TimeRecorder> */}</S.Divider>
           <S.Divider>
             <AmountRecorder
               unitType="용량"
@@ -35,10 +48,11 @@ const InfantFormulaPage: React.FC<NameProps> = ({
               defaultValue={15}
               minValue={0}
               maxValue={50}
+              setAmount={setAmount}
             ></AmountRecorder>
           </S.Divider>
           <S.Divider>
-            <MemoRecorder></MemoRecorder>
+            <MemoRecorder setMemo={setMemo}></MemoRecorder>
           </S.Divider>{' '}
           <Button
             option="activated"

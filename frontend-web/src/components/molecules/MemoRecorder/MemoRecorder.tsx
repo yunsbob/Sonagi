@@ -2,10 +2,15 @@ import React, { useState, ChangeEvent } from 'react';
 import * as S from '@/components/molecules/MemoRecorder/MemoRecorder.style';
 import { Text } from '@/components/atoms/Text/Text.styles';
 
-const MemoRecorder = () => {
+interface MemoRecorderProps {
+  setMemo: (value: string) => void;
+}
+
+const MemoRecorder = ({ setMemo }: MemoRecorderProps) => {
   const [inputCount, setInputCount] = useState(0);
 
   const onInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setMemo(e.target.value);
     setInputCount(e.target.value.length);
   };
 

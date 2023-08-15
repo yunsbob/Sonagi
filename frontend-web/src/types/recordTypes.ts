@@ -149,7 +149,7 @@ type AllRecords =
   | Extra;
 
 // 카테고리로 요청 보낼 수 있나?
-type CombinedRecord = AllRecords & { category: string };
+type CombinedRecord = AllRecords & { category?: string };
 
 export type {
   AllRecords,

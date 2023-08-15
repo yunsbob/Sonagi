@@ -18,12 +18,8 @@ const DiaperPage: React.FC<NameProps> = ({ name, recordName, recordId }) => {
       <Back>{name + ' 상세페이지'}</Back>
       <S.DiaperPageContainer>
         <S.DiaperPageWrapper>
-          <S.Divider>
-            <TimeRecorder></TimeRecorder>
-          </S.Divider>
-          <S.Divider>
-            <MemoRecorder></MemoRecorder>
-          </S.Divider>
+          <S.Divider>{/* <TimeRecorder></TimeRecorder> */}</S.Divider>
+          <S.Divider>{/* <MemoRecorder></MemoRecorder> */}</S.Divider>
           <Button
             option="activated"
             size="large"

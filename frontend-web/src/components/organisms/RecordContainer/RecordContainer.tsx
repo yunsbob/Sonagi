@@ -75,13 +75,13 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
     <>
       <RecordContainerStyle className="scrollable" ref={containerRef}>
         {combinedData.map((record: CombinedRecord, index) => {
-          const recordIdKey = recordTypeToIdKey[record.category];
+          const recordIdKey = recordTypeToIdKey[record.category!];
           const recordId = record[recordIdKey as keyof CombinedRecord];
           return (
             <RecordBlock
               key={index}
-              color={theme.color[recordTypeToCategory[record.category]]}
-              recordType={recordEnToKo[record.category]}
+              color={theme.color[recordTypeToCategory[record.category!]]}
+              recordType={recordEnToKo[record.category!]}
               record={record}
               time={
                 record.createdTime ? record.createdTime.substring(0, 5) : ''
