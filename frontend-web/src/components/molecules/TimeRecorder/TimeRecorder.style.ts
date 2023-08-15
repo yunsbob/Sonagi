@@ -11,7 +11,7 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: 3px;
 `;
 
 export const TimerTextWrapper = styled.div`
