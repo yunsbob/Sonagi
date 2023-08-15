@@ -29,7 +29,7 @@ const Timer = ({
   const [value, setValue] = useState<Dayjs | null>(
     dayjs(timeValue)
     // timeValue ? dayjs(timeValue) : dayjs('2022-04-17T17:30')
-    // 값이 없을 수가 있을까? 무조건 들어온다는 전제로 주석처리
+    // 값이 없을수가 있을까? 무조건 들어온다는 전제로 주석처리
   );
   return (
     <>

@@ -50,14 +50,15 @@ const MemoText = styled(TimeText)`
   padding-right: 10px;
 `;
 
-const AmountButton = styled(Button)`
+const AmountButton = styled.div`
   /* color: ${theme.color.gray1}; */
-  color: ${theme.color.gray1};
+  /* color: ${({ theme }) => theme.color.gray4}; */
   background-color: transparent;
-  margin-left: 8px;
+  margin-left: 4px;
   width: fit-content;
   padding: 4px 7px;
   border-radius: 10px;
+  border: 1px solid ${({ theme }) => theme.color.gray3};
   margin-top: 1px;
   /* border-color: ${theme.color.lightgrey}; */
   /* border: none; */
@@ -107,12 +108,10 @@ const RecordBlock = ({
         {recordType}
       </Text>
       {amount !== 0 && (
-        <AmountButton
-          option="default"
-          size="xSmall"
-          style={{ minWidth: 'fit-content' }}
-        >
-          {amount + 'ml'}
+        <AmountButton>
+          <Text size="medium3" color={theme.color.gray1}>
+            {amount + 'ml'}
+          </Text>
         </AmountButton>
       )}
       <MemoText size="medium2">{record.memo}</MemoText>
