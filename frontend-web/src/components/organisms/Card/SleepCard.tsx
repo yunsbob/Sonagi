@@ -4,6 +4,7 @@ import { CardHeader } from '@/components/molecules/CardHeader/CardHeader';
 import { CardContainer } from '@/components/organisms/Card/Card.styles';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import theme from '@/styles/theme';
+import { PeriodType } from '@/types/card';
 
 interface SleepCardProps {
   data: {
@@ -15,9 +16,10 @@ interface SleepCardProps {
     sleepPercent: number;
     yesterdaySleepPercent: number;
   };
+  graphType?: PeriodType;
 }
 
-const SleepCard = ({ data }: SleepCardProps) => {
+const SleepCard = ({ data, graphType = 'day' }: SleepCardProps) => {
   const currentTheme = categoryToColorMap['Sleep'];
   const color = theme.color[currentTheme];
   const darkColor = theme.color.cardSleep1;
@@ -36,6 +38,7 @@ const SleepCard = ({ data }: SleepCardProps) => {
         }
         $ratio={data.cntPercent}
         $yesterDayRatio={data.yesterdayCntPercent}
+        $graphType={graphType}
       />
 
       <CardContentText
@@ -53,6 +56,7 @@ const SleepCard = ({ data }: SleepCardProps) => {
         }
         $ratio={data.sleepPercent}
         $yesterDayRatio={data.yesterdaySleepPercent}
+        $graphType={graphType}
       />
     </CardContainer>
   );

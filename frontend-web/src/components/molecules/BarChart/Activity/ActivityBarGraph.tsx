@@ -6,28 +6,33 @@ import {
   Line,
   BarContainer,
   Wrapper,
-  DiaperBar,
+  ActivityBar,
   DateContainer,
   CategoryContainer,
   CategoryWrapper,
   CategoryCircle,
-} from '@/components/molecules/BarChart/Diaper/DiaperBarGraph.styles';
+} from '@/components/molecules/BarChart/Activity/ActivityBarGraph.styles';
 import theme from '@/styles/theme';
 
-interface DiaperWeekItem {
-  pees: number[];
-  poops: number[];
+interface ActivitysProps {
+  createdTime: number;
+  passTime: number;
 }
 
-interface DiaperWeekProps {
-  [key: string]: DiaperWeekItem;
+interface ActivityWeekItem {
+  plays: ActivitysProps[];
+  tummytimes: ActivitysProps[];
 }
 
-const DiaperBarGraph = ({ data }: DiaperWeekProps) => {
+interface ActivityWeekProps {
+  [key: string]: ActivityWeekItem;
+}
+
+const ActivityBarGraph = ({ data }: ActivityWeekProps) => {
   const times: number[] = [0, 3, 6, 9, 12, 15, 18, 21, 24];
 
   const days = Object.keys(data);
-  const values: DiaperWeekItem[] = Object.values(data);
+  const values: ActivityWeekItem[] = Object.values(data);
 
   return (
     <Container>
@@ -48,18 +53,24 @@ const DiaperBarGraph = ({ data }: DiaperWeekProps) => {
         {values.map((value, idx) => {
           return (
             <Wrapper key={idx} $barHeight={100}>
-              {value.pees.map((pee, idx) => {
+              {value.plays.map((play, pIdx) => {
                 return (
-                  <DiaperBar key={idx} top={pee} color={theme.color.graphPee} />
+                  <ActivityBar
+                    key={pIdx}
+                    top={play.createdTime}
+                    pass={play.passTime}
+                    color={theme.color.graphPlayTime}
+                  />
                 );
               })}
 
-              {value.poops.map((poop, idx) => {
+              {value.tummytimes.map((tummytime, tIdx) => {
                 return (
-                  <DiaperBar
-                    key={idx}
-                    top={poop}
-                    color={theme.color.graphPoop}
+                  <ActivityBar
+                    key={tIdx}
+                    top={tummytime.createdTime}
+                    pass={tummytime.passTime}
+                    color={theme.color.graphTummyTime}
                   />
                 );
               })}
@@ -83,16 +94,16 @@ const DiaperBarGraph = ({ data }: DiaperWeekProps) => {
       </LineWrapper>
       <CategoryContainer>
         <CategoryWrapper>
-          <CategoryCircle $bgColor={theme.color.graphPoop} />
-          <Text size="xSmall">대변</Text>
+          <CategoryCircle $bgColor={theme.color.graphPlayTime} />
+          <Text size="xSmall">놀이</Text>
         </CategoryWrapper>
         <CategoryWrapper>
-          <CategoryCircle $bgColor={theme.color.graphPee} />
-          <Text size="xSmall">소변</Text>
+          <CategoryCircle $bgColor={theme.color.graphTummyTime} />
+          <Text size="xSmall">터미타임</Text>
         </CategoryWrapper>
       </CategoryContainer>
     </Container>
   );
 };
 
-export { DiaperBarGraph };
+export { ActivityBarGraph };

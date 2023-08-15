@@ -53,10 +53,10 @@ const ExtraBarGraph = ({ data }: ExtraWeekProps) => {
         {values.map((value, idx) => {
           return (
             <Wrapper key={idx} $barHeight={(100 * value.cnt) / maxCnt}>
-              {[...Array(value.cnt)].map(h => {
+              {[...Array(value.cnt)].map((_, hIdx) => {
                 return (
                   <ExtraBar
-                    key={h}
+                    key={hIdx}
                     height={100}
                     color={theme.color.graphExtra}
                   />

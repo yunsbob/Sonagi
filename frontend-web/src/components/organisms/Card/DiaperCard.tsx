@@ -4,6 +4,7 @@ import { CardHeader } from '@/components/molecules/CardHeader/CardHeader';
 import { CardContainer } from '@/components/organisms/Card/Card.styles';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import theme from '@/styles/theme';
+import { PeriodType } from '@/types/card';
 
 interface DiaperCardProps {
   data: {
@@ -14,9 +15,10 @@ interface DiaperCardProps {
     poopCntPercent: number;
     yesterdayPoopCntPercent: number;
   };
+  graphType?: PeriodType;
 }
 
-const DiaperCard = ({ data }: DiaperCardProps) => {
+const DiaperCard = ({ data, graphType = 'day' }: DiaperCardProps) => {
   const currentTheme = categoryToColorMap['Diaper'];
   const color = theme.color[currentTheme];
   const darkColor = theme.color.cardDiaper1;
@@ -37,6 +39,7 @@ const DiaperCard = ({ data }: DiaperCardProps) => {
         }
         $ratio={data.poopCntPercent}
         $yesterDayRatio={data.yesterdayPoopCntPercent}
+        $graphType={graphType}
       />
 
       <CardContentText type="소변" data={data.peeCnt} unit="회" />
@@ -48,6 +51,7 @@ const DiaperCard = ({ data }: DiaperCardProps) => {
         }
         $ratio={data.peeCntPercent}
         $yesterDayRatio={data.yesterdayPeeCntPercent}
+        $graphType={graphType}
       />
     </CardContainer>
   );

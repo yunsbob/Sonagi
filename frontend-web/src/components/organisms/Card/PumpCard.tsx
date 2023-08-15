@@ -4,6 +4,7 @@ import { CardHeader } from '@/components/molecules/CardHeader/CardHeader';
 import { CardContainer } from '@/components/organisms/Card/Card.styles';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import theme from '@/styles/theme';
+import { PeriodType } from '@/types/card';
 
 interface PumpCardProps {
   data: {
@@ -14,9 +15,10 @@ interface PumpCardProps {
     amountPercent: number;
     yesterdayAmountPercent: number;
   };
+  graphType?: PeriodType;
 }
 
-const PumpCard = ({ data }: PumpCardProps) => {
+const PumpCard = ({ data, graphType = 'day' }: PumpCardProps) => {
   const currentTheme = categoryToColorMap['Pump'];
   const color = theme.color[currentTheme];
   const darkColor = theme.color.cardPumpingBreast1;
@@ -35,6 +37,7 @@ const PumpCard = ({ data }: PumpCardProps) => {
         }
         $ratio={data.cntPercent}
         $yesterDayRatio={data.yesterdayCntPercent}
+        $graphType={graphType}
       />
 
       <CardContentText type="용량" data={data.amount} unit="회" />
@@ -46,6 +49,7 @@ const PumpCard = ({ data }: PumpCardProps) => {
         }
         $ratio={data.amountPercent}
         $yesterDayRatio={data.yesterdayAmountPercent}
+        $graphType={graphType}
       />
     </CardContainer>
   );

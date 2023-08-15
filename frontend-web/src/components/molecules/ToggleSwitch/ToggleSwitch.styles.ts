@@ -16,8 +16,7 @@ const StyledLabel = styled.label<{
   &:after {
     content: '';
     position: absolute;
-    left: ${({ checked }) => !checked && '5px'};
-    right: ${({ checked }) => checked && '5px'};
+    left: ${({ checked }) => (checked ? '58%' : '5px')};
     top: 4px;
     width: 22px;
     height: 22px;

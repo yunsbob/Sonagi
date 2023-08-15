@@ -4,6 +4,7 @@ import { CardHeader } from '@/components/molecules/CardHeader/CardHeader';
 import { CardContainer } from '@/components/organisms/Card/Card.styles';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import theme from '@/styles/theme';
+import { PeriodType } from '@/types/card';
 
 interface HealthCardProps {
   data: {
@@ -17,9 +18,10 @@ interface HealthCardProps {
     medicationCntPercent: number;
     yesterdayMedicationCntPercent: number;
   };
+  graphType?: PeriodType;
 }
 
-const HealthCard = ({ data }: HealthCardProps) => {
+const HealthCard = ({ data, graphType = 'day' }: HealthCardProps) => {
   const currentTheme = categoryToColorMap['Health'];
   const color = theme.color[currentTheme];
   const darkColor = theme.color.cardHealth1;
@@ -40,6 +42,7 @@ const HealthCard = ({ data }: HealthCardProps) => {
         }
         $ratio={data.feverAvgPercent}
         $yesterDayRatio={data.yesterdayFeverAvgPercent}
+        $graphType={graphType}
       />
 
       <CardContentText type="병원 진료" data={data.hospitalCnt} unit="회" />
@@ -51,6 +54,7 @@ const HealthCard = ({ data }: HealthCardProps) => {
         }
         $ratio={data.hospitalCntPercent}
         $yesterDayRatio={data.yesterdayHospitalCntPercent}
+        $graphType={graphType}
       />
 
       <CardContentText type="투약" data={data.medicationCnt} unit="회" />
@@ -62,6 +66,7 @@ const HealthCard = ({ data }: HealthCardProps) => {
         }
         $ratio={data.medicationCntPercent}
         $yesterDayRatio={data.yesterdayMedicationCntPercent}
+        $graphType={graphType}
       />
     </CardContainer>
   );
