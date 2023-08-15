@@ -7,9 +7,6 @@ import { RecordContainerStyle } from '@/components/organisms/RecordContainer/Rec
 import { PATH } from '@/constants/path';
 import { CombinedRecord } from '@/types/recordTypes';
 import theme from '@/styles/theme';
-import { useGetAllCategoryRecords } from '@/apis/Record/Queries/useGetAllCategoryRecords';
-import { selectedBabyState } from '@/states/babyState';
-import { selectedDateState } from '@/states/dateState';
 import { fetchCounterState } from '@/states/fetchCounterState';
 import { recordEnToKo, recordTypeToCategory } from '@/constants/recordEnToKo';
 import { recordTypeToIdKey } from '@/constants/recordTypeToIdKey';
@@ -75,13 +72,13 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
     <>
       <RecordContainerStyle className="scrollable" ref={containerRef}>
         {combinedData.map((record: CombinedRecord, index) => {
-          const recordIdKey = recordTypeToIdKey[record.category];
+          const recordIdKey = recordTypeToIdKey[record.category!];
           const recordId = record[recordIdKey as keyof CombinedRecord];
           return (
             <RecordBlock
               key={index}
-              color={theme.color[recordTypeToCategory[record.category]]}
-              recordType={recordEnToKo[record.category]}
+              color={theme.color[recordTypeToCategory[record.category!]]}
+              recordType={recordEnToKo[record.category!]}
               record={record}
               time={
                 record.createdTime ? record.createdTime.substring(0, 5) : ''
