@@ -30,11 +30,12 @@ const addRecord = async (type: string, record: AllRecords) => {
   }
 };
 
-const updateRecord = async (record: CombinedRecord) => {
+// record에 카테고리가 없으니까..
+const updateRecord = async (record: CombinedRecord, queryName: string) => {
   try {
-    await instance.put(`/${record.category}`, record);
-  } catch (error) {
-    throw new Error('record put error');
+    await instance.put(`/${queryName}`, record);
+  } catch {
+    new Error('record put error');
   }
 };
 

@@ -14,6 +14,7 @@ interface AmountRecorderProps {
   defaultValue: number;
   minValue: number;
   maxValue: number;
+  setAmount: (value: number) => void;
 }
 
 const AmountRecorder = ({
@@ -23,6 +24,7 @@ const AmountRecorder = ({
   defaultValue,
   minValue,
   maxValue,
+  setAmount,
 }: AmountRecorderProps) => {
   const [value, setValue] = useState(defaultValue);
 
@@ -33,10 +35,13 @@ const AmountRecorder = ({
       // Use toFixed to round the value to the desired precision
       const roundedValue = parseFloat(newValue.toFixed(1));
       setValue(roundedValue);
+      setAmount(roundedValue!);
     } else if (newValue < minValue) {
       setValue(minValue);
+      setAmount(minValue!);
     } else {
       setValue(maxValue);
+      setAmount(maxValue!);
     }
   };
 

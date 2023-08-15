@@ -71,14 +71,19 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
   // queryName,
 }) => {
   const navigate = useNavigate();
+  console.log('-----sdfdsfd--', recordType);
   const OnClickButton = () => {
-    navigate(PATH.DETAILRECORD, {
-      state: {
-        recordType: recordType,
-        recordName: record.category,
-        recordId: recordId,
-      },
-    });
+    // 이렇게 하는 방법 보다는 RecordBlock에서 미리 상세 정보를 가져오는게 좋겠다 ...
+    setTimeout(() => {
+      navigate(PATH.DETAILRECORD, {
+        state: {
+          recordType: recordType,
+          recordName: record.category,
+          recordId: recordId,
+          //
+        },
+      });
+    }, 300); // 뭔가.... 안에 페이지에서 get하는 순서가 안 맞는 것 같아 !
   };
 
   return (
