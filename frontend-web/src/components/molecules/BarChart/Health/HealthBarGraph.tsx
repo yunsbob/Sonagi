@@ -15,7 +15,16 @@ import {
 } from '@/components/molecules/BarChart/Health/HealthBarGraph.styles';
 import theme from '@/styles/theme';
 
-const HealthBarGraph = () => {
+interface HealthWeekItem {
+  feverAvg: number;
+  hospitalCnt: number;
+  medicationCnt: number;
+}
+
+interface HealthWeekProps {
+  [key: string]: HealthWeekItem;
+}
+const HealthBarGraph = ({ data }: HealthWeekProps) => {
   // 10개의 line
   // let lines: JSX.Element[] = [];
 
@@ -28,126 +37,76 @@ const HealthBarGraph = () => {
 
   // const times = [0, 3, 9, 12, 15, 18, 21, 24];
 
+  const days = Object.keys(data);
+  const values: HealthWeekItem[] = Object.values(data);
+  console.log(values);
+
   // 최대 횟수에 따라 선의 개수가 달라짐
-  const maxCnt = 8;
+  let maxCnt = 5; // 현재 기록의 최대 병원 + 투약 cnt 값
+
+  values.forEach(value => {
+    maxCnt =
+      maxCnt > value.hospitalCnt + value.medicationCnt
+        ? maxCnt
+        : value.hospitalCnt + value.medicationCnt;
+  });
+
+  const lines = [...Array(maxCnt + 1)];
 
   return (
     <Container>
       <LineContainer>
-        <LineWrapper>
-          <Text size="xSmall" width={10}>
-            4
-          </Text>
-          <Line />
-        </LineWrapper>
-        <LineWrapper>
-          <Text size="xSmall" width={10}>
-            3
-          </Text>
-          <Line />
-        </LineWrapper>
-        <LineWrapper>
-          <Text size="xSmall" width={10}>
-            2
-          </Text>
-          <Line />
-        </LineWrapper>
-        <LineWrapper>
-          <Text size="xSmall" width={10}>
-            1
-          </Text>
-          <Line />
-        </LineWrapper>
-        <LineWrapper>
-          <Text size="xSmall" width={10}>
-            0
-          </Text>
-          <Line />
-        </LineWrapper>
-        <LineWrapper>
-          <Text size="xSmall" width={10}></Text>
-          <Line />
-        </LineWrapper>
+        {lines.map((_, idx) => {
+          return (
+            <LineWrapper key={idx}>
+              <Text size="xSmall" width={10}>
+                {idx}
+              </Text>
+              <Line />
+            </LineWrapper>
+          );
+        })}
       </LineContainer>
 
       <BarContainer>
-        <Wrapper $barHeight={(100 / 4) * 4}>
-          <HealthBar height={100} color={theme.color.graphHospital} />
-          <HealthBar height={100} color={theme.color.graphHospital} />
-          <HealthBar height={100} color={theme.color.graphMedication} />
-          <HealthBar height={100} color={theme.color.graphMedication} />
-          <FeverWrapper>
-            <Text size="xSmall">36.4℃</Text>
-          </FeverWrapper>
-        </Wrapper>
-        <Wrapper $barHeight={(100 / 4) * 3}>
-          <HealthBar height={100} color={theme.color.graphHospital} />
-          <HealthBar height={100} color={theme.color.graphMedication} />
-          <HealthBar height={100} color={theme.color.graphMedication} />
-          <FeverWrapper>
-            <Text size="xSmall">36.4℃</Text>
-          </FeverWrapper>
-        </Wrapper>
-        <Wrapper $barHeight={(100 / 4) * 2}>
-          <HealthBar height={100} color={theme.color.graphHospital} />
-          <HealthBar height={100} color={theme.color.graphMedication} />
-          <FeverWrapper>
-            <Text size="xSmall">36.4℃</Text>
-          </FeverWrapper>
-        </Wrapper>
-        <Wrapper $barHeight={(100 / 4) * 3}>
-          <HealthBar height={100} color={theme.color.graphHospital} />
-          <HealthBar height={100} color={theme.color.graphMedication} />
-          <HealthBar height={100} color={theme.color.graphMedication} />
-          <FeverWrapper>
-            <Text size="xSmall">36.4℃</Text>
-          </FeverWrapper>
-        </Wrapper>
-        <Wrapper $barHeight={(100 / 4) * 1}>
-          <HealthBar height={100} color={theme.color.graphMedication} />
-          <FeverWrapper>
-            <Text size="xSmall">36.4℃</Text>
-          </FeverWrapper>
-        </Wrapper>
-        <Wrapper $barHeight={(100 / 4) * 2}>
-          <HealthBar height={100} color={theme.color.graphHospital} />
-          <HealthBar height={100} color={theme.color.graphHospital} />
-          <FeverWrapper>
-            <Text size="xSmall">36℃</Text>
-          </FeverWrapper>
-        </Wrapper>
-        <Wrapper $barHeight={(100 / 4) * 4}>
-          <HealthBar height={100} color={theme.color.graphHospital} />
-          <HealthBar height={100} color={theme.color.graphMedication} />
-          <HealthBar height={100} color={theme.color.graphMedication} />
-          <HealthBar height={100} color={theme.color.graphMedication} />
-          <FeverWrapper>
-            <Text size="xSmall">36.4℃</Text>
-          </FeverWrapper>
-        </Wrapper>
+        {values.map((value, idx) => {
+          const totalCnt = value.hospitalCnt + value.medicationCnt;
+
+          return (
+            <Wrapper key={idx} $barHeight={(100 * totalCnt) / maxCnt}>
+              {[...Array(value.hospitalCnt)].map(h => {
+                return (
+                  <HealthBar
+                    key={h}
+                    height={100}
+                    color={theme.color.graphHospital}
+                  />
+                );
+              })}
+              {[...Array(value.medicationCnt)].map(m => {
+                return (
+                  <HealthBar
+                    key={m}
+                    height={100}
+                    color={theme.color.graphMedication}
+                  />
+                );
+              })}
+              <FeverWrapper>
+                <Text size="xSmall">{value.feverAvg}℃</Text>
+              </FeverWrapper>
+            </Wrapper>
+          );
+        })}
       </BarContainer>
       <DateContainer>
-        <Text width={35} size="xSmall">
-          12/3
-        </Text>
-        <Text width={35} size="xSmall">
-          12/5
-        </Text>
-        <Text width={35} size="xSmall">
-          12/10
-        </Text>
-        <Text width={35} size="xSmall">
-          3/9
-        </Text>
-        <Text width={35} size="xSmall">
-          12/30
-        </Text>
-        <Text width={35} size="xSmall">
-          12/31
-        </Text>
-        <Text width={35} size="xSmall">
-          1/1
-        </Text>
+        {days.map(day => {
+          return (
+            <Text key={day} width={35} size="xSmall">
+              {day}
+            </Text>
+          );
+        })}
       </DateContainer>
       <CategoryContainer>
         <CategoryWrapper>
