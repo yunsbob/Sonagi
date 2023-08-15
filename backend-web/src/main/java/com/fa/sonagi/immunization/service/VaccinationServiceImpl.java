@@ -1,6 +1,8 @@
 package com.fa.sonagi.immunization.service;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -69,6 +71,8 @@ public class VaccinationServiceImpl implements VaccinationService {
 				.content(v.getVaccination().getContent())
 				.build())
 			.collect(Collectors.toList());
+
+		Collections.sort(vaccinationResDto, Comparator.comparing(VaccinationResDto::getStartDate));
 
 		return vaccinationResDto;
 	}

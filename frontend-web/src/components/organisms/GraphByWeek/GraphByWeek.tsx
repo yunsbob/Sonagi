@@ -38,7 +38,7 @@ const GraphByWeek = () => {
       )}
       {currentCategory === 'Diaper' && (
         <>
-          <DiaperBarGraph />
+          <DiaperBarGraph data={getGraphDatas[1].data.diaperStatistics} />
           <DiaperCard data={getGraphDatas[1].data} />
         </>
       )}
