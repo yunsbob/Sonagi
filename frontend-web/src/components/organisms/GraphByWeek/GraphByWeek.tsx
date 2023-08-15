@@ -48,7 +48,9 @@ const GraphByWeek = () => {
       )}
       {currentCategory === 'Pump' && (
         <>
-          <PumpingBreastBarGraph />
+          <PumpingBreastBarGraph
+            data={getGraphDatas[3].data.pumpingBreastStatistics}
+          />
           <PumpCard data={getGraphDatas[3].data} />
         </>
       )}
