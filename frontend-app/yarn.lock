@@ -6046,6 +6046,11 @@ react-native-permissions@^3.8.4:
     picocolors "^1.0.0"
     pkg-dir "^5.0.0"
 
+react-native-toast-message@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/react-native-toast-message/-/react-native-toast-message-2.1.6.tgz#322827c66901fa22cb3db614c7383cc717f5bbe2"
+  integrity sha512-VctXuq20vmRa9AE13acaNZhrLcS3FaBS2zEevS3+vhBsnVZYG0FIlWIis9tVnpnNxUb3ART+BWtwQjzSttXTng==
+
 react-native-webview@^13.3.1:
   version "13.3.1"
   resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-13.3.1.tgz#b368c3fb6a28c81e8ffe74208c899c95ee633ce7"
