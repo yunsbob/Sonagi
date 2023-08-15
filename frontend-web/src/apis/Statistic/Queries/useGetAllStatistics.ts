@@ -15,7 +15,7 @@ const categoryTypeArr = [
   'extra',
 ] as const;
 
-type CategoryType = typeof categoryTypeArr;
+// type CategoryType = typeof categoryTypeArr;
 
 const useGetAllStatistics = (
   babyId: number,
