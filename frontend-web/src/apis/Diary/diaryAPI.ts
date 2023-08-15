@@ -25,11 +25,12 @@ const getDiariesAtWriteDay = async (babyId: number, writeDay: string) => {
 // 일기 등록
 const addDiary = async (formData: FormData) => {
   try {
-    await instance.post('/diaries', formData, {
+    const response = await instance.post('/diaries', formData, {
       headers: {
         'Content-Type': 'multipart/form-data', // 특정 요청에서만 변경
       },
     });
+    return response;
   } catch {
     new Error('Diary Register Error');
   }

@@ -6,45 +6,37 @@ import IconPlusBlueRectDash from '@/assets/images/icon-plus-blue-rect-dash.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import backArrow from '@/assets/images/icon-arrow-left-grey.png';
 import Button from '@/components/atoms/Button/Button';
-import { DiaryPostDto } from '@/types/diaryTypes';
+import { DiaryInfo, DiaryPostDto } from '@/types/diaryTypes';
 import { useRecoilValue } from 'recoil';
 import { BabiesOfUser, User } from '@/types';
 import { userInfoState } from '@/states/userState';
 import { selectedBabyState } from '@/states/babyState';
 import { PATH } from '@/constants/path';
 import { useUpdateDiary } from '@/apis/Diary/Mutations/useUpdateDiary';
-import { useGetDiaryInfoById } from '@/apis/Diary/Queries/useGetDiaryInfoById';
-
-interface RouteParams {
-  [key: string]: string | undefined;
-  diaryId: string;
-}
+import { selectedDateState } from '@/states/dateState';
+import { diaryRecordList } from '@/states/diaryState';
 
 const DiaryUpdatePage: React.FC = () => {
   const navigate = useNavigate();
   const userInfo: User = useRecoilValue(userInfoState);
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
+  const curDate: string = useRecoilValue(selectedDateState);
   const updateDiaryMutation = useUpdateDiary();
-  const { diaryId } = useParams<RouteParams>();
-  const diaryInfo = useGetDiaryInfoById(parseInt(diaryId ? diaryId : '', 10));
 
   const [files, setFiles] = useState<File[]>([]);
   const [diaryContent, setDiaryContent] = useState<string>('');
   const fileInputRefs = useRef<HTMLInputElement[]>([]);
 
-  useEffect(() => {
-    const imgfiles: File[] = [];
-    diaryInfo.imgUrls.forEach(e => {
-      fetch(e)
-        .then(res => res.blob())
-        .then(blob => {
-          const file = new File([blob], `img.jpg`, { type: blob.type });
-          imgfiles.push(file);
-        });
-    });
-    setFiles(imgfiles);
-    setDiaryContent(diaryInfo.content);
-  }, [diaryInfo]);
+  const diaryInfoList: DiaryInfo[] = useRecoilValue(diaryRecordList);
+  const { id } = useParams<{ id: string }>();
+
+  const RouteHandler = useCallback(() => navigate(-1), [navigate]);
+
+  if (!id) {
+    return <p>Diary ID not found</p>;
+  }
+
+  const diaryInfo = diaryInfoList.find(e => e.diaryId === parseInt(id, 10));
 
   const handleSubmit = async () => {
     const formData = new FormData();
@@ -105,8 +97,6 @@ const DiaryUpdatePage: React.FC = () => {
   const handleDiaryContent = (data: string) => {
     setDiaryContent(data);
   };
-
-  const RouteHandler = useCallback(() => navigate(-1), [navigate]);
 
   return (
     <>

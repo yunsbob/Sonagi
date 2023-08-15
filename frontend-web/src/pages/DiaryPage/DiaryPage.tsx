@@ -6,32 +6,24 @@ import { Image } from '@/components/atoms/Image/Image';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { userInfoState } from '@/states/userState';
 import { selectedBabyState } from '@/states/babyState';
 import DiaryCard from '@/components/organisms/DiaryCard/DiaryCard';
-import { BabiesOfUser, User } from '@/types';
+import { BabiesOfUser } from '@/types';
 import { selectedDateState } from '@/states/dateState';
 import { useGetDiaryInfoByBabyId } from '@/apis/Diary/Queries/useGetDiaryInfoByBabyId';
-import { DiaryInfo } from '@/types/diaryTypes';
-import { useEffect, useState } from 'react';
+import { diaryRecordList, writtenDiaryDateList } from '@/states/diaryState';
+import { useGetAllDiaryRecordDates } from '@/apis/Diary/Queries/useGetAllDiaryRecordDates';
 
 const DiaryPage: React.FC = () => {
   const navigate = useNavigate();
-  // const userInfo: User = useRecoilValue(userInfoState);
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
   const selectedDate: string = useRecoilValue(selectedDateState);
-  const [diaries, setDiaries] = useState<DiaryInfo[]>([]);
+  const [diaries, setDiaries] = useRecoilState(diaryRecordList);
+  const recordedDateList: string[] = useRecoilValue(writtenDiaryDateList);
 
-  const recordOfDiaries: DiaryInfo[] = useGetDiaryInfoByBabyId(
-    babyInfo.babyId,
-    selectedDate
-  );
-
-  useEffect(() => {
-    console.log('record : ', recordOfDiaries);
-    setDiaries(recordOfDiaries);
-  }, [recordOfDiaries]);
-
+  // 그냥 호출만 해놓으면 babyInfo 의 값이 변화함에 따라 호출이 변하는가?
+  useGetDiaryInfoByBabyId(babyInfo.babyId, selectedDate);
+  useGetAllDiaryRecordDates(babyInfo.babyId);
   return (
     <>
       <CalendarBar></CalendarBar>

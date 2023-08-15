@@ -1,17 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { getDiariesAtWriteDay } from '@/apis/Diary/diaryAPI';
-import { DiaryInfo } from '@/types/diaryTypes';
+import { useRecoilState } from 'recoil';
+import { diaryRecordList } from '@/states/diaryState';
 
-const useGetDiaryInfoByBabyId = (
-  babyId: number,
-  writeDay: string
-): DiaryInfo[] => {
+const useGetDiaryInfoByBabyId = (babyId: number, writeDay: string) => {
   const { data: diaresByBabyIdAndWriteDay } = useQuery(
     ['diaryRecordDateList', babyId, writeDay],
     () => getDiariesAtWriteDay(babyId, writeDay)
   );
-
-  return diaresByBabyIdAndWriteDay.diaries;
+  const [diaries, setDiaries] = useRecoilState(diaryRecordList);
+  setDiaries(diaresByBabyIdAndWriteDay.diaries);
 };
 
 export { useGetDiaryInfoByBabyId };
