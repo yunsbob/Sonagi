@@ -7,9 +7,6 @@ import { RecordContainerStyle } from '@/components/organisms/RecordContainer/Rec
 import { PATH } from '@/constants/path';
 import { CombinedRecord } from '@/types/recordTypes';
 import theme from '@/styles/theme';
-import { useGetAllCategoryRecords } from '@/apis/Record/Queries/useGetAllCategoryRecords';
-import { selectedBabyState } from '@/states/babyState';
-import { selectedDateState } from '@/states/dateState';
 import { fetchCounterState } from '@/states/fetchCounterState';
 import { recordEnToKo, recordTypeToCategory } from '@/constants/recordEnToKo';
 import { recordTypeToIdKey } from '@/constants/recordTypeToIdKey';

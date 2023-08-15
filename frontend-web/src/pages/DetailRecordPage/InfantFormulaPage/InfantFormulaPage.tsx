@@ -52,7 +52,7 @@ const InfantFormulaPage: React.FC<NameProps> = ({
             ></AmountRecorder>
           </S.Divider>
           <S.Divider>
-            <MemoRecorder setMemo={setMemo}></MemoRecorder>
+            <MemoRecorder setMemo={setMemo} placeholder={memo}></MemoRecorder>
           </S.Divider>{' '}
           <Button
             option="activated"

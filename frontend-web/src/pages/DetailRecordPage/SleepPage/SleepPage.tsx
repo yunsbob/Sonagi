@@ -30,7 +30,7 @@ const SleepPage = ({ name, recordName, recordId }: NameProps) => {
             {/* <TimeRecorder name="종료 시간"></TimeRecorder> */}
           </S.Divider>
           <S.Divider>
-            <MemoRecorder setMemo={setMemo}></MemoRecorder>
+            <MemoRecorder setMemo={setMemo} placeholder={memo}></MemoRecorder>
           </S.Divider>
           <Button
             option="activated"
