@@ -37,14 +37,14 @@ interface RecordCommon {
   babyId?: number;
   createdDate?: string;
   createdTime?: string;
-  memo: string;
+  memo?: string;
 }
 // 수유
 interface Feeding extends RecordCommon {
-  leftStartTime: string;
-  rightStartTime: string;
-  leftEndTime: string;
-  rightEndTime: string;
+  leftStartTime?: string;
+  rightStartTime?: string;
+  leftEndTime?: string;
+  rightEndTime?: string;
   mealId?: number;
   // recordName: 'feedings';
 }
