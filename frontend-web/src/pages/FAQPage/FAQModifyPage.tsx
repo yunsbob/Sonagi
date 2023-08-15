@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams, Outlet } from 'react-router-dom';
 import { instance } from '@/apis/instance';
 import {
-  ButtonContainer,
-  FAQButton,
-  FAQContentContainer,
-  FAQDetailContent,
-  FAQDetailTitle,
-  FAQListContainer,
-} from './FAQPage.style';
+  AdminButtonContainer,
+  AdminButton,
+  ContentContainer,
+  DetailContent,
+  DetailTitle,
+  ListContainer,
+} from '../AdminPage/AdminPage.style';
 
 const FAQModifyPage = () => {
   const faqId = useParams().id;
@@ -61,11 +61,11 @@ const FAQModifyPage = () => {
   };
 
   return (
-    <FAQListContainer>
-      <FAQContentContainer>
+    <ListContainer>
+      <ContentContainer>
         <div>FAQ 수정</div>
         <form>
-          <FAQDetailTitle>
+          <DetailTitle>
             <input
               type="text"
               id="title"
@@ -73,9 +73,9 @@ const FAQModifyPage = () => {
               onChange={e => setTitle(e.target.value)}
               placeholder="제목을 입력해주세요."
             />
-          </FAQDetailTitle>
+          </DetailTitle>
 
-          <FAQDetailContent>
+          <DetailContent>
             <textarea
               name="content"
               id="content"
@@ -83,16 +83,16 @@ const FAQModifyPage = () => {
               onChange={e => setContent(e.target.value)}
               placeholder="내용을 입력해주세요."
             />
-          </FAQDetailContent>
+          </DetailContent>
         </form>
 
-        <ButtonContainer>
-          <FAQButton onClick={formSubmit}>수정</FAQButton>
-          <FAQButton onClick={formCancel}>취소</FAQButton>
-        </ButtonContainer>
+        <AdminButtonContainer>
+          <AdminButton onClick={formSubmit}>수정</AdminButton>
+          <AdminButton onClick={formCancel}>취소</AdminButton>
+        </AdminButtonContainer>
         <Outlet />
-      </FAQContentContainer>
-    </FAQListContainer>
+      </ContentContainer>
+    </ListContainer>
   );
 };
 

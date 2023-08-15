@@ -54,7 +54,6 @@ const AmountRecorder = ({
       <AmountButtonWrapper>
         {unitArray.map((number, index) => (
           <Button
-            style={{ padding: '0px, 10px' }}
             key={index}
             size="small"
             option="primary"
@@ -62,6 +61,7 @@ const AmountRecorder = ({
             onClick={() => {
               onAmountBtnClick(number);
             }}
+            style={{ height: '33px' }}
           >
             <Text size="medium3">
               {number > 0 && '+'}

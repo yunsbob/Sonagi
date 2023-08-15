@@ -65,7 +65,6 @@ const GraphPage = () => {
             );
           })}
         </ToggleContainer>
-
         <Outlet />
       </GraphContainer>
     </>
