@@ -22,7 +22,6 @@ interface NameProps {
 const TemperaturePage = ({ name, recordName, recordId }: NameProps) => {
   // recordId로 해당 detailRecords 정보 get --- queryName과 id
   const recordDetails = useGetRecordDetails(recordName, recordId);
-  // useQuery?
 
   // 리코일에서 user정보와 baby정보, 선택한 날짜 정보 가져와 사용
   const selectedDate = useRecoilValue(selectedDateState); // YYYY-DD-MM

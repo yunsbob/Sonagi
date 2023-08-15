@@ -9,11 +9,11 @@ interface MemoRecorderProps {
 
 // TODO: MEMO를.... PLACEHOLDER대신...넣어야하는데....
 const MemoRecorder = ({ setMemo, placeholder }: MemoRecorderProps) => {
-  // initialPlaceholder가 없으면 '상세 정보..', 있으면 props 값
-  const initialPlaceholder = placeholder || '상세 정보를 입력해주세요.';
-  const [inputValue, setInputValue] = useState(initialPlaceholder);
-  const initialCount = placeholder.length;
-  const [inputCount, setInputCount] = useState(initialCount);
+  // 초기값이 없으면 initialPlaceholder는 '상세 정보..', 있으면 props 값
+  // const initialPlaceholder = placeholder || '상세 정보를 입력해주세요.';
+  const [inputValue, setInputValue] = useState(placeholder);
+  // const initialCount = placeholder.length;
+  const [inputCount, setInputCount] = useState(placeholder.length);
 
   const onInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setMemo(e.target.value);
@@ -21,12 +21,10 @@ const MemoRecorder = ({ setMemo, placeholder }: MemoRecorderProps) => {
     setInputValue(e.target.value);
   };
 
-  const onTouchStartHandler = () => {
-    if (inputValue === initialPlaceholder) {
-      setInputValue('');
-      setInputCount(0);
-    }
-  };
+  // const onTouchStartHandler = () => {
+  //   setInputValue('');
+  //   setInputCount(0);
+  // };
 
   return (
     <>
@@ -36,10 +34,10 @@ const MemoRecorder = ({ setMemo, placeholder }: MemoRecorderProps) => {
       <S.MemoWrapper>
         <S.MemoArea
           value={inputValue}
-          onTouchStart={onTouchStartHandler}
+          // onTouchStart={onTouchStartHandler}
           onChange={onInputHandler}
           maxLength={50}
-          placeholder={initialPlaceholder}
+          placeholder={'상세 정보를 입력해주세요.'}
         ></S.MemoArea>
         <Text>
           <S.WordCount>{inputCount}/50</S.WordCount>

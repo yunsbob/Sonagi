@@ -62,16 +62,14 @@ const BlockButton = styled(Button)`
   }
 `;
 
-const RecordBlock: React.FC<RecordBlockProps> = ({
+const RecordBlock = ({
   color,
   recordType,
   time,
   record,
-  recordId,
-  // queryName,
-}) => {
+  recordId, // queryName,
+}: RecordBlockProps) => {
   const navigate = useNavigate();
-  console.log('-----sdfdsfd--', recordType);
   const OnClickButton = () => {
     // 이렇게 하는 방법 보다는 RecordBlock에서 미리 상세 정보를 가져오는게 좋겠다 ...
     setTimeout(() => {
@@ -91,8 +89,6 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
       <RoundedRect color={color} />
       <TimeText size="medium2">{time}</TimeText>
       <Text size="medium1" style={{ minWidth: 'fit-content' }}>
-        {recordId}
-        {record.category}
         {recordType}
       </Text>
       <MemoText size="medium2">{record.memo}</MemoText>

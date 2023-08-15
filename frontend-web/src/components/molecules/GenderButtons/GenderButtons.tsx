@@ -9,7 +9,7 @@ interface Props {
   setGender: (gender: 'M' | 'F') => void;
 }
 
-const GenderButtons: React.FC<Props> = ({ gender, setGender }) => {
+const GenderButtons = ({ gender, setGender }: Props) => {
   const handleMaleState = () => {
     setGender('M');
   };
