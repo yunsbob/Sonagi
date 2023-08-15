@@ -43,9 +43,8 @@ const MealBarGraph = ({ data }: MealWeekProps) => {
       <LineContainer>{lines}</LineContainer>
       <BarContainer>
         {values.map((value: MealWeekItem, idx) => {
-          console.log(value);
           return (
-            <Wrapper key={idx} $barHeight={90}>
+            <Wrapper key={idx} $barHeight={percent100}>
               <Bar
                 height={value.babyFoodAmount}
                 color={theme.color.graphInfantFormula}
