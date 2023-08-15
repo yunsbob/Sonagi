@@ -11,6 +11,7 @@ import { useUpdateRecord } from '@/apis/Record/Mutations/useUpdateRecord';
 import { useNavigate } from 'react-router-dom';
 import TimeRecorder from '@/components/molecules/TimeRecorder/TimeRecorder';
 import MemoRecorder from '@/components/molecules/MemoRecorder/MemoRecorder';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface NameProps {
   name: string;
@@ -52,10 +53,10 @@ const DiaperPage = ({ name, recordName, recordId }: NameProps) => {
     return {
       [idField]: recordId,
       createdTime: createdTime,
-      memo: memo,
+      memo,
     };
   };
-
+  const queryClient = useQueryClient();
   const handleUpdate = async () => {
     const currentRecord: Record = createRecord(
       recordName,
@@ -63,10 +64,17 @@ const DiaperPage = ({ name, recordName, recordId }: NameProps) => {
       createdTime,
       memo
     );
-    await updateRecordMutation.mutateAsync({
-      record: currentRecord,
-      queryName: recordName,
-    });
+    await updateRecordMutation.mutateAsync(
+      {
+        record: currentRecord,
+        queryName: recordName,
+      },
+      {
+        onSuccess() {
+          queryClient.invalidateQueries(['recordDetails', recordId]);
+        },
+      }
+    );
     RouteHandler();
   };
 

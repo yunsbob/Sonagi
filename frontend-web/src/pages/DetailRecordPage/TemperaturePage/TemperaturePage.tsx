@@ -12,6 +12,7 @@ import { useUpdateRecord } from '@/apis/Record/Mutations/useUpdateRecord';
 import { useRecoilValue } from 'recoil';
 import { selectedDateState } from '@/states/dateState';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface NameProps {
   name: string;
@@ -34,6 +35,7 @@ const TemperaturePage = ({ name, recordName, recordId }: NameProps) => {
   const updateRecordMutation = useUpdateRecord();
   const navigate = useNavigate();
   const RouteHandler = useCallback(() => navigate(-1), [navigate]);
+  const queryClient = useQueryClient();
 
   const handleUpdate = async () => {
     const currentRecord = {
@@ -42,10 +44,17 @@ const TemperaturePage = ({ name, recordName, recordId }: NameProps) => {
       bodyTemperature: amount,
       memo,
     };
-    await updateRecordMutation.mutateAsync({
-      record: currentRecord,
-      queryName: recordName,
-    });
+    await updateRecordMutation.mutateAsync(
+      {
+        record: currentRecord,
+        queryName: recordName,
+      },
+      {
+        onSuccess() {
+          queryClient.invalidateQueries(['recordDetails', recordId]);
+        },
+      }
+    );
     RouteHandler();
   };
 
