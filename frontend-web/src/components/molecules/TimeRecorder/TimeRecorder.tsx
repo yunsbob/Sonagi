@@ -8,22 +8,29 @@ import dayjs, { Dayjs } from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
-import { selectedDateState } from '@/states/dateState';
-import { useRecoilValue } from 'recoil';
 
 interface TimerProps {
   name?: string;
   initialTime?: string;
+  selectedDate?: string;
+  setCreatedTime: (value: string | null) => void;
 }
 
-const Timer = ({ name = '기록 시간', initialTime }: TimerProps) => {
-  const selectedDate = useRecoilValue(selectedDateState); // YYYY-DD-MM
-  const timeValue = `${selectedDate}T${initialTime?.substring(0, 5)}`;
+const Timer = ({
+  name = '기록 시간',
+  initialTime,
+  selectedDate,
+  setCreatedTime,
+}: TimerProps) => {
+  // get으로 받아온 기록 정보를 dayjs에 넣을 형식으로 바꿔주기
+  const timeValue = `${selectedDate}T${String(initialTime)?.substring(0, 5)}`;
 
+  // state에서 value값을 dayjs로 바꿔주기
   const [value, setValue] = useState<Dayjs | null>(
-    timeValue ? dayjs(timeValue) : dayjs('2022-04-17T17:30')
+    dayjs(timeValue)
+    // timeValue ? dayjs(timeValue) : dayjs('2022-04-17T17:30')
+    // 값이 없을 수가 있을까? 무조건 들어온다는 전제로 주석처리
   );
-
   return (
     <>
       <S.TimerTextWrapper>
@@ -33,7 +40,10 @@ const Timer = ({ name = '기록 시간', initialTime }: TimerProps) => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <MobileTimePicker
             defaultValue={value}
-            onChange={data => setValue(data)}
+            onChange={data => {
+              setCreatedTime(data!.format('HH:mm:ss')); // 이건 상위의 state값을 변경..
+              setValue(data); // data 타입은 object - dayjs
+            }}
             sx={{
               width: '100%',
               opacity: 0,

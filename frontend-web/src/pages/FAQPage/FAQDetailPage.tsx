@@ -7,7 +7,7 @@ import {
   ContentContainer,
   DetailContent,
   DetailTitle,
-  ListContainer,
+  DetailContainer,
 } from '../AdminPage/AdminPage.style';
 
 const FAQDetailPage = () => {
@@ -39,14 +39,10 @@ const FAQDetailPage = () => {
     }
   };
   return (
-    <ListContainer>
+    <DetailContainer>
       <ContentContainer>
-        <DetailTitle>
-          <p>{detailFAQData.title}</p>
-        </DetailTitle>
-        <DetailContent>
-          <p>{detailFAQData.content}</p>
-        </DetailContent>
+        <DetailTitle>{detailFAQData.title}</DetailTitle>
+        <DetailContent>{detailFAQData.content}</DetailContent>
       </ContentContainer>
       <AdminButtonContainer>
         <AdminButton>
@@ -58,7 +54,7 @@ const FAQDetailPage = () => {
         </AdminButton>
       </AdminButtonContainer>
       <Outlet />
-    </ListContainer>
+    </DetailContainer>
   );
 };
 

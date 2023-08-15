@@ -62,23 +62,26 @@ const BlockButton = styled(Button)`
   }
 `;
 
-const RecordBlock: React.FC<RecordBlockProps> = ({
+const RecordBlock = ({
   color,
   recordType,
   time,
   record,
-  recordId,
-  // queryName,
-}) => {
+  recordId, // queryName,
+}: RecordBlockProps) => {
   const navigate = useNavigate();
   const OnClickButton = () => {
-    navigate(PATH.DETAILRECORD, {
-      state: {
-        recordType: recordType,
-        recordName: record.category,
-        recordId: recordId,
-      },
-    });
+    // 이렇게 하는 방법 보다는 RecordBlock에서 미리 상세 정보를 가져오는게 좋겠다 ...
+    setTimeout(() => {
+      navigate(PATH.DETAILRECORD, {
+        state: {
+          recordType: recordType,
+          recordName: record.category,
+          recordId: recordId,
+          //
+        },
+      });
+    }, 300); // 뭔가.... 안에 페이지에서 get하는 순서가 안 맞는 것 같아 !
   };
 
   return (
@@ -86,8 +89,6 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
       <RoundedRect color={color} />
       <TimeText size="medium2">{time}</TimeText>
       <Text size="medium1" style={{ minWidth: 'fit-content' }}>
-        {recordId}
-        {record.category}
         {recordType}
       </Text>
       <MemoText size="medium2">{record.memo}</MemoText>

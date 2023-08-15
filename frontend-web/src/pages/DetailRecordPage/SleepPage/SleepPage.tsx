@@ -7,6 +7,7 @@ import Back from '@/components/atoms/Back/Back';
 import Button from '@/components/atoms/Button/Button';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import theme from '@/styles/theme';
+import { useState } from 'react';
 
 interface NameProps {
   name: string;
@@ -14,20 +15,22 @@ interface NameProps {
   recordId: number;
 }
 
-const SleepPage: React.FC<NameProps> = ({ name, recordName, recordId }) => {
+const SleepPage = ({ name, recordName, recordId }: NameProps) => {
+  const [memo, setMemo] = useState('');
+
   return (
     <>
       <Back>{name + ' 상세페이지' + recordName}</Back>
       <S.SleepPageContainer>
         <S.SleepPageWrapper>
           <S.Divider>
-            <TimeRecorder name="시작 시간"></TimeRecorder>
+            {/* <TimeRecorder name="시작 시간"></TimeRecorder> */}
           </S.Divider>
           <S.Divider>
-            <TimeRecorder name="종료 시간"></TimeRecorder>
+            {/* <TimeRecorder name="종료 시간"></TimeRecorder> */}
           </S.Divider>
           <S.Divider>
-            <MemoRecorder></MemoRecorder>
+            <MemoRecorder setMemo={setMemo} placeholder={memo}></MemoRecorder>
           </S.Divider>
           <Button
             option="activated"

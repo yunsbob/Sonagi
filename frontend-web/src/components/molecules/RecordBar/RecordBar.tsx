@@ -17,7 +17,7 @@ interface RecordBarProps {
   onRecordUpdated: () => void;
 }
 
-const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
+const RecordBar = ({ onRecordUpdated }: RecordBarProps) => {
   const [pickDate, setPickTime] = useState(new Date());
 
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));

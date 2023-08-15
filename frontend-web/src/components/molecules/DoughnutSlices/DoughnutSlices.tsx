@@ -7,11 +7,7 @@ interface DoughnutSliceProps {
   color: string;
 }
 
-const DoughnutSlice: React.FC<DoughnutSliceProps> = ({
-  start,
-  finished,
-  color,
-}) => (
+const DoughnutSlice = ({ start, finished, color }: DoughnutSliceProps) => (
   <path
     d={getArc(start, finished)}
     stroke={color}

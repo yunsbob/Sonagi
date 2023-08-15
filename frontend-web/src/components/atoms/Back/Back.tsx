@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import backArrow from '@/assets/images/icon-arrow-left-grey.png';
 import { Image } from '@/components/atoms/Image/Image';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import * as S from '@/components/atoms/Back/Back.styles';
 import type { ComponentPropsWithRef } from 'react';
@@ -12,10 +12,8 @@ interface BackProps extends ComponentPropsWithRef<'div'> {
 
 const Back = ({ children = '뒤로가기' }: BackProps) => {
   const navigate = useNavigate();
-
   const RouteHandler = useCallback(() => navigate(-1), [navigate]);
 
-  const location = useLocation();
   return (
     <S.Back onClick={RouteHandler}>
       <Image src={backArrow} width={1} />

@@ -7,19 +7,71 @@ import { selectedCategoryState } from '@/states/categoryState';
 import { useRecoilValue } from 'recoil';
 import { PATH } from '@/constants/path';
 import { HealthBarGraph } from '@/components/molecules/BarChart/Health/HealthBarGraph';
+import { useGetAllStatistics } from '@/apis/Statistic/Queries/useGetAllStatistics';
+import { BabiesOfUser } from '@/types';
+import { selectedBabyState } from '@/states/babyState';
+import { selectedDateState } from '@/states/dateState';
+import { MealCard } from '@/components/organisms/Card/MealCard';
+import { DiaperCard } from '@/components/organisms/Card/DiaperCard';
+import { PumpCard } from '@/components/organisms/Card/PumpCard';
+import { SleepCard } from '@/components/organisms/Card/SleepCard';
+import { ActivityCard } from '@/components/organisms/Card/ActivityCard';
+import { HealthCard } from '@/components/organisms/Card/HealthCard';
+import { ExtraCard } from '@/components/organisms/Card/ExtraCard';
+import { ExtraBarGraph } from '@/components/molecules/BarChart/Extra/ExtraBarGraph';
 
 const GraphByWeek = () => {
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.GRAPH));
 
-  console.log(currentCategory);
+  const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
+  const date = useRecoilValue(selectedDateState);
+
+  const getGraphDatas = useGetAllStatistics(babyInfo.babyId, 'week', date);
 
   return (
     <GraphByWeekContainer className="scrollable">
-      {currentCategory === 'Meal' && <MealBarGraph />}
-      {currentCategory === 'Diaper' && <DiaperBarGraph />}
-      {currentCategory === 'Pump' && <PumpingBreastBarGraph />}
-      {currentCategory === 'Health' && <HealthBarGraph />}
-      {/* <Card /> */}
+      {currentCategory === 'Meal' && (
+        <>
+          <MealBarGraph data={getGraphDatas[0].data.mealStatistics} />
+          <MealCard data={getGraphDatas[0].data} />
+        </>
+      )}
+      {currentCategory === 'Diaper' && (
+        <>
+          <DiaperBarGraph data={getGraphDatas[1].data.diaperStatistics} />
+          <DiaperCard data={getGraphDatas[1].data} />
+        </>
+      )}
+      {currentCategory === 'Sleep' && (
+        <>
+          <SleepCard data={getGraphDatas[2].data} />
+        </>
+      )}
+      {currentCategory === 'Pump' && (
+        <>
+          <PumpingBreastBarGraph
+            data={getGraphDatas[3].data.pumpingBreastStatistics}
+          />
+          <PumpCard data={getGraphDatas[3].data} />
+        </>
+      )}
+      {currentCategory === 'Activity' && (
+        <>
+          <ActivityCard data={getGraphDatas[4].data} />
+        </>
+      )}
+      {currentCategory === 'Health' && (
+        <>
+          <HealthBarGraph data={getGraphDatas[5].data.healthStatistics} />
+          <HealthCard data={getGraphDatas[5].data} />
+        </>
+      )}
+      {currentCategory === 'Extra' && (
+        <>
+          <ExtraBarGraph data={getGraphDatas[6].data.extraStatistics} />
+          <ExtraCard data={getGraphDatas[6].data} />
+        </>
+      )}
     </GraphByWeekContainer>
   );
 };
