@@ -31,7 +31,7 @@ const GraphByWeek = () => {
     <GraphByWeekContainer className="scrollable">
       {currentCategory === 'Meal' && (
         <>
-          <MealBarGraph />
+          <MealBarGraph data={getGraphDatas[0].data.mealStatistics} />
           <MealCard data={getGraphDatas[0].data} />
         </>
       )}
