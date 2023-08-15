@@ -58,6 +58,7 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
         createdTime: nowTime,
         createdDate: nowDate,
         memo: '',
+        // queryName: queryName,
       });
     } else if (
       [
@@ -76,6 +77,7 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
         createdTime: nowTime,
         createdDate: nowDate,
         memo: '',
+        // queryName,
       });
     } else if (['sleeps', 'plays', 'tummytimes'].includes(queryName)) {
       await addRecordMutation.mutateAsync({
@@ -86,6 +88,7 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
         createdDate: nowDate,
         endTime: nowTime,
         memo: '',
+        // queryName: queryName,
       });
     } else if (queryName === 'feedings') {
       await addRecordMutation.mutateAsync({
@@ -99,6 +102,7 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
         createdDate: nowDate,
         createdTime: nowTime,
         memo: '',
+        // queryName: queryName,
       });
     } else {
       await addRecordMutation.mutateAsync({
@@ -109,6 +113,7 @@ const RecordBar: React.FC<RecordBarProps> = ({ onRecordUpdated }) => {
         createdDate: nowDate,
         bodyTemperature: 36.5,
         memo: '',
+        // queryName: queryName,
       });
     }
 

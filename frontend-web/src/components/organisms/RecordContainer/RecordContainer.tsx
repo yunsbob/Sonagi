@@ -12,6 +12,7 @@ import { selectedBabyState } from '@/states/babyState';
 import { selectedDateState } from '@/states/dateState';
 import { fetchCounterState } from '@/states/fetchCounterState';
 import { recordEnToKo, recordTypeToCategory } from '@/constants/recordEnToKo';
+import { recordTypeToIdKey } from '@/constants/recordTypeToIdKey';
 
 type RecordContainerProps = {
   combinedData: CombinedRecord[];
@@ -20,6 +21,8 @@ type RecordContainerProps = {
 const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const containerRef = useRef<HTMLDivElement>(null);
+
+  console.log(combinedData, '--------');
 
   // 선택된 카테고리에 따라 쌓인 기록 블록들 필터링
   // const filteredRecordList = recordedList.filter(record => {
@@ -63,7 +66,7 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
           top: targetScrollTop,
           behavior: 'smooth',
         });
-      }, 300); // DOM이 완전히 업데이트 된 후 스크롤 위치를 조정
+      }, 500); // DOM이 완전히 업데이트 된 후 스크롤 위치를 조정
     }
   };
 
@@ -71,23 +74,23 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
   return (
     <>
       <RecordContainerStyle className="scrollable" ref={containerRef}>
-        {combinedData.map((record, index) => (
-          <RecordBlock
-            key={index}
-            color={theme.color[recordTypeToCategory[record.category]]}
-            recordType={recordEnToKo[record.category]}
-            record={record}
-            time={record.createdTime ? record.createdTime.substring(0, 5) : ''}
-          />
-        ))}
-        {/* {filteredRecordList.map((record, index) => (
-          <RecordBlock
-            key={index}
-            color={record.color}
-            recordType={record.recordType}
-            time={record.time}
-          ></RecordBlock>
-        ))} */}
+        {combinedData.map((record: CombinedRecord, index) => {
+          const recordIdKey = recordTypeToIdKey[record.category];
+          const recordId = record[recordIdKey as keyof CombinedRecord];
+          return (
+            <RecordBlock
+              key={index}
+              color={theme.color[recordTypeToCategory[record.category]]}
+              recordType={recordEnToKo[record.category]}
+              record={record}
+              time={
+                record.createdTime ? record.createdTime.substring(0, 5) : ''
+              }
+              recordId={recordId}
+              // queryName={record.queryName}
+            />
+          );
+        })}
       </RecordContainerStyle>
       <RecordBar onRecordUpdated={onRecordUpdated}></RecordBar>
     </>
