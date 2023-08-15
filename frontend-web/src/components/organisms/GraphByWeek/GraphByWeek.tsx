@@ -20,6 +20,7 @@ import { HealthCard } from '@/components/organisms/Card/HealthCard';
 import { ExtraCard } from '@/components/organisms/Card/ExtraCard';
 import { ExtraBarGraph } from '@/components/molecules/BarChart/Extra/ExtraBarGraph';
 import { SleepBarGraph } from '@/components/molecules/BarChart/Sleep/SleepBarGraph';
+import { ActivityBarGraph } from '@/components/molecules/BarChart/Activity/ActivityBarGraph';
 
 const GraphByWeek = () => {
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.GRAPH));
@@ -59,6 +60,7 @@ const GraphByWeek = () => {
       )}
       {currentCategory === 'Activity' && (
         <>
+          <ActivityBarGraph data={getGraphDatas[4].data.activityStatistics} />
           <ActivityCard data={getGraphDatas[4].data} graphType="week" />
         </>
       )}
