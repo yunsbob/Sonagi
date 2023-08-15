@@ -2,7 +2,13 @@ import { useState, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { instance } from '@/apis/instance';
 import { FAQ } from '@/types';
-import { MainContainer, ListContainer } from '../AdminPage/AdminPage.style';
+import {
+  MainContainer,
+  ListContainer,
+  CreateButton,
+  AdminButton,
+  AdminButtonContainer,
+} from '../AdminPage/AdminPage.style';
 
 const FAQPage = () => {
   const [currentPost, setCurrentPost] = useState<FAQ[]>([]);
@@ -32,8 +38,8 @@ const FAQPage = () => {
       <ListContainer>
         <table>
           <colgroup>
-            <col width="15%" />
-            <col width="85%" />
+            <col width="20%" />
+            <col width="80%" />
           </colgroup>
 
           <thead>
@@ -56,11 +62,14 @@ const FAQPage = () => {
             ))}
           </tbody>
         </table>
-
-        <Link to="/admin/faq/create">
-          <div>작성하기</div>
-        </Link>
       </ListContainer>
+      <CreateButton>
+        <AdminButton>
+          <Link to="/admin/faq/create">
+            <div>작성하기</div>
+          </Link>
+        </AdminButton>
+      </CreateButton>
     </MainContainer>
   );
 };

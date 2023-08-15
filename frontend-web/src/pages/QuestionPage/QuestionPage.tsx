@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { Question } from '@/types';
 import { instance } from '@/apis/instance';
-import { MainContainer, QuestionContainer } from '../AdminPage/AdminPage.style';
+import { ListContainer, MainContainer } from '../AdminPage/AdminPage.style';
 
 const QuestionPage = () => {
   const [currentPost, setCurrentPost] = useState<Question[]>([]);
@@ -12,7 +12,7 @@ const QuestionPage = () => {
       const response = await instance.get(`/questions`);
       return response.data;
     } catch (error) {
-      throw new Error('no data returned from the API - 문의사항');
+      throw new Error('no data return ed from the API - 문의사항');
     }
   };
 
@@ -28,13 +28,13 @@ const QuestionPage = () => {
   return (
     <MainContainer>
       <Outlet />
-      <QuestionContainer>
+      <ListContainer>
         <table>
           <colgroup>
             <col width="15%" />
-            <col width="35%" />
+            <col width="30%" />
             <col width="20%" />
-            <col width="40%" />
+            <col width="44%" />
           </colgroup>
 
           <thead>
@@ -61,7 +61,7 @@ const QuestionPage = () => {
             ))}
           </tbody>
         </table>
-      </QuestionContainer>
+      </ListContainer>
     </MainContainer>
   );
 };
