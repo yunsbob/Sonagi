@@ -7,7 +7,7 @@ import * as S from '@/pages/DetailRecordPage/DetailRecordPage.style';
 
 import { useLocation } from 'react-router-dom';
 
-const DetailRecordPage: React.FC = () => {
+const DetailRecordPage = () => {
   const location = useLocation();
   const name = location.state.recordType;
   const recordName = location.state.recordName;
