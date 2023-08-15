@@ -14,9 +14,9 @@ public class SleepStatisticsWeekResDto {
 	private Long sleepHour;
 	private Long sleepMinute;
 	private Long cntPercent;
-	private Long lastWeekCntPercent;
+	private Long yesterdayCntPercent;
 	private Long sleepPercent;
-	private Long lastWeekSleepPercent;
+	private Long yesterdaySleepPercent;
 
 	public SleepStatisticsWeekResDto() {
 		this.sleepStatistics =  new HashMap<>();

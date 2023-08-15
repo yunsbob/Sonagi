@@ -13,9 +13,9 @@ public class DiaperStatisticsWeekResDto {
 	private Long peeCnt;
 	private Long poopCnt;
 	private Long peeCntPercent;
-	private Long lastWeekPeeCntPercent;
+	private Long yesterdayPeeCntPercent;
 	private Long poopCntPercent;
-	private Long lastWeekPoopCntPercent;
+	private Long yesterdayPoopCntPercent;
 
 	public DiaperStatisticsWeekResDto() {
 		this.diaperStatistics = new HashMap<>();

@@ -2,7 +2,6 @@ package com.fa.sonagi.statistics.diaper.service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
@@ -128,14 +127,14 @@ public class DiaperStatisticsServiceImpl implements DiaperStatisticsService{
 		Long peeCntPercent = getPercent(peeCnt, lastWeekPeeCnt);
 		Long lastWeekPeeCntPercent = getPercent(lastWeekPeeCnt, peeCnt);
 		diaperWeek.setPeeCntPercent(peeCntPercent);
-		diaperWeek.setLastWeekPeeCntPercent(lastWeekPeeCntPercent);
+		diaperWeek.setYesterdayPeeCntPercent(lastWeekPeeCntPercent);
 
 		// 대변 횟수 통계 퍼센트 계산
 		Long lastWeekPoopCnt = poopRepository.findPoopCntByWeek(babyId, monday, sunday);
 		Long poopCntPercent = getPercent(poopCnt, lastWeekPoopCnt);
 		Long lastWeekPoopCntPercent = getPercent(lastWeekPoopCnt, poopCnt);
 		diaperWeek.setPoopCntPercent(poopCntPercent);
-		diaperWeek.setLastWeekPoopCntPercent(lastWeekPoopCntPercent);
+		diaperWeek.setYesterdayPoopCntPercent(lastWeekPoopCntPercent);
 
 		return diaperWeek;
 	}
