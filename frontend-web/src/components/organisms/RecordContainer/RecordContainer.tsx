@@ -72,7 +72,7 @@ const RecordContainer = ({ combinedData }: RecordContainerProps) => {
         {combinedData.map((record: CombinedRecord, index) => {
           const recordIdKey = recordTypeToIdKey[record.category!];
           const recordId = record[recordIdKey as keyof CombinedRecord];
-          return (
+          return 'amount' in record ? (
             <RecordBlock
               key={index}
               color={theme.color[recordTypeToCategory[record.category!]]}
@@ -82,7 +82,18 @@ const RecordContainer = ({ combinedData }: RecordContainerProps) => {
                 record.createdTime ? record.createdTime.substring(0, 5) : ''
               }
               recordId={recordId}
-              // queryName={record.queryName}
+              amount={record.amount}
+            />
+          ) : (
+            <RecordBlock
+              key={index}
+              color={theme.color[recordTypeToCategory[record.category!]]}
+              recordType={recordEnToKo[record.category!]}
+              record={record}
+              time={
+                record.createdTime ? record.createdTime.substring(0, 5) : ''
+              }
+              recordId={recordId}
             />
           );
         })}

@@ -15,6 +15,7 @@ interface RecordBlockProps {
   time: string;
   record: CombinedRecord;
   recordId: string | number | undefined;
+  amount?: number;
   // queryName:
   //   | 'infantFormulas'
   //   | 'breastFeedings'
@@ -45,7 +46,21 @@ const MemoText = styled(TimeText)`
   overflow: hidden;
   text-overflow: ellipsis;
   font-style: italic;
-  margin-left: 18px;
+  margin-left: 6px;
+  padding-right: 10px;
+`;
+
+const AmountButton = styled(Button)`
+  /* color: ${theme.color.gray1}; */
+  color: ${theme.color.gray1};
+  background-color: transparent;
+  margin-left: 8px;
+  width: fit-content;
+  padding: 4px 7px;
+  border-radius: 10px;
+  margin-top: 1px;
+  /* border-color: ${theme.color.lightgrey}; */
+  /* border: none; */
 `;
 
 const BlockButton = styled(Button)`
@@ -68,29 +83,38 @@ const RecordBlock = ({
   time,
   record,
   recordId, // queryName,
+  amount = 0,
 }: RecordBlockProps) => {
   const navigate = useNavigate();
   const OnClickButton = () => {
-    // 이렇게 하는 방법 보다는 RecordBlock에서 미리 상세 정보를 가져오는게 좋겠다 ...
-    setTimeout(() => {
-      navigate(PATH.DETAILRECORD, {
-        state: {
-          recordType: recordType,
-          recordName: record.category,
-          recordId: recordId,
-          //
-        },
-      });
-    }, 300); // 뭔가.... 안에 페이지에서 get하는 순서가 안 맞는 것 같아 !
+    navigate(PATH.DETAILRECORD, {
+      state: {
+        recordType: recordType,
+        recordName: record.category,
+        recordId: recordId,
+      },
+    });
   };
 
   return (
     <BlockButton option="default" size="xLarge" onClick={OnClickButton}>
       <RoundedRect color={color} />
       <TimeText size="medium2">{time}</TimeText>
-      <Text size="medium1" style={{ minWidth: 'fit-content' }}>
+      <Text
+        size="medium1"
+        style={{ minWidth: 'fit-content', marginRight: '8px' }}
+      >
         {recordType}
       </Text>
+      {amount !== 0 && (
+        <AmountButton
+          option="default"
+          size="xSmall"
+          style={{ minWidth: 'fit-content' }}
+        >
+          {amount + 'ml'}
+        </AmountButton>
+      )}
       <MemoText size="medium2">{record.memo}</MemoText>
       <Image
         src={iconArrowMiniRightGrey}

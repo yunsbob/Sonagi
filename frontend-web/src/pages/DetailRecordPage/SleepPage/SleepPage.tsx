@@ -7,7 +7,12 @@ import Back from '@/components/atoms/Back/Back';
 import Button from '@/components/atoms/Button/Button';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import theme from '@/styles/theme';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useGetRecordDetails } from '@/apis/Record/Queries/useGetRecordDetails';
+import { useUpdateRecord } from '@/apis/Record/Mutations/useUpdateRecord';
+import { useRecoilValue } from 'recoil';
+import { selectedDateState } from '@/states/dateState';
 
 interface NameProps {
   name: string;
@@ -16,7 +21,21 @@ interface NameProps {
 }
 
 const SleepPage = ({ name, recordName, recordId }: NameProps) => {
+  const recordDetails = useGetRecordDetails(recordName, recordId);
+  const selectedDate = useRecoilValue(selectedDateState); // YYYY-DD-MM
+
+  const [createdTime, setCreatedTime] = useState(recordDetails.createdTime);
+  // end타임도 필요할수도 있겠다
+  const [endTime, setEndTime] = useState(recordDetails.endTime);
   const [memo, setMemo] = useState('');
+
+  const navigate = useNavigate();
+  const RouteHandler = useCallback(() => navigate(-1), [navigate]);
+  const updateRecordMutation = useUpdateRecord();
+
+  type Record = {
+    [key: string]: number | string;
+  };
 
   return (
     <>
