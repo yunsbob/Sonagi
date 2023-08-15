@@ -12,7 +12,7 @@ public class ExtraStatisticsWeekResDto {
 	private Map<String, ExtraStatisticsDayForWeekDto> extraStatistics;
 	private Long cnt;
 	private Long cntPercent;
-	private Long lastWeekCntPercent;
+	private Long yesterdayCntPercent;
 
 	public ExtraStatisticsWeekResDto() {
 		this.extraStatistics = new HashMap<>();

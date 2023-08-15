@@ -191,7 +191,7 @@ public class MealStatisticsServiceImpl implements MealStatisticsService{
 		Long cntPercent = getPercent(cnt, lastWeekCnt);
 		Long lastWeekCntPercent = getPercent(lastWeekCnt, cnt);
 		mealWeek.setCntPercent(cntPercent);
-		mealWeek.setLastWeekCntPercent(lastWeekCntPercent);
+		mealWeek.setYesterdayCntPercent(lastWeekCntPercent);
 
 		// 식사 용량 통계 퍼센트 계산
 		Long lastWeekAmount = babyFoodRepository.findBabyFoodAmountByWeek(babyId, monday, sunday)
@@ -202,7 +202,7 @@ public class MealStatisticsServiceImpl implements MealStatisticsService{
 		Long amountPercent = getPercent(amount, lastWeekAmount);
 		Long lastWeekAmountPercent = getPercent(lastWeekAmount, amount);
 		mealWeek.setAmountPercent(amountPercent);
-		mealWeek.setLastWeekAmountPercent(lastWeekAmountPercent);
+		mealWeek.setYesterdayAmountPercent(lastWeekAmountPercent);
 
 		return mealWeek;
 	}

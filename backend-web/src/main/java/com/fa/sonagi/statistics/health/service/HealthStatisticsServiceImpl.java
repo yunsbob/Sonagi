@@ -141,21 +141,21 @@ public class HealthStatisticsServiceImpl implements HealthStatisticsService{
 		Long hospitalCntPercent = getPercent(hospitalCnt, lastWeekHospitalCnt);
 		Long lastWeekHospitalCntPercent = getPercent(lastWeekHospitalCnt, hospitalCnt);
 		healthWeek.setHospitalCntPercent(hospitalCntPercent);
-		healthWeek.setLastWeekHospitalCntPercent(lastWeekHospitalCntPercent);
+		healthWeek.setYesterdayHospitalCntPercent(lastWeekHospitalCntPercent);
 
 		// 투약 횟수 통계 퍼센트 계산
 		Long lastWeekMedicationCnt = medicationRepository.findMedicationCntByWeek(babyId, monday, sunday);
 		Long medicationCntPercent = getPercent(medicationCnt, lastWeekMedicationCnt);
 		Long lastWeekMedicationCntPercent = getPercent(lastWeekMedicationCnt, medicationCnt);
 		healthWeek.setMedicationCntPercent(medicationCntPercent);
-		healthWeek.setLastWeekMedicationCntPercent(lastWeekMedicationCntPercent);
+		healthWeek.setYesterdayMedicationCntPercent(lastWeekMedicationCntPercent);
 
 		// 체온 평균 통계 퍼센트 계산
 		Double lastWeekFeverAvg = feverRepository.findFeverAvgByWeek(babyId, monday, sunday);
 		Long feverPercent = getPercent(feverAvg, lastWeekFeverAvg);
 		Long lastWeekFeverPercent = getPercent(lastWeekFeverAvg, feverAvg);
 		healthWeek.setFeverAvgPercent(feverPercent);
-		healthWeek.setLastWeekFeverAvgPercent(lastWeekFeverPercent);
+		healthWeek.setYesterdayFeverAvgPercent(lastWeekFeverPercent);
 
 		return healthWeek;
 	}
