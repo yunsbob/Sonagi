@@ -13,17 +13,26 @@ import { selectedDateState } from '@/states/dateState';
 import { useGetDiaryInfoByBabyId } from '@/apis/Diary/Queries/useGetDiaryInfoByBabyId';
 import { diaryRecordList, writtenDiaryDateList } from '@/states/diaryState';
 import { useGetAllDiaryRecordDates } from '@/apis/Diary/Queries/useGetAllDiaryRecordDates';
+import { useEffect, useRef } from 'react';
 
 const DiaryPage: React.FC = () => {
   const navigate = useNavigate();
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
   const selectedDate: string = useRecoilValue(selectedDateState);
   const [diaries, setDiaries] = useRecoilState(diaryRecordList);
-  const recordedDateList: string[] = useRecoilValue(writtenDiaryDateList);
+  const [recordedDateList, setRecordedDateList] =
+    useRecoilState(writtenDiaryDateList);
+  // const recordedDateList: string[] = useRecoilValue(writtenDiaryDateList);
 
-  // 그냥 호출만 해놓으면 babyInfo 의 값이 변화함에 따라 호출이 변하는가?
-  useGetDiaryInfoByBabyId(babyInfo.babyId, selectedDate);
-  useGetAllDiaryRecordDates(babyInfo.babyId);
+  const records = useGetDiaryInfoByBabyId(babyInfo.babyId, selectedDate);
+  const records2 = useGetAllDiaryRecordDates(babyInfo.babyId);
+
+  useEffect(() => {
+    setDiaries(records.diaries);
+  }, [records, setDiaries]);
+  useEffect(() => {
+    setRecordedDateList(records2.dateList);
+  }, [records2, setRecordedDateList]);
   return (
     <>
       <CalendarBar></CalendarBar>

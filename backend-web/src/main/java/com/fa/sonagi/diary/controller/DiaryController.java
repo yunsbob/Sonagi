@@ -54,7 +54,8 @@ public class DiaryController {
 	@PutMapping
 	@Operation(summary = "일기 내용, 사진 데이터 수정")
 	public ResponseEntity<?> updateDiaries(@RequestPart DiaryPutDto diaryPutDto,
-		@RequestPart List<MultipartFile> imgFiles) throws Exception {
+		@RequestPart(required = false) List<MultipartFile> imgFiles) throws Exception {
+
 		diaryService.updateDiaryContent(diaryPutDto, imgFiles);
 		return ResponseEntity.ok().build();
 	}

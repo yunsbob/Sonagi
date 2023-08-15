@@ -59,7 +59,6 @@ public class DiaryServiceImpl implements DiaryService {
 
 	@Override
 	@Transactional
-
 	public void createDiary(DiaryPostDto diaryPostDto, List<MultipartFile> imgFiles) throws Exception {
 		String userName = userRepository.findById(diaryPostDto.getUserId()).orElseThrow().getName();
 
@@ -67,6 +66,7 @@ public class DiaryServiceImpl implements DiaryService {
 		Diary diary = Diary.builder()
 		                   .babyId(diaryPostDto.getBabyId())
 		                   .userName(userName)
+		                   .createdDate(LocalDate.now(ZoneId.of("Asia/Seoul")))
 		                   .diaryFiles(new ArrayList<>())
 		                   .content(diaryPostDto.getContent())
 		                   .createdTime(LocalTime.now().plusHours(9))
@@ -107,28 +107,27 @@ public class DiaryServiceImpl implements DiaryService {
 		// diary content 수정
 		Diary diary = diaryRepository.findById(diaryPutDto.getDiaryId()).orElseThrow();
 		diary.updateContent(diaryPutDto.getContent());
-
 		// 새로 사진 추가 및 업로드
-		for (MultipartFile imgFile : imgFiles) {
-			String url = s3File.upload(imgFile, "img");
-			DiaryFile diaryFile = DiaryFile.builder().fileName(url).build();
-			diary.addDiaryFile(diaryFile);
-		}
-
-		// 삭제할 리스트는 삭제
-		for (String removeFile : diaryPutDto.getRemoveFiles()) {
-			s3File.delete(removeFile);
-
-			List<DiaryFile> list = diary.getDiaryFiles()
-			                            .stream()
-			                            .filter((diaryFile -> diaryFile.getFileName().equals(removeFile)))
-			                            .toList();
-
-			for (int i = 0; i < list.size(); i++) {
-				DiaryFile diaryFile = list.get(i);
-				diary.removeDiaryFile(diaryFile);
+		if (imgFiles != null) {
+			for (MultipartFile imgFile : imgFiles) {
+				String url = s3File.upload(imgFile, "img");
+				DiaryFile diaryFile = DiaryFile.builder().fileName(url).build();
+				diary.addDiaryFile(diaryFile);
 			}
-
+		}
+		if (diaryPutDto.getRemoveFiles() != null) {
+			// 삭제할 리스트는 삭제
+			for (String removeFile : diaryPutDto.getRemoveFiles()) {
+				s3File.delete(removeFile);
+				List<DiaryFile> list = diary.getDiaryFiles()
+				                            .stream()
+				                            .filter((diaryFile -> diaryFile.getFileName().equals(removeFile)))
+				                            .toList();
+				for (int i = 0; i < list.size(); i++) {
+					DiaryFile diaryFile = list.get(i);
+					diary.removeDiaryFile(diaryFile);
+				}
+			}
 		}
 		diaryRepository.save(diary);
 	}

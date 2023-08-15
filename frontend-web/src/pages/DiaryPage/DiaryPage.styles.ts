@@ -7,7 +7,6 @@ const DiaryListContainer = styled.div`
   justify-content: start;
   box-sizing: border-box;
   padding: 1.5rem;
-  overflow-y: scroll;
   gap: 0.75rem;
 `;
 

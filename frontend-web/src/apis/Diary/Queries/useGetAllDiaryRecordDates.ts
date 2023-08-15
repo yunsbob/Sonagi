@@ -4,12 +4,10 @@ import { useRecoilState } from 'recoil';
 import { writtenDiaryDateList } from '@/states/diaryState';
 
 const useGetAllDiaryRecordDates = (babyId: number) => {
-  const { data: records } = useQuery(['diaryRecordDates', babyId], () =>
+  const { data } = useQuery(['diaryRecordDates', babyId], () =>
     getAllDiariesRecord(babyId)
   );
-  const [recordedDateList, setRecordedDateList] =
-    useRecoilState(writtenDiaryDateList);
-  setRecordedDateList(records);
+  return data;
 };
 
 export { useGetAllDiaryRecordDates };

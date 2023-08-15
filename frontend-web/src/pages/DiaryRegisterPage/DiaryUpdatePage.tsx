@@ -6,7 +6,7 @@ import IconPlusBlueRectDash from '@/assets/images/icon-plus-blue-rect-dash.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import backArrow from '@/assets/images/icon-arrow-left-grey.png';
 import Button from '@/components/atoms/Button/Button';
-import { DiaryInfo, DiaryPostDto } from '@/types/diaryTypes';
+import { DiaryInfo, DiaryPostDto, DiaryPutDto } from '@/types/diaryTypes';
 import { useRecoilValue } from 'recoil';
 import { BabiesOfUser, User } from '@/types';
 import { userInfoState } from '@/states/userState';
@@ -18,33 +18,31 @@ import { diaryRecordList } from '@/states/diaryState';
 
 const DiaryUpdatePage: React.FC = () => {
   const navigate = useNavigate();
+  const updateDiaryMutation = useUpdateDiary();
   const userInfo: User = useRecoilValue(userInfoState);
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
   const curDate: string = useRecoilValue(selectedDateState);
-  const updateDiaryMutation = useUpdateDiary();
+  const diaryInfoList: DiaryInfo[] = useRecoilValue(diaryRecordList);
 
-  const [files, setFiles] = useState<File[]>([]);
-  const [diaryContent, setDiaryContent] = useState<string>('');
+  const { id } = useParams<{ id: string }>();
+  const diaryInfo = diaryInfoList.find(e => e.diaryId === parseInt(id!, 10));
+
+  type FileOrString = File | string;
+  const [files, setFiles] = useState<FileOrString[]>(diaryInfo!.imgUrls);
+  const [diaryContent, setDiaryContent] = useState<string>(diaryInfo!.content);
+  const [removesFileState, setRemovesFileState] = useState<string[]>([]);
+
   const fileInputRefs = useRef<HTMLInputElement[]>([]);
 
-  const diaryInfoList: DiaryInfo[] = useRecoilValue(diaryRecordList);
-  const { id } = useParams<{ id: string }>();
-
   const RouteHandler = useCallback(() => navigate(-1), [navigate]);
-
-  if (!id) {
-    return <p>Diary ID not found</p>;
-  }
-
-  const diaryInfo = diaryInfoList.find(e => e.diaryId === parseInt(id, 10));
 
   const handleSubmit = async () => {
     const formData = new FormData();
 
-    const diaryPostDto: DiaryPostDto = {
-      userId: userInfo?.userId,
-      babyId: babyInfo?.babyId,
+    const diaryPutDto: DiaryPutDto = {
+      diaryId: parseInt(id!, 10),
       content: diaryContent,
+      removeFiles: removesFileState,
     };
 
     for (let i = 0; i < files.length; i++) {
@@ -52,8 +50,8 @@ const DiaryUpdatePage: React.FC = () => {
     }
 
     formData.append(
-      'diaryPostDto',
-      new Blob([JSON.stringify(diaryPostDto)], { type: 'application/json' })
+      'diaryPutDto',
+      new Blob([JSON.stringify(diaryPutDto)], { type: 'application/json' })
     );
 
     await updateDiaryMutation.mutateAsync(formData);
@@ -85,6 +83,13 @@ const DiaryUpdatePage: React.FC = () => {
 
   const handleRemoveImage = (index: number, event: React.MouseEvent) => {
     event.stopPropagation();
+
+    const obj = files[index];
+
+    if (typeof obj === 'string') {
+      setRemovesFileState(prev => [...prev, obj]);
+    }
+
     setFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
   };
 
@@ -108,13 +113,18 @@ const DiaryUpdatePage: React.FC = () => {
           <S.TitleText size="headSmall">육아일기 수정하기</S.TitleText>
         </S.DiaryRegisterHeadContainer>
         <S.DiaryRegisterBodyContainer>
-          <DiaryRecorder onDataUpdate={handleDiaryContent}></DiaryRecorder>
+          <DiaryRecorder
+            onDataUpdate={handleDiaryContent}
+            tContent={diaryContent}
+          ></DiaryRecorder>
         </S.DiaryRegisterBodyContainer>
         <S.DiaryRegisterFileListContainer>
           {files.map((file, index) => (
             <S.DiaryRegisterWrapper key={index}>
               <Image
-                src={file && URL.createObjectURL(file)}
+                src={
+                  typeof file === 'string' ? file : URL.createObjectURL(file)
+                }
                 height={100}
                 width={100}
                 style={{ objectFit: 'cover' }}
@@ -156,7 +166,7 @@ const DiaryUpdatePage: React.FC = () => {
         </S.DiaryRegisterFileListContainer>
         <S.RegisterBtnContainer>
           <Button option="activated" onClick={handleSubmit}>
-            등록하기
+            수정하기
           </Button>
         </S.RegisterBtnContainer>
       </S.DiaryRegisterContainer>
