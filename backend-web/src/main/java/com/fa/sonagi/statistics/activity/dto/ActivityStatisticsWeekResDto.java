@@ -14,9 +14,9 @@ public class ActivityStatisticsWeekResDto {
 	private Long activityHour;
 	private Long activityMinute;
 	private Long cntPercent;
-	private Long lastWeekCntPercent;
+	private Long yesterdayCntPercent;
 	private Long activityPercent;
-	private Long lastWeekActivityPercent;
+	private Long yesterdayActivityPercent;
 
 	public ActivityStatisticsWeekResDto() {
 		this.activityStatistics = new HashMap<>();

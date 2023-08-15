@@ -92,7 +92,7 @@ public class ExtraStatisticServiceImpl implements ExtraStatisticsService {
 		Long cntPercent = getPercent(cnt, lastWeekCnt);
 		Long lastWeekCntPercent = getPercent(lastWeekCnt, cnt);
 		extraWeek.setCntPercent(cntPercent);
-		extraWeek.setLastWeekCntPercent(lastWeekCntPercent);
+		extraWeek.setYesterdayCntPercent(lastWeekCntPercent);
 
 		return extraWeek;
 	}
