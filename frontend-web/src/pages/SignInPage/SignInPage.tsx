@@ -11,6 +11,8 @@ import { produce } from 'immer';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import { useUpdateUser } from '@/apis/User/Mutations/useUpdateUser';
+import { useEffect } from 'react';
+import { getUserName } from '@/apis/User/userAPI';
 
 const SignInPage = () => {
   const navigate = useNavigate();

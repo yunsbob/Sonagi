@@ -3,47 +3,48 @@ import * as S from '@/pages/DiaryRegisterPage/DiaryRegisterPage.styles';
 import DiaryRecorder from '@/components/molecules/DiaryRecorder/DiaryRecorder';
 import { Image } from '@/components/atoms/Image/Image';
 import IconPlusBlueRectDash from '@/assets/images/icon-plus-blue-rect-dash.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import backArrow from '@/assets/images/icon-arrow-left-grey.png';
 import Button from '@/components/atoms/Button/Button';
-import { DiaryPostDto } from '@/types/diaryTypes';
+import { DiaryInfo, DiaryPutDto } from '@/types/diaryTypes';
 import { useRecoilValue } from 'recoil';
 import { BabiesOfUser, User } from '@/types';
 import { userInfoState } from '@/states/userState';
 import { selectedBabyState } from '@/states/babyState';
 import { PATH } from '@/constants/path';
-import { useAddDiary } from '@/apis/Diary/Mutations/useAddDiaries';
+import { useUpdateDiary } from '@/apis/Diary/Mutations/useUpdateDiary';
 import { selectedDateState } from '@/states/dateState';
+import { diaryRecordList } from '@/states/diaryState';
+import { useDeleteDiary } from '@/apis/Diary/Mutations/useDeleteDiary';
 
-const DiaryRegisterPage = () => {
+const DiaryUpdatePage: React.FC = () => {
   const navigate = useNavigate();
-  const userInfo: User = useRecoilValue(userInfoState);
-  const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
-  const selectedDate: string = useRecoilValue(selectedDateState);
-  const [files, setFiles] = useState<File[]>([]);
-  const [diaryContent, setDiaryContent] = useState<string>('');
+  const updateDiaryMutation = useUpdateDiary();
+  const deleteDiaryMutation = useDeleteDiary();
+  // const userInfo: User = useRecoilValue(userInfoState);
+  // const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
+  // const curDate: string = useRecoilValue(selectedDateState);
+  const diaryInfoList: DiaryInfo[] = useRecoilValue(diaryRecordList);
+
+  const { id } = useParams<{ id: string }>();
+  const diaryInfo = diaryInfoList.find(e => e.diaryId === parseInt(id!, 10));
+
+  type FileOrString = File | string;
+  const [files, setFiles] = useState<FileOrString[]>(diaryInfo!.imgUrls);
+  const [diaryContent, setDiaryContent] = useState<string>(diaryInfo!.content);
+  const [removesFileState, setRemovesFileState] = useState<string[]>([]);
+
   const fileInputRefs = useRef<HTMLInputElement[]>([]);
 
-  const addDiaryMutation = useAddDiary();
+  const RouteHandler = useCallback(() => navigate(-1), [navigate]);
 
   const handleSubmit = async () => {
     const formData = new FormData();
-    const diaryPostDto: DiaryPostDto = {
-      userId: userInfo?.userId,
-      babyId: babyInfo?.babyId,
+
+    const diaryPutDto: DiaryPutDto = {
+      diaryId: parseInt(id!, 10),
       content: diaryContent,
-      writeDate: selectedDate,
-      writeTime:
-        new Date().toISOString().slice(0, 10) === selectedDate
-          ? '00:00:00'
-          : new Date()
-              .toLocaleTimeString('en-US', {
-                hour12: false,
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-              })
-              .toString(),
+      removeFiles: removesFileState,
     };
 
     for (let i = 0; i < files.length; i++) {
@@ -51,12 +52,20 @@ const DiaryRegisterPage = () => {
     }
 
     formData.append(
-      'diaryPostDto',
-      new Blob([JSON.stringify(diaryPostDto)], { type: 'application/json' })
+      'diaryPutDto',
+      new Blob([JSON.stringify(diaryPutDto)], { type: 'application/json' })
     );
 
-    await addDiaryMutation.mutateAsync(formData);
+    await updateDiaryMutation.mutateAsync(formData);
     navigate(PATH.DIARY);
+  };
+
+  const handleRemove = async () => {
+    const userConfirmed = confirm('일기를 삭제 하시겠습니까 ?');
+    if (userConfirmed) {
+      await deleteDiaryMutation.mutateAsync(parseInt(id!, 10));
+      navigate(PATH.DIARY);
+    }
   };
 
   const handleFileChange = (
@@ -84,6 +93,12 @@ const DiaryRegisterPage = () => {
 
   const handleRemoveImage = (index: number, event: React.MouseEvent) => {
     event.stopPropagation();
+
+    const obj = files[index];
+    if (typeof obj === 'string') {
+      setRemovesFileState(prev => [...prev, obj]);
+    }
+
     setFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
   };
 
@@ -92,11 +107,11 @@ const DiaryRegisterPage = () => {
       fileInputRefs.current[index] = ref;
     }
   };
+
   const handleDiaryContent = (data: string) => {
     setDiaryContent(data);
   };
 
-  const RouteHandler = useCallback(() => navigate(-1), [navigate]);
   return (
     <>
       <S.DiaryRegisterContainer>
@@ -104,16 +119,21 @@ const DiaryRegisterPage = () => {
           <S.BackArrow onClick={RouteHandler}>
             <Image src={backArrow} width={1} />
           </S.BackArrow>
-          <S.TitleText size="headSmall">육아일기 작성하기</S.TitleText>
+          <S.TitleText size="headSmall">육아일기 수정하기</S.TitleText>
         </S.DiaryRegisterHeadContainer>
         <S.DiaryRegisterBodyContainer>
-          <DiaryRecorder onDataUpdate={handleDiaryContent}></DiaryRecorder>
+          <DiaryRecorder
+            onDataUpdate={handleDiaryContent}
+            tContent={diaryContent}
+          ></DiaryRecorder>
         </S.DiaryRegisterBodyContainer>
         <S.DiaryRegisterFileListContainer>
           {files.map((file, index) => (
             <S.DiaryRegisterWrapper key={index}>
               <Image
-                src={file && URL.createObjectURL(file)}
+                src={
+                  typeof file === 'string' ? file : URL.createObjectURL(file)
+                }
                 height={100}
                 width={100}
                 style={{ objectFit: 'cover' }}
@@ -154,8 +174,11 @@ const DiaryRegisterPage = () => {
           )}
         </S.DiaryRegisterFileListContainer>
         <S.RegisterBtnContainer>
+          <Button option="danger" onClick={handleRemove}>
+            삭제하기
+          </Button>
           <Button option="activated" onClick={handleSubmit}>
-            등록하기
+            수정하기
           </Button>
         </S.RegisterBtnContainer>
       </S.DiaryRegisterContainer>
@@ -163,4 +186,4 @@ const DiaryRegisterPage = () => {
   );
 };
 
-export default DiaryRegisterPage;
+export default DiaryUpdatePage;

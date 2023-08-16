@@ -4,8 +4,6 @@ import * as S from './WeekendCalendarToken.style';
 import theme from '@/styles/theme';
 import { Dayjs } from 'dayjs';
 
-//TODO:  isRecordDay true => 점찍기
-
 interface WeekendCalendarProps {
   dayNumber: Dayjs;
   dayOfWeek: string;

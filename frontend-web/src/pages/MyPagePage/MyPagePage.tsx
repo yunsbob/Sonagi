@@ -23,6 +23,7 @@ import authorityBlue from '@/assets/images/btn-authority-blue.png';
 import authorityGreen from '@/assets/images/btn-authority-green.png';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
+import { logout } from '@/apis/User/userAPI';
 
 const MyPagePage = () => {
   const userInfo: User = useRecoilValue(userInfoState);
@@ -40,6 +41,14 @@ const MyPagePage = () => {
 
   const navigateToAlarmPage = () => {
     navigate(PATH.ALARM);
+  };
+  const navigateToRegisterBabyProfile = () => {
+    navigate(PATH.REGISTERBABYPROFILE);
+  };
+  const handleLogout = () => {
+    logout();
+    localStorage.clear();
+    navigate(PATH.LOGIN);
   };
 
   return (
@@ -79,15 +88,18 @@ const MyPagePage = () => {
         <CoparentList />
       </CoParentContainer>
       <SettingContainer>
-        <Text size="medium1">우리 아이 추가하기</Text>
+        <Text size="medium1" onClick={navigateToRegisterBabyProfile}>
+          우리 아이 추가하기
+        </Text>
         <Text size="medium1" onClick={navigateToAlarmPage}>
           알림 설정
         </Text>
-        <Text size="medium1">앨범 생성하기</Text>
-        <Text size="medium1">로그아웃</Text>
-        <Text size="medium1">자주 묻는 질문(FAQ)</Text>
         <Text size="medium1">문의하기</Text>
-        <Text size="medium1">탈퇴하기</Text>
+        <Text size="medium1">앨범 생성하기</Text>
+        <Text size="medium1">자주 묻는 질문(FAQ)</Text>
+        <Text size="medium1" onClick={handleLogout}>
+          로그아웃
+        </Text>
       </SettingContainer>
     </Container>
   );
