@@ -15,6 +15,8 @@ import {
 } from '@/pages/LogInPage/LogInPage.styles';
 import SocialButton from '@/components/molecules/SocialButton/SocialButton';
 
+// TODO: slightly / slowly 흔들거리는 baby Animation
+
 const LogInPage = () => {
   const OAUTH2_REDIERECT_URI = `${process.env.REACT_APP_BASE_URL}/oauth/redirect`;
   const onSocialButtonClick = (socialName: string) => {
