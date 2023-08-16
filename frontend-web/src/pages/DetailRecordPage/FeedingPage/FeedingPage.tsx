@@ -70,7 +70,7 @@ const FeedingPage = ({ name, recordName, recordId }: NameProps) => {
       <Back>{name + ' 상세페이지'}</Back>
       <S.FeedingPageContainer>
         <S.FeedingPageWrapper className="scrollable">
-          <S.Divider>
+          <S.Divider className="upperFeedingPageDivider">
             <BreastFeedRecorder
               isLeft={isLeft}
               setIsLeft={setIsLeft}
@@ -82,6 +82,7 @@ const FeedingPage = ({ name, recordName, recordId }: NameProps) => {
                 <TimeRecorder
                   key="left-start-time"
                   name="왼쪽 수유 시작 시간"
+                  textSize="medium2"
                   initialTime={createdLeftTime}
                   selectedDate={selectedDate}
                   setCreatedTime={setCreatedLeftTime}
@@ -91,6 +92,7 @@ const FeedingPage = ({ name, recordName, recordId }: NameProps) => {
                 <TimeRecorder
                   key="left-end-time"
                   name="왼쪽 수유 종료 시간"
+                  textSize="medium2"
                   initialTime={endLeftTime}
                   selectedDate={selectedDate}
                   setCreatedTime={setEndLeftTime}
@@ -103,6 +105,7 @@ const FeedingPage = ({ name, recordName, recordId }: NameProps) => {
                 <TimeRecorder
                   key="right-start-time"
                   name="오른쪽 수유 시작 시간"
+                  textSize="medium2"
                   initialTime={createdRightTime}
                   selectedDate={selectedDate}
                   setCreatedTime={setCreatedRightTime}
@@ -111,6 +114,7 @@ const FeedingPage = ({ name, recordName, recordId }: NameProps) => {
               <S.Divider>
                 <TimeRecorder
                   key="right-end-time"
+                  textSize="medium2"
                   name="오른쪽 수유 종료 시간"
                   initialTime={endRightTime}
                   selectedDate={selectedDate}

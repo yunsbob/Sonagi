@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Text } from '@/components/atoms/Text/Text.styles';
+import { Text, TextProps } from '@/components/atoms/Text/Text.styles';
 import Button from '@/components/atoms/Button/Button';
 import * as S from '@/components/molecules/TimeRecorder/TimeRecorder.style';
 import theme from '@/styles/theme';
@@ -14,6 +14,7 @@ interface TimerProps {
   initialTime?: string;
   selectedDate?: string;
   setCreatedTime: (value: string | null) => void;
+  textSize?: TextProps['size'];
 }
 
 const Timer = ({
@@ -21,6 +22,7 @@ const Timer = ({
   initialTime,
   selectedDate,
   setCreatedTime,
+  textSize = 'headSmall',
 }: TimerProps) => {
   // get으로 받아온 기록 정보를 dayjs에 넣을 형식으로 바꿔주기
   const timeValue = `${selectedDate}T${String(initialTime)?.substring(0, 5)}`;
@@ -34,7 +36,7 @@ const Timer = ({
   return (
     <>
       <S.TimerTextWrapper>
-        <Text size="headSmall">{name}</Text>
+        <Text size={textSize}>{name}</Text>
       </S.TimerTextWrapper>
       <S.TimerButtonWrapper>
         <LocalizationProvider dateAdapter={AdapterDayjs}>

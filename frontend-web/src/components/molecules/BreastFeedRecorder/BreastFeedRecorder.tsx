@@ -22,9 +22,6 @@ const BreastFeed = ({ isLeft, setIsLeft }: BreastFeedProps) => {
 
   return (
     <>
-      <S.BreastFeedTextWrapper>
-        <Text size={'headSmall'}>수유 방향</Text>
-      </S.BreastFeedTextWrapper>
       <S.BreastFeedWrapper>
         <Button
           size="xLarge"
@@ -32,6 +29,7 @@ const BreastFeed = ({ isLeft, setIsLeft }: BreastFeedProps) => {
           $backgroundColor={isLeft ? null : theme.color.lightgrey}
           style={{
             filter: isLeft ? undefined : 'grayscale(100%)',
+            height: '65px',
           }}
           $borderRadius="14px"
           onClick={leftHandler}
@@ -40,7 +38,7 @@ const BreastFeed = ({ isLeft, setIsLeft }: BreastFeedProps) => {
             <Text size="medium1" style={{ marginRight: '8px' }}>
               왼쪽
             </Text>
-            <Image src={LeftBreast} width={53} $unit="px"></Image>
+            <Image src={LeftBreast} width={35} $unit="px"></Image>
           </S.ButtonWrapper>
         </Button>
         <Button
@@ -49,12 +47,13 @@ const BreastFeed = ({ isLeft, setIsLeft }: BreastFeedProps) => {
           $backgroundColor={!isLeft ? null : theme.color.lightgrey}
           style={{
             filter: !isLeft ? undefined : 'grayscale(100%)',
+            height: '65px',
           }}
           $borderRadius="14px"
           onClick={rightHandler}
         >
           <S.ButtonWrapper>
-            <Image src={RightBreast} width={53} $unit="px"></Image>
+            <Image src={RightBreast} width={35} $unit="px"></Image>
             <Text size="medium1" style={{ marginLeft: '6px' }}>
               오른쪽
             </Text>
