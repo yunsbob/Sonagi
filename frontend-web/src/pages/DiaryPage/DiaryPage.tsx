@@ -13,14 +13,14 @@ import { selectedDateState } from '@/states/dateState';
 import { useGetDiaryInfoByBabyId } from '@/apis/Diary/Queries/useGetDiaryInfoByBabyId';
 import { diaryRecordList, writtenDiaryDateList } from '@/states/diaryState';
 import { useGetAllDiaryRecordDates } from '@/apis/Diary/Queries/useGetAllDiaryRecordDates';
-import { useEffect, useRef } from 'react';
-import dayjs from 'dayjs';
+import { useEffect } from 'react';
 
 const DiaryPage: React.FC = () => {
   const navigate = useNavigate();
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
   const selectedDate: string = useRecoilValue(selectedDateState);
   const [diaries, setDiaries] = useRecoilState(diaryRecordList);
+
   const [recordedDateList, setRecordedDateList] =
     useRecoilState(writtenDiaryDateList);
   // const recordedDateList: string[] = useRecoilValue(writtenDiaryDateList);
