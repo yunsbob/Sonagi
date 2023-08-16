@@ -35,6 +35,9 @@ export default function TabBar() {
     navigate(path);
   };
 
+  // TODO: 위로 shadow
+  // TODO:
+
   return (
     <StyledTabBar>
       {tabBarInfo.map(({ src, path }) => (

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import RecordBar from '@/components/molecules/RecordBar/RecordBar';
 import RecordBlock from '@/components/molecules/RecordBlock/RecordBlock';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -65,7 +65,6 @@ const RecordContainer = ({ combinedData }: RecordContainerProps) => {
     }
   };
 
-  // TODO: recordBlock 안에 <recordType>id를 넣어줘야함
   return (
     <>
       <RecordContainerStyle className="scrollable" ref={containerRef}>

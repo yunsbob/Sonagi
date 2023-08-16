@@ -109,7 +109,7 @@ const InfantFormulaPage = ({ name, recordName, recordId }: NameProps) => {
           </S.Divider>
           <S.Divider>
             <MemoRecorder setMemo={setMemo} placeholder={memo}></MemoRecorder>
-          </S.Divider>{' '}
+          </S.Divider>
           <Button option="activated" size="large" onClick={handleUpdate}>
             <Text size="headSmall" color={theme.color.white1}>
               등록하기
