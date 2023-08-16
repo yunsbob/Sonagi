@@ -9,7 +9,7 @@ const MedicalInfoContainer = styled.div`
 `;
 
 const MedicalStatusWrapper = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   padding: 0px 20px;
   -ms-overflow-style: none;
   scrollbar-width: none;
