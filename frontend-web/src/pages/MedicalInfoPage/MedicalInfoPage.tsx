@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import BabyMedicalCheckStatusList from '@/components/organisms/BabyMedicalStatusList/BabyMedicalCheckStatusList/BabyMedicalCheckStatusList';
 import BabyVaccinationStatusList from '@/components/organisms/BabyMedicalStatusList/BabyVaccinationStatusList/BabyVaccinationStatusList';
 import { selectedBabyState } from '@/states/babyState';
@@ -30,6 +30,30 @@ const MedicalInfoPage = () => {
     setMedicalFlag(!medicalFlag);
   };
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const savedScrollTop = localStorage.getItem('scrollPosition');
+    if (container && savedScrollTop) {
+      container.scrollTop = Number(savedScrollTop);
+    }
+  });
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      const onScroll = () => {
+        localStorage.setItem('scrollPosition', String(container.scrollTop));
+      };
+
+      container.addEventListener('scroll', onScroll);
+      return () => {
+        container.removeEventListener('scroll', onScroll);
+      };
+    }
+  });
+
   return (
     <MedicalInfoContainer>
       <Back>예방접종 / 검진</Back>
@@ -39,14 +63,16 @@ const MedicalInfoPage = () => {
           <Image src={imageSrc} width={12.5} height={2} onClick={clickImage} />
         </MedicalInfoImage>
       </MedicalInfoImageContainer>
-      <MedicalStatusWrapper>
-        {medicalFlag && (
+      {medicalFlag && (
+        <MedicalStatusWrapper>
           <BabyVaccinationStatusList vaccinationData={vaccinationList} />
-        )}
-        {!medicalFlag && (
+        </MedicalStatusWrapper>
+      )}
+      {!medicalFlag && (
+        <MedicalStatusWrapper>
           <BabyMedicalCheckStatusList medicalCheckData={medicalCheckList} />
-        )}
-      </MedicalStatusWrapper>
+        </MedicalStatusWrapper>
+      )}
     </MedicalInfoContainer>
   );
 };
