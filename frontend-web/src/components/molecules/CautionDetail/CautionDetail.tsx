@@ -3,28 +3,28 @@ import Button from '@/components/atoms/Button/Button';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { ChangeEvent, useState } from 'react';
 
-const CautionDetail = (onModalClose: any) => {
+interface CautionDetailProps {
+  onModalClose: () => void;
+  name: string;
+  memo: string;
+}
+
+const CautionDetail = ({ onModalClose, name, memo }: CautionDetailProps) => {
   const [inputValue, setInputValue] = useState('');
   const [inputCount, setInputCount] = useState(''.length);
-  const [memo, setMemo] = useState('');
+  // const [memo, setMemo] = useState('');
 
-  const onInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setMemo(e.target.value);
-    setInputCount(e.target.value.length);
-    setInputValue(e.target.value);
-  };
+  // const onInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  //   setMemo(e.target.value);
+  //   setInputCount(e.target.value.length);
+  //   setInputValue(e.target.value);
+  // };
   return (
     <>
       <S.MemoWrapper>
-        <S.MemoArea
-          value={inputValue}
-          // onTouchStart={onTouchStartHandler}
-          onChange={onInputHandler}
-          maxLength={139}
-          placeholder={'주의사항을 입력해주세요.'}
-        ></S.MemoArea>
-        <Text>
-          <S.WordCount>{inputCount}/140</S.WordCount>
+        <Text size="medium1">{name}</Text>
+        <Text style={{ wordWrap: 'break-word' }} size="medium2">
+          {memo}
         </Text>
       </S.MemoWrapper>
     </>

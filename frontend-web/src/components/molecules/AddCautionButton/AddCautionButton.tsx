@@ -23,6 +23,7 @@ const AddCautionButton = ({ isDisease }: AddCautionButtonProps) => {
         onModalClose={() => modalClose(setCautionModalOpen)}
         modalOpen={cautionModalOpen}
         isDisease={isDisease}
+        isView={false}
       />
       <>
         <svg

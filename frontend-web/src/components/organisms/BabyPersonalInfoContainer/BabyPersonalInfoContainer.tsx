@@ -4,6 +4,7 @@ import * as S from '@/components/organisms/BabyPersonalInfoContainer/BabyPersona
 import { BabyPersonalInfoButton } from '@/components/molecules/BabyPersonalInfoButton/BabyPersonalInfoButton';
 import Button from '@/components/atoms/Button/Button';
 import AddCautionButton from '@/components/molecules/AddCautionButton/AddCautionButton';
+import { useRecoilValue } from 'recoil';
 // import AddCautionButton from '@/components/molecules/AddCautionButton/AddCautionButton';
 
 interface BabyPersonalInfoProps {
@@ -21,6 +22,8 @@ const BabyPersonalInfoContainer = ({ isDisease }: BabyPersonalInfoProps) => {
 
   const info =
     '우리 아이를 돌봐주실 땐 <span style="font-weight: 700">이런 점을 주의해주세요</span>';
+
+  // const BabyPersonalInfoArray = hi;
 
   const BabyPersonalInfoArray = [
     {

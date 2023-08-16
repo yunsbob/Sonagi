@@ -51,7 +51,7 @@ const CautionRecorder = ({ onModalClose, isDisease }: any) => {
         onClick={buttonActionHandler}
       >
         <Text color="white" size="headSmall">
-          등록하기1
+          등록하기
         </Text>
       </Button>
     </>

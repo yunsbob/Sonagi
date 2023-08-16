@@ -15,6 +15,7 @@ interface CautionModalProps {
   name?: string;
   memo?: string;
   isDisease: boolean;
+  isView: boolean;
 }
 
 const CautionModal = ({
@@ -23,6 +24,7 @@ const CautionModal = ({
   name,
   memo,
   isDisease,
+  isView,
 }: CautionModalProps) => {
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
   const buttonHandler = () => {
@@ -33,15 +35,19 @@ const CautionModal = ({
     <>
       <Modal isOpen={modalOpen} onClose={onModalClose}>
         <S.CautionModalContainer>
-          <CautionRecorder
-            onModalClose={onModalClose}
-            isDisease={isDisease}
-          ></CautionRecorder>
-
-          <Text size="medium1">{name}</Text>
-          <Text style={{ wordWrap: 'break-word' }} size="medium2">
-            {memo}
-          </Text>
+          {isView ? (
+            <>
+              <Text size="medium1">{name}</Text>
+              <Text style={{ wordWrap: 'break-word' }} size="medium2">
+                {memo}
+              </Text>
+            </>
+          ) : (
+            <CautionRecorder
+              onModalClose={onModalClose}
+              isDisease={isDisease}
+            ></CautionRecorder>
+          )}
         </S.CautionModalContainer>
       </Modal>
     </>

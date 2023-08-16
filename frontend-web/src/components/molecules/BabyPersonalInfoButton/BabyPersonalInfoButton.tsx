@@ -31,6 +31,7 @@ const BabyPersonalInfoButton = ({
         onModalClose={() => modalClose(setCautionModalOpen)}
         modalOpen={cautionModalOpen}
         isDisease={isDisease}
+        isView={true}
       />
       <S.BabyPersonalInfoButtonContainer
         onClick={() => {
