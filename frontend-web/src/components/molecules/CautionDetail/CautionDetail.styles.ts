@@ -59,4 +59,16 @@ const UpdateButtonWrapper = styled.div`
   }
 `;
 
-export { MemoWrapper, MemoArea, WordCount, Divider, UpdateButtonWrapper };
+const showTextWrapper = styled.div`
+  width: 100%;
+  word-wrap: break-word;
+`;
+
+export {
+  MemoWrapper,
+  MemoArea,
+  WordCount,
+  Divider,
+  UpdateButtonWrapper,
+  showTextWrapper,
+};

@@ -45,9 +45,9 @@ const BabyPersonalInfoButton = ({
         }}
       >
         <Button>
-          <Text style={{ height: '100px' }} size="medium3">
-            {memo}
-          </Text>
+          <S.ShowTextWrapper>
+            <Text size="medium3">{memo}</Text>
+          </S.ShowTextWrapper>
           <Text style={{ marginTop: '5px', float: 'right' }} size="small">
             {name}
           </Text>

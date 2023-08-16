@@ -115,12 +115,9 @@ const CautionDetail = ({
               </Text>
             </div>
             <S.Divider></S.Divider>
-            <Text
-              style={{ width: '100%', wordWrap: 'break-word' }}
-              size="medium2"
-            >
-              {memo}
-            </Text>
+            <S.showTextWrapper>
+              <Text size="medium2">{memo}</Text>
+            </S.showTextWrapper>
           </S.MemoWrapper>
           {selectedUserInfo.userId === userId ? (
             <>

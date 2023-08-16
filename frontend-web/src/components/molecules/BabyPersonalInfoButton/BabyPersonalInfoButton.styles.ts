@@ -24,4 +24,13 @@ const NameWrapper = styled.div`
   padding: 10px;
 `;
 
-export { BabyPersonalInfoButtonContainer, NameWrapper };
+const ShowTextWrapper = styled.div`
+  height: 100px;
+  margin: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  /* -webkit-line-clamp: 6; */
+`;
+
+export { BabyPersonalInfoButtonContainer, NameWrapper, ShowTextWrapper };
