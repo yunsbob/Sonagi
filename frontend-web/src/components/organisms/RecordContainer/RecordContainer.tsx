@@ -27,6 +27,7 @@ const RecordContainer = ({ combinedData }: RecordContainerProps) => {
 
   //   return record.category === currentCategory;
   // });
+
   const [fetchCounter, setFetchCounter] = useRecoilState(fetchCounterState);
 
   useEffect(() => {

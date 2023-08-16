@@ -23,9 +23,12 @@ export default function TabBar() {
           key={path}
           onClick={() => navigatePage(path)}
           style={{
-            color: location.pathname === path ? 'blue' : 'grey',
+            color: location.pathname.includes(path) ? '#f9b7b7' : 'grey',
             cursor: 'pointer',
             height: '52px',
+            width: '80px',
+            display: 'flex',
+            justifyContent: 'center',
           }}
         >
           {text}

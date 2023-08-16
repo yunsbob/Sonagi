@@ -3,8 +3,6 @@ import MemoRecorder from '@/components/molecules/MemoRecorder/MemoRecorder';
 import * as S from '@/pages/DetailRecordPage/SleepPage/SleepPage.style';
 import Back from '@/components/atoms/Back/Back';
 import Button from '@/components/atoms/Button/Button';
-import { Text } from '@/components/atoms/Text/Text.styles';
-import theme from '@/styles/theme';
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGetRecordDetails } from '@/apis/Record/Queries/useGetRecordDetails';
@@ -12,6 +10,8 @@ import { useUpdateRecord } from '@/apis/Record/Mutations/useUpdateRecord';
 import { useRecoilValue } from 'recoil';
 import { selectedDateState } from '@/states/dateState';
 import { useQueryClient } from '@tanstack/react-query';
+import { useDeleteRecord } from '@/apis/Record/Mutations/useDeleteRecord';
+import { DetailRecordButtonContainer } from '@/pages/DetailRecordPage/DetailRecordPage.style';
 
 interface NameProps {
   name: string;
@@ -31,6 +31,7 @@ const SleepPage = ({ name, recordName, recordId }: NameProps) => {
   const navigate = useNavigate();
   const RouteHandler = useCallback(() => navigate(-1), [navigate]);
   const updateRecordMutation = useUpdateRecord();
+  const deleteRecordMutation = useDeleteRecord();
 
   type Record = {
     [key: string]: number | string;
@@ -81,6 +82,21 @@ const SleepPage = ({ name, recordName, recordId }: NameProps) => {
     RouteHandler();
   };
 
+  const deleteRecord = (recordName: string, recordId: number) => {
+    deleteRecordMutation.mutate(
+      {
+        type: recordName,
+        recordId,
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(['recordDetails', recordId]);
+        },
+      }
+    );
+    RouteHandler();
+  };
+
   return (
     <>
       <Back>{name + ' 상세페이지'}</Back>
@@ -105,11 +121,17 @@ const SleepPage = ({ name, recordName, recordId }: NameProps) => {
           <S.Divider>
             <MemoRecorder setMemo={setMemo} placeholder={memo}></MemoRecorder>
           </S.Divider>
-          <Button option="activated" size="large" onClick={handleUpdate}>
-            <Text size="headSmall" color={theme.color.white1}>
-              등록하기
-            </Text>
-          </Button>
+          <DetailRecordButtonContainer>
+            <Button
+              option="danger"
+              onClick={() => deleteRecord(recordName, recordId)}
+            >
+              삭제하기
+            </Button>
+            <Button option="activated" size="large" onClick={handleUpdate}>
+              수정하기
+            </Button>
+          </DetailRecordButtonContainer>
         </S.SleepPageWrapper>
       </S.SleepPageContainer>
     </>
