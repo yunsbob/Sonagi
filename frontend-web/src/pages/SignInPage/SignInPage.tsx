@@ -22,15 +22,6 @@ const SignInPage = () => {
   const placeholder = '이름을 입력하세요';
   const alertMessage = '10자 이내로 입력해주세요';
 
-  useEffect(() => {
-    const checkName = async () => {
-      const nameDto = await getUserName(userInfo.userId);
-      if (nameDto.name) {
-        navigate(PATH.REGISTERBABYPROFILE);
-      }
-    };
-    checkName();
-  });
   const onClickButtonAction = (value: string) => {
     updateUserMutation.mutate({
       userId: userInfo.userId,

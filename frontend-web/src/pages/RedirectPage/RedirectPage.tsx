@@ -16,7 +16,6 @@ interface JwtProps {
 
 const RedirectPage = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-
   const params = new URLSearchParams(location.search);
   const accessToken = params.get('accessToken');
 
@@ -33,16 +32,15 @@ const RedirectPage = () => {
   const checkRedirect = async () => {
     const nameDto = await getUserName(userInfo.userId);
     const babyList = await getBaby(userInfo.userId);
-    if (!nameDto.name) {
+    if (!nameDto.name || nameDto.name === '') {
       window.location.href = PATH.SIGNIN;
     }
     if (babyList.length !== 0) {
       window.location.href = PATH.MAIN;
     }
-    window.location.href = PATH.REGISTERBABYPROFILE;
+    window.location.href = PATH.REGISTER;
   };
   checkRedirect();
-  // window.location.href = PATH.SIGNIN;
 
   return <></>;
 };
