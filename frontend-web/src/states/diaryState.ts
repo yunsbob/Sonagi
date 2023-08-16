@@ -7,7 +7,7 @@ export const writtenDiaryDateList = atom<string[]>({
   default: [],
 });
 
-// 일기 기록 내용(DiaryInfo) 리스트 key:날짜 ,value:DiaryInfo[]
+// 일기 기록 내용(DiaryInfo) 날짜에 해당하는 일기리스트.
 export const diaryRecordList = atom<DiaryInfo[]>({
   key: 'diaryRecordList',
   default: [],

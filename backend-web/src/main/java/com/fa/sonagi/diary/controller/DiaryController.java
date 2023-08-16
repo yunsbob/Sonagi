@@ -46,7 +46,7 @@ public class DiaryController {
 	@PostMapping
 	@Operation(summary = "일기 등록")
 	public ResponseEntity<?> registDiaries(@RequestPart DiaryPostDto diaryPostDto,
-		@RequestPart List<MultipartFile> imgFiles) throws Exception {
+		@RequestPart(required = false) List<MultipartFile> imgFiles) throws Exception {
 		diaryService.createDiary(diaryPostDto, imgFiles);
 		return ResponseEntity.ok().build();
 	}
@@ -55,7 +55,6 @@ public class DiaryController {
 	@Operation(summary = "일기 내용, 사진 데이터 수정")
 	public ResponseEntity<?> updateDiaries(@RequestPart DiaryPutDto diaryPutDto,
 		@RequestPart(required = false) List<MultipartFile> imgFiles) throws Exception {
-
 		diaryService.updateDiaryContent(diaryPutDto, imgFiles);
 		return ResponseEntity.ok().build();
 	}

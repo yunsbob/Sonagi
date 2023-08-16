@@ -8,6 +8,8 @@ interface DiaryPostDto {
   userId: number;
   babyId: number;
   content: string;
+  writeTime: string;
+  writeDate: string;
 }
 
 interface DiaryInfo {

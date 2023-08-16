@@ -6,7 +6,7 @@ import IconPlusBlueRectDash from '@/assets/images/icon-plus-blue-rect-dash.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import backArrow from '@/assets/images/icon-arrow-left-grey.png';
 import Button from '@/components/atoms/Button/Button';
-import { DiaryInfo, DiaryPostDto, DiaryPutDto } from '@/types/diaryTypes';
+import { DiaryInfo, DiaryPutDto } from '@/types/diaryTypes';
 import { useRecoilValue } from 'recoil';
 import { BabiesOfUser, User } from '@/types';
 import { userInfoState } from '@/states/userState';
@@ -15,13 +15,15 @@ import { PATH } from '@/constants/path';
 import { useUpdateDiary } from '@/apis/Diary/Mutations/useUpdateDiary';
 import { selectedDateState } from '@/states/dateState';
 import { diaryRecordList } from '@/states/diaryState';
+import { useDeleteDiary } from '@/apis/Diary/Mutations/useDeleteDiary';
 
 const DiaryUpdatePage: React.FC = () => {
   const navigate = useNavigate();
   const updateDiaryMutation = useUpdateDiary();
-  const userInfo: User = useRecoilValue(userInfoState);
-  const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
-  const curDate: string = useRecoilValue(selectedDateState);
+  const deleteDiaryMutation = useDeleteDiary();
+  // const userInfo: User = useRecoilValue(userInfoState);
+  // const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
+  // const curDate: string = useRecoilValue(selectedDateState);
   const diaryInfoList: DiaryInfo[] = useRecoilValue(diaryRecordList);
 
   const { id } = useParams<{ id: string }>();
@@ -58,6 +60,14 @@ const DiaryUpdatePage: React.FC = () => {
     navigate(PATH.DIARY);
   };
 
+  const handleRemove = async () => {
+    const userConfirmed = confirm('일기를 삭제 하시겠습니까 ?');
+    if (userConfirmed) {
+      await deleteDiaryMutation.mutateAsync(parseInt(id!, 10));
+      navigate(PATH.DIARY);
+    }
+  };
+
   const handleFileChange = (
     event: ChangeEvent<HTMLInputElement>,
     index: number
@@ -85,7 +95,6 @@ const DiaryUpdatePage: React.FC = () => {
     event.stopPropagation();
 
     const obj = files[index];
-
     if (typeof obj === 'string') {
       setRemovesFileState(prev => [...prev, obj]);
     }
@@ -165,6 +174,9 @@ const DiaryUpdatePage: React.FC = () => {
           )}
         </S.DiaryRegisterFileListContainer>
         <S.RegisterBtnContainer>
+          <Button option="danger" onClick={handleRemove}>
+            삭제하기
+          </Button>
           <Button option="activated" onClick={handleSubmit}>
             수정하기
           </Button>

@@ -14,6 +14,7 @@ import { useGetDiaryInfoByBabyId } from '@/apis/Diary/Queries/useGetDiaryInfoByB
 import { diaryRecordList, writtenDiaryDateList } from '@/states/diaryState';
 import { useGetAllDiaryRecordDates } from '@/apis/Diary/Queries/useGetAllDiaryRecordDates';
 import { useEffect, useRef } from 'react';
+import dayjs from 'dayjs';
 
 const DiaryPage: React.FC = () => {
   const navigate = useNavigate();

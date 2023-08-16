@@ -1,10 +1,13 @@
 import { deleteDiary } from '@/apis/Diary/diaryAPI';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 // 일기 삭제
 const useDeleteDiary = () => {
+  const queryCilent = useQueryClient();
   return useMutation((diaryId: number) => deleteDiary(diaryId), {
-    onSuccess: () => {},
+    onSuccess: () => {
+      queryCilent.invalidateQueries(['diaryRecordDateList']);
+    },
     onError: (err: Error) => {
       console.log(err);
     },

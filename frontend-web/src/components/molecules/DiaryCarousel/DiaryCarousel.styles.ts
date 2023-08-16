@@ -8,6 +8,7 @@ const CarouselContainer = styled.div`
   max-width: 100%;
   overflow: hidden;
   background-color: white;
+  border-radius: 1rem;
 `;
 
 const CarouselImage = styled.img`

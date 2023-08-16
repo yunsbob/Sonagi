@@ -3,17 +3,17 @@ import WeekendCalendarToken from '../../molecules/WeekendCalendar/WeekendCalenda
 import getWeekendDate from '../../../utils/weekendUtils';
 import WeekendCalendarContainer from './WeekendCalendar.styles';
 import dayjs, { Dayjs } from 'dayjs';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedDateState } from '@/states/dateState';
 import { formatDate } from '@/utils/formatDate';
-
-//TODO: isRecoredDay 데이터 바인딩 이후 처리용 함수 제작.
+import { writtenDiaryDateList } from '@/states/diaryState';
 
 const WeekendCalendar: React.FC = () => {
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
   const [weekendDateList, setWeekendDateList] = useState<
     Array<{ date: Dayjs; day: string }>
   >([]);
+  const checkingDateList: string[] = useRecoilValue(writtenDiaryDateList);
 
   useEffect(() => {
     setWeekendDateList(getWeekendDate(new Date(selectedDate)));
@@ -50,7 +50,9 @@ const WeekendCalendar: React.FC = () => {
             dayNumber={dateMap['date']}
             dayOfWeek={dateMap['day']}
             $statusOfDay={jStatusOfDay(dateMap['date'])}
-            $isRecordedDate={true}
+            $isRecordedDate={checkingDateList.includes(
+              dateMap['date'].toISOString().slice(0, 10)
+            )}
             onClick={() => handleChangeDay(dateMap['date'].toDate())}
           />
         ))}

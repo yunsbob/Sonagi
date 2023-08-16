@@ -13,12 +13,13 @@ import { userInfoState } from '@/states/userState';
 import { selectedBabyState } from '@/states/babyState';
 import { PATH } from '@/constants/path';
 import { useAddDiary } from '@/apis/Diary/Mutations/useAddDiaries';
+import { selectedDateState } from '@/states/dateState';
 
 const DiaryRegisterPage = () => {
   const navigate = useNavigate();
   const userInfo: User = useRecoilValue(userInfoState);
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
-
+  const selectedDate: string = useRecoilValue(selectedDateState);
   const [files, setFiles] = useState<File[]>([]);
   const [diaryContent, setDiaryContent] = useState<string>('');
   const fileInputRefs = useRef<HTMLInputElement[]>([]);
@@ -27,11 +28,22 @@ const DiaryRegisterPage = () => {
 
   const handleSubmit = async () => {
     const formData = new FormData();
-
     const diaryPostDto: DiaryPostDto = {
       userId: userInfo?.userId,
       babyId: babyInfo?.babyId,
       content: diaryContent,
+      writeDate: selectedDate,
+      writeTime:
+        new Date().toISOString().slice(0, 10) === selectedDate
+          ? '00:00:00'
+          : new Date()
+              .toLocaleTimeString('en-US', {
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+              })
+              .toString(),
     };
 
     for (let i = 0; i < files.length; i++) {

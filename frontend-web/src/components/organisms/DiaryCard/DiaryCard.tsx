@@ -8,6 +8,7 @@ import { Text } from '@/components/atoms/Text/Text.styles';
 import theme from '@/styles/theme';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
+import { formatTime } from '../../../utils/formatDate';
 
 interface DiaryCardProps {
   diaryId: number;
@@ -49,7 +50,7 @@ const DiaryCard: React.FC<DiaryCardProps> = ({
               {writer}
             </Text>
             <Text size="medium3" color={theme.color.gray1}>
-              PM {writenDate.slice(0, 5)}
+              {formatTime(writenDate.slice(0, 5))}
             </Text>
           </S.DiaryContentTitle>
           <S.Divider></S.Divider>

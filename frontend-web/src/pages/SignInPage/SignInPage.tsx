@@ -11,6 +11,8 @@ import { produce } from 'immer';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import { useUpdateUser } from '@/apis/User/Mutations/useUpdateUser';
+import { useEffect } from 'react';
+import { getUserName } from '@/apis/User/userAPI';
 
 const SignInPage = () => {
   const navigate = useNavigate();
@@ -20,6 +22,15 @@ const SignInPage = () => {
   const placeholder = '이름을 입력하세요';
   const alertMessage = '10자 이내로 입력해주세요';
 
+  useEffect(() => {
+    const checkName = async () => {
+      const nameDto = await getUserName(userInfo.userId);
+      if (nameDto.name) {
+        navigate(PATH.REGISTERBABYPROFILE);
+      }
+    };
+    checkName();
+  });
   const onClickButtonAction = (value: string) => {
     updateUserMutation.mutate({
       userId: userInfo.userId,

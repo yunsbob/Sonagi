@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -66,34 +67,31 @@ public class DiaryServiceImpl implements DiaryService {
 		Diary diary = Diary.builder()
 		                   .babyId(diaryPostDto.getBabyId())
 		                   .userName(userName)
-		                   .createdDate(LocalDate.now(ZoneId.of("Asia/Seoul")))
+		                   .createdDate(diaryPostDto.getWriteDate())
 		                   .diaryFiles(new ArrayList<>())
 		                   .content(diaryPostDto.getContent())
-		                   .createdTime(LocalTime.now().plusHours(9))
+		                   .createdTime(diaryPostDto.getWriteTime())
 		                   .build();
 
-		// file 업로드 + Diary Entity에 일대 다 등록
-		imgFiles.stream().map((imgFile) -> {
-			try {
-				return s3File.upload(imgFile, "img");
-			} catch (Exception e) {
-				log.error("File UploadError : {}", e.getMessage());
-				throw new RuntimeException(e);
-			}
-		}).forEach((url) -> {
-			DiaryFile diaryFile = DiaryFile.builder().fileName(url).build();
-			diary.addDiaryFile(diaryFile);
-		});
-
-		log.info("img upload successfully");
-
+		if(imgFiles != null){
+			// file 업로드 + Diary Entity에 일대 다 등록
+			imgFiles.stream().map((imgFile) -> {
+				try {
+					return s3File.upload(imgFile, "img");
+				} catch (Exception e) {
+					log.error("File UploadError : {}", e.getMessage());
+					throw new RuntimeException(e);
+				}
+			}).forEach((url) -> {
+				DiaryFile diaryFile = DiaryFile.builder().fileName(url).build();
+				diary.addDiaryFile(diaryFile);
+			});
+		}
 		// Diary repository에 entity build 후 save
 		diaryRepository.save(diary);
 
 		Baby baby = babyRepository.findById(diaryPostDto.getBabyId()).orElseThrow();
-
 		baby.updateLastDiaryTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
-
 		// 공동양육자를 조회
 		List<CoparentResDto> coparents = babyService.findCoparentListByBabyId(baby.getId(), diaryPostDto.getUserId());
 		if (coparents.size() > 0) {
@@ -107,6 +105,7 @@ public class DiaryServiceImpl implements DiaryService {
 		// diary content 수정
 		Diary diary = diaryRepository.findById(diaryPutDto.getDiaryId()).orElseThrow();
 		diary.updateContent(diaryPutDto.getContent());
+
 		// 새로 사진 추가 및 업로드
 		if (imgFiles != null) {
 			for (MultipartFile imgFile : imgFiles) {
@@ -115,6 +114,7 @@ public class DiaryServiceImpl implements DiaryService {
 				diary.addDiaryFile(diaryFile);
 			}
 		}
+
 		if (diaryPutDto.getRemoveFiles() != null) {
 			// 삭제할 리스트는 삭제
 			for (String removeFile : diaryPutDto.getRemoveFiles()) {
@@ -129,13 +129,16 @@ public class DiaryServiceImpl implements DiaryService {
 				}
 			}
 		}
-		diaryRepository.save(diary);
+
+		diaryRepository.saveAndFlush(diary);
 	}
 
 	@Override
 	@Transactional
 	public void deleteDiary(Long diaryId) {
-		diaryRepository.deleteById(diaryId);
+		Diary diary = diaryRepository.findById(diaryId).orElseThrow();
+		diaryRepository.delete(diary);
+		diaryRepository.flush();
 	}
 
 	@Override

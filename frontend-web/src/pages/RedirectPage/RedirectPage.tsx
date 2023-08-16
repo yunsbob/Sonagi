@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import jwt from 'jwt-decode';
+import { getUserName } from '@/apis/User/userAPI';
+import { getBaby } from '@/apis/Baby/babyAPI';
 
 interface JwtProps {
   auth: string;
@@ -28,7 +30,19 @@ const RedirectPage = () => {
     })
   );
 
-  window.location.href = PATH.SIGNIN;
+  const checkRedirect = async () => {
+    const nameDto = await getUserName(userInfo.userId);
+    const babyList = await getBaby(userInfo.userId);
+    if (!nameDto.name) {
+      window.location.href = PATH.SIGNIN;
+    }
+    if (babyList.length !== 0) {
+      window.location.href = PATH.MAIN;
+    }
+    window.location.href = PATH.REGISTERBABYPROFILE;
+  };
+  checkRedirect();
+  // window.location.href = PATH.SIGNIN;
 
   return <></>;
 };
