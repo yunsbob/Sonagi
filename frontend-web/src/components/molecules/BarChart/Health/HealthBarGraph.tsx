@@ -62,19 +62,19 @@ const HealthBarGraph = ({ data }: HealthWeekProps) => {
 
           return (
             <Wrapper key={idx} $barHeight={(100 * totalCnt) / maxCnt}>
-              {[...Array(value.hospitalCnt)].map(h => {
+              {[...Array(value.hospitalCnt)].map((_, hIdx) => {
                 return (
                   <HealthBar
-                    key={h}
+                    key={hIdx}
                     height={100}
                     color={theme.color.graphHospital}
                   />
                 );
               })}
-              {[...Array(value.medicationCnt)].map(m => {
+              {[...Array(value.medicationCnt)].map((_, mIdx) => {
                 return (
                   <HealthBar
-                    key={m}
+                    key={mIdx}
                     height={100}
                     color={theme.color.graphMedication}
                   />

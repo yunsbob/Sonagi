@@ -36,7 +36,7 @@ const WordCount = styled.span`
   position: absolute;
   bottom: 0;
   right: 0;
-  padding: 20px;
+  padding: 15px;
   font-size: 1rem;
 `;
 

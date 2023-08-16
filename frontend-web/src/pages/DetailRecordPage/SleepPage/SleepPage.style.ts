@@ -12,7 +12,7 @@ export const SleepPageContainer = styled.div`
 export const SleepPageWrapper = styled.div`
   height: calc(100vh - 8rem);
   margin-top: 60px;
-  padding: 30px 40px;
+  padding: 10px 40px;
   /* width: 100vw; */
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@ export const SleepPageWrapper = styled.div`
 `;
 
 export const Divider = styled.div`
-  border-top: 1px solid ${theme.color.gray2};
+  border-top: 1.25px solid ${theme.color.gray4};
   padding: 20px 0px;
-  width: 70vw;
+  width: 76vw;
 `;

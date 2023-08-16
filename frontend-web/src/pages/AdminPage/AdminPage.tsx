@@ -7,7 +7,6 @@ const AdminPage = () => {
     <AdminContainer>
       <Header>관리자 페이지</Header>
       <AdminBar />
-
       <Outlet />
     </AdminContainer>
   );
