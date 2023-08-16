@@ -30,7 +30,6 @@ const addRecord = async (type: string, record: AllRecords) => {
   }
 };
 
-// record에 카테고리가 없으니까..
 const updateRecord = async (record: CombinedRecord, queryName: string) => {
   try {
     await instance.put(`/${queryName}`, record);
@@ -39,4 +38,14 @@ const updateRecord = async (record: CombinedRecord, queryName: string) => {
   }
 };
 
-export { getAllCategoryRecords, addRecord, updateRecord, getRecordDetails };
+const deleteRecord = async (type: string, recordId: number) => {
+  await instance.delete(`/${type}/${recordId}`);
+};
+
+export {
+  getAllCategoryRecords,
+  addRecord,
+  updateRecord,
+  getRecordDetails,
+  deleteRecord,
+};

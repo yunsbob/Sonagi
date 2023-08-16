@@ -29,7 +29,6 @@ const RecordPage = () => {
     selectedDate
   );
 
-  // combinedData를 state로 지정 -> TODO: 리코일에 저장하는 로직으로 바꾸자
   const [combinedData, setCombinedDataState] = useState<CombinedRecord[]>([]);
 
   useEffect(() => {
