@@ -4,6 +4,7 @@ import * as S from '@/components/organisms/BabyPersonalInfoContainer/BabyPersona
 import { BabyPersonalInfoButton } from '@/components/molecules/BabyPersonalInfoButton/BabyPersonalInfoButton';
 import Button from '@/components/atoms/Button/Button';
 import AddCautionButton from '@/components/molecules/AddCautionButton/AddCautionButton';
+// import AddCautionButton from '@/components/molecules/AddCautionButton/AddCautionButton';
 
 interface BabyPersonalInfoProps {
   isDisease: boolean;
@@ -22,20 +23,28 @@ const BabyPersonalInfoContainer = ({ isDisease }: BabyPersonalInfoProps) => {
     '우리 아이를 돌봐주실 땐 <span style="font-weight: 700">이런 점을 주의해주세요</span>';
 
   const BabyPersonalInfoArray = [
+    {
+      memo: 'dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+      name: 'name1',
+    },
+    { memo: 'memo1', name: 'name1' },
+    { memo: 'memo1', name: 'name1' },
     { memo: 'memo1', name: 'name1' },
     { memo: 'memo1', name: 'name1' },
     { memo: 'memo1', name: 'name1' },
     // { memo: 'memo1', name: 'name1' },
-    // { memo: 'memo1', name: 'name1' },
-    // { memo: 'memo1', name: 'name1' },
+    { memo: 'memo1', name: 'name1' },
   ];
   // const BabyPersonalInfoArray: BabyPersonalInfoArrayProps[] = [];
 
-  // TODO: AddCautionButton 찾기
-
   const BabyPersonalInfoButtonHandler = () => {
     return BabyPersonalInfoArray.map((data, index) => (
-      <BabyPersonalInfoButton key={index} memo={data.memo} name={data.name} />
+      <BabyPersonalInfoButton
+        key={index}
+        memo={data.memo}
+        name={data.name}
+        isDisease={isDisease}
+      />
     ));
   };
 
@@ -46,10 +55,14 @@ const BabyPersonalInfoContainer = ({ isDisease }: BabyPersonalInfoProps) => {
         dangerouslySetInnerHTML={{ __html: isDisease ? disease : info }}
         style={{ marginBottom: '10px' }}
       />
-      <S.BPICButtonWrapper>
-        {BabyPersonalInfoButtonHandler()}
-        <AddCautionButton />
-      </S.BPICButtonWrapper>
+      <S.BPICScrollWrapper>
+        <S.BPICButtonWrapper>
+          {BabyPersonalInfoButtonHandler()}
+          {BabyPersonalInfoArray.length < 8 ? (
+            <AddCautionButton isDisease={isDisease} />
+          ) : null}
+        </S.BPICButtonWrapper>
+      </S.BPICScrollWrapper>
     </S.BPICContainer>
   );
 };
