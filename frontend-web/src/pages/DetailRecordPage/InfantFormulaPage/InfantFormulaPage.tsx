@@ -91,7 +91,7 @@ const InfantFormulaPage = ({ name, recordName, recordId }: NameProps) => {
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(['recordDetails', recordId]);
+          queryClient.invalidateQueries(['record', recordId]);
         },
       }
     );
