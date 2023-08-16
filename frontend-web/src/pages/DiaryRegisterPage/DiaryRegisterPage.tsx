@@ -35,15 +35,15 @@ const DiaryRegisterPage = () => {
       writeDate: selectedDate,
       writeTime:
         new Date().toISOString().slice(0, 10) === selectedDate
-          ? '00:00:00'
-          : new Date()
+          ? new Date()
               .toLocaleTimeString('en-US', {
                 hour12: false,
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit',
               })
-              .toString(),
+              .toString()
+          : '00:00:00',
     };
 
     for (let i = 0; i < files.length; i++) {

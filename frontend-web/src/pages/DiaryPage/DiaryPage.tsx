@@ -34,6 +34,7 @@ const DiaryPage: React.FC = () => {
   useEffect(() => {
     setRecordedDateList(records2.dateList);
   }, [records2, setRecordedDateList]);
+
   return (
     <>
       <CalendarBar></CalendarBar>
