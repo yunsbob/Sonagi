@@ -1,9 +1,18 @@
 import BabyMedicalCheckStatus from '@/components/molecules/BabyMedicalStatus/BabyMedicalCheckStatus/BabyMedicalCheckStatus';
+import { MedicalCheck } from '@/types';
 
-const BabyMedicalCheckStatusList = () => {
+interface BabyMedicalCheckStatusProps {
+  medicalCheckData: MedicalCheck[];
+}
+
+const BabyMedicalCheckStatusList = ({
+  medicalCheckData,
+}: BabyMedicalCheckStatusProps) => {
   return (
     <>
-      <BabyMedicalCheckStatus />
+      {medicalCheckData.map((medicalCheck, index) => (
+        <BabyMedicalCheckStatus key={index} medicalCheckData={medicalCheck} />
+      ))}
     </>
   );
 };

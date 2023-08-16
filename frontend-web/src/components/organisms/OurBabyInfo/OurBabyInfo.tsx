@@ -1,45 +1,69 @@
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+
 import Button from '@/components/atoms/Button/Button';
 import { Image } from '@/components/atoms/Image/Image';
 import { Text } from '@/components/atoms/Text/Text.styles';
-import * as S from '@/components/organisms/OurBabyInfo/OurBabyInfo.styles';
+import { Background } from '@/components/atoms/Background/Background.styles';
+
 import setting from '@/assets/images/icon-setting-grey.png';
 import babyBlue from '@/assets/images/img-baby-blue.png';
 import babyYellow from '@/assets/images/img-baby-yellow.png';
 import babyVaccine from '@/assets/images/img-vaccine.png';
 import babyCard from '@/assets/images/img-baby-card.png';
-import BabyPersonalInfoContainer from '@/components/organisms/BabyPersonalInfoContainer/BabyPersonalInfoContainer';
-import { Background } from '@/components/atoms/Background/Background.styles';
 import BackgroundImg from '@/assets/images/background.png';
-import { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { BabiesOfUser, Baby } from '@/types';
-import { babyInfoState, selectedBabyState } from '@/states/babyState';
-import { Outlet, useNavigate } from 'react-router-dom';
+
+import BabyPersonalInfoContainer from '@/components/organisms/BabyPersonalInfoContainer/BabyPersonalInfoContainer';
+import * as S from '@/components/organisms/OurBabyInfo/OurBabyInfo.styles';
+import { BabiesOfUser, User } from '@/types';
+import { selectedBabyState } from '@/states/babyState';
+import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import { BabyCodeModal } from '@/components/organisms/BabyCodeModal/BabyCodeModal';
-import { Container } from '@/pages/MyPagePage/MyPagePage.styles';
+import { useGetBabyDetail } from '@/apis/Baby/Queries/useGetBabyDetail';
+import { userInfoState } from '@/states/userState';
+import moment from 'moment';
+import { CautionWriteModal } from '@/components/organisms/CautionWriteModal/CautionWriteModal';
+import { CautionDetailModal } from '@/components/organisms/CautionDetailModal/CautionDetailModal';
 
 const OurBabyInfo = () => {
   const navigate = useNavigate();
 
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
+  const userInfo: User = useRecoilValue(userInfoState);
   const [isMale, setIsMale] = useState(babyInfo.gender === 'M');
 
-  const [BabyCodeModalOpen, setBabyCodeModalOpen] = useState(false);
+  const [babyCodeModalOpen, setBabyCodeModalOpen] = useState(false);
+  const [cautionModalOpen, setCautionModalOpen] = useState(false);
 
   const modalClose = (
     setState: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     setState(false);
   };
-  // TODO: 함께한 시간 계산하기.. 근데 selectBaby에는 date가 없다
+
+  const babyBirthDate = moment(
+    useGetBabyDetail(babyInfo.babyId, userInfo.userId).birthDate
+  );
+  const today = moment(new Date());
+  const dayFromBirth = today.diff(babyBirthDate, 'days');
+  const weekFromBirth = today.diff(babyBirthDate, 'weeks');
+
   return (
     <S.OurBabyInfoWholeContainer>
       <S.EmptyContainer className="scrollable">
         <Background $background={BackgroundImg}>
           <BabyCodeModal
             onModalClose={() => modalClose(setBabyCodeModalOpen)}
-            modalOpen={BabyCodeModalOpen}
+            modalOpen={babyCodeModalOpen}
+          />
+          <CautionWriteModal
+            onModalClose={() => modalClose(setCautionModalOpen)}
+            modalOpen={cautionModalOpen}
+          />
+          <CautionDetailModal
+            onModalClose={() => modalClose(setCautionModalOpen)}
+            modalOpen={cautionModalOpen}
           />
           <S.InfoEditWrapper>
             <Button
@@ -66,9 +90,9 @@ const OurBabyInfo = () => {
                 $unit="%"
               />
             </div>
-            <Text size="medium1"> 함께한 시간 247일</Text>
+            <Text size="medium1"> 함께한 시간 {dayFromBirth}일</Text>
             <Text size="headMedium" $fontWeight={700}>
-              35주
+              {weekFromBirth}주
             </Text>
             <S.UpperButtonContainer>
               <Button option="imgBtn">

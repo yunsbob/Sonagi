@@ -1,9 +1,18 @@
 import BabyVaccinationStatus from '@/components/molecules/BabyMedicalStatus/BabyVaccinationStatus/BabyVaccinationStatus';
+import { Vaccination } from '@/types';
 
-const BabyVaccinationStatusList = () => {
+interface BabyVaccinationStatusProps {
+  vaccinationData: Vaccination[];
+}
+
+const BabyVaccinationStatusList = ({
+  vaccinationData,
+}: BabyVaccinationStatusProps) => {
   return (
     <>
-      <BabyVaccinationStatus />
+      {vaccinationData.map((vaccination, index) => (
+        <BabyVaccinationStatus key={index} vaccinationData={vaccination} />
+      ))}
     </>
   );
 };

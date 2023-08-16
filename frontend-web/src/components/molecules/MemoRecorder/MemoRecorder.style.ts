@@ -12,6 +12,9 @@ const MemoArea = styled.textarea`
     border: none;
     outline: none;
   }
+  &:focus::placeholder {
+    color: transparent;
+  }
   font-family: 'Happiness-Sans';
   resize: none;
   border: none;
@@ -33,7 +36,7 @@ const WordCount = styled.span`
   position: absolute;
   bottom: 0;
   right: 0;
-  padding: 20px;
+  padding: 15px;
   font-size: 1rem;
 `;
 

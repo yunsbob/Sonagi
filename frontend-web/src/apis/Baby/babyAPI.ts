@@ -35,6 +35,16 @@ const getCoParent = async (userId: number, babyId: number) => {
   }
 };
 
+// 아이 세부 정보 불러오기
+const getBabyDetail = async (babyId: number, userId: number) => {
+  try {
+    const response = await instance.get(`/babyDetail/${babyId}/${userId}`);
+    return response.data;
+  } catch {
+    new Error('baby detail get error');
+  }
+};
+
 const deleteCoparent = async (babyId: number, coparentId: number) => {
   await instance.delete(`/coparents/${babyId}/${coparentId}`);
 };
@@ -62,6 +72,24 @@ const updateBaby = async (baby: UpdateBaby) => {
   }
 };
 
+const getVaccination = async (babyId: number) => {
+  try {
+    const response = await instance.get(`/vaccination/${babyId}`);
+    return response.data;
+  } catch {
+    new Error('get baby vaccination status error');
+  }
+};
+
+const getMedicalCheck = async (babyId: number) => {
+  try {
+    const response = await instance.get(`/checkup/${babyId}`);
+    return response.data;
+  } catch {
+    new Error('get baby medical check status error');
+  }
+};
+
 export {
   addBaby,
   getBaby,
@@ -71,4 +99,7 @@ export {
   registerBabyCode,
   updateBaby,
   changeBabyState,
+  getVaccination,
+  getMedicalCheck,
+  getBabyDetail,
 };

@@ -1,12 +1,22 @@
-import React, { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import * as S from '@/components/molecules/MemoRecorder/MemoRecorder.style';
 import { Text } from '@/components/atoms/Text/Text.styles';
+import theme from '@/styles/theme';
 
-const MemoRecorder = () => {
-  const [inputCount, setInputCount] = useState(0);
+interface MemoRecorderProps {
+  setMemo: (value: string) => void;
+  placeholder: string;
+}
+
+const MemoRecorder = ({ setMemo, placeholder }: MemoRecorderProps) => {
+  // 초기값이 없으면 initialPlaceholder는 '상세 정보..', 있으면 props 값
+  const [inputValue, setInputValue] = useState(placeholder);
+  const [inputCount, setInputCount] = useState(placeholder.length);
 
   const onInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setMemo(e.target.value);
     setInputCount(e.target.value.length);
+    setInputValue(e.target.value);
   };
 
   return (
@@ -16,12 +26,17 @@ const MemoRecorder = () => {
       </S.MemoTextWrapper>
       <S.MemoWrapper>
         <S.MemoArea
+          value={inputValue}
           onChange={onInputHandler}
-          maxLength={49}
-          placeholder="필요한 메모를 입력해 보세요"
+          maxLength={50}
+          placeholder={'상세 정보를 입력해주세요.'}
         ></S.MemoArea>
         <Text>
-          <S.WordCount>{inputCount}/50</S.WordCount>
+          <S.WordCount>
+            <Text size="medium3" color={theme.color.gray1}>
+              {inputCount}/50
+            </Text>
+          </S.WordCount>
         </Text>
       </S.MemoWrapper>
     </>

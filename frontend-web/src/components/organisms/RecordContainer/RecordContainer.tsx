@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import RecordBar from '@/components/molecules/RecordBar/RecordBar';
 import RecordBlock from '@/components/molecules/RecordBlock/RecordBlock';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -7,9 +7,6 @@ import { RecordContainerStyle } from '@/components/organisms/RecordContainer/Rec
 import { PATH } from '@/constants/path';
 import { CombinedRecord } from '@/types/recordTypes';
 import theme from '@/styles/theme';
-import { useGetAllCategoryRecords } from '@/apis/Record/Queries/useGetAllCategoryRecords';
-import { selectedBabyState } from '@/states/babyState';
-import { selectedDateState } from '@/states/dateState';
 import { fetchCounterState } from '@/states/fetchCounterState';
 import { recordEnToKo, recordTypeToCategory } from '@/constants/recordEnToKo';
 import { recordTypeToIdKey } from '@/constants/recordTypeToIdKey';
@@ -18,11 +15,9 @@ type RecordContainerProps = {
   combinedData: CombinedRecord[];
 };
 
-const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
+const RecordContainer = ({ combinedData }: RecordContainerProps) => {
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const containerRef = useRef<HTMLDivElement>(null);
-
-  console.log(combinedData, '--------');
 
   // 선택된 카테고리에 따라 쌓인 기록 블록들 필터링
   // const filteredRecordList = recordedList.filter(record => {
@@ -70,24 +65,34 @@ const RecordContainer: React.FC<RecordContainerProps> = ({ combinedData }) => {
     }
   };
 
-  // TODO: recordBlock 안에 <recordType>id를 넣어줘야함
   return (
     <>
       <RecordContainerStyle className="scrollable" ref={containerRef}>
         {combinedData.map((record: CombinedRecord, index) => {
-          const recordIdKey = recordTypeToIdKey[record.category];
+          const recordIdKey = recordTypeToIdKey[record.category!];
           const recordId = record[recordIdKey as keyof CombinedRecord];
-          return (
+          return 'amount' in record ? (
             <RecordBlock
               key={index}
-              color={theme.color[recordTypeToCategory[record.category]]}
-              recordType={recordEnToKo[record.category]}
+              color={theme.color[recordTypeToCategory[record.category!]]}
+              recordType={recordEnToKo[record.category!]}
               record={record}
               time={
                 record.createdTime ? record.createdTime.substring(0, 5) : ''
               }
               recordId={recordId}
-              // queryName={record.queryName}
+              amount={record.amount}
+            />
+          ) : (
+            <RecordBlock
+              key={index}
+              color={theme.color[recordTypeToCategory[record.category!]]}
+              recordType={recordEnToKo[record.category!]}
+              record={record}
+              time={
+                record.createdTime ? record.createdTime.substring(0, 5) : ''
+              }
+              recordId={recordId}
             />
           );
         })}

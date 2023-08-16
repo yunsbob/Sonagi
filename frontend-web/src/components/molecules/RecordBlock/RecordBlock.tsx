@@ -15,6 +15,7 @@ interface RecordBlockProps {
   time: string;
   record: CombinedRecord;
   recordId: string | number | undefined;
+  amount?: number;
   // queryName:
   //   | 'infantFormulas'
   //   | 'breastFeedings'
@@ -45,7 +46,22 @@ const MemoText = styled(TimeText)`
   overflow: hidden;
   text-overflow: ellipsis;
   font-style: italic;
-  margin-left: 18px;
+  margin-left: 6px;
+  padding-right: 10px;
+`;
+
+const AmountButton = styled.div`
+  /* color: ${theme.color.gray1}; */
+  /* color: ${({ theme }) => theme.color.gray4}; */
+  background-color: transparent;
+  margin-left: 4px;
+  width: fit-content;
+  padding: 4px 7px;
+  border-radius: 10px;
+  border: 1px solid ${({ theme }) => theme.color.gray3};
+  margin-top: 1px;
+  /* border-color: ${theme.color.lightgrey}; */
+  /* border: none; */
 `;
 
 const BlockButton = styled(Button)`
@@ -62,14 +78,14 @@ const BlockButton = styled(Button)`
   }
 `;
 
-const RecordBlock: React.FC<RecordBlockProps> = ({
+const RecordBlock = ({
   color,
   recordType,
   time,
   record,
-  recordId,
-  // queryName,
-}) => {
+  recordId, // queryName,
+  amount = 0,
+}: RecordBlockProps) => {
   const navigate = useNavigate();
   const OnClickButton = () => {
     navigate(PATH.DETAILRECORD, {
@@ -85,11 +101,19 @@ const RecordBlock: React.FC<RecordBlockProps> = ({
     <BlockButton option="default" size="xLarge" onClick={OnClickButton}>
       <RoundedRect color={color} />
       <TimeText size="medium2">{time}</TimeText>
-      <Text size="medium1" style={{ minWidth: 'fit-content' }}>
-        {recordId}
-        {record.category}
+      <Text
+        size="medium1"
+        style={{ minWidth: 'fit-content', marginRight: '8px' }}
+      >
         {recordType}
       </Text>
+      {amount !== 0 && (
+        <AmountButton>
+          <Text size="medium3" color={theme.color.gray1}>
+            {amount + 'ml'}
+          </Text>
+        </AmountButton>
+      )}
       <MemoText size="medium2">{record.memo}</MemoText>
       <Image
         src={iconArrowMiniRightGrey}

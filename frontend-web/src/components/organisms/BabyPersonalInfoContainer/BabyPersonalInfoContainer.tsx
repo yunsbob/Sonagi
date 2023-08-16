@@ -14,9 +14,7 @@ interface BabyPersonalInfoArrayProps {
   name: string;
 }
 
-const BabyPersonalInfoContainer: React.FC<BabyPersonalInfoProps> = ({
-  isDisease,
-}) => {
+const BabyPersonalInfoContainer = ({ isDisease }: BabyPersonalInfoProps) => {
   const disease =
     '우리 아이는 이러한 <span style="font-weight: 700">질병/알러지</span>등이 있어요';
 
