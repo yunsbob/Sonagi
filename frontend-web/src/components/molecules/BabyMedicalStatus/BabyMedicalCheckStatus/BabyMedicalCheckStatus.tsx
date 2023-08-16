@@ -27,23 +27,25 @@ const BabyMedicalCheckStatus = ({
   return (
     <MedicalCheckBlock>
       <MedicalCheckImage>
-        <Image src={imageSrc} width={1} height={1} />
+        <Image src={imageSrc} width={1.4} height={1.4} />
       </MedicalCheckImage>
       <MedicalCheckItem>
-        <Text size="medium2">{medicalCheckData.checkupName}</Text>
+        <Text size="headSmall" style={{ marginBottom: '7px' }}>
+          {medicalCheckData.checkupName}
+        </Text>
         {medicalCheckData.checkupDate && (
-          <Text size="small" color={theme.color.blue}>
-            {medicalCheckData.checkupDate}
+          <Text size="medium3" color={theme.color.blue}>
+            검진일: {medicalCheckData.checkupDate}
           </Text>
         )}
         {!medicalCheckData.checkupDate && today >= startDate && (
-          <Text size="small" color={theme.color.danger}>
-            {medicalCheckData.startDate} ~ {medicalCheckData.endDate}
+          <Text size="medium3" color={theme.color.danger}>
+            권장일: {medicalCheckData.startDate} ~ {medicalCheckData.endDate}
           </Text>
         )}
         {!medicalCheckData.checkupDate && today < startDate && (
-          <Text size="small" color={theme.color.gray3}>
-            {medicalCheckData.startDate} ~ {medicalCheckData.endDate}
+          <Text size="medium3" color={theme.color.gray1}>
+            권장일: {medicalCheckData.startDate} ~ {medicalCheckData.endDate}
           </Text>
         )}
       </MedicalCheckItem>
