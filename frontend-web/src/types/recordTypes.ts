@@ -151,7 +151,23 @@ type AllRecords =
 // 카테고리로 요청 보낼 수 있나?
 type CombinedRecord = AllRecords & { category?: string };
 
-// export const cate
+export const categotyToRecordMap = {
+  All: null,
+  Meal: [
+    'feedings',
+    'infantFormulas',
+    'breastFeedings',
+    'babyFoods',
+    'snacks',
+    'milks',
+  ],
+  Diaper: ['pees', 'poops'],
+  Sleep: ['sleeps'],
+  Pump: ['pumpingBreasts'],
+  Activity: ['plays', 'tummytimes'],
+  Health: ['fevers', 'hospitals', 'medications'],
+  Extra: ['extras'],
+};
 
 export type {
   AllRecords,

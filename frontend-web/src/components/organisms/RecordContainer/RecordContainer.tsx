@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCategoryState } from '@/states/categoryState';
 import { RecordContainerStyle } from '@/components/organisms/RecordContainer/RecordContainer.styles';
 import { PATH } from '@/constants/path';
-import { CombinedRecord } from '@/types/recordTypes';
+import { CombinedRecord, categotyToRecordMap } from '@/types/recordTypes';
 import theme from '@/styles/theme';
 import { fetchCounterState } from '@/states/fetchCounterState';
 import { recordEnToKo, recordTypeToCategory } from '@/constants/recordEnToKo';
@@ -18,16 +18,21 @@ type RecordContainerProps = {
 const RecordContainer = ({ combinedData }: RecordContainerProps) => {
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const containerRef = useRef<HTMLDivElement>(null);
-  console.log(currentCategory);
 
   // 선택된 카테고리에 따라 쌓인 기록 블록들 필터링
   // const filteredRecordList = recordedList.filter(record => {
   //   if (currentCategory === 'All') {
   //     return true;
   //   }
-
   //   return record.category === currentCategory;
   // });
+
+  const filteredRecordCategories = categotyToRecordMap[currentCategory];
+  const filteredRecordList = filteredRecordCategories
+    ? combinedData.filter(record =>
+        filteredRecordCategories.includes(record.category!)
+      )
+    : combinedData;
 
   const [fetchCounter, setFetchCounter] = useRecoilState(fetchCounterState);
 
@@ -70,7 +75,7 @@ const RecordContainer = ({ combinedData }: RecordContainerProps) => {
   return (
     <>
       <RecordContainerStyle className="scrollable" ref={containerRef}>
-        {combinedData.map((record: CombinedRecord, index) => {
+        {filteredRecordList.map((record: CombinedRecord, index) => {
           console.log('뿌려주고 있는 record 정보', record);
           const recordIdKey = recordTypeToIdKey[record.category!];
           const recordId = record[recordIdKey as keyof CombinedRecord];
