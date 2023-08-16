@@ -10,9 +10,9 @@ export const FeedingPageContainer = styled.div`
 `;
 
 export const FeedingPageWrapper = styled.div`
-  /* height: calc(100vh - 8rem); */
+  height: calc(100vh - 7rem);
   margin-top: 30px;
-  padding: 0px 40px 20px 40px;
+  padding: 10px 40px 20px 40px;
   /* width: 100vw; */
   display: flex;
   flex-direction: column;

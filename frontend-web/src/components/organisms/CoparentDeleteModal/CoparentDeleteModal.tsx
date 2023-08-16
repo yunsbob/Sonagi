@@ -10,7 +10,6 @@ import {
 import Modal from '@/components/organisms/Modal/Modal';
 import { Toast } from '@/components/organisms/Toast/Toast';
 import { selectedBabyState } from '@/states/babyState';
-import { userInfoState } from '@/states/userState';
 import theme from '@/styles/theme';
 import { CustomModal, User } from '@/types';
 import { useQueryClient } from '@tanstack/react-query';
