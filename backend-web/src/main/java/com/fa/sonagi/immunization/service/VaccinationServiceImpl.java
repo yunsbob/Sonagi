@@ -45,7 +45,7 @@ public class VaccinationServiceImpl implements VaccinationService {
 			.startDate(birth.plusDays(vaccinationStatus.getVaccination().getStartDate()))
 			.endDate(birth.plusDays(vaccinationStatus.getVaccination().getEndDate()))
 			.vaccinationDate(vaccinationStatus.getVaccinationDate())
-			.content(vaccinationStatus.getVaccination().getContent())
+			.content(vaccinationStatus.getVaccination().getContent1())
 			.build();
 
 	}
@@ -68,7 +68,7 @@ public class VaccinationServiceImpl implements VaccinationService {
 				.startDate(birth.plusDays(v.getVaccination().getStartDate()))
 				.endDate(birth.plusDays(v.getVaccination().getEndDate()))
 				.vaccinationDate(v.getVaccinationDate())
-				.content(v.getVaccination().getContent())
+				.content(v.getVaccination().getContent1())
 				.build())
 			.collect(Collectors.toList());
 
