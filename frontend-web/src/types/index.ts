@@ -74,6 +74,11 @@ interface BabyMemo {
   memo: string;
 }
 
+interface EditBabyMemo {
+  memoId: number;
+  memo: string;
+}
+
 // 가능한 모든 카테고리 목록
 type Category =
   | 'All'
@@ -138,4 +143,5 @@ export type {
   Vaccination,
   MedicalCheck,
   BabyMemo,
+  EditBabyMemo,
 };

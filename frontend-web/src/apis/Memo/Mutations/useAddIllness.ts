@@ -6,12 +6,12 @@ import { BabyMemo } from '@/types';
 
 // 질병 메모
 const useAddIllness = () => {
-  // const userInfo = useRecoilValue(userInfoState);
-  // const queryClient = useQueryClient();
+  const userInfo = useRecoilValue(userInfoState);
+  const queryClient = useQueryClient();
   return useMutation((memo: BabyMemo) => addIllness(memo), {
     onSuccess: aa => {
       console.log(aa);
-      // queryClient.invalidateQueries(['userId', userInfo.userId]);
+      queryClient.invalidateQueries(['illness']);
     },
     onError: (err: Error) => {
       console.log(err);

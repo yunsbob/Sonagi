@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import * as S from '@/components/organisms/BabyPersonalInfoContainer/BabyPersonalInfoContainer.style';
 import { BabyPersonalInfoButton } from '@/components/molecules/BabyPersonalInfoButton/BabyPersonalInfoButton';
-import Button from '@/components/atoms/Button/Button';
 import AddCautionButton from '@/components/molecules/AddCautionButton/AddCautionButton';
 import { useRecoilValue } from 'recoil';
+import { useGetIllness } from '@/apis/Memo/Queries/useGetIllness';
+import { selectedBabyState } from '@/states/babyState';
+import { useGetCaution } from '@/apis/Memo/Queries/useGetCaution';
 // import AddCautionButton from '@/components/molecules/AddCautionButton/AddCautionButton';
 
 interface BabyPersonalInfoProps {
@@ -12,8 +14,10 @@ interface BabyPersonalInfoProps {
 }
 
 interface BabyPersonalInfoArrayProps {
-  memo: string;
+  memoId: number;
+  userId: number;
   name: string;
+  memo: string;
 }
 
 const BabyPersonalInfoContainer = ({ isDisease }: BabyPersonalInfoProps) => {
@@ -23,32 +27,27 @@ const BabyPersonalInfoContainer = ({ isDisease }: BabyPersonalInfoProps) => {
   const info =
     '우리 아이를 돌봐주실 땐 <span style="font-weight: 700">이런 점을 주의해주세요</span>';
 
-  // const BabyPersonalInfoArray = hi;
+  const babyInfo = useRecoilValue(selectedBabyState);
+  // const queryClient = useQueryClient();
 
-  const BabyPersonalInfoArray = [
-    {
-      memo: 'dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
-      name: 'name1',
-    },
-    { memo: 'memo1', name: 'name1' },
-    { memo: 'memo1', name: 'name1' },
-    { memo: 'memo1', name: 'name1' },
-    { memo: 'memo1', name: 'name1' },
-    { memo: 'memo1', name: 'name1' },
-    // { memo: 'memo1', name: 'name1' },
-    { memo: 'memo1', name: 'name1' },
-  ];
-  // const BabyPersonalInfoArray: BabyPersonalInfoArrayProps[] = [];
+  const diseaseArray = useGetIllness(babyInfo.babyId);
+  const cautionArray = useGetCaution(babyInfo.babyId);
+
+  const BabyPersonalInfoArray = isDisease ? diseaseArray : cautionArray;
 
   const BabyPersonalInfoButtonHandler = () => {
-    return BabyPersonalInfoArray.map((data, index) => (
-      <BabyPersonalInfoButton
-        key={index}
-        memo={data.memo}
-        name={data.name}
-        isDisease={isDisease}
-      />
-    ));
+    return BabyPersonalInfoArray.map(
+      (data: BabyPersonalInfoArrayProps, index: number) => (
+        <BabyPersonalInfoButton
+          key={index}
+          memo={data.memo}
+          name={data.name}
+          memoId={data.memoId}
+          isDisease={isDisease}
+          userId={data.userId}
+        />
+      )
+    );
   };
 
   return (
@@ -62,7 +61,9 @@ const BabyPersonalInfoContainer = ({ isDisease }: BabyPersonalInfoProps) => {
         <S.BPICButtonWrapper>
           {BabyPersonalInfoButtonHandler()}
           {BabyPersonalInfoArray.length < 8 ? (
-            <AddCautionButton isDisease={isDisease} />
+            <>
+              <AddCautionButton isDisease={isDisease} />
+            </>
           ) : null}
         </S.BPICButtonWrapper>
       </S.BPICScrollWrapper>

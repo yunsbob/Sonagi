@@ -7,7 +7,7 @@ import { CautionRecorder } from '@/components/molecules/CautionRecorder/CautionR
 import { Text } from '@/components/atoms/Text/Text.styles';
 import Button from '@/components/atoms/Button/Button';
 import theme from '@/styles/theme';
-// import { useGetCaution } from '@/apis/Baby/Queries/useGetCaution';
+import { CautionDetail } from '@/components/molecules/CautionDetail/CautionDetail';
 
 interface CautionModalProps {
   onModalClose: () => void;
@@ -16,6 +16,8 @@ interface CautionModalProps {
   memo?: string;
   isDisease: boolean;
   isView: boolean;
+  memoId?: number;
+  userId?: number;
 }
 
 const CautionModal = ({
@@ -25,6 +27,8 @@ const CautionModal = ({
   memo,
   isDisease,
   isView,
+  memoId,
+  userId,
 }: CautionModalProps) => {
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
   const buttonHandler = () => {
@@ -35,13 +39,15 @@ const CautionModal = ({
     <>
       <Modal isOpen={modalOpen} onClose={onModalClose}>
         <S.CautionModalContainer>
-          {isView ? (
-            <>
-              <Text size="medium1">{name}</Text>
-              <Text style={{ wordWrap: 'break-word' }} size="medium2">
-                {memo}
-              </Text>
-            </>
+          {isView && memo && name && memoId && userId ? (
+            <CautionDetail
+              onModalClose={onModalClose}
+              name={name}
+              memo={memo}
+              memoId={memoId}
+              userId={userId}
+              isDisease={isDisease}
+            ></CautionDetail>
           ) : (
             <CautionRecorder
               onModalClose={onModalClose}

@@ -8,12 +8,16 @@ interface BabyPersonalInfoButtonProps {
   memo: string;
   name: string;
   isDisease: boolean;
+  memoId: number;
+  userId: number;
 }
 
 const BabyPersonalInfoButton = ({
   memo,
   name,
   isDisease,
+  memoId,
+  userId,
 }: BabyPersonalInfoButtonProps) => {
   const [cautionModalOpen, setCautionModalOpen] = useState(false);
 
@@ -32,6 +36,8 @@ const BabyPersonalInfoButton = ({
         modalOpen={cautionModalOpen}
         isDisease={isDisease}
         isView={true}
+        memoId={memoId}
+        userId={userId}
       />
       <S.BabyPersonalInfoButtonContainer
         onClick={() => {

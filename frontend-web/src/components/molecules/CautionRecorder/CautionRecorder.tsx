@@ -6,6 +6,7 @@ import { useRecoilValue } from 'recoil';
 import { selectedBabyState } from '@/states/babyState';
 import { userInfoState } from '@/states/userState';
 import { useAddIllness } from '@/apis/Memo/Mutations/useAddIllness';
+import { useAddCaution } from '@/apis/Memo/Mutations/useAddCaution';
 
 const CautionRecorder = ({ onModalClose, isDisease }: any) => {
   const [inputValue, setInputValue] = useState('');
@@ -15,6 +16,7 @@ const CautionRecorder = ({ onModalClose, isDisease }: any) => {
   const babyInfo = useRecoilValue(selectedBabyState);
   const userInfo = useRecoilValue(userInfoState);
   const addIllnessMutation = useAddIllness();
+  const addCautionMutation = useAddCaution();
 
   const onInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setMemo(e.target.value);
@@ -23,11 +25,18 @@ const CautionRecorder = ({ onModalClose, isDisease }: any) => {
   };
 
   const buttonActionHandler = () => {
-    addIllnessMutation.mutate({
-      userId: userInfo.userId,
-      babyId: babyInfo.babyId,
-      memo: memo,
-    });
+    isDisease
+      ? addIllnessMutation.mutate({
+          userId: userInfo.userId,
+          babyId: babyInfo.babyId,
+          memo: memo,
+        })
+      : addCautionMutation.mutate({
+          userId: userInfo.userId,
+          babyId: babyInfo.babyId,
+          memo: memo,
+        });
+
     console.log('buttonActionlog');
     onModalClose();
   };

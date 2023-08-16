@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addCaution } from '@/apis/Memo/memoAPI';
-import { BabyMemo } from '@/types';
+import { editCaution } from '@/apis/Memo/memoAPI';
+import { EditBabyMemo } from '@/types';
 
 // 질병 메모
-const useAddCaution = () => {
+const useEditCaution = () => {
   const queryClient = useQueryClient();
-  return useMutation((memo: BabyMemo) => addCaution(memo), {
+  return useMutation((memo: EditBabyMemo) => editCaution(memo), {
     onSuccess: aa => {
       console.log(aa);
       queryClient.invalidateQueries(['caution']);
@@ -16,4 +16,4 @@ const useAddCaution = () => {
   });
 };
 
-export { useAddCaution };
+export { useEditCaution };

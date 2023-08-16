@@ -41,4 +41,22 @@ const WordCount = styled.span`
   font-size: ${theme.fontSize.small};
 `;
 
-export { MemoWrapper, MemoArea, WordCount };
+const Divider = styled.div`
+  border-top: 1px solid ${theme.color.gray3};
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+  box-sizing: border-box;
+  width: 100%;
+`;
+
+const UpdateButtonWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+
+  button {
+    border-radius: 18px;
+    height: 48px;
+  }
+`;
+
+export { MemoWrapper, MemoArea, WordCount, Divider, UpdateButtonWrapper };

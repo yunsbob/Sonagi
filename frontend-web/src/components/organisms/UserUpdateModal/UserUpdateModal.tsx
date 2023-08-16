@@ -4,7 +4,7 @@ import Input from '@/components/atoms/Input/Input';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import Modal from '@/components/organisms/Modal/Modal';
 import {
-  UdpateButtonWrapper,
+  UpdateButtonWrapper,
   UserModalContainer,
 } from '@/components/organisms/UserUpdateModal/UserUpdateModal.styles';
 import { userInfoState } from '@/states/userState';
@@ -44,14 +44,14 @@ const UserUpdateModal = ({ onModalClose, modalOpen }: CustomModal) => {
           $borderRadius={22}
           autoFocus
         />
-        <UdpateButtonWrapper>
+        <UpdateButtonWrapper>
           <Button option="danger" onClick={onModalClose}>
             수정 취소
           </Button>
           <Button option="activated" size="large" onClick={onUpdateClick}>
             수정하기
           </Button>
-        </UdpateButtonWrapper>
+        </UpdateButtonWrapper>
       </UserModalContainer>
     </Modal>
   );
