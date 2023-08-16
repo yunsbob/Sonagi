@@ -17,6 +17,8 @@ const PATH = {
   DIARYUPDATE: '/main/diaryUpdate',
   MYPAGE: '/main/myPage',
   ALARM: '/main/myPage/alarm',
+  FAQFORUSER: '/FAQForUser',
+  QUESTIONFORUSER: '/questionForUser',
   // ALARM: '/main/alarm',
   REGISTERBABYPROFILE: '/regBabyProfile',
   UPDATEBABYPROFILE: '/updateBabyProfile',

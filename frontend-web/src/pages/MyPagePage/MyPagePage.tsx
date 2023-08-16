@@ -50,6 +50,13 @@ const MyPagePage = () => {
     localStorage.clear();
     navigate(PATH.LOGIN);
   };
+  const navigateToFAQForUserPage = () => {
+    navigate(PATH.FAQFORUSER);
+  };
+
+  const navigateToQuestionPage = () => {
+    navigate(PATH.QUESTIONFORUSER);
+  };
 
   return (
     <Container>
@@ -94,9 +101,13 @@ const MyPagePage = () => {
         <Text size="medium1" onClick={navigateToAlarmPage}>
           알림 설정
         </Text>
-        <Text size="medium1">문의하기</Text>
+        <Text size="medium1" onClick={navigateToQuestionPage}>
+          문의하기
+        </Text>
         <Text size="medium1">앨범 생성하기</Text>
-        <Text size="medium1">자주 묻는 질문(FAQ)</Text>
+        <Text size="medium1" onClick={navigateToFAQForUserPage}>
+          자주 묻는 질문(FAQ)
+        </Text>
         <Text size="medium1" onClick={handleLogout}>
           로그아웃
         </Text>
