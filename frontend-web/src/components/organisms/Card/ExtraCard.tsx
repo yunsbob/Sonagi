@@ -4,6 +4,7 @@ import { CardHeader } from '@/components/molecules/CardHeader/CardHeader';
 import { CardContainer } from '@/components/organisms/Card/Card.styles';
 import { categoryToColorMap } from '@/constants/categoryToColorMap';
 import theme from '@/styles/theme';
+import { PeriodType } from '@/types/card';
 
 interface ExtraCardProps {
   data: {
@@ -11,9 +12,10 @@ interface ExtraCardProps {
     cntPercent: number;
     yesterdayCntPercent: number;
   };
+  graphType?: PeriodType;
 }
 
-const ExtraCard = ({ data }: ExtraCardProps) => {
+const ExtraCard = ({ data, graphType = 'day' }: ExtraCardProps) => {
   const currentTheme = categoryToColorMap['Extra'];
   const color = theme.color[currentTheme];
   const darkColor = theme.color.cardExtra;
@@ -32,6 +34,7 @@ const ExtraCard = ({ data }: ExtraCardProps) => {
         }
         $ratio={data.cntPercent}
         $yesterDayRatio={data.yesterdayCntPercent}
+        $graphType={graphType}
       />
     </CardContainer>
   );

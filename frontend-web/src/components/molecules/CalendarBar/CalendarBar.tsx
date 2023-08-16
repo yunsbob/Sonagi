@@ -12,7 +12,7 @@ import { selectedDateState } from '@/states/dateState';
 import { useRecoilState } from 'recoil';
 import { formatDate } from '@/utils/formatDate';
 
-const CalendarBar: React.FC = () => {
+const CalendarBar = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
 

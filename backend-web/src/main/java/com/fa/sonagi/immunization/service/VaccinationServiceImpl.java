@@ -1,6 +1,8 @@
 package com.fa.sonagi.immunization.service;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,7 +45,18 @@ public class VaccinationServiceImpl implements VaccinationService {
 			.startDate(birth.plusDays(vaccinationStatus.getVaccination().getStartDate()))
 			.endDate(birth.plusDays(vaccinationStatus.getVaccination().getEndDate()))
 			.vaccinationDate(vaccinationStatus.getVaccinationDate())
-			.content(vaccinationStatus.getVaccination().getContent())
+			.content1(vaccinationStatus.getVaccination().getContent1())
+			.title1(vaccinationStatus.getVaccination().getTitle1())
+			.content2(vaccinationStatus.getVaccination().getContent2())
+			.title2(vaccinationStatus.getVaccination().getTitle2())
+			.content3(vaccinationStatus.getVaccination().getContent3())
+			.title3(vaccinationStatus.getVaccination().getTitle3())
+			.content4(vaccinationStatus.getVaccination().getContent4())
+			.title4(vaccinationStatus.getVaccination().getTitle4())
+			.content5(vaccinationStatus.getVaccination().getContent5())
+			.title5(vaccinationStatus.getVaccination().getTitle5())
+			.content6(vaccinationStatus.getVaccination().getContent6())
+			.title6(vaccinationStatus.getVaccination().getTitle6())
 			.build();
 
 	}
@@ -66,9 +79,22 @@ public class VaccinationServiceImpl implements VaccinationService {
 				.startDate(birth.plusDays(v.getVaccination().getStartDate()))
 				.endDate(birth.plusDays(v.getVaccination().getEndDate()))
 				.vaccinationDate(v.getVaccinationDate())
-				.content(v.getVaccination().getContent())
+				.content1(v.getVaccination().getContent1())
+				.title1(v.getVaccination().getTitle1())
+				.content2(v.getVaccination().getContent2())
+				.title2(v.getVaccination().getTitle2())
+				.content3(v.getVaccination().getContent3())
+				.title3(v.getVaccination().getTitle3())
+				.content4(v.getVaccination().getContent4())
+				.title4(v.getVaccination().getTitle4())
+				.content5(v.getVaccination().getContent5())
+				.title5(v.getVaccination().getTitle5())
+				.content6(v.getVaccination().getContent6())
+				.title6(v.getVaccination().getTitle6())
 				.build())
 			.collect(Collectors.toList());
+
+		Collections.sort(vaccinationResDto, Comparator.comparing(VaccinationResDto::getStartDate));
 
 		return vaccinationResDto;
 	}

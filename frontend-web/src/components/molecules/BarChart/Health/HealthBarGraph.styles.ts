@@ -6,15 +6,15 @@ interface HealthBarGraphStyleProps {
 
 const Container = styled.div`
   width: 90vw;
-  height: 35vh;
-  margin: 30px auto 60px;
+  height: 36vh;
+  margin: 30px auto 90px;
   position: relative;
 `;
 
 const LineContainer = styled.div`
   display: flex;
   height: inherit;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: space-between;
   width: 100%;
 `;
@@ -29,33 +29,24 @@ const LineWrapper = styled.div`
 
 const Line = styled.div`
   border: 1px solid ${({ theme }) => theme.color.gray4};
-  /* color: ${({ theme }) => theme.color.gray4}; */
   width: calc(100% - 20px);
-
   height: 0.1px;
 `;
-
-// const Time = styled.div`
-//   width: max-content;
-//   display: flex;
-//   flex-direction: column;
-//   height: 100%;
-// `;
 
 const BarContainer = styled.div`
   width: inherit;
   padding: 0px 20px 0px 40px;
-  height: calc(100% - 100% / 5 - 7.5px);
+  height: calc(100% - 10px);
   display: flex;
   justify-content: space-between;
   align-items: end;
   position: absolute;
-  bottom: calc(100% / 5 + 3.5px);
+  bottom: 5px;
 `;
 
 const Wrapper = styled.div<HealthBarGraphStyleProps>`
   width: 33px;
-  height: ${props => `${props.$barHeight}%`};
+  height: ${props => `calc(${props.$barHeight}%)`};
   display: flex;
   align-items: center;
   flex-direction: column-reverse;
@@ -76,21 +67,20 @@ const FeverWrapper = styled.div`
   height: 10px;
   position: absolute;
   top: -27px;
-  width: 45px;
+  width: 44px;
   height: 23px;
   display: flex;
   border-radius: 10px;
   justify-content: center;
   align-items: center;
   border: 1px solid ${({ theme }) => theme.color.graphFeverAverage};
+  background-color: ${({ theme }) => theme.color.white1};
 `;
 
 const DateContainer = styled.div`
   width: 100%;
   padding: 0px 20px 0px 40px;
-  height: calc(100% / 5 + 5px);
-  position: absolute;
-  bottom: 0;
+  height: calc(100% / 9);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -100,9 +90,10 @@ const DateContainer = styled.div`
 const CategoryContainer = styled.div`
   display: flex;
   float: right;
-  /* width: calc(99px + ((100% - (33px * 7)) / 6)); */
   justify-content: space-between;
   margin-right: 20px;
+  position: relative;
+  margin-bottom: 30px;
 `;
 
 const CategoryWrapper = styled.div`
@@ -110,10 +101,6 @@ const CategoryWrapper = styled.div`
   width: fit-content;
   margin-top: 10px;
   margin-left: 10px;
-
-  /* > div {
-    margin-right: 6px;
-  } */
 `;
 
 const CategoryCircle = styled.div<{ $bgColor: string; $borderColor?: string }>`

@@ -13,7 +13,18 @@ import {
 } from '@/components/molecules/BarChart/Meal/MealBarGraph.styles';
 import theme from '@/styles/theme';
 
-const MealBarGraph = () => {
+interface MealWeekItem {
+  babyFoodAmount: number;
+  breastFeedingAmount: number;
+  infantFormulaAmount: number;
+  milkAmount: number;
+}
+
+interface MealWeekProps {
+  [key: string]: MealWeekItem;
+}
+
+const MealBarGraph = ({ data }: MealWeekProps) => {
   // 10개의 line
   let lines: JSX.Element[] = [];
 
@@ -22,97 +33,45 @@ const MealBarGraph = () => {
   }
 
   const lineLen = 10;
-  const percent100 = (100 - 100 / lineLen) / 100;
+  const percent100 = 100 - 100 / lineLen;
+
+  const days = Object.keys(data);
+  const values = Object.values(data);
 
   return (
     <Container>
       <LineContainer>{lines}</LineContainer>
       <BarContainer>
-        <Wrapper $barHeight={percent100 * 70}>
-          <Bar height={50} color={theme.color.graphFeeding} />
-          <Bar height={50} color={theme.color.graphInfantFormula} />
-          <Bar height={50} color={theme.color.graphBreastFeeding} />
-          <Bar height={50} color={theme.color.graphBabyFood} />
-          <Bar height={50} color={theme.color.graphSnack} />
-          <Bar height={50} color={theme.color.graphMilk} />
-        </Wrapper>
-        <Wrapper $barHeight={percent100 * 60}>
-          <Bar height={50} color={theme.color.graphFeeding} />
-          <Bar height={50} color={theme.color.graphInfantFormula} />
-          <Bar height={50} color={theme.color.graphBreastFeeding} />
-          <Bar height={50} color={theme.color.graphBabyFood} />
-          <Bar height={50} color={theme.color.graphSnack} />
-          <Bar height={50} color={theme.color.graphMilk} />
-        </Wrapper>
-        <Wrapper $barHeight={percent100 * 90}>
-          <Bar height={50} color={theme.color.graphFeeding} />
-          <Bar height={50} color={theme.color.graphInfantFormula} />
-          <Bar height={50} color={theme.color.graphBreastFeeding} />
-          <Bar height={50} color={theme.color.graphBabyFood} />
-          <Bar height={50} color={theme.color.graphSnack} />
-          <Bar height={50} color={theme.color.graphMilk} />
-        </Wrapper>
-        <Wrapper $barHeight={percent100 * 50}>
-          <Bar height={50} color={theme.color.graphFeeding} />
-          <Bar height={50} color={theme.color.graphInfantFormula} />
-          <Bar height={50} color={theme.color.graphBreastFeeding} />
-          <Bar height={50} color={theme.color.graphBabyFood} />
-          <Bar height={50} color={theme.color.graphSnack} />
-          <Bar height={50} color={theme.color.graphMilk} />
-        </Wrapper>
-        <Wrapper $barHeight={percent100 * 80}>
-          <Bar height={50} color={theme.color.graphFeeding} />
-          <Bar height={50} color={theme.color.graphInfantFormula} />
-          <Bar height={50} color={theme.color.graphBreastFeeding} />
-          <Bar height={50} color={theme.color.graphBabyFood} />
-          <Bar height={50} color={theme.color.graphSnack} />
-          <Bar height={50} color={theme.color.graphMilk} />
-        </Wrapper>
-        <Wrapper $barHeight={percent100 * 100}>
-          <Bar height={50} color={theme.color.graphFeeding} />
-          <Bar height={50} color={theme.color.graphInfantFormula} />
-          <Bar height={50} color={theme.color.graphBreastFeeding} />
-          <Bar height={50} color={theme.color.graphBabyFood} />
-          <Bar height={50} color={theme.color.graphSnack} />
-          <Bar height={50} color={theme.color.graphMilk} />
-        </Wrapper>
-        <Wrapper $barHeight={percent100 * 30}>
-          <Bar height={50} color={theme.color.graphFeeding} />
-          <Bar height={50} color={theme.color.graphInfantFormula} />
-          <Bar height={50} color={theme.color.graphBreastFeeding} />
-          <Bar height={50} color={theme.color.graphBabyFood} />
-          <Bar height={50} color={theme.color.graphSnack} />
-          <Bar height={50} color={theme.color.graphMilk} />
-        </Wrapper>
+        {values.map((value: MealWeekItem, idx) => {
+          return (
+            <Wrapper key={idx} $barHeight={percent100}>
+              <Bar
+                height={value.babyFoodAmount}
+                color={theme.color.graphInfantFormula}
+              />
+              <Bar
+                height={value.breastFeedingAmount}
+                color={theme.color.graphBreastFeeding}
+              />
+              <Bar
+                height={value.infantFormulaAmount}
+                color={theme.color.graphBabyFood}
+              />
+              <Bar height={value.milkAmount} color={theme.color.graphMilk} />
+            </Wrapper>
+          );
+        })}
       </BarContainer>
       <DateContainer>
-        <Text width={35} size="xSmall">
-          12/3
-        </Text>
-        <Text width={35} size="xSmall">
-          12/5
-        </Text>
-        <Text width={35} size="xSmall">
-          12/10
-        </Text>
-        <Text width={35} size="xSmall">
-          3/9
-        </Text>
-        <Text width={35} size="xSmall">
-          12/30
-        </Text>
-        <Text width={35} size="xSmall">
-          12/31
-        </Text>
-        <Text width={35} size="xSmall">
-          1/1
-        </Text>
+        {days.map(date => {
+          return (
+            <Text width={35} size="xSmall" key={date}>
+              {date}
+            </Text>
+          );
+        })}
       </DateContainer>
       <CategoryContainer>
-        <CategoryWrapper>
-          <CategoryCircle $bgColor={theme.color.graphFeeding} />
-          <Text size="xSmall">수유</Text>
-        </CategoryWrapper>
         <CategoryWrapper>
           <CategoryCircle $bgColor={theme.color.graphInfantFormula} />
           <Text size="xSmall">분유</Text>
@@ -124,10 +83,6 @@ const MealBarGraph = () => {
         <CategoryWrapper>
           <CategoryCircle $bgColor={theme.color.graphBabyFood} />
           <Text size="xSmall">이유식</Text>
-        </CategoryWrapper>
-        <CategoryWrapper>
-          <CategoryCircle $bgColor={theme.color.graphSnack} />
-          <Text size="xSmall">간식</Text>
         </CategoryWrapper>
         <CategoryWrapper>
           <CategoryCircle $bgColor={theme.color.graphMilk} />

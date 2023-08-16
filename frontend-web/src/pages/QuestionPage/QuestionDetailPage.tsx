@@ -5,9 +5,9 @@ import {
   ContentContainer,
   DetailContent,
   DetailTitle,
-  ListContainer,
   QuestionDetailContainer,
   AdminButton,
+  DetailContainer,
 } from '../AdminPage/AdminPage.style';
 
 const QuestionDetailPage = () => {
@@ -27,7 +27,7 @@ const QuestionDetailPage = () => {
   }, [questionID]);
 
   return (
-    <ListContainer>
+    <DetailContainer>
       <ContentContainer>
         <QuestionDetailContainer>
           <a>사용자 ID : {detailQuestionData.userId}</a>
@@ -44,7 +44,7 @@ const QuestionDetailPage = () => {
         </AdminButton>
         <Outlet />
       </ContentContainer>
-    </ListContainer>
+    </DetailContainer>
   );
 };
 

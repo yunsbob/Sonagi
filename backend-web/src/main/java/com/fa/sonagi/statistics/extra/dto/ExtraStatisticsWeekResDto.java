@@ -1,6 +1,6 @@
 package com.fa.sonagi.statistics.extra.dto;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import lombok.Getter;
@@ -12,9 +12,9 @@ public class ExtraStatisticsWeekResDto {
 	private Map<String, ExtraStatisticsDayForWeekDto> extraStatistics;
 	private Long cnt;
 	private Long cntPercent;
-	private Long lastWeekCntPercent;
+	private Long yesterdayCntPercent;
 
 	public ExtraStatisticsWeekResDto() {
-		this.extraStatistics = new HashMap<>();
+		this.extraStatistics = new LinkedHashMap<>();
 	}
 }

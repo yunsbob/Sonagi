@@ -35,12 +35,24 @@ export default function TabBar() {
     navigate(path);
   };
 
+  // TODO: 위로 shadow
+  // TODO:
+  const nowPath = location.pathname;
+
   return (
     <StyledTabBar>
       {tabBarInfo.map(({ src, path }) => (
         <Image
           key={path}
-          src={location.pathname === path ? src[1] : src[0]}
+          src={
+            path === PATH.MAIN
+              ? nowPath === path
+                ? src[1]
+                : src[0]
+              : nowPath.substring(0, path.length) === path
+              ? src[1]
+              : src[0]
+          }
           onClick={() => navigatePage(path)}
           height={52}
           $unit="px"

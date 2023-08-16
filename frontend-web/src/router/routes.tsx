@@ -87,7 +87,7 @@ const router = createBrowserRouter([
       { path: 'diaryRegister', element: <DiaryRegister /> },
       { path: 'diaryUpdate/:id', element: <DiaryUpdatePage /> },
       { path: 'myPage', element: <MyPagePage /> },
-      { path: 'alarm', element: <AlarmPage /> },
+      { path: 'myPage/alarm', element: <AlarmPage /> },
       { path: 'detailRecord', element: <DetailRecordPage /> },
     ],
   },

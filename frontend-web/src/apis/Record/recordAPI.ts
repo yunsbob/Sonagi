@@ -30,12 +30,22 @@ const addRecord = async (type: string, record: AllRecords) => {
   }
 };
 
-const updateRecord = async (record: CombinedRecord) => {
+const updateRecord = async (record: CombinedRecord, queryName: string) => {
   try {
-    await instance.put(`/${record.category}`, record);
-  } catch (error) {
-    throw new Error('record put error');
+    await instance.put(`/${queryName}`, record);
+  } catch {
+    new Error('record put error');
   }
 };
 
-export { getAllCategoryRecords, addRecord, updateRecord, getRecordDetails };
+const deleteRecord = async (type: string, recordId: number) => {
+  await instance.delete(`/${type}/${recordId}`);
+};
+
+export {
+  getAllCategoryRecords,
+  addRecord,
+  updateRecord,
+  getRecordDetails,
+  deleteRecord,
+};

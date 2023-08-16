@@ -69,7 +69,7 @@ public class Users extends BaseTimeEntity implements UserDetails {
 	@NotNull
 	private ProviderType providerType;
 
-	@Column(name = "FCMToken", length = 70)
+	@Column(name = "FCMToken", length = 300)
 	private String FirebaseToken;
 
 	@Column(name = "v_alarm", nullable = false, columnDefinition = "VARCHAR(1) default 'Y'")

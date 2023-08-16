@@ -8,7 +8,7 @@ import { selectedDateState } from '@/states/dateState';
 import { formatDate } from '@/utils/formatDate';
 import { writtenDiaryDateList } from '@/states/diaryState';
 
-const WeekendCalendar: React.FC = () => {
+const WeekendCalendar = () => {
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
   const [weekendDateList, setWeekendDateList] = useState<
     Array<{ date: Dayjs; day: string }>

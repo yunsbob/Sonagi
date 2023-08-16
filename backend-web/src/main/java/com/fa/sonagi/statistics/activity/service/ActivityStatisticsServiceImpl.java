@@ -198,14 +198,14 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 		Long cntPercent = getPercent(cnt, lastWeekCnt);
 		Long lastWeekCntPercent = getPercent(lastWeekCnt, cnt);
 		activityWeek.setCntPercent(cntPercent);
-		activityWeek.setLastWeekCntPercent(lastWeekCntPercent);
+		activityWeek.setYesterdayCntPercent(lastWeekCntPercent);
 
 		// 놀이 시간 통계 퍼센트 계산
 		Long lastWeekActivityTime = sumActivityTimeWeek(activityDay, writeDay);
 		Long activityTimePercent = getPercent(activityTime, lastWeekActivityTime);
 		Long lastWeekActivityTimePercent = getPercent(lastWeekActivityTime, activityTime);
 		activityWeek.setActivityPercent(activityTimePercent);
-		activityWeek.setLastWeekActivityPercent(lastWeekActivityTimePercent);
+		activityWeek.setYesterdayActivityPercent(lastWeekActivityTimePercent);
 
 		return activityWeek;
 	}

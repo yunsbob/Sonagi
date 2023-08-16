@@ -24,6 +24,27 @@ interface BabiesOfUser {
   authority: string;
 }
 
+interface Vaccination {
+  vaccinationStatusId: number;
+  vaccinationId: number;
+  disease: string;
+  vaccineName: string;
+  startDate: string;
+  endDate: string;
+  vaccinationDate: string;
+  content: string;
+}
+
+interface MedicalCheck {
+  checkupStatusId: number;
+  checkupId: number;
+  checkupName: string;
+  startDate: string;
+  endDate: string;
+  checkupDate: string;
+  content: string;
+}
+
 interface FAQ {
   faqId: number;
   title: string;
@@ -108,4 +129,6 @@ export type {
   FAQ,
   Question,
   DeletedBaby,
+  Vaccination,
+  MedicalCheck,
 };

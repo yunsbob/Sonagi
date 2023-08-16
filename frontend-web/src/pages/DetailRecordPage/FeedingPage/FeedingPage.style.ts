@@ -10,9 +10,9 @@ export const FeedingPageContainer = styled.div`
 `;
 
 export const FeedingPageWrapper = styled.div`
-  height: calc(100vh - 8rem);
-  margin-top: 60px;
-  padding: 30px 40px;
+  height: calc(100vh - 7rem);
+  margin-top: 30px;
+  padding: 10px 40px 20px 40px;
   /* width: 100vw; */
   display: flex;
   flex-direction: column;
@@ -23,7 +23,11 @@ export const FeedingPageWrapper = styled.div`
 `;
 
 export const Divider = styled.div`
-  border-top: 1px solid ${theme.color.gray2};
-  padding: 20px 0px;
-  width: 70vw;
+  border-top: 1.25px solid ${theme.color.gray4};
+  padding: 15px 0px;
+  width: 76vw;
+
+  &.upperFeedingPageDivider {
+    border: none;
+  }
 `;
