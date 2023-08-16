@@ -12,15 +12,45 @@ import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import { useUpdateUser } from '@/apis/User/Mutations/useUpdateUser';
 import { useEffect } from 'react';
-import { getUserName } from '@/apis/User/userAPI';
+import { babiesOfUserState } from '@/states/babyState';
+import { useGetUserName } from '@/apis/User/Queries/uesGetUserName';
+import { useGetBaby } from '@/apis/Baby/Queries/useGetBaby';
 
 const SignInPage = () => {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [babies, setBabies] = useRecoilState(babiesOfUserState);
+
+  const userNameDto = useGetUserName(userInfo.userId);
+  const userBabies = useGetBaby(userInfo.userId);
+
   const updateUserMutation = useUpdateUser();
 
   const placeholder = '이름을 입력하세요';
   const alertMessage = '10자 이내로 입력해주세요';
+
+  useEffect(() => {
+    setBabies(
+      produce(draft => {
+        draft.length = 0;
+        draft.push(...userBabies);
+      })
+    );
+  }, [userBabies, setBabies]);
+
+  useEffect(() => {
+    setUserInfo(
+      produce(draft => {
+        draft.name = userNameDto.name ? userNameDto.name : '';
+      })
+    );
+  }, [userNameDto, setUserInfo]);
+
+  useEffect(() => {
+    if (userInfo.name) {
+      navigate(PATH.REGISTER);
+    }
+  }, [userInfo, navigate]);
 
   const onClickButtonAction = (value: string) => {
     updateUserMutation.mutate({

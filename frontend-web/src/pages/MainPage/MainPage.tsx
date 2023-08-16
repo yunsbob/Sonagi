@@ -24,15 +24,19 @@ const MainPage = () => {
     }
     console.log('isReactNative', userInfo.userId);
   }, [userInfo.userId]);
-  useEffect(() => {
-    const checkBabies = async (userId: number) => {
-      const babyInfos = await getBaby(userId);
-      if (babyInfos?.length === 0) {
-        navigate(PATH.REGISTER);
-      }
-    };
-    checkBabies(userInfo.userId);
-  });
+
+  // useEffect(() => {
+  //   // 이름이 없어? 그럼 이름 입력해야지.
+  //   //
+  //   const checkBabies = async (userId: number) => {
+  //     const babyInfos = await getBaby(userId);
+  //     if (babyInfos?.length === 0) {
+  //       navigate(PATH.REGISTER);
+  //     }
+  //   };
+
+  //   checkBabies(userInfo.userId);
+  // }, [userInfo]);
 
   return (
     <Suspense fallback={<LoadingPage />}>

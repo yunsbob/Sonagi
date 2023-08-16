@@ -8,6 +8,7 @@ const updateUser = async (user: User) => {
     new Error('user name put error');
   }
 };
+
 const getUserName = async (userId: number) => {
   try {
     const response = await instance.get(`/name/${userId}`);
