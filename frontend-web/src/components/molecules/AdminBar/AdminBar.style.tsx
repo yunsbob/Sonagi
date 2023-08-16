@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const StyledAdminBar = styled.nav`
   display: flex;
   justify-content: space-around;
+  align-self: stretch;
   align-items: center;
-  background-color: white;
   position: fixed;
   margin-top: 50px;
   padding-top: 30px;

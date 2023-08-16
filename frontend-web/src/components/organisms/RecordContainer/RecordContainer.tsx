@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import RecordBar from '@/components/molecules/RecordBar/RecordBar';
 import RecordBlock from '@/components/molecules/RecordBlock/RecordBlock';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -27,6 +27,7 @@ const RecordContainer = ({ combinedData }: RecordContainerProps) => {
 
   //   return record.category === currentCategory;
   // });
+
   const [fetchCounter, setFetchCounter] = useRecoilState(fetchCounterState);
 
   useEffect(() => {
@@ -65,14 +66,13 @@ const RecordContainer = ({ combinedData }: RecordContainerProps) => {
     }
   };
 
-  // TODO: recordBlock 안에 <recordType>id를 넣어줘야함
   return (
     <>
       <RecordContainerStyle className="scrollable" ref={containerRef}>
         {combinedData.map((record: CombinedRecord, index) => {
           const recordIdKey = recordTypeToIdKey[record.category!];
           const recordId = record[recordIdKey as keyof CombinedRecord];
-          return (
+          return 'amount' in record ? (
             <RecordBlock
               key={index}
               color={theme.color[recordTypeToCategory[record.category!]]}
@@ -82,7 +82,18 @@ const RecordContainer = ({ combinedData }: RecordContainerProps) => {
                 record.createdTime ? record.createdTime.substring(0, 5) : ''
               }
               recordId={recordId}
-              // queryName={record.queryName}
+              amount={record.amount}
+            />
+          ) : (
+            <RecordBlock
+              key={index}
+              color={theme.color[recordTypeToCategory[record.category!]]}
+              recordType={recordEnToKo[record.category!]}
+              record={record}
+              time={
+                record.createdTime ? record.createdTime.substring(0, 5) : ''
+              }
+              recordId={recordId}
             />
           );
         })}

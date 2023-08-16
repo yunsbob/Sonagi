@@ -7,13 +7,26 @@ const AdminContainer = styled.div`
 `;
 const Header = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background-color: rgb(254, 229, 229);
   font-size: 25px;
   height: 50px;
   color: #5d5d5d;
   margin-bottom: 55px;
+`;
+const HeaderTitle = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 80%;
+`;
+const HeaderImg = styled.div`
+  width: 10%;
+  display: flex;
+  justify-content: right;
+  img {
+    width: 25px;
+  }
 `;
 const MainContainer = styled.div`
   display: flex;
@@ -22,16 +35,16 @@ const MainContainer = styled.div`
 const ListContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: 100%;
 
   table {
-    width: 90%;
+    width: 95%;
     table-layout: fixed;
     border-collapse: separate;
   }
   th {
     border-bottom: 2px solid #ffcaca;
     color: #5d5d5d;
+    height: 50px;
   }
   td,
   th {
@@ -114,7 +127,6 @@ const QuestionDetailContainer = styled.div`
 const RestoreContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: 100%;
 
   table {
     width: 95%;
@@ -125,6 +137,8 @@ const RestoreContainer = styled.div`
     text-align: center;
     border-bottom: 2px solid #ffcaca;
     color: #5d5d5d;
+    font-size: 14px;
+    height: 50px;
   }
   td,
   th {
@@ -140,7 +154,7 @@ const RestoreContainer = styled.div`
   }
   td:nth-child(3),
   td:nth-child(5) {
-    font-size: 14px;
+    font-size: 12px;
   }
 `;
 const CreateButton = styled.div`
@@ -166,4 +180,6 @@ export {
   RestoreContainer,
   DetailContainer,
   CreateButton,
+  HeaderTitle,
+  HeaderImg,
 };
