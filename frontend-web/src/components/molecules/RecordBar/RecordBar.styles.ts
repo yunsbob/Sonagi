@@ -4,7 +4,7 @@ const RecordBarContainer = styled.div`
   display: flex;
   overflow-x: scroll;
   gap: 4px;
-  margin-top: 12px;
+  /* margin-top: 12px; */
 
   & > :first-child {
     margin-left: 0.5rem;

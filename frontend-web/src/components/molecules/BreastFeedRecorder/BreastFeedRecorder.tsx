@@ -9,11 +9,10 @@ import { useState } from 'react';
 
 interface BreastFeedProps {
   isLeft: boolean;
+  setIsLeft: (value: boolean) => void;
 }
 
-const BreastFeed = () => {
-  const [isLeft, setIsLeft] = useState(true);
-
+const BreastFeed = ({ isLeft, setIsLeft }: BreastFeedProps) => {
   const leftHandler = () => {
     setIsLeft(true);
   };
@@ -29,7 +28,7 @@ const BreastFeed = () => {
       <S.BreastFeedWrapper>
         <Button
           size="xLarge"
-          $borderColor={isLeft ? theme.color.categoryMeal : null}
+          $borderColor={isLeft ? theme.color.categoryMeal : 'transparent'}
           $backgroundColor={isLeft ? null : theme.color.lightgrey}
           style={{
             filter: isLeft ? undefined : 'grayscale(100%)',
@@ -38,13 +37,15 @@ const BreastFeed = () => {
           onClick={leftHandler}
         >
           <S.ButtonWrapper>
-            <Text size="medium1">왼쪽</Text>
+            <Text size="medium1" style={{ marginRight: '8px' }}>
+              왼쪽
+            </Text>
             <Image src={LeftBreast} width={53} $unit="px"></Image>
           </S.ButtonWrapper>
         </Button>
         <Button
           size="xLarge"
-          $borderColor={!isLeft ? theme.color.categoryMeal : null}
+          $borderColor={!isLeft ? theme.color.categoryMeal : 'transparent'}
           $backgroundColor={!isLeft ? null : theme.color.lightgrey}
           style={{
             filter: !isLeft ? undefined : 'grayscale(100%)',
@@ -53,8 +54,10 @@ const BreastFeed = () => {
           onClick={rightHandler}
         >
           <S.ButtonWrapper>
-            <Text size="medium1">오른쪽</Text>
             <Image src={RightBreast} width={53} $unit="px"></Image>
+            <Text size="medium1" style={{ marginLeft: '6px' }}>
+              오른쪽
+            </Text>
           </S.ButtonWrapper>
         </Button>
       </S.BreastFeedWrapper>

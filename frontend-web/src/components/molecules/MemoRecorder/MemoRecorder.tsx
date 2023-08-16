@@ -7,7 +7,6 @@ interface MemoRecorderProps {
   placeholder: string;
 }
 
-// TODO: MEMO를.... PLACEHOLDER대신...넣어야하는데....
 const MemoRecorder = ({ setMemo, placeholder }: MemoRecorderProps) => {
   // 초기값이 없으면 initialPlaceholder는 '상세 정보..', 있으면 props 값
   // const initialPlaceholder = placeholder || '상세 정보를 입력해주세요.';

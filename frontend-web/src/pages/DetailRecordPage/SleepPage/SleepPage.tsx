@@ -1,7 +1,5 @@
 import TimeRecorder from '@/components/molecules/TimeRecorder/TimeRecorder';
-import AmountRecorder from '@/components/molecules/AmountRecorder/AmountRecorder';
 import MemoRecorder from '@/components/molecules/MemoRecorder/MemoRecorder';
-import BreastFeedRecorder from '@/components/molecules/BreastFeedRecorder/BreastFeedRecorder';
 import * as S from '@/pages/DetailRecordPage/SleepPage/SleepPage.style';
 import Back from '@/components/atoms/Back/Back';
 import Button from '@/components/atoms/Button/Button';
