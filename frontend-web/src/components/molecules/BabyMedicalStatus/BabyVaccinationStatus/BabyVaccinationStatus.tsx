@@ -27,24 +27,28 @@ const BabyVaccinationStatus = ({
   return (
     <VaccinationBlock>
       <VaccinationImage>
-        <Image src={imageSrc} width={1} height={1} />
+        <Image src={imageSrc} width={1.4} height={1.4} />
       </VaccinationImage>
       <VaccinationItem>
-        <Text size="medium2">{vaccinationData.disease}</Text>
-        <Text size="medium3">{vaccinationData.vaccineName}</Text>
+        <Text size="headSmall" style={{ marginBottom: '5px' }}>
+          {vaccinationData.disease}
+        </Text>
+        <Text size="medium2" style={{ marginBottom: '5px' }}>
+          {vaccinationData.vaccineName}
+        </Text>
         {vaccinationData.vaccinationDate && (
-          <Text size="small" color={theme.color.blue}>
-            {vaccinationData.vaccinationDate}
+          <Text size="medium3" color={theme.color.blue}>
+            검진일: {vaccinationData.vaccinationDate}
           </Text>
         )}
         {!vaccinationData.vaccinationDate && today >= startDate && (
-          <Text size="small" color={theme.color.danger}>
-            {vaccinationData.startDate} ~ {vaccinationData.endDate}
+          <Text size="medium3" color={theme.color.danger}>
+            권장일: {vaccinationData.startDate} ~ {vaccinationData.endDate}
           </Text>
         )}
         {!vaccinationData.vaccinationDate && today < startDate && (
-          <Text size="small" color={theme.color.gray3}>
-            {vaccinationData.startDate} ~ {vaccinationData.endDate}
+          <Text size="medium3" color={theme.color.gray1}>
+            권장일: {vaccinationData.startDate} ~ {vaccinationData.endDate}
           </Text>
         )}
       </VaccinationItem>
