@@ -37,52 +37,47 @@ public class DiaryController {
 
 	@GetMapping
 	@Operation(summary = "일별 아이의 일기 데이터 조회")
-	public ResponseEntity<?> getDiaries(@RequestParam Long babyId,
-		@RequestParam LocalDate writeDay) throws Exception {
+	public ResponseEntity<?> getDiaries(@RequestParam Long babyId, @RequestParam LocalDate writeDay) throws Exception {
 		DiaryResDto.DiaryInfos diaryInfos = diaryService.selectAllByBabyIdAndWriteDay(babyId, writeDay);
 
-		return ResponseEntity
-			.ok()
-			.body(diaryInfos);
+		return ResponseEntity.ok().body(diaryInfos);
 	}
 
 	@PostMapping
 	@Operation(summary = "일기 등록")
-	public ResponseEntity<?> registDiaries(
-		@RequestPart DiaryPostDto diaryPostDto, @RequestPart List<MultipartFile> imgFiles) throws Exception {
+	public ResponseEntity<?> registDiaries(@RequestPart DiaryPostDto diaryPostDto,
+		@RequestPart(required = false) List<MultipartFile> imgFiles) throws Exception {
 		diaryService.createDiary(diaryPostDto, imgFiles);
-		return ResponseEntity
-			.ok()
-			.build();
+		return ResponseEntity.ok().build();
 	}
 
 	@PutMapping
 	@Operation(summary = "일기 내용, 사진 데이터 수정")
-	public ResponseEntity<?> updateDiaries(@RequestPart DiaryPutDto diaryPutDto, @RequestPart List<MultipartFile> imgFiles) throws Exception {
+	public ResponseEntity<?> updateDiaries(@RequestPart DiaryPutDto diaryPutDto,
+		@RequestPart(required = false) List<MultipartFile> imgFiles) throws Exception {
 		diaryService.updateDiaryContent(diaryPutDto, imgFiles);
-		return ResponseEntity
-			.ok()
-			.build();
+		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{diaryId}")
 	@Operation(summary = "일기 삭제")
 	public ResponseEntity<?> deleteDiary(@PathVariable Long diaryId) {
 		diaryService.deleteDiary(diaryId);
-		return ResponseEntity
-			.ok()
-			.build();
+		return ResponseEntity.ok().build();
 	}
 
 	@GetMapping("/dates")
 	@Operation(summary = "월별 일기 기록 여부 날짜 리스트 조회")
 	public ResponseEntity<?> getDateListByBabyId(
-		@Parameter(description = "아이 Id", required = true)
-		@RequestParam Long babyId
-	) throws Exception {
-		return ResponseEntity
-			.ok()
-			.body(new DiaryResDto.DateInfos(diaryService.findAllDiaryByBabyId(babyId)));
+		@Parameter(description = "아이 Id", required = true) @RequestParam Long babyId) throws Exception {
+		return ResponseEntity.ok().body(new DiaryResDto.DateInfos(diaryService.findAllDiaryByBabyId(babyId)));
+	}
+
+	@GetMapping("/{diaryId}")
+	@Operation(summary = "일기 id를 통한 조회")
+	public ResponseEntity<?> getDiaryById(@PathVariable Long diaryId) {
+		DiaryResDto.DiaryInfo diaryInfo = diaryService.selectByDiaryId(diaryId);
+		return ResponseEntity.ok().body(diaryInfo);
 	}
 
 }

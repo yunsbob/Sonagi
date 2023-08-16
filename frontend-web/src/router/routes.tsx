@@ -32,6 +32,7 @@ import QuestionPage from '@/pages/QuestionPage/QuestionPage';
 import QuestionDetailPage from '@/pages/QuestionPage/QuestionDetailPage';
 import OurBabyInfo from '@/components/organisms/OurBabyInfo/OurBabyInfo';
 import MedicalInfoPage from '@/pages/MedicalInfoPage/MedicalInfoPage';
+import DiaryUpdatePage from '@/pages/DiaryRegisterPage/DiaryUpdatePage';
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,7 @@ const router = createBrowserRouter([
       { path: 'ourBaby/medicalInfo', element: <MedicalInfoPage /> },
       { path: 'diary', element: <DiaryPage /> },
       { path: 'diaryRegister', element: <DiaryRegister /> },
+      { path: 'diaryUpdate/:id', element: <DiaryUpdatePage /> },
       { path: 'myPage', element: <MyPagePage /> },
       { path: 'myPage/alarm', element: <AlarmPage /> },
       { path: 'detailRecord', element: <DetailRecordPage /> },

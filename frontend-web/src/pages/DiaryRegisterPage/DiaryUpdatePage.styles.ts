@@ -50,9 +50,6 @@ const DiaryRegisterWrapper = styled.div`
 `;
 
 const RegisterBtnContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
   width: 100%;
   box-sizing: border-box;
   padding-left: 1rem;

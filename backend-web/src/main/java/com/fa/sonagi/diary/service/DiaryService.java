@@ -14,7 +14,7 @@ public interface DiaryService {
 	void createDiary(DiaryPostDto diaryPostDto, List<MultipartFile> imgFiles) throws Exception;
 
 	// 일기 내용 + 사진 업데이트
-	void updateDiaryContent(DiaryPutDto diaryPutDto,List<MultipartFile> imgFiles) throws Exception;
+	void updateDiaryContent(DiaryPutDto diaryPutDto, List<MultipartFile> imgFiles) throws Exception;
 
 	// 일기 삭제
 	void deleteDiary(Long diaryId);
@@ -24,5 +24,7 @@ public interface DiaryService {
 
 	// 월별 일기 기록 여부 날짜 리스트로 조회
 	List<LocalDate> findAllDiaryByBabyId(Long babyId) throws Exception;
+
+	DiaryResDto.DiaryInfo selectByDiaryId(Long diaryId);
 }
 
