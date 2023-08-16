@@ -18,6 +18,7 @@ type RecordContainerProps = {
 const RecordContainer = ({ combinedData }: RecordContainerProps) => {
   const currentCategory = useRecoilValue(selectedCategoryState(PATH.MAIN));
   const containerRef = useRef<HTMLDivElement>(null);
+  console.log(currentCategory);
 
   // 선택된 카테고리에 따라 쌓인 기록 블록들 필터링
   // const filteredRecordList = recordedList.filter(record => {
@@ -70,6 +71,7 @@ const RecordContainer = ({ combinedData }: RecordContainerProps) => {
     <>
       <RecordContainerStyle className="scrollable" ref={containerRef}>
         {combinedData.map((record: CombinedRecord, index) => {
+          console.log('뿌려주고 있는 record 정보', record);
           const recordIdKey = recordTypeToIdKey[record.category!];
           const recordId = record[recordIdKey as keyof CombinedRecord];
           return 'amount' in record ? (
