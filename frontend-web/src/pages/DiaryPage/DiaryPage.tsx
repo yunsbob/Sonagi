@@ -6,39 +6,50 @@ import { Image } from '@/components/atoms/Image/Image';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { userInfoState } from '@/states/userState';
 import { selectedBabyState } from '@/states/babyState';
 import DiaryCard from '@/components/organisms/DiaryCard/DiaryCard';
-import { BabiesOfUser, User } from '@/types';
+import { BabiesOfUser } from '@/types';
 import { selectedDateState } from '@/states/dateState';
 import { useGetDiaryInfoByBabyId } from '@/apis/Diary/Queries/useGetDiaryInfoByBabyId';
-import { DiaryInfo } from '@/types/diaryTypes';
+import { diaryRecordList, writtenDiaryDateList } from '@/states/diaryState';
+import { useGetAllDiaryRecordDates } from '@/apis/Diary/Queries/useGetAllDiaryRecordDates';
+import { useEffect, useRef } from 'react';
+import dayjs from 'dayjs';
 
 const DiaryPage: React.FC = () => {
   const navigate = useNavigate();
-  const userInfo: User = useRecoilValue(userInfoState);
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
   const selectedDate: string = useRecoilValue(selectedDateState);
+  const [diaries, setDiaries] = useRecoilState(diaryRecordList);
+  const [recordedDateList, setRecordedDateList] =
+    useRecoilState(writtenDiaryDateList);
+  // const recordedDateList: string[] = useRecoilValue(writtenDiaryDateList);
 
-  const diaries: DiaryInfo[] = useGetDiaryInfoByBabyId(
-    babyInfo.babyId,
-    selectedDate
-  );
+  const records = useGetDiaryInfoByBabyId(babyInfo.babyId, selectedDate);
+  const records2 = useGetAllDiaryRecordDates(babyInfo.babyId);
 
+  useEffect(() => {
+    setDiaries(records.diaries);
+  }, [records, setDiaries]);
+  useEffect(() => {
+    setRecordedDateList(records2.dateList);
+  }, [records2, setRecordedDateList]);
   return (
     <>
       <CalendarBar></CalendarBar>
       <WeekendCalendar></WeekendCalendar>
       <DiaryListContainer>
-        {diaries.map((diary, index) => (
-          <DiaryCard
-            key={index}
-            writer={diary.userName}
-            writenDate={diary.writedTime}
-            content={diary.content}
-            imgUrls={diary.imgUrls}
-          ></DiaryCard>
-        ))}
+        {diaries.length > 0 &&
+          diaries.map((diary, index) => (
+            <DiaryCard
+              key={index}
+              diaryId={diary.diaryId}
+              writer={diary.userName}
+              writenDate={diary.writedTime}
+              content={diary.content}
+              imgUrls={diary.imgUrls}
+            ></DiaryCard>
+          ))}
         <Image
           src={btnAddDiary}
           width={100}

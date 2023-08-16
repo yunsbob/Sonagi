@@ -1,10 +1,9 @@
 import { instance } from '@/apis/instance';
-import { DiaryPostDto } from '@/types/diaryTypes';
 
 // 일기 기록 전부 조회
 const getAllDiariesRecord = async (babyId: number) => {
   try {
-    const response = await instance.get('/diaries/dates');
+    const response = await instance.get(`/diaries/dates?babyId=${babyId}`);
     return response.data;
   } catch {
     new Error('no data returned from the API - DiariesAtWriteDay');
@@ -26,11 +25,12 @@ const getDiariesAtWriteDay = async (babyId: number, writeDay: string) => {
 // 일기 등록
 const addDiary = async (formData: FormData) => {
   try {
-    await instance.post('/diaries', formData, {
+    const response = await instance.post('/diaries', formData, {
       headers: {
         'Content-Type': 'multipart/form-data', // 특정 요청에서만 변경
       },
     });
+    return response;
   } catch {
     new Error('Diary Register Error');
   }
@@ -50,9 +50,19 @@ const updateDiary = async (formData: FormData) => {
 // 일기 삭제
 const deleteDiary = async (diaryId: number) => {
   try {
-    await instance.delete(`/${diaryId}`);
+    await instance.delete(`/diaries/${diaryId}`);
   } catch {
     new Error('Delete Diary error');
+  }
+};
+
+// 일기 id로 상세 조회
+const getDiaryRecordByDiaryId = async (diaryId: number) => {
+  try {
+    const response = await instance.get(`/diaries/${diaryId}`);
+    return response.data;
+  } catch {
+    new Error('Get Diary Detail By diaryId');
   }
 };
 
@@ -62,4 +72,5 @@ export {
   updateDiary,
   deleteDiary,
   getAllDiariesRecord,
+  getDiaryRecordByDiaryId,
 };

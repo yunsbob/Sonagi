@@ -5,7 +5,7 @@ import yellowBaby from '@/assets/images/img-baby-yellow.png';
 import { Image } from '@/components/atoms/Image/Image';
 import * as S from '@/pages/RegisterPage/RegisterPages.styles';
 import Back from '@/components/atoms/Back/Back';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { userInfoState } from '@/states/userState';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
@@ -14,9 +14,11 @@ import theme from '@/styles/theme';
 
 import baby from '@/assets/images/img-baby.png';
 import babyCard from '@/assets/images/img-baby-card.png';
+import { useEffect } from 'react';
+import { getUserName } from '@/apis/User/userAPI';
 
 const RegisterPage = () => {
-  const userInfo = useRecoilValue(userInfoState);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const navigate = useNavigate();
 
   const toBabyCode = () => {

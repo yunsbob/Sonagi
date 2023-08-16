@@ -7,9 +7,14 @@ const DiaryListContainer = styled.div`
   justify-content: start;
   box-sizing: border-box;
   padding: 1.5rem;
-  overflow-y: scroll;
-  height: 75vh;
   gap: 0.75rem;
+  height: calc(100vh - 15rem);
+  overflow: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export { DiaryListContainer };
