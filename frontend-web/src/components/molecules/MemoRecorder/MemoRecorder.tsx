@@ -1,6 +1,7 @@
 import { useState, ChangeEvent } from 'react';
 import * as S from '@/components/molecules/MemoRecorder/MemoRecorder.style';
 import { Text } from '@/components/atoms/Text/Text.styles';
+import theme from '@/styles/theme';
 
 interface MemoRecorderProps {
   setMemo: (value: string) => void;
@@ -31,7 +32,11 @@ const MemoRecorder = ({ setMemo, placeholder }: MemoRecorderProps) => {
           placeholder={'상세 정보를 입력해주세요.'}
         ></S.MemoArea>
         <Text>
-          <S.WordCount>{inputCount}/50</S.WordCount>
+          <S.WordCount>
+            <Text size="medium3" color={theme.color.gray1}>
+              {inputCount}/50
+            </Text>
+          </S.WordCount>
         </Text>
       </S.MemoWrapper>
     </>

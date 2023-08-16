@@ -43,7 +43,6 @@ const Timer = ({
           <MobileTimePicker
             defaultValue={value}
             onChange={data => {
-              console.log(data);
               setCreatedTime(data!.format('HH:mm:ss')); // 이건 상위의 state값을 변경..
               setValue(data); // data 타입은 object - dayjs
             }}

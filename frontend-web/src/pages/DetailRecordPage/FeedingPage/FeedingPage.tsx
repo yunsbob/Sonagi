@@ -25,16 +25,14 @@ const FeedingPage = ({ name, recordName, recordId }: NameProps) => {
   const selectedDate = useRecoilValue(selectedDateState);
 
   const [isLeft, setIsLeft] = useState(true);
-  // console.log(isLeft);
-  console.log(recordDetails);
-  const [createdLeftTime, setCreatedLeftTime] = useState(
+  const [leftStartTime, setLeftStartTime] = useState(
     recordDetails.leftStartTime
   );
-  const [createdRightTime, setCreatedRightTime] = useState(
+  const [rightStartTime, setRightStartTime] = useState(
     recordDetails.rightStartTime
   );
-  const [endLeftTime, setEndLeftTime] = useState(recordDetails.leftEndTime);
-  const [endRightTime, setEndRightTime] = useState(recordDetails.rightEndTime);
+  const [leftEndTime, setLeftEndTime] = useState(recordDetails.leftEndTime);
+  const [rightEndTime, setRightEndTime] = useState(recordDetails.rightEndTime);
   const [memo, setMemo] = useState(recordDetails.memo);
 
   const navigate = useNavigate();
@@ -45,10 +43,10 @@ const FeedingPage = ({ name, recordName, recordId }: NameProps) => {
   const handleUpdate = async () => {
     const currentRecord = {
       mealId: recordId,
-      createdLeftTime,
-      createdRightTime,
-      endLeftTime,
-      endRightTime,
+      leftStartTime,
+      rightStartTime,
+      leftEndTime,
+      rightEndTime: rightEndTime,
       memo,
     };
     await updateRecordMutation.mutateAsync(
@@ -83,9 +81,9 @@ const FeedingPage = ({ name, recordName, recordId }: NameProps) => {
                   key="left-start-time"
                   name="왼쪽 수유 시작 시간"
                   textSize="medium2"
-                  initialTime={createdLeftTime}
+                  initialTime={leftStartTime}
                   selectedDate={selectedDate}
-                  setCreatedTime={setCreatedLeftTime}
+                  setCreatedTime={setLeftStartTime}
                 ></TimeRecorder>
               </S.Divider>
               <S.Divider>
@@ -93,9 +91,9 @@ const FeedingPage = ({ name, recordName, recordId }: NameProps) => {
                   key="left-end-time"
                   name="왼쪽 수유 종료 시간"
                   textSize="medium2"
-                  initialTime={endLeftTime}
+                  initialTime={leftEndTime}
                   selectedDate={selectedDate}
-                  setCreatedTime={setEndLeftTime}
+                  setCreatedTime={setLeftEndTime}
                 ></TimeRecorder>
               </S.Divider>
             </>
@@ -106,9 +104,9 @@ const FeedingPage = ({ name, recordName, recordId }: NameProps) => {
                   key="right-start-time"
                   name="오른쪽 수유 시작 시간"
                   textSize="medium2"
-                  initialTime={createdRightTime}
+                  initialTime={rightStartTime}
                   selectedDate={selectedDate}
-                  setCreatedTime={setCreatedRightTime}
+                  setCreatedTime={setRightStartTime}
                 ></TimeRecorder>
               </S.Divider>
               <S.Divider>
@@ -116,9 +114,9 @@ const FeedingPage = ({ name, recordName, recordId }: NameProps) => {
                   key="right-end-time"
                   textSize="medium2"
                   name="오른쪽 수유 종료 시간"
-                  initialTime={endRightTime}
+                  initialTime={rightEndTime}
                   selectedDate={selectedDate}
-                  setCreatedTime={setEndRightTime}
+                  setCreatedTime={setRightEndTime}
                 ></TimeRecorder>
               </S.Divider>
             </>
@@ -127,11 +125,7 @@ const FeedingPage = ({ name, recordName, recordId }: NameProps) => {
           <S.Divider>
             <MemoRecorder setMemo={setMemo} placeholder={memo}></MemoRecorder>
           </S.Divider>
-          <Button
-            option="activated"
-            size="large"
-            // onClick={onClickButton}
-          >
+          <Button option="activated" size="large" onClick={handleUpdate}>
             <Text size="headSmall" color={theme.color.white1}>
               등록하기
             </Text>
