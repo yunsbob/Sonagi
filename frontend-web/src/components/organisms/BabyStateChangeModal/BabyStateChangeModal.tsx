@@ -9,15 +9,16 @@ import {
 } from '@/components/organisms/BabyStateChangeModal/BabyStateChangeModal.styles';
 import Modal from '@/components/organisms/Modal/Modal';
 import { Toast } from '@/components/organisms/Toast/Toast';
-import { selectedBabyState } from '@/states/babyState';
+import { babiesOfUserState, selectedBabyState } from '@/states/babyState';
 import theme from '@/styles/theme';
 import { BabiesOfUser, CustomModal, User } from '@/types';
 import { useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 // import OurBabyPage from '../../../pages/OurBabyPage/OurBabyPage';
 import { PATH } from '@/constants/path';
+import { userInfoState } from '@/states/userState';
 
 interface Props extends CustomModal {
   babyInfo: BabiesOfUser;
@@ -26,15 +27,18 @@ interface Props extends CustomModal {
 const BabyStateChangeModal = ({ onModalClose, modalOpen, babyInfo }: Props) => {
   const useChangeBabyStateMutation = useChangeBabyState();
   const [showToast, setShowToast] = useState<boolean>(false);
+  const babiesOfUser = useRecoilValue(babiesOfUserState);
 
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
+  const userInfo = useRecoilValue(userInfoState);
 
   const changeBabyState = (selectedBabyId: number) => {
     useChangeBabyStateMutation.mutate(selectedBabyId, {
       onSuccess: () => {
-        queryClient.invalidateQueries([babyInfo]);
+        queryClient.invalidateQueries(['baby', userInfo.userId]);
+        console.log('----------changed', babiesOfUser);
         setShowToast(true);
         onModalClose();
         navigate(PATH.OURBABY);
@@ -43,6 +47,8 @@ const BabyStateChangeModal = ({ onModalClose, modalOpen, babyInfo }: Props) => {
         console.log('삭제 실패');
       },
     });
+
+    // }
   };
 
   return (
@@ -54,31 +60,33 @@ const BabyStateChangeModal = ({ onModalClose, modalOpen, babyInfo }: Props) => {
         />
       )}
       <Modal isOpen={modalOpen} onClose={onModalClose}>
-        <BabyStateChangeModalTitleWrapper>
-          <Text size="large" className="title">
-            <b>{babyInfo.name}</b> 아이의 데이터를 {'\n'}
-            삭제하시겠습니까?
-          </Text>
-        </BabyStateChangeModalTitleWrapper>
-        <BabyStateChangeModalContentWrapper>
-          <Text size="medium3" color={theme.color.danger}>
-            {babyInfo.name} 아이에 대한 모든 정보가 삭제됩니다.
-          </Text>
-          <Text size="medium3" color={theme.color.danger}>
-            이 작업은 되돌릴 수 없습니다.
-          </Text>
-        </BabyStateChangeModalContentWrapper>
-        <BabyStateChangeButtonContainer>
-          <Button option="primary" onClick={onModalClose}>
-            취소
-          </Button>
-          <Button
-            option="danger"
-            onClick={() => changeBabyState(babyInfo.babyId)}
-          >
-            삭제
-          </Button>
-        </BabyStateChangeButtonContainer>
+        <>
+          <BabyStateChangeModalTitleWrapper>
+            <Text size="large" className="title">
+              <b>{babyInfo.name}</b> 아이의 데이터를 {'\n'}
+              삭제하시겠습니까?
+            </Text>
+          </BabyStateChangeModalTitleWrapper>
+          <BabyStateChangeModalContentWrapper>
+            <Text size="medium3" color={theme.color.danger}>
+              {babyInfo.name} 아이에 대한 모든 정보가 삭제됩니다.
+            </Text>
+            <Text size="medium3" color={theme.color.danger}>
+              이 작업은 되돌릴 수 없습니다.
+            </Text>
+          </BabyStateChangeModalContentWrapper>
+          <BabyStateChangeButtonContainer>
+            <Button option="primary" onClick={onModalClose}>
+              취소
+            </Button>
+            <Button
+              option="danger"
+              onClick={() => changeBabyState(babyInfo.babyId)}
+            >
+              삭제
+            </Button>
+          </BabyStateChangeButtonContainer>
+        </>
       </Modal>
     </BabyStateChangeModalContainer>
   );
