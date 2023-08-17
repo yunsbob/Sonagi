@@ -38,8 +38,8 @@ const BabyStateChangeModal = ({ onModalClose, modalOpen, babyInfo }: Props) => {
     if (babiesOfUser.length > 1) {
       useChangeBabyStateMutation.mutate(selectedBabyId, {
         onSuccess: () => {
-          queryClient.invalidateQueries(['baby', userInfo.userId]);
           setShowToast(true);
+          queryClient.invalidateQueries(['baby', userInfo.userId]);
           onModalClose();
           navigate(PATH.OURBABY);
         },
