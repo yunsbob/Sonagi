@@ -9,17 +9,18 @@ const MemoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 1rem;
+  padding: 0.8rem;
   margin-bottom: 20px;
 `;
 
 const MemoArea = styled.textarea`
   padding: 1rem, 0.5rem;
-  width: 90%;
+  width: 100%;
   height: 25vh;
-  /* background: var(--white-1, #fff); */
   font-size: ${theme.fontSize.medium2};
   border: none;
+  line-height: 1.4rem;
+
   &:focus {
     border: none;
     outline: none;
@@ -51,7 +52,9 @@ const Divider = styled.div`
 
 const UpdateButtonWrapper = styled.div`
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
+  padding: 0px 0.8rem;
+  gap: 10px;
 
   button {
     border-radius: 18px;
@@ -62,6 +65,11 @@ const UpdateButtonWrapper = styled.div`
 const showTextWrapper = styled.div`
   width: 100%;
   word-wrap: break-word;
+  text-align: start;
+
+  p {
+    line-height: 1.4rem;
+  }
 `;
 
 export {

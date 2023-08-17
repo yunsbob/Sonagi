@@ -13,6 +13,7 @@ import { editIllness } from '@/apis/Memo/memoAPI';
 import { useEditIllness } from '@/apis/Memo/Mutations/useEditIllness';
 import { useDeleteCaution } from '@/apis/Memo/Mutations/useDeleteCaution';
 import { useEditCaution } from '@/apis/Memo/Mutations/useEditCaution';
+import theme from '@/styles/theme';
 
 interface CautionDetailProps {
   onModalClose: () => void;
@@ -76,7 +77,6 @@ const CautionDetail = ({
     <>
       {isEdit ? (
         <>
-          {' '}
           <S.MemoWrapper>
             <S.MemoArea
               value={inputValue}
@@ -96,7 +96,7 @@ const CautionDetail = ({
         </>
       ) : (
         <>
-          <S.MemoWrapper>
+          <S.MemoWrapper style={{ backgroundColor: theme.color.white1 }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <Image
                 src={bellImg}
@@ -109,7 +109,7 @@ const CautionDetail = ({
                   justifyContent: 'left',
                   alignItems: 'center',
                 }}
-                size="medium1"
+                size="headSmall"
               >
                 {name}님
               </Text>

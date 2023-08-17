@@ -13,6 +13,7 @@ import { selectedBabyState } from '@/states/babyState';
 import { PATH } from '@/constants/path';
 import { useAddDiary } from '@/apis/Diary/Mutations/useAddDiaries';
 import { selectedDateState } from '@/states/dateState';
+import { LoadingSpinner } from '@/pages/LoadingPage/LoadingSpinner';
 
 const DiaryRegisterPage = () => {
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ const DiaryRegisterPage = () => {
   const RouteHandler = useCallback(() => navigate(-1), [navigate]);
   return (
     <>
-      {isLoading && <div>등록중...........</div>}
+      {isLoading && <LoadingSpinner />}
       <S.DiaryRegisterContainer>
         <S.DiaryRegisterHeadContainer>
           <S.BackArrow onClick={RouteHandler}>

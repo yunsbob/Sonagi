@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react';
 import * as S from '@/pages/FAQForUserPage/FAQForUserPage.styles';
 import FAQAccordion from '@/components/molecules/FAQAccordion/FAQAccordion';
 import { instance } from '@/apis/instance';
+import { Link } from 'react-router-dom';
+import {
+  AdminButtonContainer,
+  AdminButton,
+} from '../AdminPage/AdminPage.style';
 
 interface FAQItem {
   title: string;
@@ -95,6 +100,11 @@ const FAQPage = () => {
           </div>
         ))}
       </S.AdminFAQContainer>
+      <AdminButtonContainer>
+        <AdminButton>
+          <Link to={`/admin/faq/create`}>등록하기</Link>
+        </AdminButton>
+      </AdminButtonContainer>
     </>
   );
 };
