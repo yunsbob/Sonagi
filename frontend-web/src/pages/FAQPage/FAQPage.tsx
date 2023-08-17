@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import * as S from '@/pages/FAQForUserPage/FAQForUserPage.styles';
 import FAQAccordion from '@/components/molecules/FAQAccordion/FAQAccordion';
-import { Text } from '@/components/atoms/Text/Text.styles';
-import Back from '@/components/atoms/Back/Back';
-import { Background } from '@/components/atoms/Background/Background.styles';
-import orangeBackground from '@/assets/images/background-orange-to-blue.png';
-import { instance } from '@/apis/instance'; // instance import 경로에 맞게 수정
+import { instance } from '@/apis/instance';
 
 interface FAQItem {
   title: string;
@@ -27,51 +23,50 @@ const FAQPage = () => {
 
   const getFAQList = async () => {
     try {
-      const response = await instance.get(`/faqs`);
-      return response.data;
+      const memberFAQResponse = await instance.get(`/faqs/member`);
+      const operationFAQResponse = await instance.get(`/faqs/operation`);
+      const inquiryFAQResponse = await instance.get(`/faqs/use`);
+      const etcFAQResponse = await instance.get(`/faqs/etc`);
+
+      setCurrentPost([
+        {
+          category: '전체',
+          faqs: [
+            ...memberFAQResponse.data,
+            ...operationFAQResponse.data,
+            ...inquiryFAQResponse.data,
+            ...etcFAQResponse.data,
+          ],
+        },
+        {
+          category: '회원정보',
+          faqs: memberFAQResponse.data,
+        },
+        {
+          category: '운영정책',
+          faqs: operationFAQResponse.data,
+        },
+        {
+          category: '이용문의',
+          faqs: inquiryFAQResponse.data,
+        },
+        {
+          category: '기타',
+          faqs: etcFAQResponse.data,
+        },
+      ]);
     } catch (error) {
-      throw new Error('no data returned from the API - FAQ');
+      console.error('FAQ 데이터 가져오기 실패:', error);
     }
   };
 
   useEffect(() => {
-    getFAQList()
-      .then(faqList => {
-        setCurrentPost([
-          {
-            category: '전체',
-            faqs: faqList,
-          },
-          {
-            category: '회원정보',
-            faqs: [],
-          },
-          {
-            category: '운영정책',
-            faqs: [],
-          },
-          {
-            category: '이용문의',
-            faqs: [],
-          },
-          {
-            category: '기타',
-            faqs: [],
-          },
-        ]);
-      })
-      .catch(error => {
-        console.error('FAQ 데이터 가져오기 실패:', error);
-      });
+    getFAQList();
   }, []);
 
   return (
     <>
-      <S.FAQHeader>
-        <Text size={'large'} $fontWeight={900}>
-          자주 묻는 질문
-        </Text>
-      </S.FAQHeader>
+      <S.FAQHeader></S.FAQHeader>
       <S.CategoryToggleContainer>
         {currentPost.map(category => (
           <S.CategoryToggleButton
