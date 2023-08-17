@@ -10,8 +10,8 @@ const Header = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgb(254, 229, 229);
-  font-size: 25px;
-  height: 50px;
+  font-size: 23px;
+  height: 60px;
   color: #5d5d5d;
 `;
 const HeaderTitle = styled.div`
@@ -81,6 +81,17 @@ const QuestionContainer = styled.div`
     color: #5d5d5d;
     height: 50px;
   }
+  thead {
+    position: sticky;
+    top: 0;
+    background-color: ${({ theme }) => theme.color.white1};
+  }
+
+  tbody {
+    overflow: auto;
+    /* max-height: 30vh; */
+  }
+
   td,
   th {
     padding: 1em 0.5em;
@@ -139,6 +150,7 @@ const DetailContent = styled.div`
   font-size: 15px;
   margin-top: 10px;
   min-height: 150px;
+  margin-bottom: 10px;
 `;
 const AdminButton = styled.div`
   display: flex;
@@ -166,6 +178,7 @@ const RestoreContainer = styled.div`
   display: flex;
   justify-content: center;
   height: 85vh;
+  overflow: auto;
   table {
     width: 95%;
     table-layout: fixed;
@@ -178,9 +191,17 @@ const RestoreContainer = styled.div`
     font-size: 14px;
     height: 50px;
   }
+  tbody {
+    overflow: auto;
+  }
   td,
   th {
     padding: 1em 0.5em;
+  }
+  thead {
+    position: sticky;
+    top: 0;
+    background-color: ${({ theme }) => theme.color.white1};
   }
   td {
     border-bottom: 1px solid #e1e1e1;
