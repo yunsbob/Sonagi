@@ -8,6 +8,7 @@ import {
   DetailContent,
   DetailTitle,
   DetailContainer,
+  DetailCategory,
 } from '../AdminPage/AdminPage.style';
 
 const FAQDetailPage = () => {
@@ -41,6 +42,7 @@ const FAQDetailPage = () => {
   return (
     <DetailContainer>
       <ContentContainer>
+        <DetailCategory>카테고리 : {detailFAQData.category}</DetailCategory>
         <DetailTitle>{detailFAQData.title}</DetailTitle>
         <DetailContent>{detailFAQData.content}</DetailContent>
       </ContentContainer>
