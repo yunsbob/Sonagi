@@ -9,6 +9,15 @@ const updateUser = async (user: User) => {
   }
 };
 
+const getUserName = async (userId: number) => {
+  try {
+    const response = await instance.get(`/name/${userId}`);
+    return response.data;
+  } catch {
+    new Error('user name put error');
+  }
+};
+
 // 알림 전체 상태 get
 const getNotification = async (userId: number) => {
   try {
@@ -27,4 +36,8 @@ const updateAlarm = async (
   await instance.put(`/${alarmType}/${userId}/${Number(alarmState)}`);
 };
 
-export { updateUser, getNotification, updateAlarm };
+// 로그아웃 요청 보내기
+const logout = async () => {
+  await instance.post('/logout');
+};
+export { updateUser, getNotification, updateAlarm, logout, getUserName };

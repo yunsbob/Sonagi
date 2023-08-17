@@ -4,7 +4,6 @@ import { Text } from '@/components/atoms/Text/Text.styles';
 import yellowBaby from '@/assets/images/img-baby-yellow.png';
 import { Image } from '@/components/atoms/Image/Image';
 import * as S from '@/pages/RegisterPage/RegisterPages.styles';
-import Back from '@/components/atoms/Back/Back';
 import { useRecoilValue } from 'recoil';
 import { userInfoState } from '@/states/userState';
 import { useNavigate } from 'react-router-dom';
@@ -14,10 +13,19 @@ import theme from '@/styles/theme';
 
 import baby from '@/assets/images/img-baby.png';
 import babyCard from '@/assets/images/img-baby-card.png';
+import { babiesOfUserState } from '@/states/babyState';
+import { useEffect } from 'react';
 
 const RegisterPage = () => {
   const userInfo = useRecoilValue(userInfoState);
+  const babies = useRecoilValue(babiesOfUserState);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (babies.length !== 0) {
+      navigate(PATH.MAIN);
+    }
+  }, [babies, navigate]);
 
   const toBabyCode = () => {
     navigate(PATH.BABYCODE);
@@ -27,13 +35,8 @@ const RegisterPage = () => {
     navigate(PATH.REGISTERBABYPROFILE);
   };
 
-  const toMain = () => {
-    navigate(PATH.MAIN);
-  };
-
   return (
     <Background $background={orangeBackground}>
-      <Back />
       <S.RegisterPageContainer>
         <S.RegisterPageWrapper>
           <S.LogoContainer>
@@ -57,9 +60,6 @@ const RegisterPage = () => {
               onClick={toBabyCode}
             />
           </S.ButtonContainer>
-          <Text size="large" onClick={toMain}>
-            건너뛰기
-          </Text>
         </S.RegisterPageWrapper>
       </S.RegisterPageContainer>
     </Background>

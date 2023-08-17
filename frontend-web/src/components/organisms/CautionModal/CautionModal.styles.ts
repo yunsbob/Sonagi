@@ -1,6 +1,7 @@
+import theme from '@/styles/theme';
 import { styled } from 'styled-components';
 
-const CautionWriteModalContainer = styled.div`
+const CautionModalContainer = styled.div`
   // 초대 코드 title
   > p {
     padding: 10px;
@@ -20,7 +21,7 @@ const CautionWriteModalContainer = styled.div`
   }
 `;
 
-const CautionWriteWrapper = styled.div`
+const CautionWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,4 +32,4 @@ const CautionWriteWrapper = styled.div`
   }
 `;
 
-export { CautionWriteModalContainer, CautionWriteWrapper };
+export { CautionModalContainer, CautionWrapper };

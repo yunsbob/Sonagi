@@ -2,7 +2,7 @@ import * as S from '@/components/molecules/DiaryCarousel/DiaryCarousel.styles';
 import React, { useEffect, useState } from 'react';
 import IconArrowLeftWhite from '@/assets/images/icon-arrow-left-white.png';
 import IconArrowRightWhite from '@/assets/images/icon-arrow-right-white.png';
-
+import ImgDefaultBaby from '@/assets/images/img-default-baby.png';
 interface DiaryCarouselProps {
   images: string[];
 }
@@ -30,18 +30,23 @@ const DiaryCarousel: React.FC<DiaryCarouselProps> = ({ images }) => {
   return (
     <>
       <S.CarouselContainer>
-        <S.PrevButton
-          src={IconArrowLeftWhite}
-          onClick={() => handleStep(-1)}
-        ></S.PrevButton>
-        <S.NextButton
-          src={IconArrowRightWhite}
-          onClick={() => handleStep(1)}
-        ></S.NextButton>
+        {images.length > 1 && (
+          <S.PrevButton
+            src={IconArrowLeftWhite}
+            onClick={() => handleStep(-1)}
+          ></S.PrevButton>
+        )}
+        {images.length > 1 && (
+          <S.NextButton
+            src={IconArrowRightWhite}
+            onClick={() => handleStep(1)}
+          ></S.NextButton>
+        )}
         <S.CarouselSlider $transformXsize={currnetXsize}>
           {images.map((url, index) => (
             <S.CarouselImage key={index} src={url} />
           ))}
+          {images.length === 0 && <S.CarouselImage src={ImgDefaultBaby} />}
         </S.CarouselSlider>
       </S.CarouselContainer>
     </>
