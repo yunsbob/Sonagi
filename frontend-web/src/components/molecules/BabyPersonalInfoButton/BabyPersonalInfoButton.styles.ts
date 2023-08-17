@@ -30,6 +30,7 @@ const ShowTextWrapper = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;
+  text-align: start;
   /* -webkit-line-clamp: 6; */
 `;
 

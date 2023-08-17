@@ -18,7 +18,7 @@ const UserUpdateModal = ({ onModalClose, modalOpen }: CustomModal) => {
   const [newUserName, setNewUserName] = useState(userInfo.name);
   const updateUserMutation = useUpdateUser();
 
-  const plcaeholder = '변경할 이름을 입력해주세요';
+  const plcaeholder = '수정할 이름을 입력해주세요';
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setNewUserName(e.target.value);

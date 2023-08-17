@@ -55,7 +55,7 @@ const BabyPersonalInfoContainer = ({ isDisease }: BabyPersonalInfoProps) => {
       <Text
         size="medium1"
         dangerouslySetInnerHTML={{ __html: isDisease ? disease : info }}
-        style={{ marginBottom: '10px' }}
+        style={{ margin: '10px 0px 15px 0px' }}
       />
       <S.BPICScrollWrapper>
         <S.BPICButtonWrapper>

@@ -8,14 +8,14 @@ const OurBabyInfoContainer = styled.div`
   flex-direction: column;
   /* margin-top: 30px; */
   padding-top: 30px;
-  padding-bottom: 60px;
+  padding-bottom: 90px;
   gap: 15px;
-  /* height: 100vh; */
 `;
 
 const UpperButtonWrapper = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  padding: 0px 6px 0px 14px;
   align-items: center;
   width: 100%;
   /* border-bottom: 2px dashed ${({ theme }) => theme.color.white1}; */
@@ -53,17 +53,28 @@ const InfoEditWrapper = styled.div`
   padding: 16px;
   position: absolute;
   width: 100%;
+
+  button {
+    padding: 8px;
+
+    img {
+      margin-right: 8px;
+    }
+  }
 `;
 
 const OurBabyInfoWholeContainer = styled.div`
   display: flex;
-  height: calc(100% - 52px);
+  height: 100vh;
+  /* height: calc(100% - 52px); */
   background-color: ${({ theme }) => theme.color.white1};
   flex-direction: column;
   position: relative;
 `;
 
-const EmptyContainer = styled.div``;
+const EmptyContainer = styled.div`
+  height: calc(100% - 52px);
+`;
 
 export {
   OurBabyInfoContainer,
