@@ -1,5 +1,10 @@
 import { instance } from '@/apis/instance';
-import { Baby, UpdateBaby } from '@/types';
+import {
+  Baby,
+  UpdateBaby,
+  UpdateMedicalCheck,
+  UpdateVaccination,
+} from '@/types';
 
 const addBaby = async (baby: Baby) => {
   try {
@@ -109,6 +114,22 @@ const getMedicalCheckDetail = async (
   }
 };
 
+const updateVaccinationDate = async (vaccinationDate: UpdateVaccination) => {
+  try {
+    await instance.put('/vaccination', vaccinationDate);
+  } catch {
+    new Error('update vaccination put error');
+  }
+};
+
+const updateMedicalCheckDate = async (medicalCheckDate: UpdateMedicalCheck) => {
+  try {
+    await instance.put('/checkup', medicalCheckDate);
+  } catch {
+    new Error('update medicalCheck put error');
+  }
+};
+
 export {
   addBaby,
   getBaby,
@@ -123,4 +144,6 @@ export {
   getBabyDetail,
   getVaccinationDetail,
   getMedicalCheckDetail,
+  updateVaccinationDate,
+  updateMedicalCheckDate,
 };
