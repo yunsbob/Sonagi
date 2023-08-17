@@ -6,42 +6,49 @@ import IconPlusBlueRectDash from '@/assets/images/icon-plus-blue-rect-dash.png';
 import { useNavigate } from 'react-router-dom';
 import backArrow from '@/assets/images/icon-arrow-left-grey.png';
 import Button from '@/components/atoms/Button/Button';
-import { DiaryPostDto } from '@/types/diaryTypes';
 import { useRecoilValue } from 'recoil';
 import { BabiesOfUser, User } from '@/types';
 import { userInfoState } from '@/states/userState';
 import { selectedBabyState } from '@/states/babyState';
-import { addDiary } from '@/apis/Diary/diaryAPI';
 import { PATH } from '@/constants/path';
+import { useAddDiary } from '@/apis/Diary/Mutations/useAddDiaries';
+import { selectedDateState } from '@/states/dateState';
 
 const DiaryRegisterPage = () => {
   const navigate = useNavigate();
   const userInfo: User = useRecoilValue(userInfoState);
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
-
+  const selectedDate: string = useRecoilValue(selectedDateState);
   const [files, setFiles] = useState<File[]>([]);
   const [diaryContent, setDiaryContent] = useState<string>('');
   const fileInputRefs = useRef<HTMLInputElement[]>([]);
 
+  const addDiaryMutation = useAddDiary();
+
   const handleSubmit = async () => {
     const formData = new FormData();
-
-    const diaryPostDto: DiaryPostDto = {
-      userId: userInfo?.userId,
-      babyId: babyInfo?.babyId,
-      content: diaryContent,
-    };
-
     for (let i = 0; i < files.length; i++) {
       formData.append('imgFiles', files[i]);
     }
-
+    formData.append('userId', userInfo?.userId?.toString() || '');
+    formData.append('babyId', babyInfo?.babyId?.toString() || '');
+    formData.append('content', diaryContent);
+    formData.append('writeDate', selectedDate);
     formData.append(
-      'diaryPostDto',
-      new Blob([JSON.stringify(diaryPostDto)], { type: 'application/json' })
+      'writeTime',
+      new Date().toISOString().slice(0, 10) === selectedDate
+        ? new Date()
+            .toLocaleTimeString('en-US', {
+              hour12: false,
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+            })
+            .toString()
+        : '00:00:00'
     );
 
-    await addDiary(formData);
+    await addDiaryMutation.mutateAsync(formData);
     navigate(PATH.DIARY);
   };
 

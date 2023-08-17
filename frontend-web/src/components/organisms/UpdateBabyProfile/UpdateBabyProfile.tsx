@@ -14,12 +14,19 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedBabyState } from '@/states/babyState';
 import { useUpdateBaby } from '@/apis/Baby/Mutations/useUpdateBaby';
 import { UpdateBaby } from '@/types';
+import { useGetBabyDetail } from '@/apis/Baby/Queries/useGetBabyDetail';
 // import { useGetBaby } from '@/apis/Baby/Queries/useGetBaby';
 
 const UpdateBabyProfile = () => {
   const [selectedBabyInfo, setSelectedBabyInfo] =
     useRecoilState(selectedBabyState);
+  const userInfo = useRecoilValue(userInfoState);
+
   const today = new Date();
+
+  const babyBirthDate = new Date(
+    useGetBabyDetail(selectedBabyInfo.babyId, userInfo.userId).birthDate
+  );
 
   const babyInfo: UpdateBaby = {
     birthDate: today.toISOString().split('T')[0],
@@ -53,7 +60,7 @@ const UpdateBabyProfile = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   // BabiesofUser에 date가 없음, 따라서 today 활용
-  const [pickDate, setPickDate] = useState<Date>(today);
+  const [pickDate, setPickDate] = useState<Date>(babyBirthDate);
 
   const onClickAction = () => {
     setModalOpen(true);

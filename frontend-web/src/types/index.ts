@@ -79,6 +79,17 @@ interface DeletedBaby {
   deletedAt: string;
 }
 
+interface BabyMemo {
+  babyId: number;
+  userId: number;
+  memo: string;
+}
+
+interface EditBabyMemo {
+  memoId: number;
+  memo: string;
+}
+
 // 가능한 모든 카테고리 목록
 type Category =
   | 'All'
@@ -142,4 +153,6 @@ export type {
   DeletedBaby,
   Vaccination,
   MedicalCheck,
+  BabyMemo,
+  EditBabyMemo,
 };

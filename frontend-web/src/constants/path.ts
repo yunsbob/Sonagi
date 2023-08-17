@@ -15,6 +15,7 @@ const PATH = {
   VACCINATION: '/main/ourBaby/vaccination',
   DIARY: '/main/diary',
   DIARYREGISTER: '/main/diaryRegister',
+  DIARYUPDATE: '/main/diaryUpdate',
   MYPAGE: '/main/myPage',
   ALARM: '/main/myPage/alarm',
   REGISTERBABYPROFILE: '/regBabyProfile',

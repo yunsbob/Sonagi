@@ -1,8 +1,6 @@
 import { PATH } from '@/constants/path';
 import { userInfoState } from '@/states/userState';
 import { produce } from 'immer';
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import jwt from 'jwt-decode';
 
@@ -14,7 +12,6 @@ interface JwtProps {
 
 const RedirectPage = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-
   const params = new URLSearchParams(location.search);
   const accessToken = params.get('accessToken');
 
@@ -29,7 +26,6 @@ const RedirectPage = () => {
   );
 
   window.location.href = PATH.SIGNIN;
-
   return <></>;
 };
 
