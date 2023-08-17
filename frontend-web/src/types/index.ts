@@ -1,6 +1,7 @@
 interface User {
   userId: number;
   name: string;
+  auth?: string;
 }
 
 interface Baby {
@@ -71,6 +72,13 @@ interface FAQ {
 
 interface Question {
   questionId: number;
+  createdAt: string;
+  title: string;
+  content: string;
+  userId: number;
+}
+
+interface QuestionPost {
   createdAt: string;
   title: string;
   content: string;
@@ -172,6 +180,7 @@ export type {
   MedicalCheck,
   BabyMemo,
   EditBabyMemo,
+  QuestionPost,
   UpdateVaccination,
   UpdateMedicalCheck,
 };

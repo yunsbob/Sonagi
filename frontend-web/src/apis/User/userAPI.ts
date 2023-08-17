@@ -1,5 +1,5 @@
 import { instance } from '@/apis/instance';
-import { User } from '@/types';
+import { QuestionPost, User } from '@/types';
 
 const updateUser = async (user: User) => {
   try {
@@ -40,4 +40,17 @@ const updateAlarm = async (
 const logout = async () => {
   await instance.post('/logout');
 };
-export { updateUser, getNotification, updateAlarm, logout, getUserName };
+
+// 문의 등록하기
+const addQuestion = async (questionPost: QuestionPost) => {
+  await instance.post('/questions', questionPost);
+};
+
+export {
+  updateUser,
+  getNotification,
+  updateAlarm,
+  logout,
+  getUserName,
+  addQuestion,
+};

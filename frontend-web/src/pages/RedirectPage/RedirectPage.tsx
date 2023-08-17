@@ -16,17 +16,13 @@ const RedirectPage = () => {
   const params = new URLSearchParams(location.search);
   const accessToken = params.get('accessToken');
   const userId = jwt<JwtProps>(accessToken!).sub;
-
+  const userAuth = jwt<JwtProps>(accessToken!).auth;
   localStorage.setItem('accessToken', accessToken!);
-
-  // 검사
-  useEffect(() => {
-    console.log(jwt<JwtProps>(accessToken!));
-  });
 
   setUserInfo(
     produce(draft => {
       draft.userId = parseInt(userId);
+      draft.auth = userAuth;
     })
   );
 
