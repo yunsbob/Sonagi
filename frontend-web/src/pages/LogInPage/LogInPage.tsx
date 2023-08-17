@@ -27,13 +27,11 @@ const LogInPage = () => {
     const AUTH_URL = `${process.env.REACT_APP_SERVER_URL}/api/oauth2/authorization/${socialName}?redirect_uri=${OAUTH2_REDIERECT_URI}`;
     window.location.href = AUTH_URL;
   };
-
   const userInfo = useRecoilValue(userInfoState);
   const navigate = useNavigate();
-
+  // 로그인 되어있는 유저라면 main 페이지로
   useEffect(() => {
     if (userInfo && userInfo.userId && userInfo.userId > 0) {
-      console.log(userInfo.userId + '로그인');
       navigate(PATH.MAIN);
     }
   }, [userInfo, navigate]);
@@ -61,7 +59,8 @@ const LogInPage = () => {
             <SocialButton
               src={naver}
               buttonText="네이버로 로그인하기"
-              onClick={() => onSocialButtonClick('naver')}
+              // onClick={() => onSocialButtonClick('naver')}
+              onClick={() => alert('네이버 로그인 API 검수 중입니다.')}
             />
             {/* <GoogleLogIn o기GoogleSignIn={onGoogleLogIn} /> */}
           </ButtonContainer>

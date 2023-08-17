@@ -12,7 +12,6 @@ import { babiesOfUserState } from '@/states/babyState';
 
 const MainPage = () => {
   const userInfo = useRecoilValue(userInfoState);
-  const babies = useRecoilValue(babiesOfUserState);
   const navigate = useNavigate();
 
   // 웹뷰에 id 전송 로직
@@ -27,6 +26,12 @@ const MainPage = () => {
     }
   }, [userInfo.userId, babies]);
 
+  // 관리자 이동
+  useEffect(() => {
+    if (userInfo.auth && userInfo.auth === 'ROLE_ADMIN') {
+      navigate(PATH.ADMIN);
+    }
+  }, [userInfo.auth, navigate]);
   return (
     <Suspense fallback={<LoadingPage />}>
       <Background $background={backgroundGradient}>

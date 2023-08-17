@@ -29,13 +29,13 @@ const CategoryToggleContainer = styled.div`
   margin-bottom: 1rem;
   gap: 0.5rem;
 `;
-const CategoryToggleButton = styled.button<{ isSelected: boolean }>`
+const CategoryToggleButton = styled.button<{ $isSelected: boolean }>`
   box-sizing: border-box;
   border: 1px solid ${theme.color.gray1};
   padding: 0.5rem;
   background-color: ${props =>
-    props.isSelected ? theme.color.black2 : theme.color.white1};
-  color: ${props => (props.isSelected ? '#ffffff' : '#000000')};
+    props.$isSelected ? theme.color.black2 : theme.color.white1};
+  color: ${props => (props.$isSelected ? '#ffffff' : '#000000')};
   border-radius: 0.25rem;
   transition:
     background-color 0.3s ease-in-out,

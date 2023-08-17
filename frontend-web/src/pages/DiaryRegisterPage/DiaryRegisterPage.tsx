@@ -17,6 +17,7 @@ import { LoadingSpinner } from '@/pages/LoadingPage/LoadingSpinner';
 
 const DiaryRegisterPage = () => {
   const navigate = useNavigate();
+  const maxFileSizeInBytes = 2.5 * 1024 * 1024; //2.5 MB
   const userInfo: User = useRecoilValue(userInfoState);
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
   const selectedDate: string = useRecoilValue(selectedDateState);
@@ -67,7 +68,15 @@ const DiaryRegisterPage = () => {
     const fileList: File[] = event.target.files
       ? Array.from(event.target.files)
       : [];
+
     if (fileList.length !== 0) {
+      if (fileList[0] && fileList[0].size > maxFileSizeInBytes) {
+        alert(
+          '파일 크기가 너무 큽니다. 2.5MB 이하의 파일만 업로드할 수 있습니다.'
+        );
+        event.target.value = ''; // 파일 선택 초기화
+        return;
+      }
       setFiles(prevFiles => {
         const newFiles = [...prevFiles];
         newFiles[index] = fileList[0];
