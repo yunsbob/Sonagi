@@ -261,7 +261,7 @@ public class BabyServiceImpl implements BabyService {
 		List<Baby> babies = babyRepository.findAll();
 		return babies.stream()
 			.filter(b -> b.getIsDeleted().equals("Y"))
-			.sorted(Comparator.comparing(Baby::getDeletedAt).reversed()) // 최근 날짜 순으로 정렬
+			.sorted(Comparator.comparing(Baby::getDeletedAt)) // 최근 날짜 순으로 정렬
 			.map(b -> BabyDetailResDto.builder()
 				.babyId(b.getId())
 				.name(b.getName())
