@@ -59,7 +59,9 @@ const MyPagePage = () => {
   const navigateToQuestionPage = () => {
     navigate(PATH.QUESTIONFORUSER);
   };
-
+  const handleAlbam = () => {
+    alert('아직 준비중 입니다.');
+  };
   return (
     <Container>
       <UserUpdateModal
@@ -106,7 +108,9 @@ const MyPagePage = () => {
         <Text size="medium1" onClick={navigateToQuestionPage}>
           질문 남기기
         </Text>
-        <Text size="medium1">앨범 생성하기</Text>
+        <Text size="medium1" onClick={handleAlbam}>
+          앨범 생성하기
+        </Text>
         <Text size="medium1" onClick={navigateToFAQForUserPage}>
           자주 묻는 질문(FAQ)
         </Text>

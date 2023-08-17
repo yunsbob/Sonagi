@@ -59,7 +59,8 @@ const LogInPage = () => {
             <SocialButton
               src={naver}
               buttonText="네이버로 로그인하기"
-              onClick={() => onSocialButtonClick('naver')}
+              // onClick={() => onSocialButtonClick('naver')}
+              onClick={() => alert('네이버 로그인 API 검수 중입니다.')}
             />
             {/* <GoogleLogIn o기GoogleSignIn={onGoogleLogIn} /> */}
           </ButtonContainer>
