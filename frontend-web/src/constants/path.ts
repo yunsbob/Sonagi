@@ -12,6 +12,7 @@ const PATH = {
   GRAPHBYWEEK: '/main/graph/week',
   OURBABY: '/main/ourBaby',
   MEDICALINFO: '/main/ourBaby/medicalInfo',
+  VACCINATION: '/main/ourBaby/vaccination',
   DIARY: '/main/diary',
   DIARYREGISTER: '/main/diaryRegister',
   DIARYUPDATE: '/main/diaryUpdate',

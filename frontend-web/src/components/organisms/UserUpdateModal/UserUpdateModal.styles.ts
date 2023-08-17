@@ -14,7 +14,7 @@ const UserModalContainer = styled.div`
   }
 `;
 
-const UdpateButtonWrapper = styled.div`
+const UpdateButtonWrapper = styled.div`
   display: flex;
   gap: 20px;
 
@@ -24,4 +24,4 @@ const UdpateButtonWrapper = styled.div`
   }
 `;
 
-export { UserModalContainer, UdpateButtonWrapper };
+export { UserModalContainer, UpdateButtonWrapper };

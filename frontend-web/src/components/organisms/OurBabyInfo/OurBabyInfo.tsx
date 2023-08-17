@@ -23,18 +23,14 @@ import { BabyCodeModal } from '@/components/organisms/BabyCodeModal/BabyCodeModa
 import { useGetBabyDetail } from '@/apis/Baby/Queries/useGetBabyDetail';
 import { userInfoState } from '@/states/userState';
 import moment from 'moment';
-import { CautionWriteModal } from '@/components/organisms/CautionWriteModal/CautionWriteModal';
-import { CautionDetailModal } from '@/components/organisms/CautionDetailModal/CautionDetailModal';
 
 const OurBabyInfo = () => {
   const navigate = useNavigate();
-
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
   const userInfo: User = useRecoilValue(userInfoState);
   const [isMale, setIsMale] = useState(babyInfo.gender === 'M');
 
   const [babyCodeModalOpen, setBabyCodeModalOpen] = useState(false);
-  const [cautionModalOpen, setCautionModalOpen] = useState(false);
 
   const modalClose = (
     setState: React.Dispatch<React.SetStateAction<boolean>>
@@ -56,14 +52,6 @@ const OurBabyInfo = () => {
           <BabyCodeModal
             onModalClose={() => modalClose(setBabyCodeModalOpen)}
             modalOpen={babyCodeModalOpen}
-          />
-          <CautionWriteModal
-            onModalClose={() => modalClose(setCautionModalOpen)}
-            modalOpen={cautionModalOpen}
-          />
-          <CautionDetailModal
-            onModalClose={() => modalClose(setCautionModalOpen)}
-            modalOpen={cautionModalOpen}
           />
           <S.InfoEditWrapper>
             <Button
