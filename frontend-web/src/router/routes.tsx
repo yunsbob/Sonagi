@@ -36,6 +36,7 @@ import VaccinationPage from '@/pages/DetailVaccinationPage/VaccinationPage';
 import DiaryUpdatePage from '@/pages/DiaryRegisterPage/DiaryUpdatePage';
 import FAQForUserPage from '@/pages/FAQForUserPage/FAQForUserPage';
 import QuestionForUser from '@/pages/QuestionForUserPage/QuestionForUser';
+import RegisterAgainPage from '@/pages/RegisterAgainPage/RegisterAgainPage';
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
   {
     path: PATH.REGISTERBABYPROFILE,
     element: <RegisterBabyProfilePage />,
+  },
+  {
+    path: PATH.REGAGAIN,
+    element: <RegisterAgainPage />,
   },
   {
     path: PATH.BABYCODE,
