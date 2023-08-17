@@ -43,6 +43,13 @@ public class DiaryController {
 
 		return ResponseEntity.ok().body(diaryInfos);
 	}
+	@GetMapping
+	@Operation(summary = "아이의 모든 일기 데이터 조회")
+	public ResponseEntity<?> getAllDiariy(@RequestParam Long babyId) throws Exception {
+		DiaryResDto.DiaryInfos diaryInfos = diaryService.selectAllByBabyId(babyId);
+		return ResponseEntity.ok().body(diaryInfos);
+	}
+
 
 	@PutMapping
 	@Operation(summary = "일기 내용, 사진 데이터 수정")
