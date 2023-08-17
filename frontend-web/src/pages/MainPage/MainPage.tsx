@@ -14,6 +14,7 @@ const MainPage = () => {
   const userInfo = useRecoilValue(userInfoState);
   const babies = useRecoilValue(babiesOfUserState);
   const navigate = useNavigate();
+
   // 웹뷰에 id 전송 로직
   useEffect(() => {
     if (window.ReactNativeWebView && userInfo.userId) {
@@ -24,8 +25,7 @@ const MainPage = () => {
         })
       );
     }
-    console.log('isReactNative', userInfo.userId);
-  }, [userInfo.userId]);
+  }, [userInfo.userId, babies]);
 
   return (
     <Suspense fallback={<LoadingPage />}>

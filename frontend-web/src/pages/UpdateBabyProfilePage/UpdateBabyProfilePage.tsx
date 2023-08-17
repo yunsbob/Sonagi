@@ -9,8 +9,6 @@ import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { selectedBabyState } from '@/states/babyState';
 
-// TODO: 아이 삭제 버튼 만들기 모달이랑
-
 const UpdateBabyProfilePage = () => {
   const babyInfo = useRecoilValue(selectedBabyState);
 
