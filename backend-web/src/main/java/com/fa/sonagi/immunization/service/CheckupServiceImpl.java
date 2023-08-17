@@ -40,7 +40,14 @@ public class CheckupServiceImpl implements CheckupService {
 			.startDate(birth.plusDays(checkupStatus.getCheckup().getStartDate()))
 			.endDate(birth.plusDays(checkupStatus.getCheckup().getEndDate()))
 			.checkupDate(checkupStatus.getCheckupDate())
-			.content(checkupStatus.getCheckup().getContent())
+			.content1(checkupStatus.getCheckup().getContent1())
+			.title1(checkupStatus.getCheckup().getTitle1())
+			.content2(checkupStatus.getCheckup().getContent2())
+			.title2(checkupStatus.getCheckup().getTitle2())
+			.content3(checkupStatus.getCheckup().getContent3())
+			.title3(checkupStatus.getCheckup().getTitle3())
+			.content4(checkupStatus.getCheckup().getContent4())
+			.title4(checkupStatus.getCheckup().getTitle4())
 			.build();
 	}
 
@@ -61,7 +68,14 @@ public class CheckupServiceImpl implements CheckupService {
 				.startDate(birth.plusDays(c.getCheckup().getStartDate()))
 				.endDate(birth.plusDays(c.getCheckup().getEndDate()))
 				.checkupDate(c.getCheckupDate())
-				.content(c.getCheckup().getContent())
+				.content1(c.getCheckup().getContent1())
+				.title1(c.getCheckup().getTitle1())
+				.content2(c.getCheckup().getContent2())
+				.title2(c.getCheckup().getTitle2())
+				.content3(c.getCheckup().getContent3())
+				.title3(c.getCheckup().getTitle3())
+				.content4(c.getCheckup().getContent4())
+				.title4(c.getCheckup().getTitle4())
 				.build())
 			.collect(Collectors.toList());
 		return checkupResDto;
