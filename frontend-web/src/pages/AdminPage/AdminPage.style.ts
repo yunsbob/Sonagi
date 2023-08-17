@@ -205,7 +205,13 @@ const CreateButton = styled.div`
     text-decoration: none;
   }
 `;
-
+const CategoryConatiner = styled.div`
+  display: flex;
+  margin-bottom: 10px;
+`;
+const DetailCategory = styled.div`
+  font-size: 15px;
+`;
 export {
   AdminContainer,
   Header,
@@ -223,4 +229,6 @@ export {
   HeaderTitle,
   HeaderImg,
   QuestionContainer,
+  CategoryConatiner,
+  DetailCategory,
 };

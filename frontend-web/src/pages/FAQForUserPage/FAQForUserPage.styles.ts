@@ -8,6 +8,14 @@ const FAQContatiner = styled.div`
   display: flex;
   flex-direction: column;
 `;
+const AdminFAQContainer = styled.div`
+  overflow: scroll;
+  box-sizing: border-box;
+  max-height: calc(100vh - 114px);
+  display: flex;
+  flex-direction: column;
+  max-height: 73vh;
+`;
 const FAQHeader = styled.div`
   padding: 1.25rem 1rem 1rem 1rem;
   display: flex;
@@ -38,4 +46,5 @@ export {
   FAQHeader,
   CategoryToggleContainer,
   CategoryToggleButton,
+  AdminFAQContainer,
 };
