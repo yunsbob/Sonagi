@@ -1,4 +1,4 @@
-import { MedicalCheck } from '@/types';
+import { MedicalCheck, UpdateMedicalCheck } from '@/types';
 import {
   MedicalCheckCalendarButton,
   MedicalCheckContentWrapper,
@@ -9,6 +9,11 @@ import theme from '@/styles/theme';
 import calendarImg from '@/assets/images/icon-calendar-blue.png';
 import check from '@/assets/images/img-check-blue.png';
 import { Image } from '@/components/atoms/Image/Image';
+import React, { useState } from 'react';
+import { CalendarModal } from '@/components/organisms/CalendarModal/CalendarModal';
+import { formatDate } from '@/utils/formatDate';
+import { Value } from 'react-calendar/dist/cjs/shared/types';
+import { useUpdateMedicalCheckDate } from '@/apis/Baby/Mutations/useUpdateMedicalCheckDate';
 
 interface BabyMedicalCheckProps {
   medicalCheckData: MedicalCheck;
@@ -17,9 +22,68 @@ interface BabyMedicalCheckProps {
 const MedicalCheckContent = ({ medicalCheckData }: BabyMedicalCheckProps) => {
   const today = new Date();
   const startDate = new Date(medicalCheckData.startDate);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const useUpdateMedicalCheckDateMutation = useUpdateMedicalCheckDate();
+
+  const onClickCalendar = () => {
+    setModalOpen(true);
+  };
+
+  const onModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const onCalendarChange = (newDate: Value) => {
+    if (newDate instanceof Date) {
+      const medicalCheck: UpdateMedicalCheck = {
+        checkupStatusId: medicalCheckData.checkupStatusId,
+        checkupDate: formatDate(newDate),
+      };
+      useUpdateMedicalCheckDateMutation.mutate(medicalCheck);
+    }
+  };
+
+  const formattedContent1 = medicalCheckData.content1
+    .split('\n')
+    .map((line, index) => (
+      <React.Fragment key={index}>
+        {line}
+        <br />
+      </React.Fragment>
+    ));
+  const formattedContent2 = medicalCheckData.content2
+    .split('\n')
+    .map((line, index) => (
+      <React.Fragment key={index}>
+        {line}
+        <br />
+      </React.Fragment>
+    ));
+  const formattedContent3 = medicalCheckData.content3
+    .split('\n')
+    .map((line, index) => (
+      <React.Fragment key={index}>
+        {line}
+        <br />
+      </React.Fragment>
+    ));
+  const formattedContent4 = medicalCheckData.content4
+    .split('\n')
+    .map((line, index) => (
+      <React.Fragment key={index}>
+        {line}
+        <br />
+      </React.Fragment>
+    ));
 
   return (
     <>
+      <CalendarModal
+        pickDate={new Date()}
+        onModalClose={onModalClose}
+        modalOpen={modalOpen}
+        onCalendarChange={onCalendarChange}
+      />
       <MedicalCheckContentWrapper>
         <Text
           size="headMedium"
@@ -46,6 +110,7 @@ const MedicalCheckContent = ({ medicalCheckData }: BabyMedicalCheckProps) => {
               <Image src={check} height={1.5} width={1.5}></Image>
             </div>
             <Button
+              onClick={onClickCalendar}
               size="xSmall"
               $backgroundColor={theme.color.gray4}
               $border="none"
@@ -82,6 +147,7 @@ const MedicalCheckContent = ({ medicalCheckData }: BabyMedicalCheckProps) => {
               </Text>
             )}
             <Button
+              onClick={onClickCalendar}
               size="xSmall"
               $backgroundColor={theme.color.gray4}
               $border="none"
@@ -100,8 +166,51 @@ const MedicalCheckContent = ({ medicalCheckData }: BabyMedicalCheckProps) => {
         )}
       </MedicalCheckContentWrapper>
       <MedicalCheckContentWrapper>
+        <Text
+          size="headSmall"
+          $fontWeight={900}
+          style={{ marginBottom: '7px', marginTop: '7px' }}
+        >
+          {medicalCheckData.title1}
+        </Text>
         <Text size="medium2" style={{ marginBottom: '15px' }}>
-          {medicalCheckData.content}
+          {formattedContent1}
+        </Text>
+      </MedicalCheckContentWrapper>
+      <MedicalCheckContentWrapper>
+        <Text
+          size="headSmall"
+          $fontWeight={900}
+          style={{ marginBottom: '7px', marginTop: '7px' }}
+        >
+          {medicalCheckData.title2}
+        </Text>
+        <Text size="medium2" style={{ marginBottom: '15px' }}>
+          {formattedContent2}
+        </Text>
+      </MedicalCheckContentWrapper>
+      <MedicalCheckContentWrapper>
+        <Text
+          size="headSmall"
+          $fontWeight={900}
+          style={{ marginBottom: '7px', marginTop: '7px' }}
+        >
+          {medicalCheckData.title3}
+        </Text>
+        <Text size="medium2" style={{ marginBottom: '15px' }}>
+          {formattedContent3}
+        </Text>
+      </MedicalCheckContentWrapper>
+      <MedicalCheckContentWrapper>
+        <Text
+          size="headSmall"
+          $fontWeight={900}
+          style={{ marginBottom: '7px', marginTop: '7px' }}
+        >
+          {medicalCheckData.title4}
+        </Text>
+        <Text size="medium2" style={{ marginBottom: '15px' }}>
+          {formattedContent4}
         </Text>
       </MedicalCheckContentWrapper>
     </>

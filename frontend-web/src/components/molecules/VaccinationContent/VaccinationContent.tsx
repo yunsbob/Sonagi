@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text } from '@/components/atoms/Text/Text.styles';
-import { Vaccination } from '@/types';
+import { UpdateVaccination, Vaccination } from '@/types';
 import {
   VaccinationCalendarButton,
   VaccinationContentWrapper,
@@ -10,12 +10,39 @@ import theme from '@/styles/theme';
 import calendarImg from '@/assets/images/icon-calendar-blue.png';
 import check from '@/assets/images/img-check-blue.png';
 import { Image } from '@/components/atoms/Image/Image';
+import { Value } from 'react-calendar/dist/cjs/shared/types';
+import { formatDate } from '@/utils/formatDate';
+import { useUpdateVaccinationDate } from '@/apis/Baby/Mutations/useUpdateVaccinationDate';
+import { CalendarModal } from '@/components/organisms/CalendarModal/CalendarModal';
 
 interface BabyVaccintaionProps {
   vaccinationData: Vaccination;
 }
 
 const VaccinationContent = ({ vaccinationData }: BabyVaccintaionProps) => {
+  const today = new Date();
+  const startDate = new Date(vaccinationData.startDate);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const useUpdateVaccinationDateMutation = useUpdateVaccinationDate();
+
+  const onClickCalendar = () => {
+    setModalOpen(true);
+  };
+
+  const onModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const onCalendarChange = (newDate: Value) => {
+    if (newDate instanceof Date) {
+      const vaccination: UpdateVaccination = {
+        vaccinationStatusId: vaccinationData.vaccinationStatusId,
+        vaccinationDate: formatDate(newDate),
+      };
+      useUpdateVaccinationDateMutation.mutate(vaccination);
+    }
+  };
+
   const formattedContent1 = vaccinationData.content1
     .split('\n')
     .map((line, index) => (
@@ -65,11 +92,14 @@ const VaccinationContent = ({ vaccinationData }: BabyVaccintaionProps) => {
       </React.Fragment>
     ));
 
-  const today = new Date();
-  const startDate = new Date(vaccinationData.startDate);
-
   return (
     <>
+      <CalendarModal
+        pickDate={new Date()}
+        onModalClose={onModalClose}
+        modalOpen={modalOpen}
+        onCalendarChange={onCalendarChange}
+      />
       <VaccinationContentWrapper>
         <Text
           size="headMedium"
@@ -96,6 +126,7 @@ const VaccinationContent = ({ vaccinationData }: BabyVaccintaionProps) => {
               <Image src={check} height={1.5} width={1.5}></Image>
             </div>
             <Button
+              onClick={onClickCalendar}
               size="xSmall"
               $backgroundColor={theme.color.gray4}
               $border="none"
@@ -130,6 +161,7 @@ const VaccinationContent = ({ vaccinationData }: BabyVaccintaionProps) => {
               </Text>
             )}
             <Button
+              onClick={onClickCalendar}
               size="xSmall"
               $backgroundColor={theme.color.gray4}
               $border="none"
