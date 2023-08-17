@@ -35,19 +35,21 @@ const BabyStateChangeModal = ({ onModalClose, modalOpen, babyInfo }: Props) => {
   const userInfo = useRecoilValue(userInfoState);
 
   const changeBabyState = (selectedBabyId: number) => {
-    useChangeBabyStateMutation.mutate(selectedBabyId, {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['baby', userInfo.userId]);
-        console.log('----------changed', babiesOfUser);
-        setShowToast(true);
-        onModalClose();
-        navigate(PATH.OURBABY);
-      },
-      onError: () => {
-        console.log('삭제 실패');
-      },
-    });
-
+    if (babiesOfUser.length > 1) {
+      useChangeBabyStateMutation.mutate(selectedBabyId, {
+        onSuccess: () => {
+          queryClient.invalidateQueries(['baby', userInfo.userId]);
+          setShowToast(true);
+          onModalClose();
+          navigate(PATH.OURBABY);
+        },
+        onError: () => {
+          console.log('삭제 실패');
+        },
+      });
+    } else {
+      console.log('삭제불가');
+    }
     // }
   };
 
@@ -60,33 +62,45 @@ const BabyStateChangeModal = ({ onModalClose, modalOpen, babyInfo }: Props) => {
         />
       )}
       <Modal isOpen={modalOpen} onClose={onModalClose}>
-        <>
-          <BabyStateChangeModalTitleWrapper>
-            <Text size="large" className="title">
-              <b>{babyInfo.name}</b> 아이의 데이터를 {'\n'}
-              삭제하시겠습니까?
+        {babiesOfUser.length > 1 ? (
+          <>
+            <BabyStateChangeModalTitleWrapper>
+              <Text size="large" className="title">
+                <b>{babyInfo.name}</b> 아이의 데이터를 {'\n'}
+                삭제하시겠습니까?
+              </Text>
+            </BabyStateChangeModalTitleWrapper>
+            <BabyStateChangeModalContentWrapper>
+              <Text size="medium3" color={theme.color.danger}>
+                {babyInfo.name} 아이에 대한 모든 정보가 삭제됩니다.
+              </Text>
+              <Text size="medium3" color={theme.color.danger}>
+                이 작업은 되돌릴 수 없습니다.
+              </Text>
+            </BabyStateChangeModalContentWrapper>
+            <BabyStateChangeButtonContainer>
+              <Button option="primary" onClick={onModalClose}>
+                취소
+              </Button>
+              <Button
+                option="danger"
+                onClick={() => changeBabyState(babyInfo.babyId)}
+              >
+                삭제
+              </Button>
+            </BabyStateChangeButtonContainer>
+          </>
+        ) : (
+          <>
+            <Text size="medium1">서비스의 원활한 사용을 위해</Text>
+            <Text style={{ marginBottom: '15px' }} size="medium1">
+              최소 한 명의 아이 데이터를 남겨주세요
             </Text>
-          </BabyStateChangeModalTitleWrapper>
-          <BabyStateChangeModalContentWrapper>
-            <Text size="medium3" color={theme.color.danger}>
-              {babyInfo.name} 아이에 대한 모든 정보가 삭제됩니다.
-            </Text>
-            <Text size="medium3" color={theme.color.danger}>
-              이 작업은 되돌릴 수 없습니다.
-            </Text>
-          </BabyStateChangeModalContentWrapper>
-          <BabyStateChangeButtonContainer>
             <Button option="primary" onClick={onModalClose}>
-              취소
+              확인
             </Button>
-            <Button
-              option="danger"
-              onClick={() => changeBabyState(babyInfo.babyId)}
-            >
-              삭제
-            </Button>
-          </BabyStateChangeButtonContainer>
-        </>
+          </>
+        )}
       </Modal>
     </BabyStateChangeModalContainer>
   );
