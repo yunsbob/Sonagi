@@ -36,6 +36,8 @@ import VaccinationPage from '@/pages/DetailVaccinationPage/VaccinationPage';
 import DiaryUpdatePage from '@/pages/DiaryRegisterPage/DiaryUpdatePage';
 import FAQForUserPage from '@/pages/FAQForUserPage/FAQForUserPage';
 import QuestionForUser from '@/pages/QuestionForUserPage/QuestionForUser';
+import MedicalCheckPage from '@/pages/DetailMedicalCheckPage/MedicalCheckPage';
+import RegisterAgainPage from '@/pages/RegisterAgainPage/RegisterAgainPage';
 
 const router = createBrowserRouter([
   {
@@ -64,6 +66,10 @@ const router = createBrowserRouter([
     element: <RegisterBabyProfilePage />,
   },
   {
+    path: PATH.REGAGAIN,
+    element: <RegisterAgainPage />,
+  },
+  {
     path: PATH.BABYCODE,
     element: <BabyCodePage />,
   },
@@ -88,7 +94,8 @@ const router = createBrowserRouter([
       },
       { path: 'ourBaby', element: <OurBabyInfo /> },
       { path: 'ourBaby/medicalInfo', element: <MedicalInfoPage /> },
-      { path: 'ourBaby/Vaccination', element: <VaccinationPage /> },
+      { path: 'ourBaby/vaccination', element: <VaccinationPage /> },
+      { path: 'ourBaby/medicalCheck', element: <MedicalCheckPage /> },
       { path: 'diary', element: <DiaryPage /> },
       { path: 'diaryRegister', element: <DiaryRegister /> },
       { path: 'diaryUpdate/:id', element: <DiaryUpdatePage /> },

@@ -28,6 +28,7 @@ const color = {
   blueOpacity10: '#0094ff10',
   green: '#89cb94',
   danger: '#FA6C4D',
+  medicalblue: '#4E73F8',
 
   //category color
   categoryMeal: '#ff6c6c96',

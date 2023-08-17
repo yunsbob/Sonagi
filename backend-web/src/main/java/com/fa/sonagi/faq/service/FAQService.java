@@ -16,4 +16,12 @@ public interface FAQService {
 	void updateFAQ(FAQPutDto faqPutDto);
 
 	void deleteFAQ(Long FAQId);
+
+	List<FAQResDto> findMemberFAQ();
+
+	List<FAQResDto> findOperationFAQ();
+
+	List<FAQResDto> findUseFAQ();
+
+	List<FAQResDto> findEtcFAQ();
 }

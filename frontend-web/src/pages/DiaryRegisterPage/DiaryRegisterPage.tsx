@@ -13,6 +13,7 @@ import { selectedBabyState } from '@/states/babyState';
 import { PATH } from '@/constants/path';
 import { useAddDiary } from '@/apis/Diary/Mutations/useAddDiaries';
 import { selectedDateState } from '@/states/dateState';
+import { LoadingSpinner } from '@/pages/LoadingPage/LoadingSpinner';
 
 const DiaryRegisterPage = () => {
   const navigate = useNavigate();
@@ -24,7 +25,9 @@ const DiaryRegisterPage = () => {
   const [diaryContent, setDiaryContent] = useState<string>('');
   const fileInputRefs = useRef<HTMLInputElement[]>([]);
 
-  const addDiaryMutation = useAddDiary();
+  const { mutate: addDiaryMutation, isLoading } = useAddDiary();
+
+  const loading = useState(false);
 
   const handleSubmit = () => {
     const formData = new FormData();
@@ -49,8 +52,13 @@ const DiaryRegisterPage = () => {
         : '00:00:00'
     );
 
-    addDiaryMutation.mutate(formData);
-    navigate(PATH.DIARY);
+    addDiaryMutation(formData, {
+      onSuccess() {
+        navigate(PATH.DIARY);
+      },
+    });
+
+    console.log(isLoading);
   };
 
   const handleFileChange = (
@@ -101,6 +109,7 @@ const DiaryRegisterPage = () => {
   const RouteHandler = useCallback(() => navigate(-1), [navigate]);
   return (
     <>
+      {isLoading && <LoadingSpinner />}
       <S.DiaryRegisterContainer>
         <S.DiaryRegisterHeadContainer>
           <S.BackArrow onClick={RouteHandler}>

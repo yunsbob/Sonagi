@@ -1,5 +1,10 @@
 import { instance } from '@/apis/instance';
-import { Baby, UpdateBaby } from '@/types';
+import {
+  Baby,
+  UpdateBaby,
+  UpdateMedicalCheck,
+  UpdateVaccination,
+} from '@/types';
 
 const addBaby = async (baby: Baby) => {
   try {
@@ -10,11 +15,7 @@ const addBaby = async (baby: Baby) => {
 };
 
 const changeBabyState = async (babyId: number) => {
-  try {
-    await instance.put(`/babyState/${babyId}`);
-  } catch {
-    new Error('baby state change error');
-  }
+  await instance.put(`/babyState/${babyId}`);
 };
 
 const getBaby = async (userId: number) => {
@@ -90,6 +91,45 @@ const getMedicalCheck = async (babyId: number) => {
   }
 };
 
+const getVaccinationDetail = async (babyId: number, vaccinationId: number) => {
+  try {
+    const response = await instance.get(
+      `/vaccination/${babyId}/${vaccinationId}`
+    );
+    return response.data;
+  } catch {
+    new Error('get baby vaccination detail error');
+  }
+};
+
+const getMedicalCheckDetail = async (
+  babyId: number,
+  medicalCheckId: number
+) => {
+  try {
+    const response = await instance.get(`/checkup/${babyId}/${medicalCheckId}`);
+    return response.data;
+  } catch {
+    new Error('get baby medical check detail error');
+  }
+};
+
+const updateVaccinationDate = async (vaccinationDate: UpdateVaccination) => {
+  try {
+    await instance.put('/vaccination', vaccinationDate);
+  } catch {
+    new Error('update vaccination put error');
+  }
+};
+
+const updateMedicalCheckDate = async (medicalCheckDate: UpdateMedicalCheck) => {
+  try {
+    await instance.put('/checkup', medicalCheckDate);
+  } catch {
+    new Error('update medicalCheck put error');
+  }
+};
+
 export {
   addBaby,
   getBaby,
@@ -102,4 +142,8 @@ export {
   getVaccination,
   getMedicalCheck,
   getBabyDetail,
+  getVaccinationDetail,
+  getMedicalCheckDetail,
+  updateVaccinationDate,
+  updateMedicalCheckDate,
 };

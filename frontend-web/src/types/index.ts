@@ -54,7 +54,14 @@ interface MedicalCheck {
   startDate: string;
   endDate: string;
   checkupDate: string;
-  content: string;
+  content1: string;
+  title1: string;
+  content2: string;
+  title2: string;
+  content3: string;
+  title3: string;
+  content4: string;
+  title4: string;
 }
 
 interface FAQ {
@@ -96,6 +103,16 @@ interface BabyMemo {
 interface EditBabyMemo {
   memoId: number;
   memo: string;
+}
+
+interface UpdateVaccination {
+  vaccinationStatusId: number;
+  vaccinationDate: string;
+}
+
+interface UpdateMedicalCheck {
+  checkupStatusId: number;
+  checkupDate: string;
 }
 
 // 가능한 모든 카테고리 목록
@@ -164,4 +181,6 @@ export type {
   BabyMemo,
   EditBabyMemo,
   QuestionPost,
+  UpdateVaccination,
+  UpdateMedicalCheck,
 };

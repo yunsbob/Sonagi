@@ -2,6 +2,7 @@ package com.fa.sonagi.baby.service;
 
 import java.time.LocalDate;
 import java.util.Base64;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -260,6 +261,7 @@ public class BabyServiceImpl implements BabyService {
 		List<Baby> babies = babyRepository.findAll();
 		return babies.stream()
 			.filter(b -> b.getIsDeleted().equals("Y"))
+			.sorted(Comparator.comparing(Baby::getDeletedAt)) // 최근 날짜 순으로 정렬
 			.map(b -> BabyDetailResDto.builder()
 				.babyId(b.getId())
 				.name(b.getName())

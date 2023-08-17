@@ -79,7 +79,9 @@ const DoughnutChart = ({ data }: DoughnutChartProps) => {
         strokeWidth={sectorHeight}
       />
       {isTimeItem2(data) &&
+        // TODO: 23:59 ~ 00:00
         data.map(record => {
+          console.log('heheheheh', data);
           const timeSections: string[] = [record.createdTime, record.endTime!];
           const [start, finished] = timeStringToDegrees(timeSections);
 

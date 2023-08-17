@@ -32,7 +32,7 @@ const SleepBarGraph = ({ data }: SleepWeekProps) => {
 
   const days = Object.keys(data);
   const values: SleepWeekItem[] = Object.values(data);
-  console.log(values);
+
   return (
     <Container>
       <LineContainer>

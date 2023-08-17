@@ -11,6 +11,9 @@ public class FAQPostDto {
 	private Long userId;
 
 	@NotNull
+	private String category;
+
+	@NotNull
 	private String title;
 
 	@NotNull

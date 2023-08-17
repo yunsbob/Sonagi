@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as S from '@/pages/FAQForUserPage/FAQForUserPage.styles';
 import FAQAccordion from '@/components/molecules/FAQAccordion/FAQAccordion';
+import { instance } from '@/apis/instance';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import Back from '@/components/atoms/Back/Back';
 import { Background } from '@/components/atoms/Background/Background.styles';
@@ -16,106 +17,56 @@ interface FAQCategory {
   faqs: FAQItem[];
 }
 
-const faqData: FAQCategory[] = [
-  {
-    category: '전체',
-    faqs: [],
-  },
-  {
-    category: '회원정보',
-    faqs: [
-      {
-        title: '회원정보 FAQ 1',
-        content: '회원정보 FAQ 내용 1',
-      },
-      {
-        title: '회원정보 FAQ 2',
-        content: '회원정보 FAQ 내용 2',
-      },
-      {
-        title: '회원정보 FAQ 3',
-        content: '회원정보 FAQ 내용 3',
-      },
-      {
-        title: '회원정보 FAQ 4',
-        content: '회원정보 FAQ 내용 4',
-      },
-      // ... 추가적인 회원정보 FAQ 항목들
-    ],
-  },
-  {
-    category: '운영정책',
-    faqs: [
-      {
-        title: '운영정책 FAQ 1',
-        content: '운영정책 FAQ 내용 1',
-      },
-      {
-        title: '운영정책 FAQ 2',
-        content: '운영정책 FAQ 내용 2',
-      },
-      {
-        title: '운영정책 FAQ 3',
-        content: '운영정책 FAQ 내용 3',
-      },
-      {
-        title: '운영정책 FAQ 4',
-        content: '운영정책 FAQ 내용 4',
-      },
-      // ... 추가적인 운영정책 FAQ 항목들
-    ],
-  },
-  {
-    category: '이용문의',
-    faqs: [
-      {
-        title: '이용문의 FAQ 1',
-        content: '이용문의 FAQ 내용 1',
-      },
-      {
-        title: '이용문의 FAQ 2',
-        content: '이용문의 FAQ 내용 2',
-      },
-      {
-        title: '이용문의 FAQ 3',
-        content: '이용문의 FAQ 내용 3',
-      },
-      {
-        title: '이용문의 FAQ 4',
-        content: '이용문의 FAQ 내용 4',
-      },
-      // ... 추가적인 이용문의 FAQ 항목들
-    ],
-  },
-  {
-    category: '기타',
-    faqs: [
-      {
-        title: '기타 FAQ 1',
-        content: '기타 FAQ 내용 1',
-      },
-      {
-        title: '기타 FAQ 2',
-        content: '기타 FAQ 내용 2',
-      },
-      {
-        title: '기타 FAQ 3',
-        content: '기타 FAQ 내용 3',
-      },
-      {
-        title: '기타 FAQ 4',
-        content: '기타 FAQ 내용 4',
-      },
-      // ... 추가적인 기타 FAQ 항목들
-    ],
-  },
-];
 const FAQForUserPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
+  const [currentPost, setCurrentPost] = useState<FAQCategory[]>([]);
 
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
   };
+
+  const getFAQList = async () => {
+    try {
+      const memberFAQResponse = await instance.get(`/faqs/member`);
+      const operationFAQResponse = await instance.get(`/faqs/operation`);
+      const inquiryFAQResponse = await instance.get(`/faqs/use`);
+      const etcFAQResponse = await instance.get(`/faqs/etc`);
+
+      setCurrentPost([
+        {
+          category: '전체',
+          faqs: [
+            ...memberFAQResponse.data,
+            ...operationFAQResponse.data,
+            ...inquiryFAQResponse.data,
+            ...etcFAQResponse.data,
+          ],
+        },
+        {
+          category: '회원정보',
+          faqs: memberFAQResponse.data,
+        },
+        {
+          category: '운영정책',
+          faqs: operationFAQResponse.data,
+        },
+        {
+          category: '이용문의',
+          faqs: inquiryFAQResponse.data,
+        },
+        {
+          category: '기타',
+          faqs: etcFAQResponse.data,
+        },
+      ]);
+    } catch (error) {
+      console.error('FAQ 데이터 가져오기 실패:', error);
+    }
+  };
+
+  useEffect(() => {
+    getFAQList();
+  }, []);
   return (
     <>
       <Background $background={orangeBackground}>
@@ -126,7 +77,7 @@ const FAQForUserPage = () => {
           </Text>
         </S.FAQHeader>
         <S.CategoryToggleContainer>
-          {faqData.map(category => (
+          {currentPost.map(category => (
             <S.CategoryToggleButton
               key={category.category}
               onClick={() => handleCategoryClick(category.category)}
@@ -137,7 +88,7 @@ const FAQForUserPage = () => {
           ))}
         </S.CategoryToggleContainer>
         <S.FAQContatiner>
-          {faqData.map(category => (
+          {currentPost.map(category => (
             <div key={category.category}>
               {category.faqs.map(faq => (
                 <FAQAccordion

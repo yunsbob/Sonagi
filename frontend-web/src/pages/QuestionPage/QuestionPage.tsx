@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { Question } from '@/types';
 import { instance } from '@/apis/instance';
-import { ListContainer, MainContainer } from '../AdminPage/AdminPage.style';
+import { QuestionContainer, MainContainer } from '../AdminPage/AdminPage.style';
 
 const QuestionPage = () => {
   const [currentPost, setCurrentPost] = useState<Question[]>([]);
@@ -28,7 +28,7 @@ const QuestionPage = () => {
   return (
     <MainContainer>
       <Outlet />
-      <ListContainer>
+      <QuestionContainer>
         <table>
           <colgroup>
             <col width="15%" />
@@ -61,7 +61,7 @@ const QuestionPage = () => {
             ))}
           </tbody>
         </table>
-      </ListContainer>
+      </QuestionContainer>
     </MainContainer>
   );
 };

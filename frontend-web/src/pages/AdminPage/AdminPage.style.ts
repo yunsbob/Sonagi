@@ -7,18 +7,16 @@ const AdminContainer = styled.div`
 `;
 const Header = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: rgb(254, 229, 229);
-  font-size: 25px;
-  height: 50px;
+  font-size: 23px;
+  height: 60px;
   color: #5d5d5d;
-  margin-bottom: 55px;
 `;
 const HeaderTitle = styled.div`
   display: flex;
   justify-content: center;
-  width: 80%;
 `;
 const HeaderImg = styled.div`
   width: 10%;
@@ -35,7 +33,8 @@ const MainContainer = styled.div`
 const ListContainer = styled.div`
   display: flex;
   justify-content: center;
-
+  overflow: auto;
+  max-height: 60vh;
   table {
     width: 95%;
     table-layout: fixed;
@@ -46,6 +45,53 @@ const ListContainer = styled.div`
     color: #5d5d5d;
     height: 50px;
   }
+  td,
+  th {
+    padding: 1em 0.5em;
+    text-align: center;
+  }
+  td {
+    border-bottom: 1px solid #e1e1e1;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  a:link {
+    text-decoration: none;
+  }
+  td:nth-child(2) {
+    text-align: left;
+  }
+`;
+const QuestionContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  max-height: 85vh;
+
+  table {
+    width: 95%;
+    table-layout: fixed;
+    border-collapse: separate;
+    /* max-height: 200px; */
+  }
+  th {
+    border-bottom: 2px solid #ffcaca;
+    color: #5d5d5d;
+    height: 50px;
+  }
+  thead {
+    position: sticky;
+    top: 0;
+    background-color: ${({ theme }) => theme.color.white1};
+  }
+
+  tbody {
+    overflow: auto;
+    /* max-height: 30vh; */
+  }
+
   td,
   th {
     padding: 1em 0.5em;
@@ -104,6 +150,7 @@ const DetailContent = styled.div`
   font-size: 15px;
   margin-top: 10px;
   min-height: 150px;
+  margin-bottom: 10px;
 `;
 const AdminButton = styled.div`
   display: flex;
@@ -114,6 +161,9 @@ const AdminButton = styled.div`
   font-weight: 400;
   border-radius: 5px;
   border: 2px solid pink;
+  a:link {
+    text-decoration: none;
+  }
 `;
 const AdminButtonContainer = styled.div`
   display: flex;
@@ -127,7 +177,8 @@ const QuestionDetailContainer = styled.div`
 const RestoreContainer = styled.div`
   display: flex;
   justify-content: center;
-
+  height: 85vh;
+  overflow: auto;
   table {
     width: 95%;
     table-layout: fixed;
@@ -140,14 +191,25 @@ const RestoreContainer = styled.div`
     font-size: 14px;
     height: 50px;
   }
+  tbody {
+    overflow: auto;
+  }
   td,
   th {
     padding: 1em 0.5em;
+  }
+  thead {
+    position: sticky;
+    top: 0;
+    background-color: ${({ theme }) => theme.color.white1};
   }
   td {
     border-bottom: 1px solid #e1e1e1;
     text-decoration: none;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   a:link {
     text-decoration: none;
@@ -166,6 +228,13 @@ const CreateButton = styled.div`
     text-decoration: none;
   }
 `;
+const CategoryConatiner = styled.div`
+  display: flex;
+  margin-bottom: 10px;
+`;
+const DetailCategory = styled.div`
+  font-size: 15px;
+`;
 export {
   AdminContainer,
   Header,
@@ -182,4 +251,7 @@ export {
   CreateButton,
   HeaderTitle,
   HeaderImg,
+  QuestionContainer,
+  CategoryConatiner,
+  DetailCategory,
 };

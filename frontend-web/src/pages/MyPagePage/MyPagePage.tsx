@@ -44,8 +44,8 @@ const MyPagePage = () => {
   const navigateToAlarmPage = () => {
     navigate(PATH.ALARM);
   };
-  const navigateToRegisterBabyProfile = () => {
-    navigate(PATH.REGISTERBABYPROFILE);
+  const navigateToRegister = () => {
+    navigate(PATH.REGAGAIN);
   };
   const handleLogout = async () => {
     await logout();
@@ -99,7 +99,7 @@ const MyPagePage = () => {
         <CoparentList />
       </CoParentContainer>
       <SettingContainer>
-        <Text size="medium1" onClick={navigateToRegisterBabyProfile}>
+        <Text size="medium1" onClick={navigateToRegister}>
           우리 아이 추가하기
         </Text>
         <Text size="medium1" onClick={navigateToAlarmPage}>

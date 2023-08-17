@@ -13,6 +13,7 @@ import { babiesOfUserState } from '@/states/babyState';
 const MainPage = () => {
   const userInfo = useRecoilValue(userInfoState);
   const navigate = useNavigate();
+
   // 웹뷰에 id 전송 로직
   useEffect(() => {
     if (window.ReactNativeWebView && userInfo.userId) {
@@ -23,8 +24,7 @@ const MainPage = () => {
         })
       );
     }
-    console.log('isReactNative', userInfo.userId);
-  }, [userInfo.userId]);
+  }, [userInfo.userId, babies]);
 
   // 관리자 이동
   useEffect(() => {

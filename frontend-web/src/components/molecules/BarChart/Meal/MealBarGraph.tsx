@@ -46,15 +46,16 @@ const MealBarGraph = ({ data }: MealWeekProps) => {
           return (
             <Wrapper key={idx} $barHeight={percent100}>
               <Bar
-                height={value.babyFoodAmount}
+                height={value.infantFormulaAmount}
                 color={theme.color.graphInfantFormula}
               />
+
               <Bar
                 height={value.breastFeedingAmount}
                 color={theme.color.graphBreastFeeding}
               />
               <Bar
-                height={value.infantFormulaAmount}
+                height={value.babyFoodAmount}
                 color={theme.color.graphBabyFood}
               />
               <Bar height={value.milkAmount} color={theme.color.graphMilk} />
