@@ -40,4 +40,10 @@ const updateAlarm = async (
 const logout = async () => {
   await instance.post('/logout');
 };
+
+// 문의 등록하기
+// const addQuestion = async ( )=>{
+//   await instance.post('/questions')
+// }
+
 export { updateUser, getNotification, updateAlarm, logout, getUserName };

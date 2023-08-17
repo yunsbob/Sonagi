@@ -104,7 +104,7 @@ const MyPagePage = () => {
           알림 설정
         </Text>
         <Text size="medium1" onClick={navigateToQuestionPage}>
-          문의하기
+          질문 남기기
         </Text>
         <Text size="medium1">앨범 생성하기</Text>
         <Text size="medium1" onClick={navigateToFAQForUserPage}>

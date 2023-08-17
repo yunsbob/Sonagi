@@ -71,6 +71,13 @@ interface Question {
   userId: number;
 }
 
+interface QuestionPost {
+  createdAt: string;
+  title: string;
+  content: string;
+  userId: number;
+}
+
 interface DeletedBaby {
   babyId: number;
   name: string;
@@ -156,4 +163,5 @@ export type {
   MedicalCheck,
   BabyMemo,
   EditBabyMemo,
+  QuestionPost,
 };

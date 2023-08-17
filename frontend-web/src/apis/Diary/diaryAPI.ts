@@ -26,6 +26,7 @@ const getDiariesAtWriteDay = async (babyId: number, writeDay: string) => {
 const addDiary = async (formData: FormData) => {
   try {
     await instance.post('/diaries', formData, {
+      maxBodyLength: 20000000,
       headers: {
         'Content-Type': 'multipart/form-data', // 특정 요청에서만 변경
       },
