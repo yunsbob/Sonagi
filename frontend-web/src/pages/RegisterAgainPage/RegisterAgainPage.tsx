@@ -3,7 +3,7 @@ import orangeBackground from '@/assets/images/background-orange-to-blue.png';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import yellowBaby from '@/assets/images/img-baby-yellow.png';
 import { Image } from '@/components/atoms/Image/Image';
-import * as S from '@/pages/RegisterPage/RegisterPages.styles';
+import * as S from '@/pages/RegisterAgainPage/RegisterAgainPages.styles';
 import { useRecoilValue } from 'recoil';
 import { userInfoState } from '@/states/userState';
 import { useNavigate } from 'react-router-dom';
@@ -16,18 +16,17 @@ import babyCard from '@/assets/images/img-baby-card.png';
 import { babiesOfUserState } from '@/states/babyState';
 import { useEffect } from 'react';
 
-const RegisterPage = () => {
+const RegisterAgainPage = () => {
   const userInfo = useRecoilValue(userInfoState);
-  const babiesOfUser = useRecoilValue(babiesOfUserState);
   const navigate = useNavigate();
 
-  // 아기가 있으면 MAIN 페이지로
-  useEffect(() => {
-    if (babiesOfUser.length !== 0) {
-      console.log(babiesOfUser);
-      navigate(PATH.MAIN);
-    }
-  }, [babiesOfUser, navigate]);
+  // // 아기가 있으면 MAIN 페이지로
+  // useEffect(() => {
+  //   if (babiesOfUser.length !== 0) {
+  //     console.log(babiesOfUser);
+  //     navigate(PATH.MAIN);
+  //   }
+  // }, [babiesOfUser, navigate]);
 
   const toBabyCode = () => {
     navigate(PATH.BABYCODE);
@@ -39,8 +38,8 @@ const RegisterPage = () => {
 
   return (
     <Background $background={orangeBackground}>
-      <S.RegisterPageContainer>
-        <S.RegisterPageWrapper>
+      <S.RegisterAgainPageContainer>
+        <S.RegisterAgainPageWrapper>
           <S.LogoContainer>
             <Image src={yellowBaby} width={8} />
             <Text color={theme.color.black3}>
@@ -62,10 +61,10 @@ const RegisterPage = () => {
               onClick={toBabyCode}
             />
           </S.ButtonContainer>
-        </S.RegisterPageWrapper>
-      </S.RegisterPageContainer>
+        </S.RegisterAgainPageWrapper>
+      </S.RegisterAgainPageContainer>
     </Background>
   );
 };
 
-export default RegisterPage;
+export default RegisterAgainPage;

@@ -29,6 +29,7 @@ const PATH = {
   FAQ: '/admin/faq',
   QUESTION: '/admin/question',
   RESTORE: '/admin/restore',
+  REGAGAIN: '/regAgain',
 } as const;
 
 export { PATH };

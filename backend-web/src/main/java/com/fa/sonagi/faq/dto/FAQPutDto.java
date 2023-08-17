@@ -11,6 +11,9 @@ public class FAQPutDto {
 	private Long faqId;
 
 	@NotNull
+	private String category;
+
+	@NotNull
 	private String title;
 
 	@NotNull

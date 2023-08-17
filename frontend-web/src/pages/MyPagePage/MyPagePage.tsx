@@ -9,7 +9,7 @@ import {
   UserNameWrapper,
 } from '@/pages/MyPagePage/MyPagePage.styles';
 import family from '@/assets/images/img-family.png';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { userInfoState } from '@/states/userState';
 import Button from '@/components/atoms/Button/Button';
 import setting from '@/assets/images/icon-setting-grey.png';
@@ -18,7 +18,7 @@ import { BabiesOfUser, User } from '@/types';
 import { CoparentList } from '@/components/organisms/CoparentList/CoparentList';
 import { useState } from 'react';
 import { UserUpdateModal } from '@/components/organisms/UserUpdateModal/UserUpdateModal';
-import { selectedBabyState } from '@/states/babyState';
+import { babiesOfUserState, selectedBabyState } from '@/states/babyState';
 import authorityBlue from '@/assets/images/btn-authority-blue.png';
 import authorityGreen from '@/assets/images/btn-authority-green.png';
 import { useNavigate } from 'react-router-dom';
@@ -26,7 +26,9 @@ import { PATH } from '@/constants/path';
 import { logout } from '@/apis/User/userAPI';
 
 const MyPagePage = () => {
-  const userInfo: User = useRecoilValue(userInfoState);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [babyInfosOfUser, setbabyInfosOfUser] =
+    useRecoilState(babiesOfUserState);
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
   const navigate = useNavigate();
 
@@ -42,13 +44,13 @@ const MyPagePage = () => {
   const navigateToAlarmPage = () => {
     navigate(PATH.ALARM);
   };
-  const navigateToRegisterBabyProfile = () => {
-    navigate(PATH.REGISTERBABYPROFILE);
+  const navigateToRegister = () => {
+    navigate(PATH.REGAGAIN);
   };
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     localStorage.clear();
-    navigate(PATH.LOGIN);
+    window.location.href = PATH.ROOT;
   };
   const navigateToFAQForUserPage = () => {
     navigate(PATH.FAQFORUSER);
@@ -95,7 +97,7 @@ const MyPagePage = () => {
         <CoparentList />
       </CoParentContainer>
       <SettingContainer>
-        <Text size="medium1" onClick={navigateToRegisterBabyProfile}>
+        <Text size="medium1" onClick={navigateToRegister}>
           우리 아이 추가하기
         </Text>
         <Text size="medium1" onClick={navigateToAlarmPage}>

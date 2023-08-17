@@ -13,9 +13,8 @@ interface BabyDetail {
 }
 
 const useGetBabyDetail = (babyId: number, userId: number): BabyDetail => {
-  const { data: selectedBabyInfo } = useQuery(
-    ['babyInfo2', babyId, userId],
-    () => getBabyDetail(babyId, userId)
+  const { data: selectedBabyInfo } = useQuery(['baby', babyId, userId], () =>
+    getBabyDetail(babyId, userId)
   );
   return selectedBabyInfo;
 };
