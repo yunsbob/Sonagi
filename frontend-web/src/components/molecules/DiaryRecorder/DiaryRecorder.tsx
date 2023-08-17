@@ -9,7 +9,9 @@ interface DiaryRecorderProps {
 }
 
 const DiaryRecorder = ({ onDataUpdate, tContent }: DiaryRecorderProps) => {
-  const [inputCount, setInputCount] = useState<number>(0);
+  const [inputCount, setInputCount] = useState<number>(
+    tContent ? tContent.length : 0
+  );
   const [content, setContent] = useState<string>(tContent ? tContent : '');
 
   const onInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {

@@ -18,14 +18,16 @@ import { useEffect } from 'react';
 
 const RegisterPage = () => {
   const userInfo = useRecoilValue(userInfoState);
-  const babies = useRecoilValue(babiesOfUserState);
+  const babiesOfUser = useRecoilValue(babiesOfUserState);
   const navigate = useNavigate();
 
+  // 아기가 있으면 MAIN 페이지로
   useEffect(() => {
-    if (babies.length !== 0) {
+    if (babiesOfUser.length !== 0) {
+      console.log(babiesOfUser);
       navigate(PATH.MAIN);
     }
-  }, [babies, navigate]);
+  }, [babiesOfUser, navigate]);
 
   const toBabyCode = () => {
     navigate(PATH.BABYCODE);
