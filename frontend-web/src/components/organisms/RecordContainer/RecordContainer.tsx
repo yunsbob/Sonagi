@@ -75,7 +75,7 @@ const RecordContainer = ({ combinedData }: RecordContainerProps) => {
   return (
     <>
       <RecordContainerStyle className="scrollable" ref={containerRef}>
-        {filteredRecordList.map((record: CombinedRecord, index) => {
+        {combinedData.map((record: CombinedRecord, index) => {
           console.log('뿌려주고 있는 record 정보', record);
           const recordIdKey = recordTypeToIdKey[record.category!];
           const recordId = record[recordIdKey as keyof CombinedRecord];
