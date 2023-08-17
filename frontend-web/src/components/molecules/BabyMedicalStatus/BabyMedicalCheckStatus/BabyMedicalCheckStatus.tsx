@@ -10,6 +10,10 @@ import {
 } from './BabyMedicalCheckStatus.styles';
 import { MedicalCheck } from '@/types';
 import theme from '@/styles/theme';
+import { PATH } from '@/constants/path';
+import { useRecoilState } from 'recoil';
+import { selectedMedicalCheckState } from '@/states/medicineState';
+import { useNavigate } from 'react-router-dom';
 
 interface BabyMedicalCheckStatusProps {
   medicalCheckData: MedicalCheck;
@@ -18,14 +22,22 @@ interface BabyMedicalCheckStatusProps {
 const BabyMedicalCheckStatus = ({
   medicalCheckData,
 }: BabyMedicalCheckStatusProps) => {
+  const navigae = useNavigate();
   const imageSrc =
     medicalCheckData.checkupDate === null ? checkGrey : checkBlue;
-
+  const [medicalCheckId, setMedicalCheckId] = useRecoilState(
+    selectedMedicalCheckState
+  );
   const today = new Date();
   const startDate = new Date(medicalCheckData.startDate);
 
+  const handleClick = (id: number) => {
+    setMedicalCheckId(id);
+    navigae(PATH.MEDICALCHECK);
+  };
+
   return (
-    <MedicalCheckBlock>
+    <MedicalCheckBlock onClick={() => handleClick(medicalCheckData.checkupId)}>
       <MedicalCheckImage>
         <Image src={imageSrc} width={1.4} height={1.4} />
       </MedicalCheckImage>

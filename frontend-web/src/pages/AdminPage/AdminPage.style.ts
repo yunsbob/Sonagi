@@ -7,7 +7,7 @@ const AdminContainer = styled.div`
 `;
 const Header = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: rgb(254, 229, 229);
   font-size: 25px;
@@ -17,7 +17,6 @@ const Header = styled.div`
 const HeaderTitle = styled.div`
   display: flex;
   justify-content: center;
-  width: 80%;
 `;
 const HeaderImg = styled.div`
   width: 10%;
@@ -150,6 +149,9 @@ const AdminButton = styled.div`
   font-weight: 400;
   border-radius: 5px;
   border: 2px solid pink;
+  a:link {
+    text-decoration: none;
+  }
 `;
 const AdminButtonContainer = styled.div`
   display: flex;

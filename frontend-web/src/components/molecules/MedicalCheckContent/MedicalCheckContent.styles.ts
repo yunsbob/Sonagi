@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const VaccinationContentWrapper = styled.div`
+const MedicalCheckContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid ${({ theme }) => theme.color.gray3};
@@ -8,9 +8,9 @@ const VaccinationContentWrapper = styled.div`
   padding: 15px 0px;
 `;
 
-const VaccinationCalendarButton = styled.div`
+const MedicalCheckCalendarButton = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-export { VaccinationContentWrapper, VaccinationCalendarButton };
+export { MedicalCheckContentWrapper, MedicalCheckCalendarButton };

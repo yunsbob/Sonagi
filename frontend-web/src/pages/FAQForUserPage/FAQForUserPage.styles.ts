@@ -14,7 +14,8 @@ const AdminFAQContainer = styled.div`
   max-height: calc(100vh - 114px);
   display: flex;
   flex-direction: column;
-  max-height: 73vh;
+  max-height: 60vh;
+  margin-bottom: 10px;
 `;
 const FAQHeader = styled.div`
   padding: 1.25rem 1rem 1rem 1rem;
