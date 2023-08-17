@@ -39,7 +39,7 @@ const RestorePage = () => {
         });
     }
   };
-
+  console.log(currentPost);
   return (
     <MainContainer>
       <Outlet />
