@@ -13,6 +13,7 @@ const PATH = {
   OURBABY: '/main/ourBaby',
   MEDICALINFO: '/main/ourBaby/medicalInfo',
   VACCINATION: '/main/ourBaby/vaccination',
+  MEDICALCHECK: '/main/ourBaby/medicalCheck',
   DIARY: '/main/diary',
   DIARYREGISTER: '/main/diaryRegister',
   DIARYUPDATE: '/main/diaryUpdate',

@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import { Vaccination } from '@/types';
 import {
-  CalendarButton,
+  VaccinationCalendarButton,
   VaccinationContentWrapper,
 } from './VaccinationContent.styles';
 import Button from '@/components/atoms/Button/Button';
@@ -79,7 +79,7 @@ const VaccinationContent = ({ vaccinationData }: BabyVaccintaionProps) => {
           {vaccinationData.disease}
         </Text>
         {vaccinationData.vaccinationDate && (
-          <CalendarButton>
+          <VaccinationCalendarButton>
             <div
               style={{
                 display: 'flex',
@@ -111,10 +111,10 @@ const VaccinationContent = ({ vaccinationData }: BabyVaccintaionProps) => {
               &nbsp;
               <Image src={calendarImg} height={1}></Image>
             </Button>
-          </CalendarButton>
+          </VaccinationCalendarButton>
         )}
         {!vaccinationData.vaccinationDate && (
-          <CalendarButton>
+          <VaccinationCalendarButton>
             {today >= startDate && (
               <Text
                 size="medium3"
@@ -144,7 +144,7 @@ const VaccinationContent = ({ vaccinationData }: BabyVaccintaionProps) => {
               </Text>
               <Image src={calendarImg} height={1}></Image>
             </Button>
-          </CalendarButton>
+          </VaccinationCalendarButton>
         )}
       </VaccinationContentWrapper>
       <VaccinationContentWrapper>
