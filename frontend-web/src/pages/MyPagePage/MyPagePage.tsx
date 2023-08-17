@@ -106,7 +106,6 @@ const MyPagePage = () => {
         <Text size="medium1" onClick={navigateToQuestionPage}>
           문의하기
         </Text>
-        <Text size="medium1">앨범 생성하기</Text>
         <Text size="medium1" onClick={navigateToFAQForUserPage}>
           자주 묻는 질문(FAQ)
         </Text>
