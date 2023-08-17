@@ -36,7 +36,7 @@ public class ActivityStatisticsServiceImpl implements ActivityStatisticsService 
 	private final TummytimeRepository tummytimeRepository;
 	private final int WEEK = 7;
 	private final LocalTime FIRST_TIME = LocalTime.of(0, 0);
-	private final LocalTime LAST_TIME = LocalTime.of(23, 59);
+	private final LocalTime LAST_TIME = LocalTime.of(23, 59, 59);
 
 	/**
 	 * 놀이 통계 계산
