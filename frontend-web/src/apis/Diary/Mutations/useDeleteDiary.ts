@@ -7,6 +7,7 @@ const useDeleteDiary = () => {
   return useMutation((diaryId: number) => deleteDiary(diaryId), {
     onSuccess: () => {
       queryCilent.invalidateQueries(['diaryRecordDateList']);
+      queryCilent.invalidateQueries(['diaryRecordDates']);
     },
     onError: (err: Error) => {
       console.log(err);

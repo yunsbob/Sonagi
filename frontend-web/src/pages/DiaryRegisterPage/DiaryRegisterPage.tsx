@@ -25,7 +25,7 @@ const DiaryRegisterPage = () => {
 
   const addDiaryMutation = useAddDiary();
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
       formData.append('imgFiles', files[i]);
@@ -48,7 +48,7 @@ const DiaryRegisterPage = () => {
         : '00:00:00'
     );
 
-    await addDiaryMutation.mutateAsync(formData);
+    addDiaryMutation.mutate(formData);
     navigate(PATH.DIARY);
   };
 

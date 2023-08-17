@@ -7,6 +7,7 @@ const useAddDiary = () => {
   return useMutation((formData: FormData) => addDiary(formData), {
     onSuccess: () => {
       queryCilent.invalidateQueries(['diaryRecordDateList']);
+      queryCilent.invalidateQueries(['diaryRecordDates']);
     },
     onError: (err: Error) => {
       console.log(err);

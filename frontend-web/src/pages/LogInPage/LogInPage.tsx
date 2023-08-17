@@ -14,6 +14,11 @@ import {
   LogoContainer,
 } from '@/pages/LogInPage/LogInPage.styles';
 import SocialButton from '@/components/molecules/SocialButton/SocialButton';
+import { useRecoilValue } from 'recoil';
+import { userInfoState } from '@/states/userState';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
 
 // TODO: slightly / slowly 흔들거리는 baby Animation
 
@@ -23,6 +28,13 @@ const LogInPage = () => {
     const AUTH_URL = `${process.env.REACT_APP_SERVER_URL}/api/oauth2/authorization/${socialName}?redirect_uri=${OAUTH2_REDIERECT_URI}`;
     window.location.href = AUTH_URL;
   };
+  const userInfo = useRecoilValue(userInfoState);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (userInfo.userId) {
+      navigate(PATH.MAIN);
+    }
+  }, [userInfo, navigate]);
 
   return (
     <Background $background={babyBackground}>

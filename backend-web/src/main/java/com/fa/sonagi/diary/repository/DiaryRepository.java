@@ -11,4 +11,5 @@ import com.fa.sonagi.diary.entity.Diary;
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
 	List<Diary> findByBabyId(Long babyId);
 	List<Diary> findByBabyIdAndCreatedDate(Long babyId, LocalDate createdDate);
+
 }
