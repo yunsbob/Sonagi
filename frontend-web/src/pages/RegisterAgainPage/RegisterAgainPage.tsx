@@ -15,6 +15,7 @@ import baby from '@/assets/images/img-baby.png';
 import babyCard from '@/assets/images/img-baby-card.png';
 import { babiesOfUserState } from '@/states/babyState';
 import { useEffect } from 'react';
+import Back from '@/components/atoms/Back/Back';
 
 const RegisterAgainPage = () => {
   const userInfo = useRecoilValue(userInfoState);
@@ -38,6 +39,7 @@ const RegisterAgainPage = () => {
 
   return (
     <Background $background={orangeBackground}>
+      <Back>뒤로가기</Back>
       <S.RegisterAgainPageContainer>
         <S.RegisterAgainPageWrapper>
           <S.LogoContainer>
