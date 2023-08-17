@@ -22,6 +22,8 @@ public interface DiaryService {
 	// 일별 일기 내용 조회
 	DiaryResDto.DiaryInfos selectAllByBabyIdAndWriteDay(Long babyId, LocalDate writeDay) throws Exception;
 
+	DiaryResDto.DiaryInfos selectAllByBabyId(Long babyId) throws Exception;
+
 	// 월별 일기 기록 여부 날짜 리스트로 조회
 	List<LocalDate> findAllDiaryByBabyId(Long babyId) throws Exception;
 
