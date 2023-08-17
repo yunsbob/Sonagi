@@ -25,20 +25,24 @@ const CautionRecorder = ({ onModalClose, isDisease }: any) => {
   };
 
   const buttonActionHandler = () => {
-    isDisease
-      ? addIllnessMutation.mutate({
-          userId: userInfo.userId,
-          babyId: babyInfo.babyId,
-          memo: memo,
-        })
-      : addCautionMutation.mutate({
-          userId: userInfo.userId,
-          babyId: babyInfo.babyId,
-          memo: memo,
-        });
+    if (memo.length === 0) {
+      alert('내용을 작성해주세요');
+    } else {
+      isDisease
+        ? addIllnessMutation.mutate({
+            userId: userInfo.userId,
+            babyId: babyInfo.babyId,
+            memo: memo,
+          })
+        : addCautionMutation.mutate({
+            userId: userInfo.userId,
+            babyId: babyInfo.babyId,
+            memo: memo,
+          });
 
-    console.log('buttonActionlog');
-    onModalClose();
+      console.log('buttonActionlog');
+      onModalClose();
+    }
   };
   return (
     <>
