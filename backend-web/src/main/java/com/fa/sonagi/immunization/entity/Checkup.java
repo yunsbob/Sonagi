@@ -32,6 +32,27 @@ public class Checkup {
 	@Column(name = "end_date")
 	private int endDate;
 
-	@Column(name = "content", length = 300)
-	private String content;
+	@Column(name = "content1", length = 1000)
+	private String content1;
+
+	@Column(name = "title1", length = 200)
+	private String title1;
+
+	@Column(name = "content2", length = 1000)
+	private String content2;
+
+	@Column(name = "title2", length = 200)
+	private String title2;
+
+	@Column(name = "content3", length = 1000)
+	private String content3;
+
+	@Column(name = "title3", length = 200)
+	private String title3;
+
+	@Column(name = "content4", length = 1000)
+	private String content4;
+
+	@Column(name = "title4", length = 200)
+	private String title4;
 }
