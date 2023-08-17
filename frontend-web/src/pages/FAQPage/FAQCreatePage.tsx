@@ -9,7 +9,6 @@ import {
   ContentContainer,
   DetailContent,
   DetailTitle,
-  ListContainer,
   DetailContainer,
 } from '../AdminPage/AdminPage.style';
 const FAQCreatePage = () => {
@@ -24,6 +23,10 @@ const FAQCreatePage = () => {
       alert('제목을 입력해 주세요.');
     } else if (content.length === 0) {
       alert('내용을 입력해 주세요.');
+    } else if (title.length > 30) {
+      alert('제목은 최대 30자까지 입력 가능합니다.');
+    } else if (content.length > 250) {
+      alert('내용은 최대 250자까지 입력 가능합니다.');
     } else {
       instance
         .post('http://localhost:8080/api/faqs', {

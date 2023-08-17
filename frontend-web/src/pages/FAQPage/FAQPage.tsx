@@ -7,7 +7,6 @@ import {
   ListContainer,
   CreateButton,
   AdminButton,
-  AdminButtonContainer,
 } from '../AdminPage/AdminPage.style';
 
 const FAQPage = () => {
