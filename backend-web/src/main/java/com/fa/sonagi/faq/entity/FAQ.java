@@ -26,13 +26,17 @@ public class FAQ {
 	@Column(name = "user_id", nullable = false)
 	private Long userId;
 
+	@Column(name = "category", nullable = false)
+	private String category;
+
 	@Column(name = "title", length = 40, nullable = false)
 	private String title;
 
 	@Column(name = "content", length = 255, nullable = false)
 	private String content;
 
-	public void updateFAQ(String title, String content) {
+	public void updateFAQ(String category, String title, String content) {
+		this.category = category;
 		this.title = title;
 		this.content = content;
 	}
