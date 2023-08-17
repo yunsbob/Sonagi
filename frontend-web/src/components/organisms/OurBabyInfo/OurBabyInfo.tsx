@@ -47,8 +47,8 @@ const OurBabyInfo = () => {
 
   return (
     <S.OurBabyInfoWholeContainer>
-      <S.EmptyContainer className="scrollable">
-        <Background $background={BackgroundImg}>
+      <Background $background={BackgroundImg}>
+        <S.EmptyContainer className="scrollable">
           <BabyCodeModal
             onModalClose={() => modalClose(setBabyCodeModalOpen)}
             modalOpen={babyCodeModalOpen}
@@ -108,8 +108,8 @@ const OurBabyInfo = () => {
               isDisease={false}
             ></BabyPersonalInfoContainer>
           </S.OurBabyInfoContainer>
-        </Background>
-      </S.EmptyContainer>
+        </S.EmptyContainer>
+      </Background>
     </S.OurBabyInfoWholeContainer>
   );
 };

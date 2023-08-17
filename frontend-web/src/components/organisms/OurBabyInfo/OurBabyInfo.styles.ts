@@ -61,9 +61,12 @@ const OurBabyInfoWholeContainer = styled.div`
   background-color: ${({ theme }) => theme.color.white1};
   flex-direction: column;
   position: relative;
+  overflow-y: hidden;
 `;
 
-const EmptyContainer = styled.div``;
+const EmptyContainer = styled.div`
+  height: calc(100% - 52px);
+`;
 
 export {
   OurBabyInfoContainer,
