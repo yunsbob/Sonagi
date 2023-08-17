@@ -164,6 +164,28 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
+	public DiaryResDto.DiaryInfos selectAllByBabyId(Long babyId) throws Exception {
+		DiaryResDto.DiaryInfos diaryInfos = new DiaryResDto.DiaryInfos();
+		List<DiaryResDto.DiaryInfo> diaryInfoList = new ArrayList<>();
+
+		List<Diary> diaries = diaryRepository.findByBabyId(babyId);
+
+		for (Diary diary : diaries) {
+			List<String> urlList = diary.getDiaryFiles().stream().map(DiaryFile::getFileName).toList();
+			DiaryResDto.DiaryInfo diaryInfo = DiaryResDto.DiaryInfo.builder()
+			                                                       .diaryId(diary.getId())
+			                                                       .userName(diary.getUserName())
+			                                                       .writedTime(diary.getCreatedTime())
+			                                                       .imgUrls(urlList)
+			                                                       .content(diary.getContent())
+			                                                       .build();
+			diaryInfoList.add(diaryInfo);
+		}
+		diaryInfos.setDiaries(diaryInfoList);
+		return diaryInfos;
+	}
+
+	@Override
 	public List<LocalDate> findAllDiaryByBabyId(Long babyId) {
 		List<LocalDate> dateList = new ArrayList<>();
 
