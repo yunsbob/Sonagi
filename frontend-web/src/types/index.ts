@@ -32,7 +32,18 @@ interface Vaccination {
   startDate: string;
   endDate: string;
   vaccinationDate: string;
-  content: string;
+  content1: string;
+  title1: string;
+  content2: string;
+  title2: string;
+  content3: string;
+  title3: string;
+  content4: string;
+  title4: string;
+  content5: string;
+  title5: string;
+  content6: string;
+  title6: string;
 }
 
 interface MedicalCheck {
@@ -66,6 +77,17 @@ interface DeletedBaby {
   gender: string;
   isDeleted: string;
   deletedAt: string;
+}
+
+interface BabyMemo {
+  babyId: number;
+  userId: number;
+  memo: string;
+}
+
+interface EditBabyMemo {
+  memoId: number;
+  memo: string;
 }
 
 // 가능한 모든 카테고리 목록
@@ -131,4 +153,6 @@ export type {
   DeletedBaby,
   Vaccination,
   MedicalCheck,
+  BabyMemo,
+  EditBabyMemo,
 };

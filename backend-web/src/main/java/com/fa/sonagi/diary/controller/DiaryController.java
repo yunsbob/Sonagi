@@ -1,10 +1,10 @@
 package com.fa.sonagi.diary.controller;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,12 +25,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/diaries")
 @Tag(name = "Diary", description = "일기 CRUD API")
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class DiaryController {
 
 	private final DiaryService diaryService;
@@ -49,14 +50,6 @@ public class DiaryController {
 		return ResponseEntity.ok().body(diaryInfos);
 	}
 
-
-	@PostMapping
-	@Operation(summary = "일기 등록")
-	public ResponseEntity<?> registDiaries(@RequestPart DiaryPostDto diaryPostDto,
-		@RequestPart(required = false) List<MultipartFile> imgFiles) throws Exception {
-		diaryService.createDiary(diaryPostDto, imgFiles);
-		return ResponseEntity.ok().build();
-	}
 
 	@PutMapping
 	@Operation(summary = "일기 내용, 사진 데이터 수정")
@@ -87,4 +80,21 @@ public class DiaryController {
 		return ResponseEntity.ok().body(diaryInfo);
 	}
 
+	@PostMapping
+	@Operation(summary = "일기 등록")
+	public ResponseEntity<?> addDiary(@RequestParam(value = "imgFiles", required = false) List<MultipartFile> imgFiles,
+		@RequestParam("userId") Long userId, @RequestParam("babyId") Long babyId,
+		@RequestParam("content") String content, @RequestParam("writeDate") LocalDate writeDate,
+		@RequestParam("writeTime") LocalTime writeTime) throws Exception {
+
+		DiaryPostDto diaryPostDto = DiaryPostDto.builder()
+		                                        .writeDate(writeDate)
+		                                        .userId(userId)
+		                                        .writeTime(writeTime)
+		                                        .babyId(babyId)
+		                                        .content(content)
+		                                        .build();
+		diaryService.createDiary(diaryPostDto, imgFiles);
+		return ResponseEntity.ok().build();
+	}
 }

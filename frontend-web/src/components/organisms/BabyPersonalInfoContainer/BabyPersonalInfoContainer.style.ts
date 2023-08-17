@@ -8,9 +8,8 @@ const BPICContainer = styled.div`
   width: 100%;
 `;
 
-const BPICButtonWrapper = styled.div`
+const BPICScrollWrapper = styled.div`
   display: flex;
-  gap: 10px;
   overflow-x: auto; /* Enable horizontal scrolling */
   overflow-y: hidden; /* Hide vertical scrollbar */
   -ms-overflow-style: none; /* IE and Edge */
@@ -18,7 +17,12 @@ const BPICButtonWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-  /* width: fit-content; */
+  width: 100%;
 `;
 
-export { BPICContainer, BPICButtonWrapper };
+const BPICButtonWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+export { BPICContainer, BPICScrollWrapper, BPICButtonWrapper };

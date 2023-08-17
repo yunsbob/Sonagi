@@ -60,10 +60,10 @@ const DiaryUpdatePage: React.FC = () => {
     navigate(PATH.DIARY);
   };
 
-  const handleRemove = async () => {
+  const handleRemove = () => {
     const userConfirmed = confirm('일기를 삭제 하시겠습니까 ?');
     if (userConfirmed) {
-      await deleteDiaryMutation.mutateAsync(parseInt(id!, 10));
+      deleteDiaryMutation.mutate(parseInt(id!, 10));
       navigate(PATH.DIARY);
     }
   };
