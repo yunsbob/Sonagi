@@ -34,7 +34,7 @@ public class SleepStatisticsServiceImpl implements SleepStatisticsService{
 	private final SleepRepository sleepRepository;
 	private final int WEEK = 7;
 	private final LocalTime FIRST_TIME = LocalTime.of(0, 0);
-	private final LocalTime LAST_TIME = LocalTime.of(23, 59);
+	private final LocalTime LAST_TIME = LocalTime.of(23, 59, 59);
 
 	/**
 	 * 일별 통계 계산
