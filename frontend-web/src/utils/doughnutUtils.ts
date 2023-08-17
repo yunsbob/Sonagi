@@ -8,6 +8,10 @@ import {
 
 export const getCoordsOnCircle = (degree: number) => {
   const radian = (degree / 180) * Math.PI;
+  if (degree === 359.99) {
+    console.log('hihi');
+    console.log(xCenter + radius * Math.cos(radian));
+  }
   return {
     x: xCenter + radius * Math.cos(radian),
     y: yCenter + radius * Math.sin(radian),

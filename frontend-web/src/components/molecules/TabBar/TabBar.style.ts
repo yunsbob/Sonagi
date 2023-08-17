@@ -8,4 +8,5 @@ export const StyledTabBar = styled.nav`
   position: fixed;
   bottom: 0;
   width: 100%;
+  box-shadow: 0 -5px 10px 0 ${({ theme }) => theme.color.black3 + '10'};
 `;

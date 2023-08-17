@@ -54,19 +54,21 @@ const OurBabyInfo = () => {
             onModalClose={() => modalClose(setBabyCodeModalOpen)}
             modalOpen={babyCodeModalOpen}
           />
-          <S.InfoEditWrapper>
-            <Button
-              option="default"
-              size="xSmall"
-              $backgroundColor={theme.color.white2}
-              onClick={() => {
-                navigate(PATH.UPDATEBABYPROFILE);
-              }}
-            >
-              <Image src={setting} width={1} />
-              <Text size="small">정보 수정</Text>
-            </Button>
-          </S.InfoEditWrapper>
+          {babyInfo.authority === 'Y' && (
+            <S.InfoEditWrapper>
+              <Button
+                option="default"
+                size="xSmall"
+                $backgroundColor={theme.color.white2}
+                onClick={() => {
+                  navigate(PATH.UPDATEBABYPROFILE);
+                }}
+              >
+                <Image src={setting} width={1} />
+                <Text size="small">정보 수정</Text>
+              </Button>
+            </S.InfoEditWrapper>
+          )}
           <S.OurBabyInfoContainer>
             <S.BabyNameWrapper>
               <Text size="headMedium" $fontWeight={700}>
