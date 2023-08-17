@@ -67,6 +67,7 @@ const FAQForUserPage = () => {
   useEffect(() => {
     getFAQList();
   }, []);
+
   return (
     <>
       <Background $background={orangeBackground}>
@@ -95,10 +96,7 @@ const FAQForUserPage = () => {
                   key={faq.title}
                   title={faq.title}
                   content={faq.content}
-                  isVisible={
-                    selectedCategory === '전체' ||
-                    selectedCategory === category.category
-                  }
+                  isVisible={selectedCategory === category.category}
                 />
               ))}
             </div>
