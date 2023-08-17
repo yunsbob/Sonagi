@@ -8,6 +8,7 @@ import {
 import Button from '@/components/atoms/Button/Button';
 import theme from '@/styles/theme';
 import calendarImg from '@/assets/images/icon-calendar-blue.png';
+import check from '@/assets/images/img-check-blue.png';
 import { Image } from '@/components/atoms/Image/Image';
 
 interface BabyVaccintaionProps {
@@ -64,37 +65,87 @@ const VaccinationContent = ({ vaccinationData }: BabyVaccintaionProps) => {
       </React.Fragment>
     ));
 
+  const today = new Date();
+  const startDate = new Date(vaccinationData.startDate);
+
   return (
     <>
       <VaccinationContentWrapper>
         <Text
-          size="headSmall"
+          size="headMedium"
           $fontWeight={900}
           style={{ marginBottom: '7px' }}
         >
           {vaccinationData.disease}
         </Text>
-        <CalendarButton>
-          <Text size="medium3" style={{ marginBottom: '15px' }}>
-            권장일: {vaccinationData.startDate} ~ {vaccinationData.endDate}
-            &nbsp;&nbsp;
-          </Text>
-          <Button
-            size="xSmall"
-            $backgroundColor={theme.color.gray4}
-            $border="none"
-            style={{ height: '24px', marginTop: '1px' }}
-          >
-            <Text
-              size="small"
-              $fontWeight={400}
-              color={theme.color.medicalblue}
+        {vaccinationData.vaccinationDate && (
+          <CalendarButton>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}
             >
-              접종일 등록 &nbsp;
-            </Text>
-            <Image src={calendarImg} height={1}></Image>
-          </Button>
-        </CalendarButton>
+              <Text
+                size="medium3"
+                style={{ marginBottom: '15px', marginRight: '7px' }}
+                color={theme.color.medicalblue}
+              >
+                접종이 완료되었어요
+              </Text>
+              <Image src={check} height={1.5} width={1.5}></Image>
+            </div>
+            <Button
+              size="xSmall"
+              $backgroundColor={theme.color.gray4}
+              $border="none"
+              style={{ height: '24px', marginTop: '1px' }}
+            >
+              <Text
+                size="small"
+                $fontWeight={400}
+                color={theme.color.medicalblue}
+              >
+                {vaccinationData.vaccinationDate}
+              </Text>
+              &nbsp;
+              <Image src={calendarImg} height={1}></Image>
+            </Button>
+          </CalendarButton>
+        )}
+        {!vaccinationData.vaccinationDate && (
+          <CalendarButton>
+            {today >= startDate && (
+              <Text
+                size="medium3"
+                style={{ marginBottom: '15px' }}
+                color={theme.color.danger}
+              >
+                권장일: {vaccinationData.startDate} ~ {vaccinationData.endDate}
+              </Text>
+            )}
+            {today < startDate && (
+              <Text size="medium3" style={{ marginBottom: '15px' }}>
+                권장일: {vaccinationData.startDate} ~ {vaccinationData.endDate}
+              </Text>
+            )}
+            <Button
+              size="xSmall"
+              $backgroundColor={theme.color.gray4}
+              $border="none"
+              style={{ height: '24px', marginTop: '1px' }}
+            >
+              <Text
+                size="small"
+                $fontWeight={400}
+                color={theme.color.medicalblue}
+              >
+                접종일 등록 &nbsp;
+              </Text>
+              <Image src={calendarImg} height={1}></Image>
+            </Button>
+          </CalendarButton>
+        )}
       </VaccinationContentWrapper>
       <VaccinationContentWrapper>
         <Text
