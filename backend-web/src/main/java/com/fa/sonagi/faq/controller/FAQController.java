@@ -38,6 +38,42 @@ public class FAQController {
 	}
 
 	/**
+	 * FAQ 회원정보 카테고리 조회
+	 */
+	@GetMapping("/member")
+	@Operation(summary = "FAQ 회원정보 카테고리를 조회함")
+	public List<FAQResDto> getMemberFAQ() {
+		return faqService.findMemberFAQ();
+	}
+
+	/**
+	 * FAQ 운영정책 카테고리 조회
+	 */
+	@GetMapping("/operation")
+	@Operation(summary = "FAQ 운영정책 카테고리를 조회함")
+	public List<FAQResDto> getOperationFAQ() {
+		return faqService.findOperationFAQ();
+	}
+
+	/**
+	 * FAQ 이용문의 카테고리 조회
+	 */
+	@GetMapping("/use")
+	@Operation(summary = "FAQ 회원정보 카테고리를 조회함")
+	public List<FAQResDto> getUseFAQ() {
+		return faqService.findUseFAQ();
+	}
+
+	/**
+	 * FAQ 기타 카테고리 조회
+	 */
+	@GetMapping("/etc")
+	@Operation(summary = "FAQ 회원정보 카테고리를 조회함")
+	public List<FAQResDto> getEtcFAQ() {
+		return faqService.findEtcFAQ();
+	}
+
+	/**
 	 * FAQ 기록 조회
 	 */
 	@GetMapping("/{FAQId}")
