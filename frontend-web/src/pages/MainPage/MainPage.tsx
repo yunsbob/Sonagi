@@ -27,21 +27,6 @@ const MainPage = () => {
     console.log('isReactNative', userInfo.userId);
   }, [userInfo.userId]);
 
-  // 아기 유무 체킹
-  useEffect(() => {
-    // const checkBabies = async (userId: number) => {
-    //   const babyInfos = await getBaby(userId);
-    //   if (babyInfos?.length === 0) {
-    //     navigate(PATH.REGISTER);
-    //   }
-    // };
-
-    // checkBabies(userInfo.userId);
-    if (babies?.length === 0) {
-      navigate(PATH.REGISTER);
-    }
-  }, [babies, navigate]);
-
   return (
     <Suspense fallback={<LoadingPage />}>
       <Background $background={backgroundGradient}>
