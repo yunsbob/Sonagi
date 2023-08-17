@@ -10,6 +10,10 @@ import {
 } from './BabyVaccinationStatus.styles';
 import { Vaccination } from '@/types';
 import theme from '@/styles/theme';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
+import { useRecoilState } from 'recoil';
+import { selectedVaccinationState } from '@/states/medicineState';
 
 interface BabyVaccinationStatusProps {
   vaccinationData: Vaccination;
@@ -18,14 +22,24 @@ interface BabyVaccinationStatusProps {
 const BabyVaccinationStatus = ({
   vaccinationData,
 }: BabyVaccinationStatusProps) => {
+  const navigate = useNavigate();
   const imageSrc =
     vaccinationData.vaccinationDate === null ? checkGrey : checkBlue;
-
+  const [vaccinationId, setVaccinationId] = useRecoilState(
+    selectedVaccinationState
+  );
   const today = new Date();
   const startDate = new Date(vaccinationData.startDate);
 
+  const handleClick = (id: number) => {
+    setVaccinationId(id);
+    navigate(PATH.VACCINATION);
+  };
+
   return (
-    <VaccinationBlock>
+    <VaccinationBlock
+      onClick={() => handleClick(vaccinationData.vaccinationId)}
+    >
       <VaccinationImage>
         <Image src={imageSrc} width={1.4} height={1.4} />
       </VaccinationImage>

@@ -8,4 +8,16 @@ const VaccinationContainer = styled.div`
   flex-direction: column;
 `;
 
-export { VaccinationContainer };
+const VaccinationWrapper = styled.div`
+  margin-top: 70px;
+  margin-bottom: 30px;
+  padding: 0px 30px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+export { VaccinationContainer, VaccinationWrapper };
