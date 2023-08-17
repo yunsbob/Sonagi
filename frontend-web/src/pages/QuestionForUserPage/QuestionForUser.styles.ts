@@ -15,7 +15,9 @@ const QuestionForUserHeader = styled.div`
   padding: 1rem;
 `;
 const QuestionForUserBody = styled.div`
-  margin:;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 `;
 
 const RegisterBtnContainer = styled.div`

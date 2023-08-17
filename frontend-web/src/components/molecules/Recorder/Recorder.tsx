@@ -4,9 +4,17 @@ import { Text } from '@/components/atoms/Text/Text.styles';
 
 interface RecorderProps {
   onDataUpdate: (data: string) => void;
+  placeHolder?: string;
+  height?: string;
+  wordCounter?: number;
 }
 
-const Recorder: React.FC<RecorderProps> = ({ onDataUpdate }) => {
+const Recorder: React.FC<RecorderProps> = ({
+  onDataUpdate,
+  placeHolder = '',
+  height = '0vh',
+  wordCounter = 0,
+}) => {
   const [inputCount, setInputCount] = useState<number>(0);
   const [content, setContent] = useState<string>('');
 
@@ -21,12 +29,17 @@ const Recorder: React.FC<RecorderProps> = ({ onDataUpdate }) => {
       <S.MemoWrapper>
         <S.MemoArea
           onChange={onInputHandler}
-          maxLength={150}
-          placeholder="질문, 요청 사항을 입력 해주세요."
+          maxLength={wordCounter !== 0 ? wordCounter : 1000}
+          $height={height}
+          placeholder={placeHolder}
           value={content}
         ></S.MemoArea>
         <Text>
-          <S.WordCount>{inputCount}/150</S.WordCount>
+          {wordCounter !== 0 && (
+            <S.WordCount>
+              {inputCount}/{wordCounter}
+            </S.WordCount>
+          )}
         </Text>
       </S.MemoWrapper>
     </>

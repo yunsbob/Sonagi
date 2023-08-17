@@ -1,11 +1,15 @@
 import theme from '@/styles/theme';
 import { styled } from 'styled-components';
 
-const MemoArea = styled.textarea`
+interface MemoAreaProps {
+  $height: string;
+}
+
+const MemoArea = styled.textarea<MemoAreaProps>`
   padding: 1rem;
   width: 100%;
-  height: 25vh;
-  margin-bottom: 5vh;
+  height: ${({ $height }) => $height};
+  margin-bottom: 2rem;
   line-height: 1.3;
   /* background: var(--white-1, #fff); */
   font-size: ${theme.fontSize.medium1};
@@ -25,7 +29,7 @@ const MemoWrapper = styled.div`
   position: relative;
   border-radius: 0.5rem;
   border: 1px solid ${theme.color.gray3};
-  background-color: ${theme.color.lightgrey};
+  background-color: ${theme.color.white1};
   display: flex;
   flex-direction: column;
   align-items: center;
