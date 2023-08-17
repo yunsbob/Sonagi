@@ -1,7 +1,5 @@
 import { useRecoilValue } from 'recoil';
 import { useEffect, useRef, useState } from 'react';
-import BabyMedicalCheckStatusList from '@/components/organisms/BabyMedicalStatusList/BabyMedicalCheckStatusList/BabyMedicalCheckStatusList';
-import BabyVaccinationStatusList from '@/components/organisms/BabyMedicalStatusList/BabyVaccinationStatusList/BabyVaccinationStatusList';
 import { selectedBabyState } from '@/states/babyState';
 import { BabiesOfUser } from '@/types';
 import { useGetVaccination } from '@/apis/Baby/Queries/useGetVaccination';
@@ -17,6 +15,8 @@ import toggleLeft from '@/assets/images/btn-toggle-left-activated.png';
 import toggleRight from '@/assets/images/btn-toggle-right-activated.png';
 import Back from '@/components/atoms/Back/Back';
 import { Image } from '@/components/atoms/Image/Image';
+import BabyVaccinationStatus from '@/components/molecules/BabyMedicalStatus/BabyVaccinationStatus/BabyVaccinationStatus';
+import BabyMedicalCheckStatus from '@/components/molecules/BabyMedicalStatus/BabyMedicalCheckStatus/BabyMedicalCheckStatus';
 
 const MedicalInfoPage = () => {
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
@@ -65,12 +65,19 @@ const MedicalInfoPage = () => {
       </MedicalInfoImageContainer>
       {medicalFlag && (
         <MedicalStatusWrapper>
-          <BabyVaccinationStatusList vaccinationData={vaccinationList} />
+          {vaccinationList.map((vaccination, index) => (
+            <BabyVaccinationStatus key={index} vaccinationData={vaccination} />
+          ))}
         </MedicalStatusWrapper>
       )}
       {!medicalFlag && (
         <MedicalStatusWrapper>
-          <BabyMedicalCheckStatusList medicalCheckData={medicalCheckList} />
+          {medicalCheckList.map((medicalCheck, index) => (
+            <BabyMedicalCheckStatus
+              key={index}
+              medicalCheckData={medicalCheck}
+            />
+          ))}
         </MedicalStatusWrapper>
       )}
     </MedicalInfoContainer>
