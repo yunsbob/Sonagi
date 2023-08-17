@@ -10,6 +10,7 @@ const VaccinationContentWrapper = styled.div`
 
 const CalendarButton = styled.div`
   display: flex;
+  justify-content: space-between;
 `;
 
 export { VaccinationContentWrapper, CalendarButton };
