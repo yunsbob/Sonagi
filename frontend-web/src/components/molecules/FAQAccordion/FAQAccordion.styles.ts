@@ -23,6 +23,12 @@ const AccordionHeader = styled.div`
   align-items: center;
   padding: 1rem;
   background-color: ${theme.color.white1};
+  p {
+    width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `;
 
 const Icon = styled.span<IconProps>`

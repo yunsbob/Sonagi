@@ -7,22 +7,25 @@ import {
   ContentContainer,
   DetailContent,
   DetailTitle,
-  ListContainer,
   DetailContainer,
+  DetailCategory,
 } from '../AdminPage/AdminPage.style';
+import { CategoryBarContainer } from '../GraphPage/GraphPage.style';
 
 const FAQModifyPage = () => {
   const faqId = useParams().id;
   const navigate = useNavigate();
-
+  const categories = ['회원정보', '운영정책', '이용문의', '기타'];
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
 
   useEffect(() => {
     if (faqId) {
       instance
         .get(`/faqs/${faqId}`)
         .then(response => {
+          setCategory(response.data.category);
           setTitle(response.data.title);
           setContent(response.data.content);
         })
@@ -64,7 +67,22 @@ const FAQModifyPage = () => {
   return (
     <DetailContainer>
       <ContentContainer>
-        <div>FAQ 수정</div>
+        <CategoryBarContainer>
+          <label htmlFor="category">카테고리 :</label>
+
+          <select
+            id="category"
+            value={category}
+            onChange={e => setCategory(e.target.value)}
+          >
+            <option value="">카테고리를 선택하세요</option>
+            {categories.map(cat => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </CategoryBarContainer>
         <form>
           <DetailTitle>
             <input

@@ -1,75 +1,101 @@
 import { useState, useEffect } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import * as S from '@/pages/FAQForUserPage/FAQForUserPage.styles';
+import FAQAccordion from '@/components/molecules/FAQAccordion/FAQAccordion';
 import { instance } from '@/apis/instance';
-import { FAQ } from '@/types';
-import {
-  MainContainer,
-  ListContainer,
-  CreateButton,
-  AdminButton,
-} from '../AdminPage/AdminPage.style';
+
+interface FAQItem {
+  title: string;
+  content: string;
+}
+
+interface FAQCategory {
+  category: string;
+  faqs: FAQItem[];
+}
 
 const FAQPage = () => {
-  const [currentPost, setCurrentPost] = useState<FAQ[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('전체');
+  const [currentPost, setCurrentPost] = useState<FAQCategory[]>([]);
+
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(category);
+  };
 
   const getFAQList = async () => {
     try {
-      const response = await instance.get(`/faqs`);
-      return response.data;
+      const memberFAQResponse = await instance.get(`/faqs/member`);
+      const operationFAQResponse = await instance.get(`/faqs/operation`);
+      const inquiryFAQResponse = await instance.get(`/faqs/use`);
+      const etcFAQResponse = await instance.get(`/faqs/etc`);
+
+      setCurrentPost([
+        {
+          category: '전체',
+          faqs: [
+            ...memberFAQResponse.data,
+            ...operationFAQResponse.data,
+            ...inquiryFAQResponse.data,
+            ...etcFAQResponse.data,
+          ],
+        },
+        {
+          category: '회원정보',
+          faqs: memberFAQResponse.data,
+        },
+        {
+          category: '운영정책',
+          faqs: operationFAQResponse.data,
+        },
+        {
+          category: '이용문의',
+          faqs: inquiryFAQResponse.data,
+        },
+        {
+          category: '기타',
+          faqs: etcFAQResponse.data,
+        },
+      ]);
     } catch (error) {
-      throw new Error('no data returned from the API - FAQ');
+      console.error('FAQ 데이터 가져오기 실패:', error);
     }
   };
 
   useEffect(() => {
-    getFAQList()
-      .then(faqList => {
-        setCurrentPost([...faqList].reverse());
-      })
-      .catch(error => {
-        console.error('FAQ 데이터 가져오기 실패:', error);
-      });
+    getFAQList();
   }, []);
 
   return (
-    <MainContainer>
-      <Outlet />
-      <ListContainer>
-        <table>
-          <colgroup>
-            <col width="20%" />
-            <col width="80%" />
-          </colgroup>
-
-          <thead>
-            <tr>
-              <th>번호</th>
-              <th>제목</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {currentPost.map((faqItem, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td className="title">
-                  <Link to={`/admin/faq/${faqItem.faqId}`}>
-                    {faqItem.title}
-                  </Link>
-                </td>
-              </tr>
+    <>
+      <S.FAQHeader></S.FAQHeader>
+      <S.CategoryToggleContainer>
+        {currentPost.map(category => (
+          <S.CategoryToggleButton
+            key={category.category}
+            onClick={() => handleCategoryClick(category.category)}
+            isSelected={selectedCategory === category.category}
+          >
+            {category.category}
+          </S.CategoryToggleButton>
+        ))}
+      </S.CategoryToggleContainer>
+      <S.AdminFAQContainer>
+        {currentPost.map(category => (
+          <div key={category.category}>
+            {category.faqs.map(faq => (
+              <FAQAccordion
+                key={faq.title}
+                title={faq.title}
+                content={faq.content}
+                isVisible={
+                  selectedCategory === '전체' ||
+                  selectedCategory === category.category
+                }
+              />
             ))}
-          </tbody>
-        </table>
-      </ListContainer>
-      <CreateButton>
-        <AdminButton>
-          <Link to="/admin/faq/create">
-            <div>작성하기</div>
-          </Link>
-        </AdminButton>
-      </CreateButton>
-    </MainContainer>
+          </div>
+        ))}
+      </S.AdminFAQContainer>
+    </>
   );
 };
 
