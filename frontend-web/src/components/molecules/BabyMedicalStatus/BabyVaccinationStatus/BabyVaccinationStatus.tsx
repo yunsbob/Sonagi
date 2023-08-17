@@ -10,6 +10,8 @@ import {
 } from './BabyVaccinationStatus.styles';
 import { Vaccination } from '@/types';
 import theme from '@/styles/theme';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
 
 interface BabyVaccinationStatusProps {
   vaccinationData: Vaccination;
@@ -18,6 +20,7 @@ interface BabyVaccinationStatusProps {
 const BabyVaccinationStatus = ({
   vaccinationData,
 }: BabyVaccinationStatusProps) => {
+  const navigate = useNavigate();
   const imageSrc =
     vaccinationData.vaccinationDate === null ? checkGrey : checkBlue;
 
@@ -25,7 +28,7 @@ const BabyVaccinationStatus = ({
   const startDate = new Date(vaccinationData.startDate);
 
   return (
-    <VaccinationBlock>
+    <VaccinationBlock onClick={() => navigate(PATH.VACCINATION)}>
       <VaccinationImage>
         <Image src={imageSrc} width={1.4} height={1.4} />
       </VaccinationImage>
