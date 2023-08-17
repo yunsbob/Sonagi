@@ -100,7 +100,7 @@ const DiaryRegisterPage = () => {
   const RouteHandler = useCallback(() => navigate(-1), [navigate]);
   return (
     <>
-      <LoadingSpinner />
+      {isLoading && <LoadingSpinner />}
       <S.DiaryRegisterContainer>
         <S.DiaryRegisterHeadContainer>
           <S.BackArrow onClick={RouteHandler}>
