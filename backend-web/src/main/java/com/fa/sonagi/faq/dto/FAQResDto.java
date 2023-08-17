@@ -9,6 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class FAQResDto {
 	private Long faqId;
+	private String category;
 	private String title;
 	private String content;
 }

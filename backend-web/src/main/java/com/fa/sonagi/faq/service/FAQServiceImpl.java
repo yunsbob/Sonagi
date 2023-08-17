@@ -26,6 +26,7 @@ public class FAQServiceImpl implements FAQService {
 		return allFAQ.stream()
 			.map(faq -> FAQResDto.builder()
 				.faqId(faq.getFaqId())
+				.category(faq.getCategory())
 				.title(faq.getTitle())
 				.content(faq.getContent())
 				.build())
@@ -41,6 +42,7 @@ public class FAQServiceImpl implements FAQService {
 
 		FAQResDto faqResDto = FAQResDto.builder()
 			.faqId(faq.getFaqId())
+			.category(faq.getCategory())
 			.title(faq.getTitle())
 			.content(faq.getContent())
 			.build();
@@ -55,6 +57,7 @@ public class FAQServiceImpl implements FAQService {
 	public void registFAQ(FAQPostDto faqPostDto) {
 		FAQ faq = FAQ.builder()
 			.userId(faqPostDto.getUserId())
+			.category(faqPostDto.getCategory())
 			.title(faqPostDto.getTitle())
 			.content(faqPostDto.getContent())
 			.build();
@@ -69,7 +72,7 @@ public class FAQServiceImpl implements FAQService {
 	@Transactional
 	public void updateFAQ(FAQPutDto faqPutDto) {
 		FAQ faq = faqRepository.findById(faqPutDto.getFaqId()).orElseThrow();
-		faq.updateFAQ(faqPutDto.getTitle(), faqPutDto.getContent());
+		faq.updateFAQ(faqPutDto.getCategory(), faqPutDto.getTitle(), faqPutDto.getContent());
 	}
 
 	/**
