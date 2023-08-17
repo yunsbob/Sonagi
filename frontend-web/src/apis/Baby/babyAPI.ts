@@ -97,6 +97,18 @@ const getVaccinationDetail = async (babyId: number, vaccinationId: number) => {
   }
 };
 
+const getMedicalCheckDetail = async (
+  babyId: number,
+  medicalCheckId: number
+) => {
+  try {
+    const response = await instance.get(`/checkup/${babyId}/${medicalCheckId}`);
+    return response.data;
+  } catch {
+    new Error('get baby medical check detail error');
+  }
+};
+
 export {
   addBaby,
   getBaby,
@@ -110,4 +122,5 @@ export {
   getMedicalCheck,
   getBabyDetail,
   getVaccinationDetail,
+  getMedicalCheckDetail,
 };
