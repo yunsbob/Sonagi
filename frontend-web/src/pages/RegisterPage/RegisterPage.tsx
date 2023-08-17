@@ -20,11 +20,15 @@ const RegisterPage = () => {
   const userInfo = useRecoilValue(userInfoState);
   const babiesOfUser = useRecoilValue(babiesOfUserState);
   const navigate = useNavigate();
-
+  // 관리자 이동
+  useEffect(() => {
+    if (userInfo.auth && userInfo.auth === 'ROLE_ADMIN') {
+      navigate(PATH.ADMIN);
+    }
+  }, [userInfo.auth, navigate]);
   // 아기가 있으면 MAIN 페이지로
   useEffect(() => {
     if (babiesOfUser.length !== 0) {
-      console.log(babiesOfUser);
       navigate(PATH.MAIN);
     }
   }, [babiesOfUser, navigate]);

@@ -1,6 +1,7 @@
 interface User {
   userId: number;
   name: string;
+  auth?: string;
 }
 
 interface Baby {

@@ -27,13 +27,11 @@ const LogInPage = () => {
     const AUTH_URL = `${process.env.REACT_APP_SERVER_URL}/api/oauth2/authorization/${socialName}?redirect_uri=${OAUTH2_REDIERECT_URI}`;
     window.location.href = AUTH_URL;
   };
-
   const userInfo = useRecoilValue(userInfoState);
   const navigate = useNavigate();
-
+  // 로그인 되어있는 유저라면 main 페이지로
   useEffect(() => {
     if (userInfo && userInfo.userId && userInfo.userId > 0) {
-      console.log(userInfo.userId + '로그인');
       navigate(PATH.MAIN);
     }
   }, [userInfo, navigate]);

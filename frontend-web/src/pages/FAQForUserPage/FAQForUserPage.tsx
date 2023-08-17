@@ -130,7 +130,7 @@ const FAQForUserPage = () => {
             <S.CategoryToggleButton
               key={category.category}
               onClick={() => handleCategoryClick(category.category)}
-              isSelected={selectedCategory === category.category}
+              $isSelected={selectedCategory === category.category}
             >
               {category.category}
             </S.CategoryToggleButton>
