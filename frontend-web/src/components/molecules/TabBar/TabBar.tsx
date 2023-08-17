@@ -35,8 +35,6 @@ export default function TabBar() {
     navigate(path);
   };
 
-  // TODO: 위로 shadow
-  // TODO:
   const nowPath = location.pathname;
 
   return (
