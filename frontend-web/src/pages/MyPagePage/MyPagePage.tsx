@@ -45,7 +45,7 @@ const MyPagePage = () => {
     navigate(PATH.ALARM);
   };
   const navigateToRegister = () => {
-    navigate(PATH.REGISTER);
+    navigate(PATH.REGAGAIN);
   };
   const handleLogout = async () => {
     await logout();
