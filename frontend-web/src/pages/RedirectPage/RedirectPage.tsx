@@ -3,6 +3,7 @@ import { userInfoState } from '@/states/userState';
 import { produce } from 'immer';
 import { useRecoilState } from 'recoil';
 import jwt from 'jwt-decode';
+import { useEffect } from 'react';
 
 interface JwtProps {
   auth: string;
@@ -14,14 +15,18 @@ const RedirectPage = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const params = new URLSearchParams(location.search);
   const accessToken = params.get('accessToken');
+  const userId = jwt<JwtProps>(accessToken!).sub;
 
   localStorage.setItem('accessToken', accessToken!);
 
+  // 검사
+  useEffect(() => {
+    console.log(jwt<JwtProps>(accessToken!));
+  });
+
   setUserInfo(
     produce(draft => {
-      draft.userId = parseInt(
-        jwt<JwtProps>(localStorage.getItem('accessToken')!).sub
-      );
+      draft.userId = parseInt(userId);
     })
   );
 

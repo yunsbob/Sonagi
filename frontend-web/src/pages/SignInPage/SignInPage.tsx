@@ -30,6 +30,9 @@ const SignInPage = () => {
   const alertMessage = '10자 이내로 입력해주세요';
 
   useEffect(() => {
+    if (!userBabies) {
+      return;
+    }
     setBabies(
       produce(draft => {
         draft.length = 0;
@@ -39,6 +42,9 @@ const SignInPage = () => {
   }, [userBabies, setBabies]);
 
   useEffect(() => {
+    if (!userNameDto) {
+      return;
+    }
     setUserInfo(
       produce(draft => {
         draft.name = userNameDto.name ? userNameDto.name : '';
@@ -47,7 +53,7 @@ const SignInPage = () => {
   }, [userNameDto, setUserInfo]);
 
   useEffect(() => {
-    if (userInfo.name) {
+    if (userInfo.name && userInfo.name !== '') {
       navigate(PATH.REGISTER);
     }
   }, [userInfo, navigate]);
