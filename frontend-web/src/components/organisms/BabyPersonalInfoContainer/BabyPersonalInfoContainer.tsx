@@ -2,16 +2,22 @@ import React, { useState } from 'react';
 import { Text } from '@/components/atoms/Text/Text.styles';
 import * as S from '@/components/organisms/BabyPersonalInfoContainer/BabyPersonalInfoContainer.style';
 import { BabyPersonalInfoButton } from '@/components/molecules/BabyPersonalInfoButton/BabyPersonalInfoButton';
-import Button from '@/components/atoms/Button/Button';
 import AddCautionButton from '@/components/molecules/AddCautionButton/AddCautionButton';
+import { useRecoilValue } from 'recoil';
+import { useGetIllness } from '@/apis/Memo/Queries/useGetIllness';
+import { selectedBabyState } from '@/states/babyState';
+import { useGetCaution } from '@/apis/Memo/Queries/useGetCaution';
+// import AddCautionButton from '@/components/molecules/AddCautionButton/AddCautionButton';
 
 interface BabyPersonalInfoProps {
   isDisease: boolean;
 }
 
 interface BabyPersonalInfoArrayProps {
-  memo: string;
+  memoId: number;
+  userId: number;
   name: string;
+  memo: string;
 }
 
 const BabyPersonalInfoContainer = ({ isDisease }: BabyPersonalInfoProps) => {
@@ -21,22 +27,27 @@ const BabyPersonalInfoContainer = ({ isDisease }: BabyPersonalInfoProps) => {
   const info =
     '우리 아이를 돌봐주실 땐 <span style="font-weight: 700">이런 점을 주의해주세요</span>';
 
-  const BabyPersonalInfoArray = [
-    { memo: 'memo1', name: 'name1' },
-    { memo: 'memo1', name: 'name1' },
-    { memo: 'memo1', name: 'name1' },
-    // { memo: 'memo1', name: 'name1' },
-    // { memo: 'memo1', name: 'name1' },
-    // { memo: 'memo1', name: 'name1' },
-  ];
-  // const BabyPersonalInfoArray: BabyPersonalInfoArrayProps[] = [];
+  const babyInfo = useRecoilValue(selectedBabyState);
+  // const queryClient = useQueryClient();
 
-  // TODO: AddCautionButton 찾기
+  const diseaseArray = useGetIllness(babyInfo.babyId);
+  const cautionArray = useGetCaution(babyInfo.babyId);
+
+  const BabyPersonalInfoArray = isDisease ? diseaseArray : cautionArray;
 
   const BabyPersonalInfoButtonHandler = () => {
-    return BabyPersonalInfoArray.map((data, index) => (
-      <BabyPersonalInfoButton key={index} memo={data.memo} name={data.name} />
-    ));
+    return BabyPersonalInfoArray.map(
+      (data: BabyPersonalInfoArrayProps, index: number) => (
+        <BabyPersonalInfoButton
+          key={index}
+          memo={data.memo}
+          name={data.name}
+          memoId={data.memoId}
+          isDisease={isDisease}
+          userId={data.userId}
+        />
+      )
+    );
   };
 
   return (
@@ -46,10 +57,16 @@ const BabyPersonalInfoContainer = ({ isDisease }: BabyPersonalInfoProps) => {
         dangerouslySetInnerHTML={{ __html: isDisease ? disease : info }}
         style={{ marginBottom: '10px' }}
       />
-      <S.BPICButtonWrapper>
-        {BabyPersonalInfoButtonHandler()}
-        <AddCautionButton />
-      </S.BPICButtonWrapper>
+      <S.BPICScrollWrapper>
+        <S.BPICButtonWrapper>
+          {BabyPersonalInfoButtonHandler()}
+          {BabyPersonalInfoArray.length < 8 ? (
+            <>
+              <AddCautionButton isDisease={isDisease} />
+            </>
+          ) : null}
+        </S.BPICButtonWrapper>
+      </S.BPICScrollWrapper>
     </S.BPICContainer>
   );
 };

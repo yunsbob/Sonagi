@@ -13,7 +13,6 @@ const Header = styled.div`
   font-size: 25px;
   height: 50px;
   color: #5d5d5d;
-  margin-bottom: 55px;
 `;
 const HeaderTitle = styled.div`
   display: flex;
@@ -35,11 +34,48 @@ const MainContainer = styled.div`
 const ListContainer = styled.div`
   display: flex;
   justify-content: center;
+  overflow: auto;
+  max-height: 60vh;
+  table {
+    width: 95%;
+    table-layout: fixed;
+    border-collapse: separate;
+  }
+  th {
+    border-bottom: 2px solid #ffcaca;
+    color: #5d5d5d;
+    height: 50px;
+  }
+  td,
+  th {
+    padding: 1em 0.5em;
+    text-align: center;
+  }
+  td {
+    border-bottom: 1px solid #e1e1e1;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  a:link {
+    text-decoration: none;
+  }
+  td:nth-child(2) {
+    text-align: left;
+  }
+`;
+const QuestionContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  max-height: 85vh;
 
   table {
     width: 95%;
     table-layout: fixed;
     border-collapse: separate;
+    /* max-height: 200px; */
   }
   th {
     border-bottom: 2px solid #ffcaca;
@@ -127,7 +163,7 @@ const QuestionDetailContainer = styled.div`
 const RestoreContainer = styled.div`
   display: flex;
   justify-content: center;
-
+  height: 85vh;
   table {
     width: 95%;
     table-layout: fixed;
@@ -148,6 +184,9 @@ const RestoreContainer = styled.div`
     border-bottom: 1px solid #e1e1e1;
     text-decoration: none;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   a:link {
     text-decoration: none;
@@ -166,6 +205,7 @@ const CreateButton = styled.div`
     text-decoration: none;
   }
 `;
+
 export {
   AdminContainer,
   Header,
@@ -182,4 +222,5 @@ export {
   CreateButton,
   HeaderTitle,
   HeaderImg,
+  QuestionContainer,
 };

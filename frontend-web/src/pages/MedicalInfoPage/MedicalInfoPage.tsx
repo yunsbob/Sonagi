@@ -1,7 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { useState } from 'react';
-import BabyMedicalCheckStatusList from '@/components/organisms/BabyMedicalStatusList/BabyMedicalCheckStatusList/BabyMedicalCheckStatusList';
-import BabyVaccinationStatusList from '@/components/organisms/BabyMedicalStatusList/BabyVaccinationStatusList/BabyVaccinationStatusList';
+import { useEffect, useRef, useState } from 'react';
 import { selectedBabyState } from '@/states/babyState';
 import { BabiesOfUser } from '@/types';
 import { useGetVaccination } from '@/apis/Baby/Queries/useGetVaccination';
@@ -17,6 +15,8 @@ import toggleLeft from '@/assets/images/btn-toggle-left-activated.png';
 import toggleRight from '@/assets/images/btn-toggle-right-activated.png';
 import Back from '@/components/atoms/Back/Back';
 import { Image } from '@/components/atoms/Image/Image';
+import BabyVaccinationStatus from '@/components/molecules/BabyMedicalStatus/BabyVaccinationStatus/BabyVaccinationStatus';
+import BabyMedicalCheckStatus from '@/components/molecules/BabyMedicalStatus/BabyMedicalCheckStatus/BabyMedicalCheckStatus';
 
 const MedicalInfoPage = () => {
   const babyInfo: BabiesOfUser = useRecoilValue(selectedBabyState);
@@ -30,6 +30,30 @@ const MedicalInfoPage = () => {
     setMedicalFlag(!medicalFlag);
   };
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const savedScrollTop = localStorage.getItem('scrollPosition');
+    if (container && savedScrollTop) {
+      container.scrollTop = Number(savedScrollTop);
+    }
+  });
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      const onScroll = () => {
+        localStorage.setItem('scrollPosition', String(container.scrollTop));
+      };
+
+      container.addEventListener('scroll', onScroll);
+      return () => {
+        container.removeEventListener('scroll', onScroll);
+      };
+    }
+  });
+
   return (
     <MedicalInfoContainer>
       <Back>예방접종 / 검진</Back>
@@ -39,14 +63,23 @@ const MedicalInfoPage = () => {
           <Image src={imageSrc} width={12.5} height={2} onClick={clickImage} />
         </MedicalInfoImage>
       </MedicalInfoImageContainer>
-      <MedicalStatusWrapper>
-        {medicalFlag && (
-          <BabyVaccinationStatusList vaccinationData={vaccinationList} />
-        )}
-        {!medicalFlag && (
-          <BabyMedicalCheckStatusList medicalCheckData={medicalCheckList} />
-        )}
-      </MedicalStatusWrapper>
+      {medicalFlag && (
+        <MedicalStatusWrapper>
+          {vaccinationList.map((vaccination, index) => (
+            <BabyVaccinationStatus key={index} vaccinationData={vaccination} />
+          ))}
+        </MedicalStatusWrapper>
+      )}
+      {!medicalFlag && (
+        <MedicalStatusWrapper>
+          {medicalCheckList.map((medicalCheck, index) => (
+            <BabyMedicalCheckStatus
+              key={index}
+              medicalCheckData={medicalCheck}
+            />
+          ))}
+        </MedicalStatusWrapper>
+      )}
     </MedicalInfoContainer>
   );
 };

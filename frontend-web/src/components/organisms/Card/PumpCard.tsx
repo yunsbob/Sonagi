@@ -40,7 +40,7 @@ const PumpCard = ({ data, graphType = 'day' }: PumpCardProps) => {
         $graphType={graphType}
       />
 
-      <CardContentText type="용량" data={data.amount} unit="회" />
+      <CardContentText type="용량" data={data.amount} unit="ml" />
       <CardContentBar
         $borderColor={
           data.amountPercent > data.yesterdayAmountPercent

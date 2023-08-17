@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Background } from '@/components/atoms/Background/Background.styles';
 import backgroundGradient from '@/assets/images/background-gradient.png';
 import TabBar from '@/components/molecules/TabBar/TabBar';
@@ -7,10 +7,14 @@ import { Suspense, useEffect } from 'react';
 import LoadingPage from '@/pages/LoadingPage/LoadingPage';
 import { useRecoilValue } from 'recoil';
 import { userInfoState } from '@/states/userState';
+import { PATH } from '@/constants/path';
+import { babiesOfUserState } from '@/states/babyState';
 
 const MainPage = () => {
   const userInfo = useRecoilValue(userInfoState);
-
+  const babies = useRecoilValue(babiesOfUserState);
+  const navigate = useNavigate();
+  // 웹뷰에 id 전송 로직
   useEffect(() => {
     if (window.ReactNativeWebView && userInfo.userId) {
       window.ReactNativeWebView.postMessage(

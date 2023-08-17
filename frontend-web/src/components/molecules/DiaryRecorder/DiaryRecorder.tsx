@@ -5,11 +5,14 @@ import theme from '@/styles/theme';
 
 interface DiaryRecorderProps {
   onDataUpdate: (data: string) => void;
+  tContent?: string;
 }
 
-const DiaryRecorder = ({ onDataUpdate }: DiaryRecorderProps) => {
-  const [inputCount, setInputCount] = useState<number>(0);
-  const [content, setContent] = useState<string>('');
+const DiaryRecorder = ({ onDataUpdate, tContent }: DiaryRecorderProps) => {
+  const [inputCount, setInputCount] = useState<number>(
+    tContent ? tContent.length : 0
+  );
+  const [content, setContent] = useState<string>(tContent ? tContent : '');
 
   const onInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);

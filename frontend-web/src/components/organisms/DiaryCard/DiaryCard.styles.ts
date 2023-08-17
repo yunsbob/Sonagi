@@ -5,7 +5,8 @@ const DiaryCardContainer = styled.div`
   position: relative;
   border: 2px solid ${theme.color.gray3};
   border-radius: 1rem;
-  overflow: hidden;
+  background-color: white;
+  padding: 1rem;
   width: 100%;
 `;
 
@@ -14,14 +15,14 @@ const DiaryEditBtn = styled.img`
   position: absolute;
   width: 13%;
   z-index: 100;
+  margin: 1rem;
   top: 0%;
   right: 0;
   transform: translate(-10%, 0);
 `;
 const DiaryContentContainer = styled.div`
   background-color: white;
-  padding: 2rem;
-
+  padding: 1rem;
   box-sizing: border-box;
 `;
 
