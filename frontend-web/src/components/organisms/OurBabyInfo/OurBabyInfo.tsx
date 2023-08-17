@@ -9,8 +9,8 @@ import { Background } from '@/components/atoms/Background/Background.styles';
 import setting from '@/assets/images/icon-setting-grey.png';
 import babyBlue from '@/assets/images/img-baby-blue.png';
 import babyYellow from '@/assets/images/img-baby-yellow.png';
-import babyVaccine from '@/assets/images/img-vaccine.png';
-import babyCard from '@/assets/images/img-baby-card.png';
+import babyVaccine from '@/assets/images/btn-vaccination.png';
+import babyCard from '@/assets/images/btn-invite-code.png';
 import BackgroundImg from '@/assets/images/background.png';
 
 import BabyPersonalInfoContainer from '@/components/organisms/BabyPersonalInfoContainer/BabyPersonalInfoContainer';
@@ -23,6 +23,7 @@ import { BabyCodeModal } from '@/components/organisms/BabyCodeModal/BabyCodeModa
 import { useGetBabyDetail } from '@/apis/Baby/Queries/useGetBabyDetail';
 import { userInfoState } from '@/states/userState';
 import moment from 'moment';
+import theme from '@/styles/theme';
 
 const OurBabyInfo = () => {
   const navigate = useNavigate();
@@ -47,8 +48,8 @@ const OurBabyInfo = () => {
 
   return (
     <S.OurBabyInfoWholeContainer>
-      <S.EmptyContainer className="scrollable">
-        <Background $background={BackgroundImg}>
+      <Background $background={BackgroundImg}>
+        <S.EmptyContainer className="scrollable">
           <BabyCodeModal
             onModalClose={() => modalClose(setBabyCodeModalOpen)}
             modalOpen={babyCodeModalOpen}
@@ -57,11 +58,12 @@ const OurBabyInfo = () => {
             <Button
               option="default"
               size="xSmall"
+              $backgroundColor={theme.color.white2}
               onClick={() => {
                 navigate(PATH.UPDATEBABYPROFILE);
               }}
             >
-              <Image src={setting} width={1} style={{ marginRight: '10px' }} />
+              <Image src={setting} width={1} />
               <Text size="small">정보 수정</Text>
             </Button>
           </S.InfoEditWrapper>
@@ -78,27 +80,31 @@ const OurBabyInfo = () => {
                 $unit="%"
               />
             </div>
-            <Text size="medium1"> 함께한 시간 {dayFromBirth}일</Text>
-            <Text size="headMedium" $fontWeight={700}>
-              {weekFromBirth}주
-            </Text>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                marginBottom: '10px',
+              }}
+            >
+              <Text size="medium1"> 함께한 시간 {dayFromBirth}일</Text>
+              <Text size="headMedium" $fontWeight={700}>
+                {weekFromBirth}주
+              </Text>
+            </div>
             <S.UpperButtonContainer>
-              <Button option="imgBtn">
-                <S.UpperButtonWrapper
-                  onClick={() => navigate(PATH.MEDICALINFO)}
-                >
-                  <Text size="medium1">예방접종/검진</Text>
-                  <Image src={babyVaccine} width={33} $unit="px" />
-                </S.UpperButtonWrapper>
-              </Button>
-              <Button option="imgBtn">
-                <S.UpperButtonWrapper
-                  onClick={() => setBabyCodeModalOpen(true)}
-                >
-                  <Text size="medium1">초대 코드 공유</Text>
-                  <Image src={babyCard} width={33} $unit="px" />
-                </S.UpperButtonWrapper>
-              </Button>
+              <Image
+                onClick={() => navigate(PATH.MEDICALINFO)}
+                src={babyVaccine}
+                width={10.2}
+              />
+
+              <Image
+                src={babyCard}
+                width={10.2}
+                onClick={() => setBabyCodeModalOpen(true)}
+              />
             </S.UpperButtonContainer>
             <S.ButtonsDivider />
             <BabyPersonalInfoContainer
@@ -108,8 +114,8 @@ const OurBabyInfo = () => {
               isDisease={false}
             ></BabyPersonalInfoContainer>
           </S.OurBabyInfoContainer>
-        </Background>
-      </S.EmptyContainer>
+        </S.EmptyContainer>
+      </Background>
     </S.OurBabyInfoWholeContainer>
   );
 };
