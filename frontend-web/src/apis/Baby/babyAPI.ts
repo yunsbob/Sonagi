@@ -10,11 +10,7 @@ const addBaby = async (baby: Baby) => {
 };
 
 const changeBabyState = async (babyId: number) => {
-  try {
-    await instance.put(`/babyState/${babyId}`);
-  } catch {
-    new Error('baby state change error');
-  }
+  await instance.put(`/babyState/${babyId}`);
 };
 
 const getBaby = async (userId: number) => {
