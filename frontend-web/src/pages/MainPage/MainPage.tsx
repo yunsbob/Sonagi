@@ -29,6 +29,7 @@ const MainPage = () => {
   // 관리자 이동
   useEffect(() => {
     if (userInfo.auth && userInfo.auth === 'ROLE_ADMIN') {
+      console.log(userInfo.auth);
       navigate(PATH.ADMIN);
     }
   }, [userInfo.auth, navigate]);

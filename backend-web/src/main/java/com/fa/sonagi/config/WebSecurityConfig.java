@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class WebSecurityConfig {
-	private static final String[] All_list = {"/**"};
+	private static final String[] All_list = {};
 	private static final String[] GET_LIST = {"/api/oauth2/authorization", "/api/login/oauth2/code/**", "/swagger-ui/**", "/v3/api-docs/**", "/api/logout"};
 	private static final String[] POST_LIST = {"/swagger-ui/**", "/v3/api-docs/**", "/api/logout"};
 	private final JwtTokenProvider jwtTokenProvider;
