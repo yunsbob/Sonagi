@@ -40,7 +40,9 @@ const DiaryRegisterPage = () => {
     formData.append('writeDate', selectedDate);
     formData.append(
       'writeTime',
-      new Date().toISOString().slice(0, 10) === selectedDate
+      new Date(new Date().getTime() + 9 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, 10) === selectedDate
         ? new Date()
             .toLocaleTimeString('en-US', {
               hour12: false,

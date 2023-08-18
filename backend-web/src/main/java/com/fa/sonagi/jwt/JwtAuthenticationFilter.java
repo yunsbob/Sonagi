@@ -77,7 +77,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			}
 
 			String userSocialId = jwtTokenProvider.parseClaims(refreshTokenFromCookie).getSubject();
-
+			// jwtTokenProvider.parseClaims(refreshTokenFromCookie)
 			String refreshTokenFromRedis = redisTemplate.opsForValue().get("RT" + userSocialId);
 
 			// Redis 에 토큰이 없음 => 로그아웃
