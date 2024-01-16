@@ -4,13 +4,13 @@ spring:
       client:
         registration:
           google:
-            client-id: 548066337721-rrr2sqadhaci94lbmsc5v171mme3pa8f.apps.googleusercontent.com
-            client-secret: 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
+            client-id: 
+            client-secret: 
             redirect-uri: https://sonagi.site/api/login/oauth2/code/google
             scope: email
           naver:
-            client-id: GU8vMgpmm9GZ4AksoXdC
-            client-secret: "mYeGMkaCo1"
+            client-id: 
+            client-secret: 
             redirect-uri: https://sonagi.site/api/login/oauth2/code/naver
             authorization-grant-type: authorization_code
             scope:
@@ -18,8 +18,8 @@ spring:
               - email
             client-name: Naver
           kakao:
-            client-id: 2677b72de7f0b9747b04f0d8bf994b94
-            client-secret: FfAEmj03tAS25ETn4mnvDBrSYFWwV4WH
+            client-id: 
+            client-secret: 
             scope:
               - profile_nickname
               - account_email
@@ -73,7 +73,7 @@ app:
     authorizedRedirectUris: https://sonagi.site/oauth/redirect
 
 jwt:
-  key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
+  key:
 
 # S3 setting
 cloud:
@@ -83,11 +83,11 @@ cloud:
     stack.auto: false
     region.static: ap-northeast-2
     credentials:
-      accessKey: AKIA6E5N5REX4NIVDL7A
-      secretKey: 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
+      accessKey: 
+      secretKey:
 
 server:
   ssl:
     key-store: classpath:keystore.p12
-    key-store-password: ssafy
+    key-store-password:
     key-store-type: PKCS12
