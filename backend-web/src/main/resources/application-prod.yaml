@@ -49,9 +49,9 @@ spring:
   # Maria DB 연동
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://sonagi.site:50000/ssafy_b207
-    username: ssafy-b207
-    password: ssafy_b207_1
+    url:
+    username:
+    password:
 
   jpa:
     hibernate:
